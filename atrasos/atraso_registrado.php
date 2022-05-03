@@ -48,6 +48,12 @@ values (
 
 $sql_res_insertar_atraso = pg_query($sql_insertar_atraso);
 
+
+// INGRESAR CONDICIÓN PARA HACER IMPRESIÓN, CONECTAR CON AJAX E INTEGRAR CARPETA SRC...
+// ====================================================================================
+
+
+
 ?>
 <meta charset="utf-8">
 	<script language="javascript"> alert("Los datos se guardaron Exitosamente"); window.location="alumno_atraso.php"</script>
