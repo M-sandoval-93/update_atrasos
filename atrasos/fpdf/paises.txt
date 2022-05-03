@@ -1,0 +1,15 @@
+Austria;Vienna;83859;8075;1
+Belgium;Brussels;30518;10192;1
+Denmark;Copenhagen;43094;5295;1
+Finland;Helsinki;304529;5147;1
+France;Paris;543965;58728;1
+Germany;Berlin;357022;82057;1
+Greece;Athens;131625;10511;1
+Ireland;Dublin;70723;3694;1
+Italy;Roma;301316;57563;1
+Luxembourg;Luxembourg;2586;424;1
+Netherlands;Amsterdam;41526;15654;1
+Portugal;Lisbon;91906;9957;1
+Spain;Madrid;504790;39348;1
+Sweden;Stockholm;410934;8839;1
+United Kingdom;London;243820;58862;1
