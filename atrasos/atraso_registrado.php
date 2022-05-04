@@ -50,6 +50,7 @@ $sql_res_insertar_atraso = pg_query($sql_insertar_atraso);
 
 
 // INGRESAR CONDICIÓN PARA HACER IMPRESIÓN, CONECTAR CON AJAX E INTEGRAR CARPETA SRC...
+//
 // ====================================================================================
 
 
