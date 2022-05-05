@@ -23,28 +23,28 @@ return $conexion;
 function Conectarse(){
 
     // Para Windows
-    // $user = "postgres";
-    // $password = "user2019";
-    // $dbname = "dblvl_localhost";
-    // $port = "5432";
-    // $host = "localhost";
+    $user = "postgres";
+    $password = "user2019";
+    $dbname = "dblvl_localhost";
+    $port = "5432";
+    $host = "localhost";
 
     // Para mac
-    $user = "postgres";
+/*     $user = "postgres";
     $password = "admin";
     $dbname = "test";
     $port = "5432";
-    $host = "localhost";
+    $host = "localhost"; */
   
 
     $cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$password";
 
     $conexion = pg_connect($cadenaConexion) or die("Error en la Conexión: ".pg_last_error());
-    //echo "<h3>Conexión Exitosa PHP - PostgreSQL</h3><hr><br>";
+    // echo "<h3>Conexión Exitosa PHP - PostgreSQL</h3><hr><br>";
     return $conexion;
 }
 
-
+Conectarse();
 
 
 

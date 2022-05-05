@@ -41,13 +41,13 @@ if($_SESSION['Usuario']){
 
 
 <script type="text/javascript">
-  // evento(obj){
-  //   if(obj.checked){
-  //     obj.value='S';
-  //   }else{ 
-  //     obj.value='N';
-  //   }
-  // }
+   evento(obj){
+     if(obj.checked){
+       obj.value='S';
+     }else{ 
+       obj.value='N';
+     }
+   }
 </script>
 
 <script>

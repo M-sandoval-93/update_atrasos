@@ -1,5 +1,6 @@
 <?php
 include ("conexion.php");
+include ("ticket_impresion/impresion.php");
 $conexion=Conectarse();
 
 session_start();
@@ -72,12 +73,13 @@ if ($row = pg_fetch_assoc($resultado)) {
 }
 
 
-echo "<script> alert('".$nombre_alumno."'); </script>";
+/* echo "<script> alert('".$nombre_alumno."'); </script>";
 echo "<script> alert('".$curso_alumno."'); </script>";
 echo "<script> alert('".$fecha_atraso."'); </script>";
-echo "<script> alert('".$hora_atraso."'); </script>";
+echo "<script> alert('".$hora_atraso."'); </script>"; */
 
 //agregar funcion de impresion con los parametros designados
+impresion($nombre_alumno, $curso_alumno, $fecha_atraso, $hora_atraso);
 
 
 
