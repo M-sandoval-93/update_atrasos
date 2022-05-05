@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=Cliente
+comment0.text=\n\ \n\ \n\ @author\ \n\ @version\ \n
+comment1.params=nombre\ fono
+comment1.target=Cliente(java.lang.String,\ int)
+comment2.params=
+comment2.target=void\ infoCliente()
+numComments=3

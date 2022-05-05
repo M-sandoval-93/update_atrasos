@@ -16,6 +16,8 @@ $hora_atraso = $_POST['hora_atraso'];
 $usuario = $_SESSION['Id_Usuario'];
 //FIN RECEPCION DE VARIABLES DEL FORMULARIO REGISTRO FUNCIONARIOS
 
+
+
 if($rut== ""){
 ?>
 	<meta charset="utf-8">
@@ -47,6 +49,40 @@ values (
 ".$usuario.") ";
 
 $sql_res_insertar_atraso = pg_query($sql_insertar_atraso);
+
+
+// ================== modificación de código para integrar impresora ========================
+
+
+$sql="select 
+alumno.rut_alumno,
+alumno.apellido_paterno_alumno,
+alumno.apellido_materno_alumno,
+alumno.nombres_alumno,
+curso.nombre_curso
+from alumno,curso
+where alumno.id_curso=curso.id_curso
+and alumno.rut_alumno = '".$rut."' ";
+
+$resultado=pg_query($sql);
+
+if ($row = pg_fetch_assoc($resultado)) {
+	$nombre_alumno = $row['nombres_alumno']. " ". $row['apellido_paterno_alumno']. " ".$row['apellido_materno_alumno'];
+	$curso_alumno = $row['nombre_curso'];
+}
+
+
+echo "<script> alert('".$nombre_alumno."'); </script>";
+echo "<script> alert('".$curso_alumno."'); </script>";
+echo "<script> alert('".$fecha_atraso."'); </script>";
+echo "<script> alert('".$hora_atraso."'); </script>";
+
+//agregar funcion de impresion con los parametros designados
+
+
+
+
+// ==========================================================================================
 
 ?>
 <meta charset="utf-8">
