@@ -1,6 +1,0 @@
-#BlueJ class context
-comment0.target=Coche
-comment0.text=\n\ Clase\ coche\n\ \n\ @author\n\ @version\ \n
-comment1.params=matricula\ marca\ modelo
-comment1.target=Coche(java.lang.String,\ java.lang.String,\ java.lang.String)
-numComments=2
