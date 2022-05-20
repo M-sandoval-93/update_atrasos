@@ -1,22 +1,21 @@
 <?php
 
-include_once "./models/connect.php";
+// SETEAR LA ZONA HORARIA
+date_default_timezone_set('America/Santiago');
 
-$conect_db = new Conexion();
+// INCLUDE DE CONTROLADOR DE SESIÓN
 
-echo "Hello Word\n";
 
-/* $contraseña = "user2019";
-$usuario = "postgres";
-$nombreBaseDeDatos = "dblvl_localhost";
-$rutaServidor = "localhost";
-$puerto = "5432";
-try {
-    $base_de_datos = new PDO("pgsql:host=$rutaServidor;port=$puerto;dbname=$nombreBaseDeDatos", $usuario, $contraseña);
-    $base_de_datos->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Conexión exitosa";
-} catch (Exception $e) {
-    echo "Ocurrió un error con la base de datos: " . $e->getMessage();
-} */
+// CONTROLADOR INCIAL DE RUTAS
+if (isset($_SESSION['usser'])) {
+    if (isset($_GET['ruta'])) {
+        include_once "controller/views.php";
+    } else {
+        header("loaction: home");
+    }
+} else {
+    include_once "views/login.php";
+}
+
 
 ?>
