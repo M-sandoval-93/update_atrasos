@@ -1,11 +1,3 @@
-<?php
-
-include_once "models/connect.php";
-
-// $conexion = new Conexion();
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,24 +7,16 @@ include_once "models/connect.php";
     <title>Liceo Valentín Letelier</title>
 </head>
 <body>
-    <h1>prueba de contenido</h1>
+    <h1>inicio de sesion</h1>
+    <form action="#" method="post" id="form_login">
+        <input type="text" name="usuario" id="id_usuario">
+        <input type="password" name="clave" id="id_clave">
 
-    <!-- agregar insignia del liceo con algun diseño y un escrito  -->
+        <input type="submit" value="Ingresar" id="id_ingresar">
+    </form>
 
-<section>  
-    <!-- Agrgar el formulario de acceso
-    1.- pedirá usuario
-    2.- pedirá clave de usuario
-    3.- permitirá solicitar restauración de la clave o cambio de la misma
-    4.- tendrá link hacia:
-        - la página del liceo
-        - el facebook del liceo
-        - el instagram del liceo -->
-</section>
-
-<footer>
-    <!-- footer para mostrar información del liceo y del desarrollador del sitio -->
-</footer>
+    <script type="script" src="pluggins/jQuery/jquery-3.6.0.min.js"></script>
+    <script type="script" src="js/controller/login.js"></script>
     
 </body>
 </html>
