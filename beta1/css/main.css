@@ -1,0 +1,41 @@
+.design-login {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    height: 100vh;
+}
+
+.wave {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.wave-img {
+    width: 70%;
+    height: 80%;
+    margin-right: 20px;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-data {
+    width: 80%;
+    height: 70%;
+   /*  border: solid; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-data-logo {
+    /* width: 80px;
+    height: 100px; */
+    width: 18%;
+    height: 26%;
+}
