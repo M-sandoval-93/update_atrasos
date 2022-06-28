@@ -1,8 +1,4 @@
-// $('#id_form_login').submit(function (e) {
-//     e.preventDefault();
-//     console.log("Prueba de contenido");
-// });
-
+/* ------------------------- style ---------------------- */
 const inputs = document.querySelectorAll('.input');
 
 function focusFunc() {
@@ -15,12 +11,16 @@ function blurFunc() {
     if (this.value == "") {
         parent.classList.remove('focus');
     }
-    
 }
 
 inputs.forEach(input => {
     input.addEventListener('focus', focusFunc);
     input.addEventListener('blur', blurFunc);
 });
+/* ------------------------- style ---------------------- */
 
-
+/* ----------------------- backend ---------------------- */
+ $('#id_form_login').submit(function (e) {
+     e.preventDefault();
+     console.log("Prueba de contenido");
+ });

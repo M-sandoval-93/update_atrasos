@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Icono de la página -->
+    <link rel="shortcut icon" href="assets/logo_liceo.png">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,23 +23,23 @@
     <title>Liceo Valentín Letelier</title>
 </head>
 <body>
-    <!-- <img class="wave" src="assets/students.svg" alt="Imagen pantalla principal"> -->
     <div class="container">
         <div class="img">
             <img src="assets/students.svg" alt="">
         </div>
 
         <div class="login-container">
-            <form action="#" method="post">
-                <img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo">
+            <form action="#" method="post" id="id_form_login">
+                <a href="http://liceovalentinletelier.cl" target="_blank"><img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo"></a>
+                <!-- <img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo"> -->
                 <h2>Inicio de Sesión</h2>
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
                     </div>
                     <div>
-                        <h5>UserName</h5>
-                        <input class="input" type="text" name="" id="">
+                        <h5>UsserName</h5>
+                        <input class="input" type="text" name="usuario" id="id_usuario">
                     </div>
                 </div>
 
@@ -46,12 +49,22 @@
                     </div>
                     <div>
                         <h5>Password</h5>
-                        <input class="input" type="password" name="" id="">
+                        <input class="input" type="password" name="clave" id="id_clave">
                     </div>
                 </div>
 
-                <a href="">Recuperar contraseña</a>
+                <a href="#" class="link_recuperar">Recuperar contraseña</a>
+
                 <input class="btn" type="submit" value="Login">
+
+                <div class="i_redes_sociales">
+                    <a href="#"><i class="fab fa-facebook facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram instagram"></i></a>
+                    <a href="#"><i class="fas fa-graduation-cap web"></i></a>
+                    <!-- <i class="fab fa-facebook"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-internet-explorer"></i> -->
+                </div>
 
             </form>
         </div>
@@ -66,3 +79,7 @@
 
 <!-- link del formato
 https://www.youtube.com/watch?v=t-EMinSz_Tk&t=182s -->
+
+
+<!-- NOTAS:
+Agregar acceso a redes sociales en login -->

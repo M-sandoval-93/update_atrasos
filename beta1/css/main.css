@@ -8,14 +8,6 @@ body {
     font-family: 'poppins', sans-serif;
 }
 
-/* .wave {
-    position: fixed;
-    height: 100%;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-} */
-
 .container {
     width: 100vw;
     height: 100vh;
@@ -34,14 +26,20 @@ body {
 
 .img img {
     width: 500px;
+    transition: .3s;
 }
+
+/* .img img:hover {
+    width: 550px;
+    transition: .3s;
+} */
 
 .login-container {
     display: flex;
-    /* justify-content: center; */
     justify-content: flex-start;
     align-items: center;
     text-align: center;
+    margin-top: 20px;
 }
 
 form {
@@ -49,15 +47,21 @@ form {
 }
 
 .login-container__logo {
-    /* width: 100px; */
     height: 100px;
+    transition: .3s;
+}
+
+.login-container__logo:hover {
+    height: 120px;
+    transition: .3s;
 }
 
 form h2 {
     font-size: 2rem;
     text-transform: uppercase;
     margin: 15px 0;
-    color: #333;
+    /* color: #333; */
+    color: #4474e3;
 }
 
 .input-div {
@@ -96,8 +100,9 @@ form h2 {
 }
 
 .input-div.focus div h5 {
-    top: -5px;
-    font-size: 15px;
+    /* top: -5px;  
+    font-size: 15px; */
+    display: none;
 }
 
 .input-div.focus::after, .input-div.focus::before {
@@ -125,6 +130,43 @@ form h2 {
     -moz-transition: .3s;
     -ms-transition: .3s;
     -o-transition: .3s;
+}
+
+.i_redes_sociales {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.i_redes_sociales a i {
+    margin: 5px 20px;
+    text-decoration: none;
+    color: #767676;
+    font-size: 2rem;
+    transition: .3s;
+}
+
+.i_redes_sociales a i:hover {
+    font-size: 2.4rem;
+    transition: .3s;
+}
+
+.facebook:hover {
+    color:  #3b5998;
+    transition: .3s;
+    text-shadow: 0 0 2px #3070f8;
+}
+
+.instagram:hover {
+    color: #ee2a7b;
+    transition: .3s;
+    text-shadow: 0 0 2px #ff68a7;
+}
+
+.web:hover {
+    color: #0755fe;
+    transition: .3s;
+    text-shadow: 0 0 2px #4179f3;
 }
 
 .input-div > div {
@@ -166,9 +208,10 @@ form h2 {
     color: #555;
 }
 
-a {
+.link_recuperar {
     display: block;
     text-align: right;
+    padding-top: 8px;
     text-decoration: none;
     color: #999;
     font-size: 0.9rem;
@@ -179,7 +222,7 @@ a {
     -o-transform: .3s;
 }
 
-a:hover {
+.link_recuperar:hover {
     color: #4474e3;
 }
 
@@ -192,7 +235,7 @@ a:hover {
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
-    margin: 1rem 0;
+    margin: 2rem 0;
     font-size: 1.2rem;
     outline: none;
     border: none;
@@ -209,6 +252,48 @@ a:hover {
     -o-transition: .5s;
 }
 
-.btn:hover {
+/* revisar estilo al presionar boton */
+/* .btn:target {
     background-position: right;
+    transform: scale(98%);
+    transition: .3s;
+} */
+
+
+
+/* REGLAS PARA RESPONSIVE */
+
+@media screen and (max-width: 1050px) {
+    .container {
+        grid-gap: 5rem
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    form {
+        width: 290px;
+    }
+
+    form h2 {
+        font-size: 1.6rem;
+        margin: 8px 0;
+    }
+
+    .img img {
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .img {
+        display: none;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .login-container {
+        justify-content: center;
+    }
 }
