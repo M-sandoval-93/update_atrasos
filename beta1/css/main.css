@@ -29,11 +29,6 @@ body {
     transition: .3s;
 }
 
-/* .img img:hover {
-    width: 550px;
-    transition: .3s;
-} */
-
 .login-container {
     display: flex;
     justify-content: flex-start;
@@ -48,13 +43,34 @@ form {
 
 .login-container__logo {
     height: 100px;
-    transition: .3s;
+    /* transition: .3s; */
+    transition: 3s;
+    
 }
 
-.login-container__logo:hover {
-    height: 120px;
-    transition: .3s;
+/* REVISAR ESTA PARTE DEL CÓDIGO, PARA VER SI ES NECESARIA O NO */
+@keyframes rotateY {
+    from {
+        transform: rotateY(0deg);
+    } to {
+        transform: rotateY(360deg);
+    }
 }
+
+@-webkit-keyframes rotateY {
+    from {
+        -webkit-transform: rotateY(0deg);
+    } to {
+        -webkit-transform: rotateY(360deg);
+    }
+}
+
+.login-container__logo {
+    -webkit-animation: 3s rotateY linear infinite;
+    animation: 3s rotateY linear infinite;
+}
+
+/* ==============================================================*/
 
 form h2 {
     font-size: 2rem;

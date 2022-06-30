@@ -18,6 +18,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="Pluggins/SweetAlert2/sweetalert2.min.css">
 
 
     <title>Liceo Valentín Letelier</title>
@@ -30,8 +31,8 @@
 
         <div class="login-container">
             <form action="#" method="post" id="id_form_login">
-                <a href="http://liceovalentinletelier.cl" target="_blank"><img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo"></a>
-                <!-- <img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo"> -->
+                <!-- <a href="http://liceovalentinletelier.cl" target="_blank"><img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo"></a> -->
+                <img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo">
                 <h2>Inicio de Sesión</h2>
                 <div class="input-div one">
                     <div class="i">
@@ -60,10 +61,7 @@
                 <div class="i_redes_sociales">
                     <a href="#"><i class="fab fa-facebook facebook"></i></a>
                     <a href="#"><i class="fab fa-instagram instagram"></i></a>
-                    <a href="#"><i class="fas fa-graduation-cap web"></i></a>
-                    <!-- <i class="fab fa-facebook"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-internet-explorer"></i> -->
+                    <a href="http://liceovalentinletelier.cl" target="_blank"><i class="fas fa-graduation-cap web"></i></a>
                 </div>
 
             </form>
@@ -72,6 +70,7 @@
 
 
     <script src="Pluggins/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="Pluggins/SweetAlert2/sweetalert2.all.min.js"></script>
     <script src="js/controller/login.js"></script>    
 </body>
 </html>
