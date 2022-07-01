@@ -1,5 +1,5 @@
-Options ALL -Indexes
-RewriteEngine On
-RewriteRule ([-a-zA-Z0-9]+)$ index.php?ruta=$1 [QSA]
+# Options ALL -Indexes
+# RewriteEngine On
+# RewriteRule ([-a-zA-Z0-9]+)$ index.php?ruta=$1 [QSA]
 
 

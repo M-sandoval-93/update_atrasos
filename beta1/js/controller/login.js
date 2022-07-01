@@ -26,36 +26,52 @@ inputs.forEach(input => {
  }); */
 
  $(document).ready(function() {
-
     $('#id_form_login').submit(function(e) {
         e.preventDefault();
 
+        // Captación de las variables
         let usuario = $.trim($("#id_usuario").val());
         let clave = $.trim($("#id_clave").val());
 
+        // Comprobaciones de valor
         if (usuario.length <= 0 || clave.length <=0) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Faltan datos importantes ..!!',
-                // showConfirmButton: false,
-                // timer: 1500
-                allowOutsideClick: false
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                timer: 1500
             });
+
         } else {
-            console.log("No hay datos");
             $.ajax ({
                 url: 'controller/controller_login.php',
                 type: 'post',
                 datatype: 'json',
                 data: { usuario: usuario, clave: clave},
                 success: function(data) {
-                    if (data == 'null') {
-                        console.log("datos vacios");
+                    if (data == 'false') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Usuario inválido',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     } else {
-                        console.log("acceso completado");
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Ingresando al sistema .....!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(result => {
+                            // window.location.href = 'home';
+                            console.log("redireccionar hacia el home");
+                        });
                     }
                 }
             });
+            $('#id_form_login').trigger('reset');
+            $('#id_usuario').focus();
         }
 
     });
