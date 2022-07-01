@@ -66,8 +66,8 @@ form {
 }
 
 .login-container__logo {
-    -webkit-animation: 3s rotateY linear infinite;
-    animation: 3s rotateY linear infinite;
+    -webkit-animation: 5s rotateY linear infinite;
+    animation: 5s rotateY linear infinite;
 }
 
 /* ==============================================================*/

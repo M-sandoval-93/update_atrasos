@@ -34,15 +34,17 @@ inputs.forEach(input => {
         let clave = $.trim($("#id_clave").val());
 
         if (usuario.length <= 0 || clave.length <=0) {
-            /* console.log("El nombre y usuario son requeridos"); */
             Swal.fire({
                 icon: 'warning',
-                title: 'El nombre de usuario y clave de acceso son necesarios ..!!'
+                title: 'Faltan datos importantes ..!!',
+                // showConfirmButton: false,
+                // timer: 1500
+                allowOutsideClick: false
             });
         } else {
             console.log("No hay datos");
             $.ajax ({
-                url: 'controller/login.php',
+                url: 'controller/controller_login.php',
                 type: 'post',
                 datatype: 'json',
                 data: { usuario: usuario, clave: clave},
