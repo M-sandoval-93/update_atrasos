@@ -19,12 +19,9 @@ inputs.forEach(input => {
 });
 /* ------------------------- style ---------------------- */
 
-/* ----------------------- backend ---------------------- */
-/*  $('#id_form_login').submit(function (e) {
-     e.preventDefault();
-     console.log("Prueba de contenido");
- }); */
 
+
+/* ----------------------- backend ---------------------- */
  $(document).ready(function() {
     $('#id_form_login').submit(function(e) {
         e.preventDefault();
@@ -45,7 +42,7 @@ inputs.forEach(input => {
 
         } else {
             $.ajax ({
-                url: 'controller/controller_login.php',
+                url: './controller/controller_login.php',
                 type: 'post',
                 datatype: 'json',
                 data: { usuario: usuario, clave: clave},
@@ -53,7 +50,7 @@ inputs.forEach(input => {
                     if (data == 'false') {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Usuario inválido',
+                            title: 'Usuario o Clave incorrectos',
                             showConfirmButton: false,
                             timer: 1500
                         });
@@ -65,18 +62,15 @@ inputs.forEach(input => {
                             timer: 1500
                         }).then(result => {
                             // window.location.href = 'home';
-                            console.log("redireccionar hacia el home");
+                            window.location.href = 'home2';
                         });
                     }
                 }
             });
             $('#id_form_login').trigger('reset');
-            $('#id_usuario').focus();
+            $('.input-div').removeClass('focus');
         }
-
     });
-
-
  });
 
 

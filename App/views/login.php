@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Icono de la página -->
-    <link rel="shortcut icon" href="assets/logo_liceo.png">
+    <link rel="shortcut icon" href="./assets/logo_liceo.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,23 +16,22 @@
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 
     <!-- Style -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="Pluggins/SweetAlert2/sweetalert2.min.css">
-
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./Pluggins/SweetAlert2/sweetalert2.min.css">
 
     <title>Liceo Valentín Letelier</title>
 </head>
 <body>
     <div class="container">
         <div class="img">
-            <img src="assets/students.svg" alt="">
+            <img src="./assets/students.svg" alt="">
         </div>
 
         <div class="login-container">
-            <form action="#" method="post" id="id_form_login">
+            <form action="" method="post" id="id_form_login" autocomplete="off">
                 <!-- <a href="http://liceovalentinletelier.cl" target="_blank"><img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo"></a> -->
-                <img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo">
+                <img class="login-container__logo" src="./assets/logo_liceo.png" alt="Logo del liceo">
                 <h2>Inicio de Sesión</h2>
                 <div class="input-div one">
                     <div class="i">
@@ -40,7 +39,7 @@
                     </div>
                     <div>
                         <h5>UsserName</h5>
-                        <input class="input" type="text" name="usuario" id="id_usuario">
+                        <input class="input" type="text" name="usuario" id="id_usuario" required>
                     </div>
                 </div>
 
@@ -50,7 +49,7 @@
                     </div>
                     <div>
                         <h5>Password</h5>
-                        <input class="input" type="password" name="clave" id="id_clave">
+                        <input class="input" type="password" name="clave" id="id_clave" required>
                     </div>
                 </div>
 
@@ -68,17 +67,10 @@
         </div>
     </div>
 
-
-    <script src="Pluggins/jQuery/jquery-3.6.0.min.js"></script>
-    <script src="Pluggins/SweetAlert2/sweetalert2.all.min.js"></script>
-    <script src="js/controller/login.js"></script>    
+    <script src="./Pluggins/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="./Pluggins/SweetAlert2/sweetalert2.all.min.js"></script>
+    <script src="./js/login.js"></script> 
+    
 </body>
 </html>
 
-
-<!-- link del formato
-https://www.youtube.com/watch?v=t-EMinSz_Tk&t=182s -->
-
-
-<!-- NOTAS:
-Agregar acceso a redes sociales en login -->

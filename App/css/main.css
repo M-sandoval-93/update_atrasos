@@ -2,11 +2,12 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
-
-body {
     font-family: 'poppins', sans-serif;
 }
+
+/* body {
+    font-family: 'poppins', sans-serif;
+} */
 
 .container {
     width: 100vw;
