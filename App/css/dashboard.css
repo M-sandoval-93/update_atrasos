@@ -8,7 +8,16 @@
 :root {
     --fondo: #4474e3;
     --letras: #fff;
+    --sub-letras: #5082f7;
     --oscuro: #333;
+    --divisor: rgb(84, 84, 84);
+}
+
+a.salir {
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    margin-left: 500px;
 }
 
 a {
@@ -23,7 +32,8 @@ li {
 
 #sidebar {
     position: fixed;
-    width: 260px;
+    max-width: 260px;
+    width: 100%;
     background: var(--fondo);
     top: 0px;
     left: 0px;
@@ -35,18 +45,19 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
-    height: 100px;
+    margin-top: 20px;
+    height: 50px;
     font-weight: 700;
     color: var(--letras);
 }
 
 .iconUsser {
-    position: absolute;
+    /* position: absolute;
     display: block;
     text-align: center;
-    padding-bottom: 110px;
+    padding-bottom: 110px; */
     font-size: 70px;
+    color: red;
 }
 
 #sidebar .icon {
@@ -55,6 +66,67 @@ li {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#sidebar .side-menu {
+    margin: 36px 0;
+    padding: 0 20px;
+}
+
+#sidebar .side-menu a {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--letras);
+    padding: 10px 16px 10px 0;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin: 2px 0;
+    /* grid-gap: 6px; */
+}
+
+#sidebar .side-menu > li > a:hover {
+    background: var(--letras);
+    color: var(--oscuro);
+}
+
+#sidebar .side-menu > li > a.active,
+#sidebar .side-menu > li > a.active:hover {
+    background: var(--letras);
+    color: var(--oscuro);
+}
+
+#sidebar .divider {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--divisor);
+}
+
+#sidebar .side-dropdown {
+    padding-left: 48px;
+    max-width: 0;
+    /* overflow-y: hidden; */
+    /* transition: all .15s ease; */
+    /*overflow-y: hidden;
+    transition: all .15s ease;
+    -webkit-transition: all .15s ease;
+    -moz-transition: all .15s ease;
+    -ms-transition: all .15s ease;
+    -o-transition: all .15s ease;
+    :;*/
+}
+
+#sidebar .side-dropdown a:hover {
+    color: var(--sub-letras);
 }
 
 /* SIDEBAR */

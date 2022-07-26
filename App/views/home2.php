@@ -27,14 +27,14 @@
 </head>
 <body>
 
+    <!-- SIDEBAR -->
     <section id="sidebar">
-        <span class="brand"><i class="fas fa-user-circle iconUsser"></i> Nombre Usuario</span>
+        <a href="#" class="brand"><i class="fas fa-user-circle iconUsser"></i> Nombre Usuario</a>
         <ul class="side-menu">
-            <li><a href="#"><i class="fas fa-school icon"></i> Home</a></li>
+            <li><a href="#" class="active"><i class="fas fa-school icon"></i> Home</a></li>
 
             <li class="divider"> -------------- </li>
-            <li>
-                <li><span><i class="fas fa-user-graduate icon"></i> Estudiantes</span></li>
+                <a href="#"><i class="fas fa-user-graduate icon"></i> Estudiantes <i class="fas fa-angle-right icon"></i></a>
                 <ul class="side-dropdown">
                     <li><a href="#">Atrasos</a></li>
                     <li><a href="#">Justificaciones</a></li>
@@ -46,7 +46,7 @@
 
             <li class="divider"> -------------- </li>
             <li>
-                <li><span><i class="fas fa-user-friends icon"></i> Personal</span></li>
+                <a href="#"><i class="fas fa-user-friends icon"></i> Personal <i class="fas fa-angle-right icon"></i></a>
                 <ul class="side-dropdown">
                     <li><a href="#">Funcionarios</a></li>
                     <li><a href="#">Persmisos</a></li>
@@ -56,7 +56,7 @@
 
             <li class="divider"> -------------- </li>
             <li>
-                <li><span><i class="fas fa-cogs icon"></i> Setting</span></li>
+                <a href="#"><i class="fas fa-cogs icon"></i> Setting <i class="fas fa-angle-right icon"></i></a>
                 <ul class="side-dropdown">
                     <li><a href="#">Usuarios</a></li>
                     <li><a href="#">Departamentos</a></li>
@@ -64,8 +64,25 @@
                 </ul>
             </li>
         </ul>
-        <a href="./controller/controller_exit.php">salir</a>
     </section>
+    <!-- SIDEBAR -->
+
+
+    <!-- NAVBAR -->
+
+        <!-- NAVBAR -->
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <!-- MAIN -->
+
+    <!-- NAVBAR -->
+
+
+
+
+
+    <a href="./controller/controller_exit.php" class="salir">salir</a>
     
 
     
