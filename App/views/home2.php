@@ -21,7 +21,7 @@
 
     <!-- style -->
     <link rel="stylesheet" href="./css/dashboard.css">
-    <link rel="stylesheet" href="./css/normalize.css">
+    <!-- <link rel="stylesheet" href="./css/normalize.css"> -->
 
     <title>Liceo Valentín Letelier</title>
 </head>
@@ -29,11 +29,12 @@
 
     <!-- SIDEBAR -->
     <section id="sidebar">
-        <a href="#" class="brand"><i class="fas fa-user-circle iconUsser"></i> Nombre Usuario</a>
+        <a href="#" class="brand"><i class="fas fa-user-circle iconUsser icon"></i> usuario o logo</a>
         <ul class="side-menu">
             <li><a href="#" class="active"><i class="fas fa-school icon"></i> Home</a></li>
 
-            <li class="divider"> -------------- </li>
+            <li class="divider"></li>
+            <li>
                 <a href="#"><i class="fas fa-user-graduate icon"></i> Estudiantes <i class="fas fa-angle-right icon"></i></a>
                 <ul class="side-dropdown">
                     <li><a href="#">Atrasos</a></li>
@@ -44,7 +45,7 @@
             <li><a href="#"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
             <li><a href="#"><i class="fas fa-graduation-cap icon"></i> Cursos</a></li>
 
-            <li class="divider"> -------------- </li>
+            <li class="divider"></li>
             <li>
                 <a href="#"><i class="fas fa-user-friends icon"></i> Personal <i class="fas fa-angle-right icon"></i></a>
                 <ul class="side-dropdown">
@@ -54,7 +55,7 @@
                 </ul>
             </li>
 
-            <li class="divider"> -------------- </li>
+            <li class="divider"><hr></li>
             <li>
                 <a href="#"><i class="fas fa-cogs icon"></i> Setting <i class="fas fa-angle-right icon"></i></a>
                 <ul class="side-dropdown">
@@ -85,7 +86,12 @@
     <a href="./controller/controller_exit.php" class="salir">salir</a>
     
 
-    
+    <script src="./js/dashboard.js"></script>
     
 </body>
 </html>
+
+
+
+<!-- link para seguir con el proyecto
+https://www.youtube.com/watch?v=m3aC6t_9RK8 -->
