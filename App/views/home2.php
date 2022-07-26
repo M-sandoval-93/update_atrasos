@@ -21,7 +21,7 @@
 
     <!-- style -->
     <link rel="stylesheet" href="./css/dashboard.css">
-    <!-- <link rel="stylesheet" href="./css/normalize.css"> -->
+    <link rel="stylesheet" href="./css/normalize.css">
 
     <title>Liceo Valentín Letelier</title>
 </head>
@@ -35,7 +35,7 @@
 
             <li class="divider"></li>
             <li>
-                <a href="#"><i class="fas fa-user-graduate icon"></i> Estudiantes <i class="fas fa-angle-right icon"></i></a>
+                <a href="#"><i class="fas fa-user-graduate icon"></i> Estudiantes <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
                     <li><a href="#">Atrasos</a></li>
                     <li><a href="#">Justificaciones</a></li>
@@ -47,7 +47,7 @@
 
             <li class="divider"></li>
             <li>
-                <a href="#"><i class="fas fa-user-friends icon"></i> Personal <i class="fas fa-angle-right icon"></i></a>
+                <a href="#"><i class="fas fa-user-friends icon"></i> Personal <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
                     <li><a href="#">Funcionarios</a></li>
                     <li><a href="#">Persmisos</a></li>
@@ -57,7 +57,7 @@
 
             <li class="divider"><hr></li>
             <li>
-                <a href="#"><i class="fas fa-cogs icon"></i> Setting <i class="fas fa-angle-right icon"></i></a>
+                <a href="#"><i class="fas fa-cogs icon"></i> Setting <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
                     <li><a href="#">Usuarios</a></li>
                     <li><a href="#">Departamentos</a></li>
@@ -68,19 +68,39 @@
     </section>
     <!-- SIDEBAR -->
 
+    <!-- NAVBAR -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class="fas fa-bars toggle-sidebar"></i>
+            <a href="#" class="nav-link">
+                <i class="fas fa-bell"></i>
+                <span class="badge">5</span>
+            </a>
+            <span class="divider"></span>
+            <div class="profile">
+                <img src="./assets/logo_liceo.png" alt="Logo">
+                <ul class="profile-link">
+                    <li><a href="#"><i class="fas fa-address-card"></i> Profile</a></li>
+                    <li><a href="#"><i class="fas fa-lock-alt"></i> Password</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- NAVBAR -->
 
+        
+    </section>
     <!-- NAVBAR -->
 
-        <!-- NAVBAR -->
-        <!-- NAVBAR -->
+
+        
+        
 
         <!-- MAIN -->
         <!-- MAIN -->
 
-    <!-- NAVBAR -->
-
-
-
+    
 
 
     <a href="./controller/controller_exit.php" class="salir">salir</a>
