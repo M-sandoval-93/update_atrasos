@@ -74,37 +74,35 @@
         <nav>
             <i class="fas fa-bars toggle-sidebar"></i>
             <a href="#" class="nav-link">
-                <i class="fas fa-bell"></i>
+                <i class="fas fa-bell icon"></i>
                 <span class="badge">5</span>
             </a>
             <span class="divider"></span>
             <div class="profile">
                 <img src="./assets/logo_liceo.png" alt="Logo">
                 <ul class="profile-link">
-                    <li><a href="#"><i class="fas fa-address-card"></i> Profile</a></li>
-                    <li><a href="#"><i class="fas fa-lock-alt"></i> Password</a></li>
-                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li><a href="#"><i class="fas fa-address-card icon"></i> Profile</a></li>
+                    <li><a href="#"><i class="fas fa-lock icon"></i> Password</a></li>
+                    <li><a href="./controller/controller_exit.php"><i class="fas fa-sign-out-alt icon"></i> Logout</a></li>
                 </ul>
             </div>
         </nav>
         <!-- NAVBAR -->
 
+        <!-- MAIN -->
+        <main>
+            <h1 class="title">Dasboard</h1>
+            <ul class="breadcrumbs">
+                <li><a href="#">Home</a></li>
+                <li class="divider">/</li>
+                <li><a href="#" class="active">Dashboard</a></li>
+            </ul>
+        </main>
+        <!-- MAIN -->
         
     </section>
     <!-- NAVBAR -->
 
-
-        
-        
-
-        <!-- MAIN -->
-        <!-- MAIN -->
-
-    
-
-
-    <a href="./controller/controller_exit.php" class="salir">salir</a>
-    
 
     <script src="./js/dashboard.js"></script>
     

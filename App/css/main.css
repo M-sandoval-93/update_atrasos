@@ -5,9 +5,23 @@
     font-family: 'poppins', sans-serif;
 }
 
-/* body {
-    font-family: 'poppins', sans-serif;
-} */
+/* PARA GENERAR ROTACION DEL LOGO */
+@keyframes rotateY {
+    from {
+        transform: rotateY(0deg);
+    } to {
+        transform: rotateY(360deg);
+    }
+}
+
+@-webkit-keyframes rotateY {
+    from {
+        -webkit-transform: rotateY(0deg);
+    } to {
+        -webkit-transform: rotateY(360deg);
+    }
+}
+/* ==============================================================*/
 
 .container {
     width: 100vw;
@@ -44,34 +58,14 @@ form {
 
 .login-container__logo {
     height: 100px;
-    /* transition: .3s; */
-    transition: 3s;
-    
-}
-
-/* REVISAR ESTA PARTE DEL CÓDIGO, PARA VER SI ES NECESARIA O NO */
-@keyframes rotateY {
-    from {
-        transform: rotateY(0deg);
-    } to {
-        transform: rotateY(360deg);
-    }
-}
-
-@-webkit-keyframes rotateY {
-    from {
-        -webkit-transform: rotateY(0deg);
-    } to {
-        -webkit-transform: rotateY(360deg);
-    }
-}
-
-.login-container__logo {
-    -webkit-animation: 5s rotateY linear infinite;
+    transition: 5s;
+    -webkit-transition: 5s;
+    -moz-transition: 5s;
+    -ms-transition: 5s;
+    -o-transition: 5s;
     animation: 5s rotateY linear infinite;
+    -webkit-animation: 5s rotateY linear infinite;
 }
-
-/* ==============================================================*/
 
 form h2 {
     font-size: 2rem;
