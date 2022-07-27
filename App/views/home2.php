@@ -51,6 +51,7 @@
                 <ul class="side-dropdown">
                     <li><a href="#">Funcionarios</a></li>
                     <li><a href="#">Persmisos</a></li>
+                    <li><a href="#">Licencias</a></li>
                     <li><a href="#">Cambio de funciones</a></li>
                 </ul>
             </li>
@@ -97,6 +98,17 @@
                 <li class="divider">/</li>
                 <li><a href="#" class="active">Dashboard</a></li>
             </ul>
+            <div class="info-data">
+                <div class="card">
+                    <div class="head">
+                        <div>
+                            <h2>Alumnos Matriculados</h2>
+                            <i class="fas fa-male"></i>
+                            <p>1435</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         <!-- MAIN -->
         
