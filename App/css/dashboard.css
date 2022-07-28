@@ -14,6 +14,7 @@
     --opacidad: rgb(199, 198, 198);
     --navbar: rgb(217, 217, 217);
     --red: rgb(242, 55, 55);
+    --green: rgb(18, 218, 0);
 }
 
 /* PARCIAL */
@@ -309,7 +310,123 @@ main .breadcrumbs li a.divider {
     pointer-events: none;
 }
 
+main .info-data {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-gap: 20px;
+}
 
+main .info-data .card {
+    padding: 20px;
+    border-radius: 10px;
+    /* background: var(--sub-letras); */
+    background: var(--navbar);
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
+}
+
+main .card .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+main .card .head h2 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+main .card .head p {
+    font-size: 14px;
+}
+
+main .card .head .icon.up {
+    font-size: 20px;
+    color: var(--green);
+    animation: 1s move-up linear infinite;
+    /* transition: all 3s ease; */
+}
+
+main .card .head .icon.down {
+    font-size: 20px;
+    color: var(--red);
+    animation: 1s move-down linear infinite;
+}
+
+main .card .head .icon.start {
+    font-size: 20px;
+    color: var(--sub-letras);
+    animation: 4s rotar linear infinite;
+}
+
+/* ANIMACIÓN DE LOS ICONOS */
+@keyframes move-up {
+    0% {
+        transform: translateY(0%);
+    } 100% {
+        transform: translateY(-20%);
+    }
+}
+
+@keyframes move-down {
+    0% {
+        transform: translateY(0%);
+    } 100% {
+        transform: translateY(20%);
+    }
+}
+
+@keyframes rotar {
+    from {
+        transform: rotateZ(0deg);
+    } to {
+        transform: rotateZ(360deg);
+    }
+}
+/* ANIMACIÓN DE LOS ICONOS */
+
+
+main .card .progress {
+    display: block;
+    margin-top: 24px;
+    height: 10px;
+    width: 100%;
+    border-radius: 10px;
+    background: var(--oscuro);
+    overflow-y: hidden;
+    position: relative;
+    margin-bottom: 4px;
+}
+
+main .card .progress::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    /* background: blue; */
+    /* width: var(--value); */
+    /* width: 100%; */
+    width: var(--value);
+}
+
+/* IMAGEN PARA CADA BARRA DE PROGRESO */
+main .card .progress.up::before {
+    background: var(--green);
+}
+
+main .card .progress.down::before {
+    background: var(--red);
+}
+
+main .card .progress.start::before {
+    background: var(--sub-letras);
+}
+
+main .card .label {
+    font-size: 14px;
+    font-weight: 700;
+}
 
 
 /* MAIN */
