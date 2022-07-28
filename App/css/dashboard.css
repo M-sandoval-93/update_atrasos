@@ -404,9 +404,6 @@ main .card .progress::before {
     top: 0;
     left: 0;
     height: 100%;
-    /* background: blue; */
-    /* width: var(--value); */
-    /* width: 100%; */
     width: var(--value);
 }
 
