@@ -1,5 +1,6 @@
 // SIDEBAR
 const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
+const sidebar = document.getElementById('sidebar');
 
 allDropdown.forEach (items => {
     const a = items.parentElement.querySelector('a:first-child');
@@ -18,6 +19,18 @@ allDropdown.forEach (items => {
         this.classList.toggle('active');
         items.classList.toggle('show');
     });
+});
+
+
+
+sidebar.addEventListener('mouseleave', function() {
+    if (this.classList.contains('hide')) {
+        allDropdown.forEach (items => {
+            const a = items.parentElement.querySelector('a:first-child');
+            a.classList.remove('active');
+            items.classList.remove('show');
+        });
+    }
 });
 
 
@@ -41,13 +54,23 @@ window.addEventListener('click', function(e) {
 });
 
 
+// SIDEBAR COLLAPSE
+const toggleSidebar = document.querySelector('nav .toggle-sidebar');
+
+
+toggleSidebar.addEventListener('click', function() {
+    sidebar.classList.toggle('hide');
+});
+
+
 
 
 
 // PROGRESS BAR
 const allProgress = document.querySelectorAll('main .card .progress');
+// const sidebar = document.getElementById('sidebar');
 
-allProgress.forEach(item => {
+allProgress.forEach (item => {
     item.style.setProperty('--value', item.dataset.value);
 });
 
