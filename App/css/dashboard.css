@@ -232,7 +232,6 @@ nav .toggle-sidebar {
     font-size: 18px;
     cursor: pointer;
     margin-right: auto;
-
 }
 
 nav .nav-link {
@@ -346,6 +345,7 @@ main .title {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 10px;
+    margin-top: -10px;
 }
 
 main .breadcrumbs {
@@ -368,6 +368,14 @@ main .breadcrumbs li a.divider {
     pointer-events: none;
 }
 
+
+main .sub-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 30px 0 -20px 0;
+    color: var(--divisor);
+}
+
 main .info-data {
     margin-top: 36px;
     display: grid;
@@ -378,7 +386,6 @@ main .info-data {
 main .info-data .card {
     padding: 20px;
     border-radius: 10px;
-    /* background: var(--sub-letras); */
     background: var(--navbar);
     box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
 }
@@ -398,11 +405,21 @@ main .card .head p {
     font-size: 14px;
 }
 
+main .card .head .icon {
+    padding-left: 20px;
+    
+}
+
+main .card .head .icon.edit:hover {
+    transform: scale(1.1);
+    color: var(--sub-letras);
+    transition: all .3s ease;
+}
+
 main .card .head .icon.up {
     font-size: 20px;
     color: var(--green);
     animation: 1s move-up linear infinite;
-    /* transition: all 3s ease; */
 }
 
 main .card .head .icon.down {
@@ -478,10 +495,18 @@ main .card .progress.start::before {
     background: var(--sub-letras);
 }
 
+main .card .content-label {
+    display: flex;
+    justify-content: space-between;
+/*     font-size: 14px;
+    font-weight: 700; */
+}
+
 main .card .label {
     font-size: 14px;
     font-weight: 700;
 }
+
 /* MAIN */
 
 

@@ -5,14 +5,15 @@
 
     /* HEADER */
     include_once "./layout/header.php";
-?>
 
-    <!--  PRINCIPAL -->
+?>
+  
+   <!--  PRINCIPAL -->
         <!-- MAIN -->
         <main>
-            <h1 class="title">Home</h1>
+            <h1 class="title">Funcionarios</h1>
             <ul class="breadcrumbs">
-                <li><a href="#">Home</a></li>
+                <li><a href="#">Funcionarios</a></li>
                 <li class="divider">/</li>
                 <li><a href="#" class="active">Dashboard</a></li>
             </ul>
@@ -54,10 +55,6 @@
         </main>
         <!-- MAIN -->
     <!--  PRINCIPAL -->
-
-    <!-- FOOTER -->
-    <?php include_once "./layout/footer.php"; ?>
-
-
-<!-- link para seguir con el proyecto
-https://www.youtube.com/watch?v=m3aC6t_9RK8 -->
+        
+<!-- FOOTER -->
+<?php include_once "./layout/footer.php"; ?>

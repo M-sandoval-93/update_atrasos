@@ -61,8 +61,7 @@ inputs.forEach(input => {
                             showConfirmButton: false,
                             timer: 1500
                         }).then(result => {
-                            // window.location.href = 'home';
-                            window.location.href = 'home2';
+                            window.location.href = 'home';
                         });
                     }
                 }

@@ -1,9 +1,10 @@
 <?php
 
 if ($_GET['ruta'] == 'home' ||
-    $_GET['ruta'] == 'home2' || // Eliminar luego de usar
+    $_GET['ruta'] == 'prueba' ||
+    $_GET['ruta'] == 'cursos' ||
     $_GET['ruta'] == 'login' ||
-    $_GET['ruta'] == 'prueba') {
+    $_GET['ruta'] == 'funcionarios') {
         include_once "views/".$_GET['ruta'].".php";
 }
 
