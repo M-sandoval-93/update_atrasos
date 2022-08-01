@@ -19,7 +19,7 @@
             </ul>
 
             <h1 class="sub-title">Educación Básica</h1>
-            <div class="info-data basica">
+            <div class="info-data curso">
                 <div class="card">
                     <div class="head">
                         <div>
@@ -60,7 +60,7 @@
             </div>
 
             <h1 class="sub-title">Educación Media</h1>
-            <div class="info-data media">
+            <div class="info-data curso">
                 <div class="card">
                     <div class="head">
                         <div>

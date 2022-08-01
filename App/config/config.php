@@ -12,4 +12,5 @@ define ('DB_DATA', 'db_liceo');
 define ('DB_CHARSET', 'utf8');
 define ('DB_PORT', '5432');
 
+
 ?>

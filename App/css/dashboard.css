@@ -379,9 +379,15 @@ main .sub-title {
 main .info-data {
     margin-top: 36px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); */
+    grid-template-columns: repeat(3, minmax(260px, 1fr));
     grid-gap: 20px;
 }
+
+/* main .info-data.curso {
+    grid-template-columns: repeat(3 , minmax(280px, 1fr));
+    grid-gap: 10px;
+} */
 
 main .info-data .card {
     padding: 20px;

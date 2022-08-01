@@ -38,8 +38,8 @@
         public function checkUsser($usser, $pass) {
             // VARIABLES
             // $md5Pass = md5($pass);   -> usar cuando la clave este en MD5
-             $md5Pass = $pass;
-             $query = "SELECT * FROM usuarios WHERE nombre_usuario = '$usser' AND clave_usuario = '$md5Pass'";
+            $md5Pass = $pass;
+            $query = "SELECT * FROM usuarios WHERE nombre_usuario = '$usser' AND clave_usuario = '$md5Pass'";
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute();
 

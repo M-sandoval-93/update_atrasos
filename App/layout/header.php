@@ -36,7 +36,7 @@
                     <li><a href="#">Cambio de curso</a></li>
                 </ul>
             </li>
-            <li><a href="#"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
+            <li><a href="test"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
             <li><a href="cursos"><i class="fas fa-graduation-cap icon"></i> Cursos</a></li>
 
             <li class="divider"></li>
