@@ -1,56 +1,63 @@
 <?php
 
     // SE INCLUYE EL ARCHIVO DE CONEXION BBDD
-    include_once "./model/model_conexion.php";
     include_once "../model/model_conexion.php";
+    include_once "../config/listas.php";
+
 
     class Curso extends Conexion {
+        protected $query_crear = "INSERT INTO cursos(curso) VALUES (?);";
+        protected $query_consultar = "SELECT curso FROM cursos WHERE curso LIKE ? LIMIT 1;";
 
-        protected $grado;
-        protected $letraHasta;
-        protected $query = "INSERT INTO cursos(id_curso, curso) VALUES (?, ?);";
-        // protected $query = "INSERT INTO cursos(id_curso, curso) VALUES (:grados, :cursos);";
-
-        function __construct($grado, $letraHasta) {
-            $this->grado = $grado;
-            $this->letraHasta = $letraHasta;
+        public function __construct() {
+            parent:: __construct();
         }
 
-        public function generarCurso() {
+        public function generarCurso($grado, $letraHasta) {
+            try {
+                foreach (LETRAS as $letra) {
+                    if ($letra <= $letraHasta) {
+                        $curso = $grado.$letraHasta;
+                        $sentencia = $this->conexion_db->prepare($this->query_crear);
+                        $resultado = $sentencia->execute([$curso]);
+                    }
+                }
 
-            echo "generar sentencia";
+                // DEVUELVE EL RESULTADO SI LA CREACIÓN A SIDO EXITOSA
+                if ($resultado === true) {
+                    return true;
+                } else {
+                    return false;
+                }
 
-            //  $sentencia = $this->conexion_db->prepare($this->query);
-            $sentencia = $this->conexion_db->prepare("insert into cursos values (1, '7A');");
-            // $sentencia->execute([1, '7A']);
-            $sentencia->execute();
-            
-            // include_once "./config/listas.php";
-            // include_once "../config/listas.php";
+            } catch (Exception $e) {
+                echo "Error: ". $e->getMessage();
+            }
 
-            // $contador = 0;
-            // $curso;
+        }
 
-            // try {
-            //     foreach (LETRAS as $letra) {
-            //         if ($letra <= $this->letraHasta) {
-            //             $contador = $contador + 1;
-            //             $curso = $this->grado.$letra;
-            //             $sentencia = $this->conexion_db->prepare($this->query);
-            //             $sentencia->bindParam(':grados', $contador, PDO::PARAM_INT);
-            //             $sentencia->bindParam(':cursos', $curso, PDO::PARAM_STR);
+        public function consultarCurso($grado) {
+            try {
+                $sentencia = $this->conexion_db->prepare($this->query_consultar);
+                // $sentencia->bindValue(1, $grado."%", PDO::PARAM_STR);
+                $sentencia->execute([$grado.'%']);
 
-            //             $sentencia->execute();
-            //             // echo $contador." - ".$curso."</br>";
-            //         }
-            //     }
-            // } catch (Exception $e) {
-            //     echo "Error: ". $e->getMessage();
-            // }
+                if ($sentencia->rowCount() >= 1) {
+                    return false;
+                } else {
+                    return true;
+                }
 
+            } catch (Exception $e) {
+                echo "Error: ". $e->getMessage();
+            }
         }
 
     } 
+
+
+/*     NOTA: PARA REINICIAR EL CONTADOR DEL CAMPO AUTOINCREMENTO
+    alter sequence cursos_id_curso_seq restart with 1; */
 
 
 

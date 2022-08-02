@@ -5,32 +5,19 @@
 
     /* HEADER */
     include_once "./layout/header.php";
-    include_once "./config/listas.php"
 ?>
 
     <!--  PRINCIPAL -->
         <!-- MAIN -->
 
-    <?php
+        <h1>PRUEBA DE CREACION DE CURSOS</h1>
+        <form action="#" method="post" id="form-cursos">
+            <input type="text" id="id_grado" placeholder="grado">
+            <input type="text" id="id_letra" placeholder="letra">
+            <input class="btn" type="submit" value="Login" id="btn_login">
+        </form>
 
-        include_once "./model/model_cursos.php";
-        include_once "../model/model_cursos.php";
-
-        $septimo = new Curso('7', 'C');
-        $septimo->generarCurso();
-
-        echo "</br>Sentencia finalizada</br>";
-
-
-/*         foreach (LETRAS as $letra) {
-            if ($letra <= 'C') {
-                echo "7".$letra."</BR>";
-            }
-        } */
-
-
-
-    ?>
+        
 
     
         <!-- MAIN -->

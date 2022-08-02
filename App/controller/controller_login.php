@@ -1,5 +1,6 @@
 <?php
 
+    // SE INCLUYE EL MODELO PARA SER USADO POR EL CONTROLADOR
     include_once '../model/model_session.php';
 
     // NOTA: AGREGAR PROTECCIÓN ANTE CARACTERES

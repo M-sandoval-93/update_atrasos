@@ -34,8 +34,6 @@ sidebar.addEventListener('mouseleave', function() {
 });
 
 
-
-
 // PROFILE DROPDOWN
 const profile = document.querySelector('nav .profile');
 const imgProfile = profile.querySelector('img');
