@@ -14,12 +14,12 @@
     <?php
 
         include_once "./model/model_cursos.php";
-        //include_once "../model/model_cursos.php";
+        include_once "../model/model_cursos.php";
 
-/*         $septimo = new Curso('7', 'C');
-        $septimo->generarCurso(); */
+        $septimo = new Curso('7', 'C');
+        $septimo->generarCurso();
 
-        echo "Sentencia finalizada";
+        echo "</br>Sentencia finalizada</br>";
 
 
 /*         foreach (LETRAS as $letra) {
