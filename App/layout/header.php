@@ -1,3 +1,9 @@
+<?php
+    if (!isset($_SESSION['usser']['name'])) {
+        header("location: ../");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="eS">
 <head>
@@ -31,23 +37,23 @@
             <li>
                 <a href="#"><i class="fas fa-user-graduate icon"></i> Estudiantes <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
-                    <li><a href="#">Atrasos</a></li>
-                    <li><a href="#">Justificaciones</a></li>
-                    <li><a href="#">Cambio de curso</a></li>
+                    <li><a href="estudiantes">Estudiantes</a></li>
+                    <li><a href="atrasos">Atrasos</a></li>
+                    <li><a href="justificaciones">Justificaciones</a></li>
                 </ul>
             </li>
-            <li><a href="test"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
+            <li><a href="apoderados"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
             <li><a href="cursos"><i class="fas fa-graduation-cap icon"></i> Cursos</a></li>
-            <li><a href="cursos"><i class="fas fa-utensils icon"></i> JUNAEB</a></li>
+            <li><a href="junaeb"><i class="fas fa-utensils icon"></i> JUNAEB</a></li>
 
             <li class="divider"></li>
             <li>
                 <a href="#"><i class="fas fa-user-friends icon"></i> Personal <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
                     <li><a href="funcionarios">Funcionarios</a></li>
-                    <li><a href="#">Persmisos</a></li>
-                    <li><a href="#">Licencias</a></li>
-                    <li><a href="#">Cambio de funciones</a></li>
+                    <li><a href="permisos">Permisos</a></li>
+                    <li><a href="licencias">Licencias</a></li>
+                    <li><a href="cambioFunciones">Cambio de funciones</a></li>
                 </ul>
             </li>
 
@@ -55,9 +61,9 @@
             <li>
                 <a href="#"><i class="fas fa-cogs icon"></i> Setting <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
-                    <li><a href="#">Usuarios</a></li>
-                    <li><a href="#">Departamentos</a></li>
-                    <li><a href="#">Cargos y funciones</a></li>
+                    <li><a href="usuarios">Usuarios</a></li>
+                    <li><a href="departamentos">Departamentos</a></li>
+                    <li><a href="cargosFunciones">Cargos y funciones</a></li>
                 </ul>
             </li>
 
