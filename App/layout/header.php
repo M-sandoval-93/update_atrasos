@@ -38,6 +38,7 @@
             </li>
             <li><a href="test"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
             <li><a href="cursos"><i class="fas fa-graduation-cap icon"></i> Cursos</a></li>
+            <li><a href="cursos"><i class="fas fa-utensils icon"></i> JUNAEB</a></li>
 
             <li class="divider"></li>
             <li>
@@ -59,6 +60,9 @@
                     <li><a href="#">Cargos y funciones</a></li>
                 </ul>
             </li>
+
+            <!-- <li class="divider"></li> -->
+            <li><a href="mantenimiento"><i class="fas fa-server icon"></i> Mantenimiento</a></li>
         </ul>
     </section>
     <!-- SIDEBAR -->
