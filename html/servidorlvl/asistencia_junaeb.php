@@ -61,27 +61,6 @@ function MenuResponsive() {
 </script>
 
 <script type="text/javascript">
-$.datepicker.regional['es'] = {
- closeText: 'Cerrar',
- prevText: '<Ant',
- nextText: 'Sig>',
- currentText: 'Hoy',
- monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
- monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
- dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
- dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
- dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
- weekHeader: 'Sm',
- dateFormat: 'dd-mm-yy',
- firstDay: 1,
- isRTL: false,
- showMonthAfterYear: true,
- yearSuffix: ''
- };
-$.datepicker.setDefaults($.datepicker.regional['es']);
-$(function () {
-$("#fecha_atraso").datepicker({});
-});
 
 
 //<!--inicio validacion formulario-->
@@ -110,16 +89,6 @@ if($("#rut").val().length < 1) {
   return false;  
 }
 
-if($("#fecha_atraso").val().length < 1) {  
-  alert("Debe Ingresar Fecha");  
-  return false;  
-}
-
-if($("#hora_atraso").val().length < 1) {  
-  alert("Debe Ingresar Hora");  
-  return false;  
-}
-
 return true;  
 });
 
@@ -129,47 +98,6 @@ return true;
 //<!--FIN VALIDACION FORMULARIO-->
 
 
-// INICIO VALIDAR HORA
-function valida_hora(valor)
-{
-//que no existan elementos sin escribir
-if(valor.indexOf(":") != -1)
- {
- var hora = valor.split(":")[0];
- if(parseInt(hora) > 23 )
- {
-   $("#hora_atraso").val("");
- }//end if
-    }//end if
-}//end function
-
-$('#setTimeExample').timepicker();
-$('#setTimeButton').on('click', function (){
-    $('#setTimeExample').timepicker('setTime', new Date());
-});
-//FIN VALIDAR HORA
-
-function myFunction0() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput0");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } 
-      else {
-        tr[i].style.display = "none";
-      }
-    }       
- }
- }
-
  function myFunction1() {
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput1");
@@ -178,7 +106,7 @@ function myFunction0() {
   tr = table.getElementsByTagName("tr");
   
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
+    td = tr[i].getElementsByTagName("td")[0];
 
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
@@ -199,7 +127,7 @@ function myFunction0() {
   tr = table.getElementsByTagName("tr");
   
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
+    td = tr[i].getElementsByTagName("td")[1];
 
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
@@ -220,7 +148,7 @@ function myFunction0() {
   tr = table.getElementsByTagName("tr");
   
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
+    td = tr[i].getElementsByTagName("td")[2];
 
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
@@ -241,7 +169,7 @@ function myFunction0() {
   tr = table.getElementsByTagName("tr");
   
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[4];
+    td = tr[i].getElementsByTagName("td")[3];
 
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
@@ -262,7 +190,7 @@ function myFunction0() {
   tr = table.getElementsByTagName("tr");
   
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[5];
+    td = tr[i].getElementsByTagName("td")[4];
 
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
@@ -283,7 +211,7 @@ function myFunction0() {
   tr = table.getElementsByTagName("tr");
   
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[6];
+    td = tr[i].getElementsByTagName("td")[5];
 
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
@@ -304,7 +232,7 @@ function myFunction0() {
   tr = table.getElementsByTagName("tr");
   
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[7];
+    td = tr[i].getElementsByTagName("td")[6];
 
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
@@ -317,47 +245,6 @@ function myFunction0() {
  }
  }
 
- function myFunction8() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput8");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[8];
-
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } 
-      else {
-        tr[i].style.display = "none";
-      }
-    }       
- }
- }
-
- function myFunction9() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput9");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[9];
-
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } 
-      else {
-        tr[i].style.display = "none";
-      }
-    }       
- }
- }
 
 </script>
 
@@ -387,6 +274,20 @@ $(document).ready(function(){
         else
           $("#nombre_curso").val("");
 
+        if(data.junaeb) {
+          $("#junaeb").val(data.junaeb);
+          if(data.junaeb == 'SI') {
+            $("#resultado").html("<span style='font-weight:bold;color:green;' id='mensaje'>El estudiante cuenta con beneficio alimentacion escolar</span>");
+          } else {
+          $("#resultado").html(data);
+            $("#resultado").html("<span style='font-weight:bold;color:red;' id='mensaje'>El estudiante no cuenta con beneficio alimentacion escolar</span>");
+          }
+
+        } else {
+          $("#junaeb").val("");
+        }
+
+
       },"json");
     });
 
@@ -412,44 +313,13 @@ $('.ir-arriba').click(function(){
 </script>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-                         
-      var consulta;
-             
-      //hacemos focus
-      $("#rut").focus();
-                                                 
-      //comprobamos si se pulsa una tecla
-      $("#rut").blur(function(e){
-             //obtenemos el texto introducido en el campo
-             consulta = $("#rut").val();
-                                      
-             //hace la búsqueda
-             $("#resultado").delay(0).queue(function(n) {      
-                                           
-                  //$("#resultado").html('<img src="imagenes/ajax-loader.gif" />');
-                                           
-                        $.ajax({
-                              type: "POST",
-                              url: "ConsultaAtrasos.php",
-                              data: "b="+consulta,
-                              dataType: "html",
-                              
-                              error: function(){
-                                    alert("error petición ajax");
-                              },
-                              
-                              success: function(data){                                                      
-                                    $("#resultado").html(data);
-                                    n();
-                              }
-                  });
-                                           
-             });
-                                
-      });
-                          
-});
+
+  $(document).ready(function() {
+    $("#Borrar").click(function() {
+      $("#mensaje").remove();
+    });
+  });
+
 </script>
 
 <style>
@@ -726,13 +596,13 @@ $('.ir-arriba').click(function(){
 
 
 <header>
-	<h1>Registro Atrasos Alumnos</h1>
+	<h1>Registro Asistencia Comedor</h1>
 </header> 
 
 <section>
 
 <div id="BuscarFuncionario">
-<form action="atraso_registrado.php" method="post" role="form" name="f1" id="f1">
+<form action="asistencia_junaeb_registrada.php" method="post" role="form" name="f1" id="f1">
 
   <div class="form-row">
 
@@ -746,7 +616,7 @@ $('.ir-arriba').click(function(){
       <input type="text" class="form-control" id="dv" name="dv" placeholder="DV" value="" disabled required>
     </div>
 
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-7">
       <label for="rut">Alumno</label>
       <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" placeholder="NOMBRE COMPLETO" value="" disabled required> <div id="resultado"> </div>
     </div>
@@ -754,32 +624,15 @@ $('.ir-arriba').click(function(){
     <div class="form-group col-md-1">
       <label for="nombre_curso">Curso</label>
       <input type="text" class="form-control" id="nombre_curso" name="nombre_curso" placeholder="Curso" value="" disabled required>
-    </div>   
+    </div>  
     
-    <!-- <div class="form-group col-md-2">
-    <label for="fecha_atraso">Fecha</label>
-    <div class='input-group date' id="datepicker">
-	  <input type='text' class="form-control" id="fecha_atraso" name="fecha_atraso" placeholder="DD-MM-AAAA" style="text-transform:uppercase;" value="<?php echo date("d")."-".date("m")."-".date("Y")?>" required maxlength="10">
-	  <span class="input-group-addon">
-	  <span class="glyphicon glyphicon-calendar"></span>
-	  </span>
-	  </div>
+    <!-- SE AGREGA CAMPO PARA BECA JUNAEB -->
+    <div class="form-group col-md-1">
+      <label for="junaeb">JUNAEB</label>
+      <input type="text" class="form-control" id="junaeb" name="junaeb" placeholder="Junaeb" value="" disabled required>
     </div>
-
-    <div class="form-group col-md-2">
-      <label for="horas_atraso">Hora Llegada</label>
-        <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
-        <input type="text" class="form-control" id="hora_atraso" name="hora_atraso" placeholder="HORA LLEGADA" value="<?php echo date("H:i")?>" required maxlength="5">
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-time"></span>
-        </span>
-        </div>
-      <script type="text/javascript">
-      $('.clockpicker').clockpicker();
-      </script>
-    </div> -->
-
     
+
     <div class="form-row">
     <div class="form-group col-lg-1">
       <button type="submit" class="btn btn-default" id="grabar"> <b> Guardar <span class="glyphicon glyphicon-floppy-disk"> </button>
@@ -802,8 +655,10 @@ $('.ir-arriba').click(function(){
 <div class="panel panel-default">
 
 <?php
+
+// CONSULTA SQL QUE TIENE QUE SER PARA CONSULTAR ASISTENCIA
 $sql_tabla = "select 
-atraso.id_atraso,
+asistencia_junaeb.id_asistencia,
 alumno.id_alumno,
 alumno.rut_alumno,
 alumno.dv_rut_alumno,
@@ -812,26 +667,23 @@ alumno.apellido_materno_alumno,
 alumno.nombres_alumno,
 alumno.id_curso,
 curso.nombre_curso,
-atraso.fecha_atraso,
-atraso.hora_atraso,
-atraso.estado
-from alumno,curso,atraso
+asistencia_junaeb.fecha_hora_actual
+from alumno,curso,asistencia_junaeb
 where alumno.id_curso=curso.id_curso
-and alumno.id_alumno=atraso.id_alumno
-order by atraso.fecha_atraso desc, atraso.hora_atraso desc";
+and alumno.id_alumno=asistencia_junaeb.id_alumno
+order by asistencia_junaeb.fecha_hora_actual desc;";
 
 $resultado_tabla = pg_query ($sql_tabla);
-$total_alumnos=pg_num_rows($resultado_tabla);
+$total_registros=pg_num_rows($resultado_tabla);
 ?>
 
 <div class="panel-heading">
 <form action="atraso_justificar.php" method="get">
 <table>
   <tr>
-    <td id="cabeza_panel_1"> <h1>Registro Atrasos Alumnos <h5> <strong> Se encontraron <?php echo $total_alumnos ?> registros en total. </strong> </h5> </h1> </td>
-    <td id="cabeza_panel_2"> <button type="submit" class="btn btn-success"> Justificar <img src="imagenes/check.png" width="20" height="20"> </td>
-    <td id="cabeza_panel_3"></td>
-    <td id="cabeza_panel_4"> <a class="btn btn-info" href="alumno_atraso_xls.php" value="Exportar Excel"> Exportar <img src="imagenes/logoexcel.png" width="20" height="20"> </td>
+    <td id="cabeza_panel_1"> <h1>Asistencia de Estudiantes al comedor <h5> 
+      <!-- Consulta para cantidad de estudiantes -->
+      <strong> Se encontraron <?php echo $total_registros; ?> registros en total. </strong> </h5> </h1> </td>
   </tr>
 </table>
 </div>
@@ -840,78 +692,46 @@ $total_alumnos=pg_num_rows($resultado_tabla);
 <table id="myTable">
   
   <tr>
-    <th style="width:2%;"> </th>
     <th style="width:6%;"> <input type="text" id="myInput1" onkeyup="myFunction1();" placeholder="Buscar"> </th>
     <th style="width:4%;"> <input type="text" id="myInput2" onkeyup="myFunction2();" placeholder="Buscar"> </th>
     <th style="width:15%;"> <input type="text" id="myInput3" onkeyup="myFunction3();" placeholder="Buscar"> </th>
     <th style="width:15%;"> <input type="text" id="myInput4" onkeyup="myFunction4();" placeholder="Buscar"> </th>
-    <th style="width:22%;"> <input type="text" id="myInput5" onkeyup="myFunction5();" placeholder="Buscar"> </th>
-    <th style="width:4%;"> <input type="text" id="myInput6" onkeyup="myFunction6();" placeholder="Buscar"> </th>
-    <th style="width:5%;"> <input type="text" id="myInput7" onkeyup="myFunction7();" placeholder="Buscar"> </th>
-    <th style="width:5%;"> <input type="text" id="myInput8" onkeyup="myFunction8();" placeholder="Buscar"> </th>
-    <th style="width:7%;"> <input type="text" id="myInput9" onkeyup="myFunction9();" placeholder="Buscar"> </th>
+    <th style="width:24%;"> <input type="text" id="myInput5" onkeyup="myFunction5();" placeholder="Buscar"> </th>
+    <th style="width:5%;"> <input type="text" id="myInput6" onkeyup="myFunction6();" placeholder="Buscar"> </th>
+    <th style="width:16%;"> <input type="text" id="myInput7" onkeyup="myFunction7();" placeholder="Buscar"> </th>
   </tr>
 
 
   <tr class="header">
-    <th style="width:2%;" id="cabecera_tabla_1"> <p> Sel </p> </th>
     <th style="width:6%;" id="cabecera_tabla_1"> <p> RUT </p> </th>
     <th style="width:4%;" id="cabecera_tabla_1"> <p> DV </p> </th>
     <th style="width:15%;" id="cabecera_tabla_1"> <p> APE. PAT. </p> </th>
     <th style="width:15%;" id="cabecera_tabla_1"> <p> APE. MAT. </p> </th>
-    <th style="width:22%;" id="cabecera_tabla_1"> <p> NOMBRES </p> </th>
+    <th style="width:24%;" id="cabecera_tabla_1"> <p> NOMBRES </p> </th>
     <th style="width:4%;" id="cabecera_tabla_1"> <p> CURSO </p> </th>
-    <th style="width:5%;" id="cabecera_tabla_1"> <p> FECHA </p> </th>
-    <th style="width:5%;" id="cabecera_tabla_1"> <p> H. LLEGADA </p> </th>
-    <th style="width:7%;" id="cabecera_tabla_1"> <p> ESTADO </p> </th>
+    <th style="width:17%;" id="cabecera_tabla_1"> <p> FECHA_HORA </p> </th>
   </tr>
 
   <?php
   
-//   while ($row = pg_fetch_assoc($resultado_tabla)){
-//     $fecha_atraso=date("d-m-Y",strtotime($row['fecha_atraso']));
-//     $hora_atraso=substr($row ['hora_atraso'], 0, -3);
-  ?>
-  <!-- <tr>
-    <td id="tabla_td_center"> <input type="checkbox" name="id[]"  -->
-    <?php 
-    //   if($row ['estado']=='JUSTIFICADO'){
-    //     $checked='checked';
-    //       echo 'checked="$checked"';
-    //   }
-      ?> 
-      <!-- value= -->
-      "<?php 
-    //   echo $row ['id_atraso']
-      ?>"
-      <?php 
-    //   if($row ['estado']=='JUSTIFICADO'){
-    //     $desactivar='disabled';
-    //       echo $desactivar;
-    //   }
-      ?> 
-      <!-- > <span class="checkmark"> </span> 
-    </td> -->
+  // REVISAR TABLA DE DATOS EXTRAIDA DESDE SQL
 
-    <!-- <td id="tabla_td_center"> <p>  -->
-        <?php 
-        // echo $row ['rut_alumno']
-        ?>
-         </p> </td>
-    <td id="tabla_td_center"> <p> 
-        <?php echo $row ['dv_rut_alumno']?> 
-    </p> </td>
+  while ($row = pg_fetch_assoc($resultado_tabla)){
+    $fecha_atraso = date($row['fecha_hora_actual']);
+  ?>
+  <tr>
+    <td id="tabla_td_center"> <p> <?php echo $row ['rut_alumno']?> </p> </td>
+    <td id="tabla_td_center"> <p> <?php echo $row ['dv_rut_alumno']?> </p> </td>
     <td> <p> <?php echo $row ['apellido_paterno_alumno']?> </p> </td>
     <td> <p> <?php echo $row ['apellido_materno_alumno']?> </p> </td>
     <td> <p> <?php echo $row ['nombres_alumno']?> </p> </td>
     <td id="tabla_td_center"> <p> <?php echo $row ['nombre_curso']?> </p> </td>
-    <td id="tabla_td_center"> <p> <?php echo $fecha_atraso ?> </p> </td>
-    <td id="tabla_td_center"> <p> <?php echo $hora_atraso?> </p> </td>
-    <td> <p> <?php echo $row ['estado']?> </p> </td>
+    <td id="tabla_td_center"> <p> <?php echo $fecha_atraso; ?> </p> </td>
   </tr>
   <?php
   }
   ?>
+
 </table> 
 </form>
 
