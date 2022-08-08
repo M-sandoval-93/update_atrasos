@@ -11,6 +11,25 @@
    <!--  PRINCIPAL -->
         <!-- MAIN -->
         <h1>seccion mantenimiento</h1>
+
+        <div>
+            <div>
+                <form action="#" method="post">
+                    <div>
+                        <span>Seleccionar Archivo</span>
+                        <input type="file" name="excel" id="excel" accept=".xls, .xlsx">
+                    </div>
+
+                    <div>
+                        <input type="submit" name="subir" value="SubirArchivo" id="subir">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
         <!-- MAIN -->
     <!--  PRINCIPAL -->
 

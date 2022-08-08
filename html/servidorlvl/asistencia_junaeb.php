@@ -678,12 +678,16 @@ $total_registros=pg_num_rows($resultado_tabla);
 ?>
 
 <div class="panel-heading">
-<form action="atraso_justificar.php" method="get">
+<form action="#" method="get">
 <table>
   <tr>
     <td id="cabeza_panel_1"> <h1>Asistencia de Estudiantes al comedor <h5> 
-      <!-- Consulta para cantidad de estudiantes -->
-      <strong> Se encontraron <?php echo $total_registros; ?> registros en total. </strong> </h5> </h1> </td>
+      <strong> Se encontraron <?php echo $total_registros; ?> registros en total. </strong> </h5> </h1> 
+    </td>
+    <td id="cabeza_panel_2"></td>
+    <td id="cabeza_panel_3"></td>
+    <td id="cabeza_panel_4"> <a class="btn btn-info" href="alumno_junaeb_xls.php" value="Exportar Excel"> Exportar <img src="imagenes/logoexcel.png" width="20" height="20"> </td>
+  </tr>
   </tr>
 </table>
 </div>
