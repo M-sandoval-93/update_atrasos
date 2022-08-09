@@ -17,7 +17,7 @@
             try {
                 foreach (LETRAS as $letra) {
                     if ($letra <= $letraHasta) {
-                        $curso = $grado.$letraHasta;
+                        $curso = $grado.$letra;
                         $sentencia = $this->conexion_db->prepare($this->query_crear);
                         $resultado = $sentencia->execute([$curso]);
                     }

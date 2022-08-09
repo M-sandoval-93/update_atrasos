@@ -20,8 +20,10 @@
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 
     <!-- style -->
-    <link rel="stylesheet" href="./css/dashboard.css">
     <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./Pluggins/DataTables/datatables.min.css">
+    
 
     <title>Liceo Valentín Letelier</title>
 </head>

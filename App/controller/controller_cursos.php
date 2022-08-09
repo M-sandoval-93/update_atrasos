@@ -6,7 +6,6 @@
 
     } else if (file_exists(include_once '../model/model_cursos.php')) {
         include_once '../model/model_cursos.php';
-
     }
 
  

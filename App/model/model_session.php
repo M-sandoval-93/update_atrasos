@@ -51,7 +51,7 @@
                 return false;
             }
 
-            $this->conexion_db = null;
+            $this->conexion_db = null; 
 
         }
 
