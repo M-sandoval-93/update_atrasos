@@ -30,7 +30,6 @@
 
         <div class="login-container">
             <form action="" method="post" id="id_form_login" autocomplete="off">
-                <!-- <a href="http://liceovalentinletelier.cl" target="_blank"><img class="login-container__logo" src="assets/logo_liceo.png" alt="Logo del liceo"></a> -->
                 <img class="login-container__logo" src="./assets/logo_liceo.png" alt="Logo del liceo">
                 <h2>Inicio de Sesión</h2>
                 <div class="input-div one">

@@ -15,15 +15,10 @@
 
     if ($type == "mostrar_apoderados") {
          $consulta = new DatosTablas();
-        //  $data = $consulta->consultaApoderados();
-        //  print $data;
         print $consulta->consultaApoderados();
-     }
+        
+    }
 
-    // $prueba = new DatosTablas();
-    // $data = $prueba->consultaApoderados();
-
-    // print $data;
 
 
     

@@ -1,4 +1,13 @@
+
 $(document).ready(function() {
+
+    // BOTÓN AGREGAR APODERADO /================================
+    $('#btn_nuevo_apoderado').click(function(e) {
+        e.preventDefault();
+        console.log("prueba");
+    });
+
+    // DATATABLE /==============================================
     datos = 'mostrar_apoderados';
     let tabla_apoderados = $('#apoderados').DataTable({
         "ajax": {
@@ -6,16 +15,31 @@ $(document).ready(function() {
             "method": "post",
             "data": {datos: datos}
          },
-         "columms": [ // INFORMACIÓN DE COLUMNAS
-            {"data": "rut_apoderado"},
+         "columns": [ // INFORMACIÓN DE COLUMNAS
+            {"data": "?column?"}, // CELDA CONVINADA POR CONSULTA SQL
             {"data": "apellido_paterno_apoderado"},
             {"data": "apellido_materno_apoderado"},
             {"data": "nombres_apoderado"},
+            {
+                "data": 'estado_apoderado',
+                "bSortable": false,
+                "mRender": function(data) {
+                    let btn_estado;
+                    if (data === true) {
+                        btn_estado = `<button id="btn_editar_apoderado" type="button"><i class="fas fa-lock-open"></i></button>`;
+                    } else {
+                        btn_estado = `<button id="btn_editar_apoderado" type="button"><i class="fas fa-lock"></i></button>`;
+                    }
+                    return btn_estado;
+                }
+            },
             // {"data": "estado_apoderado"},
             {
+                "data": null,
+                "bSortable": false,
                 "defaultContent": // BOTONES
-                                `<button id="btn_editar_apoderado" type="button">Editar</button>
-                                <button id="btn_eliminarr_apoderado" type="button">Eliminar</button>`
+                                `<button id="btn_editar_apoderado" type="button"><i class="fas fa-user-edit"></i></button>
+                                <button id="btn_eliminarr_apoderado" type="button"><i class="fas fa-user-times"></i></button>`
             }
         ],
         "language": spanish

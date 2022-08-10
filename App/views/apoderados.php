@@ -14,27 +14,23 @@
             </ul>
 
             <div>
-                <button type="button" id="btn_nuevo_apoderado"><i class="fas fa-plus-square icon"></i></button>
+                <button type="button" id="btn_nuevo_apoderado"><i class="fas fa-user-plus"></i></button>
             </div>
 
             <table id="apoderados" class="display table tabl-hover text-nowrap" style="width: 100%">
-                <thead class="text-center">
+                <thead>
                     <tr>
-                        <td>Rut</td>
-                        <td>Apellido Paterno</td>
-                        <td>Apellido Materno</td>
-                        <td>Nombres</td>
-                        <td>Estado</td>
+                        <th>Rut</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Nombres</th>
+                        <th>Estado</th>
+                        <th>Edición</th>
                     </tr>
                 </thead>
-                <tbody class="text-center"></tbody>
+                <tbody>
+                </tbody>
             </table>
-
-
-
-
-
-
 
         </main>
         <!-- MAIN -->
