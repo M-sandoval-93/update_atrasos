@@ -5,6 +5,11 @@ $(document).ready(function() {
     $('#btn_nuevo_apoderado').click(function(e) {
         e.preventDefault();
         console.log("prueba");
+        
+        // Swal.fire({
+        //     title: "Nuevo usuario"
+        // })
+
     });
 
     // DATATABLE /==============================================
