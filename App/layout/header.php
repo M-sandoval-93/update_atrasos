@@ -22,6 +22,7 @@
     <!-- style -->
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/dashboard.css">
+    <!-- <link rel="stylesheet" href="./Pluggins/Bootstrap-4.6.2/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="./Pluggins/DataTables/datatables.min.css">
     
 

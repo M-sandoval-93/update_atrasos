@@ -17,6 +17,8 @@
          $consulta = new DatosTablas();
         print $consulta->consultaApoderados();
         
+    } else if ($type == "") {
+        
     }
 
 

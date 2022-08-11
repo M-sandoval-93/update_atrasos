@@ -12,7 +12,7 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
         }
 
         public function consultaApoderados() {
-            $query = "SELECT (rut_apoderado || '-' || dv_rut_apoderado), apellido_paterno_apoderado,
+            $query = "SELECT id_apoderado, (rut_apoderado || '-' || dv_rut_apoderado), apellido_paterno_apoderado,
                         apellido_materno_apoderado, nombres_apoderado, estado_apoderado, sexo_apoderado
                     FROM apoderados;";
 
@@ -21,11 +21,6 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
             $apoderados = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($apoderados as $apoderado) {
-                // if ($apoderado['estado_apoderado'] === true) {
-                //     $apoderado['estado_apoderado'] = 'Activo';
-                // } else {
-                //     $apoderado['estado_apoderado'] = 'Inactivo';
-                // }
                 $this->json['data'][] = $apoderado;
             }
 

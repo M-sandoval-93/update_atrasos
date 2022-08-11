@@ -13,13 +13,14 @@
                 <li><a href="#" class="active">Dashboard</a></li>
             </ul>
 
-            <div>
-                <button type="button" id="btn_nuevo_apoderado"><i class="fas fa-user-plus"></i></button>
+            <div class="nuevo_registro">
+                <button class="btn btn-add" type="button" id="btn_nuevo_apoderado"><i class="fas fa-user-plus icon"></i></button>
             </div>
 
             <table id="apoderados" class="display table tabl-hover text-nowrap" style="width: 100%">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Rut</th>
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
@@ -32,10 +33,14 @@
                 </tbody>
             </table>
 
+            <?php
+            include_once "./layout/layout_modal.php"
+            ?>
+
         </main>
         <!-- MAIN -->
     <!--  PRINCIPAL -->
-
+    
 
     </section>
     <!-- NAVBAR -->

@@ -4,13 +4,9 @@ $(document).ready(function() {
     // BOTÓN AGREGAR APODERADO /================================
     $('#btn_nuevo_apoderado').click(function(e) {
         e.preventDefault();
-        console.log("prueba");
-        
-        // Swal.fire({
-        //     title: "Nuevo usuario"
-        // })
 
     });
+
 
     // DATATABLE /==============================================
     datos = 'mostrar_apoderados';
@@ -21,6 +17,7 @@ $(document).ready(function() {
             "data": {datos: datos}
          },
          "columns": [ // INFORMACIÓN DE COLUMNAS
+            {"data": "id_apoderado"},
             {"data": "?column?"}, // CELDA CONVINADA POR CONSULTA SQL
             {"data": "apellido_paterno_apoderado"},
             {"data": "apellido_materno_apoderado"},
@@ -31,23 +28,73 @@ $(document).ready(function() {
                 "mRender": function(data) {
                     let btn_estado;
                     if (data === true) {
-                        btn_estado = `<button id="btn_editar_apoderado" type="button"><i class="fas fa-lock-open"></i></button>`;
+                        btn_estado = `<button class="btn btn-lock" id="btn_editar_apoderado" type="button"><i class="fas fa-lock-open"></i></button>`;
                     } else {
-                        btn_estado = `<button id="btn_editar_apoderado" type="button"><i class="fas fa-lock"></i></button>`;
+                        btn_estado = `<button class="btn btn-lock" id="btn_editar_apoderado" type="button"><i class="fas fa-lock"></i></button>`;
                     }
                     return btn_estado;
                 }
             },
-            // {"data": "estado_apoderado"},
-            {
-                "data": null,
+            {"data": null,
                 "bSortable": false,
                 "defaultContent": // BOTONES
-                                `<button id="btn_editar_apoderado" type="button"><i class="fas fa-user-edit"></i></button>
-                                <button id="btn_eliminarr_apoderado" type="button"><i class="fas fa-user-times"></i></button>`
+                                `<button class="btn btn-edit" id="btn_editar_apoderado" type="button"><i class="fas fa-pencil-alt"></i></i></button>
+                                <button class="btn btn-delete" id="btn_eliminarr_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
         "language": spanish
+    });
+
+    $('#apoderados tbody').on('click', '#btn_editar_apoderado', function() {
+        let data = tabla_apoderados.row($(this).parents()).data();
+        id_apoderado = data.id_apoderado;
+        // rut_apoderado = data.?column?; VER SI SE PUEDE OBTENER EL RUT
+        estado = data.estado;
+        datos = "editar_estado";
+
+        $ajax({
+            url: "./controller/controller_tablas.php",
+            method: "post",
+            dataType: "json",
+            data: {id_apoderado: id_apoderado, estado: estado, datos: datos},
+            success: function(data) {
+                if (data.resultado == "false") {
+                    Swal.fire({
+                        position: 'top_end',
+                        icon: 'error',
+                        title: 'No se pudo desactivar al apoderado',
+                        toast: true,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgrssBar: true
+                    });
+                } else {
+                    if (estado == 'Activo') {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'warning',
+                            title: 'Apoderado bloqueado !!',
+                            toast: true,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgrssBar: true
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Apoderado desbloqueado',
+                            toast: true,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgrssBar: true
+                        })
+                    }
+                    
+                }
+            }
+        });
+        tabla_apoderados.ajax.reload(null, false);
     });
 });
 
