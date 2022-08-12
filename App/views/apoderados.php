@@ -14,7 +14,7 @@
             </ul>
 
             <div class="nuevo_registro">
-                <button class="btn btn-add" type="button" id="btn_nuevo_apoderado"><i class="fas fa-user-plus icon"></i></button>
+                <button class="btn btn-data" type="button" id="btn_nuevo_apoderado"><i class="fas fa-user-plus icon"></i></button>
             </div>
 
             <table id="apoderados" class="display table tabl-hover text-nowrap" style="width: 100%">

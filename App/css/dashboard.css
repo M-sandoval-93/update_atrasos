@@ -425,7 +425,7 @@ main .nuevo_registro {
     background: var(--divisor);
 }
 
-.btn-add {
+.btn-success {
     background: var(--new);
 }
 
@@ -437,7 +437,7 @@ main .nuevo_registro {
     background: var(--red);
 }
 
-.btn-edit {
+.btn-data {
     background: var(--fondo);
 }
 

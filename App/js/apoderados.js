@@ -4,6 +4,7 @@ $(document).ready(function() {
     // BOTÓN AGREGAR APODERADO /================================
     $('#btn_nuevo_apoderado').click(function(e) {
         e.preventDefault();
+        console.log('btn nuevo apoderado');
 
     });
 
@@ -28,9 +29,9 @@ $(document).ready(function() {
                 "mRender": function(data) {
                     let btn_estado;
                     if (data === true) {
-                        btn_estado = `<button class="btn btn-lock" id="btn_editar_apoderado" type="button"><i class="fas fa-lock-open"></i></button>`;
+                        btn_estado = `<button class="btn btn-success" id="btn_editar_estado" type="button"><i class="fas fa-lock-open"></i></button>`;
                     } else {
-                        btn_estado = `<button class="btn btn-lock" id="btn_editar_apoderado" type="button"><i class="fas fa-lock"></i></button>`;
+                        btn_estado = `<button class="btn btn-lock" id="btn_editar_estado" type="button"><i class="fas fa-lock"></i></button>`;
                     }
                     return btn_estado;
                 }
@@ -38,8 +39,8 @@ $(document).ready(function() {
             {"data": null,
                 "bSortable": false,
                 "defaultContent": // BOTONES
-                                `<button class="btn btn-edit" id="btn_editar_apoderado" type="button"><i class="fas fa-pencil-alt"></i></i></button>
-                                <button class="btn btn-delete" id="btn_eliminarr_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
+                                `<button class="btn btn-data" id="btn_editar_apoderado" type="button"><i class="fas fa-pencil-alt"></i></i></button>
+                                <button class="btn btn-delete" id="btn_eliminar_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
         "language": spanish
@@ -47,11 +48,16 @@ $(document).ready(function() {
 
 
 
-    // ACTIVAR O DESACTIVAR UN APODERADO
+    
     $('#apoderados tbody').on('click', '#btn_editar_apoderado', function() {
+        console.log("btn editar apoderado");
+    });
+
+
+    // ACTIVAR O DESACTIVAR UN APODERADO
+    $('#apoderados tbody').on('click', '#btn_editar_estado', function() {
         let data = tabla_apoderados.row($(this).parents()).data();
         id_apoderado = data.id_apoderado;
-        // rut_apoderado = data.?column?; VER SI SE PUEDE OBTENER EL RUT
         estado = data.estado_apoderado;
         datos = "editar_estado";
 
@@ -61,7 +67,7 @@ $(document).ready(function() {
             dataType: "json",
             data: {id_apoderado: id_apoderado, estado: estado, datos: datos},
             success: function(data) {
-                if (data == 'false') {
+                if (data === false) {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
@@ -69,10 +75,10 @@ $(document).ready(function() {
                         toast: true,
                         showConfirmButton: false,
                         timer: 2000,
-                        timerProgrssBar: true
+                        timerProgressBar: true
                     });
                 } else {
-                    if (estado == 'Activo') {
+                    if (estado === true) {
                         Swal.fire({
                             position: 'top-end',
                             icon: 'warning',
@@ -80,7 +86,7 @@ $(document).ready(function() {
                             toast: true,
                             showConfirmButton: false,
                             timer: 2000,
-                            timerProgrssBar: true
+                            timerProgressBar: true
                         });
                     } else {
                         Swal.fire({
@@ -90,15 +96,69 @@ $(document).ready(function() {
                             toast: true,
                             showConfirmButton: false,
                             timer: 2000,
-                            timerProgrssBar: true
+                            timerProgressBar: true
                         })
                     }
-                    
                 }
             }
         });
         tabla_apoderados.ajax.reload(null, false);
     });
+
+    // ELIMINAR UN APODERADO
+    $('#apoderados tbody').on('click', '#btn_eliminar_apoderado', function() {
+        let data  = tabla_apoderados.row($(this).parents()).data();
+        id_apoderado = data.id_apoderado;
+        nombres = data.nombres_apoderado + " " + data.apellido_paterno_apoderado + " " + data.apellido_materno_apoderado;
+        Swal.fire({
+            icon: 'question',
+            title: 'Se eliminará al apoderado \n "' + nombres + '"',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#2691d9',
+            cancelButtonColor: '#adadad'
+        }).then(resultado => {
+            if (resultado.isConfirmed) {
+                datos = "eliminar_apoderado";
+                // console.log("El apoderado será eliminado");
+
+                $.ajax({
+                    url: './controller/controller_tablas.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {id_apoderado: id_apoderado, datos: datos},
+                    success: function(data) {
+                        if (data === false) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al eliminar el apoderado !!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Apoderado eliminado !!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                        tabla_apoderados.ajax.reload(null, false);
+                    }
+                });
+
+            } else {
+                console.log("El apoderado no se eliminó");
+            }
+        });
+
+
+    });
+
+
+
+
 });
 
 
