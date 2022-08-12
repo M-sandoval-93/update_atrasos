@@ -45,22 +45,25 @@ $(document).ready(function() {
         "language": spanish
     });
 
+
+
+    // ACTIVAR O DESACTIVAR UN APODERADO
     $('#apoderados tbody').on('click', '#btn_editar_apoderado', function() {
         let data = tabla_apoderados.row($(this).parents()).data();
         id_apoderado = data.id_apoderado;
         // rut_apoderado = data.?column?; VER SI SE PUEDE OBTENER EL RUT
-        estado = data.estado;
+        estado = data.estado_apoderado;
         datos = "editar_estado";
 
-        $ajax({
+        $.ajax({
             url: "./controller/controller_tablas.php",
             method: "post",
             dataType: "json",
             data: {id_apoderado: id_apoderado, estado: estado, datos: datos},
             success: function(data) {
-                if (data.resultado == "false") {
+                if (data == 'false') {
                     Swal.fire({
-                        position: 'top_end',
+                        position: 'top-end',
                         icon: 'error',
                         title: 'No se pudo desactivar al apoderado',
                         toast: true,

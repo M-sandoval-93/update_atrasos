@@ -12,13 +12,19 @@
     include_once '../model/model_datosTablas.php';
 
     $type = $_POST['datos'];
+    $datosTabla = new DatosTablas();
 
-    if ($type == "mostrar_apoderados") {
-         $consulta = new DatosTablas();
-        print $consulta->consultaApoderados();
-        
-    } else if ($type == "") {
-        
+
+    switch ($type) {
+        case "mostrar_apoderados":
+            // $datosTabla = new DatosTablas();
+            print $datosTabla->consultaApoderados();
+            break;
+
+        case "editar_estado":
+            print json_encode("false");
+            break;
+
     }
 
 

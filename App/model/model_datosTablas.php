@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\Internal\ReturnTypeContract;
-
     include_once "../model/model_conexion.php";
 
     class DatosTablas extends Conexion {
@@ -26,6 +24,10 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 
             return json_encode($this->json);
             $this->conexion_db = null;
+        }
+
+        public function estadoApoderado() {
+        
         }
 
     }
