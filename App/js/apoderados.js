@@ -97,7 +97,7 @@ $(document).ready(function() {
                             showConfirmButton: false,
                             timer: 2000,
                             timerProgressBar: true
-                        })
+                        });
                     }
                 }
             }
@@ -121,7 +121,6 @@ $(document).ready(function() {
         }).then(resultado => {
             if (resultado.isConfirmed) {
                 datos = "eliminar_apoderado";
-                // console.log("El apoderado será eliminado");
 
                 $.ajax({
                     url: './controller/controller_tablas.php',
@@ -143,17 +142,15 @@ $(document).ready(function() {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+                            tabla_apoderados.ajax.reload(null, false);
                         }
-                        tabla_apoderados.ajax.reload(null, false);
                     }
                 });
-
-            } else {
-                console.log("El apoderado no se eliminó");
-            }
+                // tabla_apoderados.ajax.reload(null, false);
+            } //else {
+                //console.log("El apoderado no se eliminó");
+            //}
         });
-
-
     });
 
 

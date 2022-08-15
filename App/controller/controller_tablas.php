@@ -36,8 +36,8 @@
 
         case "eliminar_apoderado":
             $id = $_POST['id_apoderado'];
-            // print $datosTabla->deleteApoderado($id);
-            print json_encode(false);
+            print $datosTabla->deleteApoderado($id);
+            // print json_encode(true);
             break;
 
     }
