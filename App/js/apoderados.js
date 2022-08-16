@@ -1,12 +1,22 @@
 
 $(document).ready(function() {
 
+    let modal = $('#modal_form');
+
     // BOTÓN AGREGAR APODERADO /================================
     $('#btn_nuevo_apoderado').click(function(e) {
         e.preventDefault();
-        console.log('btn nuevo apoderado');
-
+        modal.addClass('modal-show');
     });
+
+
+    // BOTÓN MODAL CANCELAR /===================================
+    $('#btn_modal_cancelar').click(function(e) {
+        e.preventDefault();
+        modal.removeClass('modal-show');
+    });
+
+
 
 
     // DATATABLE /==============================================

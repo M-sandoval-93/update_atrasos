@@ -72,3 +72,19 @@ allProgress.forEach (item => {
     item.style.setProperty('--value', item.dataset.value);
 });
 
+
+// MODAL
+
+// const btnAddModal = document.querySelector('#btn_nuevo_apoderado');
+// const btnRemoveModal = document.querySelector('btn_modal_cancel');
+// const modal = document.querySelector('modal');
+
+
+// btnAddModal.addEventListener('click', function() {
+//     modal.classList.toggle('modal-show');
+// });
+
+// btnRemoveModal.addEventListener('click', function() {
+//     modal.classList.remove('modal-show');
+// })
+

@@ -34,7 +34,7 @@
             </table>
 
             <?php
-            include_once "./layout/layout_modal.php"
+            include_once "./layout/modal.php";
             ?>
 
         </main>

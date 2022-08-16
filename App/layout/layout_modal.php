@@ -1,4 +1,4 @@
-<section id="miModal" class="modal" hidden>
+<section id="modal_form" class="modal" hidden>
     <div class="flex" id="flex">
         <div class="contenido-modal">
             
