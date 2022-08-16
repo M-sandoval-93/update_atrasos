@@ -5,6 +5,8 @@ let cerrar = document.getElementById('close');
 
 abrir.addEventListener('click', function(){
     modal.style.display = 'block';
+    // console.log($('#titulo-modal').text());
+    
 });
 
 cerrar.addEventListener('click', function(){

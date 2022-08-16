@@ -14,7 +14,7 @@
             </ul>
 
             <div class="nuevo_registro">
-                <button class="btn btn-data" type="button" id="btn_nuevo_apoderado"><i class="fas fa-user-plus icon"></i></button>
+                <button class="btn btn-s btn-data" type="button" id="btn_nuevo_apoderado"><i class="fas fa-user-plus icon"></i></button>
             </div>
 
             <table id="apoderados" class="display table tabl-hover text-nowrap" style="width: 100%">
@@ -22,9 +22,10 @@
                     <tr>
                         <th>Id</th>
                         <th>Rut</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
+                        <th>Ap. Paterno</th>
+                        <th>Ap. Materno</th>
                         <th>Nombres</th>
+                        <th>Teléfono</th>
                         <th>Estado</th>
                         <th>Edición</th>
                     </tr>

@@ -7,6 +7,7 @@ $(document).ready(function() {
     $('#btn_nuevo_apoderado').click(function(e) {
         e.preventDefault();
         modal.addClass('modal-show');
+        $('#titulo-modal').text('Ingreso nuevo apoderado');
     });
 
 
@@ -33,15 +34,16 @@ $(document).ready(function() {
             {"data": "apellido_paterno_apoderado"},
             {"data": "apellido_materno_apoderado"},
             {"data": "nombres_apoderado"},
+            {"data": "telefono_apoderado"},
             {
                 "data": 'estado_apoderado',
                 "bSortable": false,
                 "mRender": function(data) {
                     let btn_estado;
                     if (data === true) {
-                        btn_estado = `<button class="btn btn-success" id="btn_editar_estado" type="button"><i class="fas fa-lock-open"></i></button>`;
+                        btn_estado = `<button class="btn btn-s btn-success" id="btn_editar_estado" type="button"><i class="fas fa-lock-open"></i></button>`;
                     } else {
-                        btn_estado = `<button class="btn btn-lock" id="btn_editar_estado" type="button"><i class="fas fa-lock"></i></button>`;
+                        btn_estado = `<button class="btn btn-s btn-lock" id="btn_editar_estado" type="button"><i class="fas fa-lock"></i></button>`;
                     }
                     return btn_estado;
                 }
@@ -49,8 +51,8 @@ $(document).ready(function() {
             {"data": null,
                 "bSortable": false,
                 "defaultContent": // BOTONES
-                                `<button class="btn btn-data" id="btn_editar_apoderado" type="button"><i class="fas fa-pencil-alt"></i></i></button>
-                                <button class="btn btn-delete" id="btn_eliminar_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
+                                `<button class="btn btn-s btn-data" id="btn_editar_apoderado" type="button"><i class="fas fa-pencil-alt"></i></i></button>
+                                <button class="btn btn-s btn-delete" id="btn_eliminar_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
         "language": spanish

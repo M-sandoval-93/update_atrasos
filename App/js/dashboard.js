@@ -22,7 +22,6 @@ allDropdown.forEach (items => {
 });
 
 
-
 sidebar.addEventListener('mouseleave', function() {
     if (this.classList.contains('hide')) {
         allDropdown.forEach (items => {
@@ -55,36 +54,16 @@ window.addEventListener('click', function(e) {
 // SIDEBAR COLLAPSE
 const toggleSidebar = document.querySelector('nav .toggle-sidebar');
 
-
 toggleSidebar.addEventListener('click', function() {
     sidebar.classList.toggle('hide');
 });
 
 
-
-
-
 // PROGRESS BAR
 const allProgress = document.querySelectorAll('main .card .progress');
-// const sidebar = document.getElementById('sidebar');
 
 allProgress.forEach (item => {
     item.style.setProperty('--value', item.dataset.value);
 });
 
-
-// MODAL
-
-// const btnAddModal = document.querySelector('#btn_nuevo_apoderado');
-// const btnRemoveModal = document.querySelector('btn_modal_cancel');
-// const modal = document.querySelector('modal');
-
-
-// btnAddModal.addEventListener('click', function() {
-//     modal.classList.toggle('modal-show');
-// });
-
-// btnRemoveModal.addEventListener('click', function() {
-//     modal.classList.remove('modal-show');
-// })
 
