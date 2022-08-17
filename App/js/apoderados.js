@@ -3,12 +3,18 @@ $(document).ready(function() {
 
     let modal = $('#modal_form');
 
-    // BOTÓN AGREGAR APODERADO /================================
+    // BOTÓN NUEVO APODERADO /==================================
     $('#btn_nuevo_apoderado').click(function(e) {
         e.preventDefault();
-        modal.addClass('modal-show');
+        $('#form_apoderados').trigger('reset');
         $('#titulo-modal').text('Ingreso nuevo apoderado');
+        $('#apoderado_codigo_fono').val('569');
+        modal.addClass('modal-show');
     });
+
+
+    // BOTÓN MODAL REGISTRAR /==================================
+
 
 
     // BOTÓN MODAL CANCELAR /===================================
@@ -30,7 +36,7 @@ $(document).ready(function() {
          },
          "columns": [ // INFORMACIÓN DE COLUMNAS
             {"data": "id_apoderado"},
-            {"data": "?column?"}, // CELDA CONVINADA POR CONSULTA SQL
+            {"data": "rut_apoderado"}, // CELDA CONVINADA POR CONSULTA SQL
             {"data": "apellido_paterno_apoderado"},
             {"data": "apellido_materno_apoderado"},
             {"data": "nombres_apoderado"},
@@ -60,13 +66,19 @@ $(document).ready(function() {
 
 
 
-    
+     // EDITAR UN APODERADO /===================================
     $('#apoderados tbody').on('click', '#btn_editar_apoderado', function() {
-        console.log("btn editar apoderado");
+        // console.log("btn editar apoderado");
+        let data = tabla_apoderados.row($(this).parents()).data();
+        $('#form_apoderados').trigger('reset');
+        $('#apoderado_rut').val(data.rut_apoderado.split('-')[0]);
+        $('#apoderado_dv_rut').val(data.rut_apoderado.split('-')[1]);
+        $('#apoderado_nombres').val(data.nombres_apoderado);
+        modal.addClass('modal-show');
     });
 
 
-    // ACTIVAR O DESACTIVAR UN APODERADO
+    // ACTIVAR O DESACTIVAR UN APODERADO /======================
     $('#apoderados tbody').on('click', '#btn_editar_estado', function() {
         let data = tabla_apoderados.row($(this).parents()).data();
         id_apoderado = data.id_apoderado;

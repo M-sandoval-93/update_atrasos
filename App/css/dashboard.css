@@ -624,7 +624,7 @@ main .card .label {
     background-color: var(--letras);
     margin: 40px auto 15% auto;
     border: 1px solid var(--divisor);
-    width: 40%;
+    width: 35%;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -652,11 +652,35 @@ main .card .label {
     padding: 10px 20px;
 }
 
+.modal-inputs > label {
+    display: flex;
+}
+
 .modal-inputs input[type="text"] {
     width: 100%;
     display: inline-block;
     padding: 3px 15px;
     margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.modal-inputs > input[id="apoderado_rut"],
+.modal-inputs > input[id="apoderado_fono"] {
+    width: 40%;
+}
+
+.modal-inputs > input[id="apoderado_dv_rut"] {
+    width: 10%;
+    text-align: center;
+}
+
+.modal-inputs > input[id="apoderado_codigo_fono"] {
+    width: 15%;
+    text-align: center;
+}
+
+.modal-inputs > span::before {
+    content: "-";
 }
 
 

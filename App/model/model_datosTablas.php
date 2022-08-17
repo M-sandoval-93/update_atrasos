@@ -11,7 +11,7 @@
 
         // CONSULTAR LOS APODERADOS DE LA BASE DE DATOS
         public function consultaApoderados() {
-            $query = "SELECT id_apoderado, (rut_apoderado || '-' || dv_rut_apoderado), apellido_paterno_apoderado,
+            $query = "SELECT id_apoderado, (rut_apoderado || '-' || dv_rut_apoderado) as rut_apoderado, apellido_paterno_apoderado,
                         apellido_materno_apoderado, nombres_apoderado, estado_apoderado, telefono_apoderado FROM apoderados;";
 
             $sentencia = $this->conexion_db->prepare($query);
