@@ -21,7 +21,8 @@
             break;
 
         case "nuevo_apoderado":
-
+            $apoderado = array($_POST['rut'], $_POST['dv_rut'], $_POST['nombres'], $_POST['a_paterno'], $_POST['a_materno'], $_POST['fono']);
+            print $datosTabla->newApoderado($apoderado);
             break;
 
         case "editar_apoderado":
@@ -37,7 +38,6 @@
         case "eliminar_apoderado":
             $id = $_POST['id_apoderado'];
             print $datosTabla->deleteApoderado($id);
-            // print json_encode(true);
             break;
 
     }

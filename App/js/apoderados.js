@@ -1,19 +1,66 @@
 
 $(document).ready(function() {
 
+    // VARIABLES GLOBALES
     let modal = $('#modal_form');
+    let registrar;
+    let id_apoderado;
 
     // BOTÓN NUEVO APODERADO /==================================
     $('#btn_nuevo_apoderado').click(function(e) {
         e.preventDefault();
         $('#form_apoderados').trigger('reset');
-        $('#titulo-modal').text('Ingreso nuevo apoderado');
+        $('#titulo-modal').text('Registrar nuevo apoderado');
         $('#apoderado_codigo_fono').val('569');
         modal.addClass('modal-show');
+        registrar = 'nuevo_apoderado';
     });
 
 
     // BOTÓN MODAL REGISTRAR /==================================
+    $('#btn_modal_registrar').click(function(e) {
+        e.preventDefault();
+        if (registrar == 'nuevo_apoderado') {
+            rut = $('#apoderado_rut').val();
+            dv_rut = $('#apoderado_dv_rut').val().toUpperCase();
+            nombres = $('#apoderado_nombres').val().toUpperCase();
+            a_paterno = $('#apoderado_ap_paterno').val().toUpperCase();
+            a_materno = $('#apoderado_ap_materno').val().toUpperCase();
+            fono = $('#apoderado_fono').val();
+
+            datos = "nuevo_apoderado";
+            $.ajax({
+                url: "./controller/controller_tablas.php",
+                method: "post",
+                dataType: "json",
+                data: {rut: rut, dv_rut: dv_rut, nombres: nombres, a_paterno: a_paterno, a_materno: a_materno, fono: fono, datos: datos},
+                success: function(data) {
+                    if (data === false) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error al registrar !!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Apoderado registrado !!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        tabla_apoderados.ajax.reload(null, false);
+                    }
+                }
+            });
+
+        } else if(registrar == 'editar_apoderado') {
+            console.log('editar');
+
+        } else {
+            console.log('error');
+        }
+    });
 
 
 
@@ -22,8 +69,6 @@ $(document).ready(function() {
         e.preventDefault();
         modal.removeClass('modal-show');
     });
-
-
 
 
     // DATATABLE /==============================================
@@ -65,16 +110,21 @@ $(document).ready(function() {
     });
 
 
-
      // EDITAR UN APODERADO /===================================
     $('#apoderados tbody').on('click', '#btn_editar_apoderado', function() {
-        // console.log("btn editar apoderado");
         let data = tabla_apoderados.row($(this).parents()).data();
         $('#form_apoderados').trigger('reset');
+        $('#titulo-modal').text('Editar apoderado');
         $('#apoderado_rut').val(data.rut_apoderado.split('-')[0]);
         $('#apoderado_dv_rut').val(data.rut_apoderado.split('-')[1]);
         $('#apoderado_nombres').val(data.nombres_apoderado);
+        $('#apoderado_ap_paterno').val(data.apellido_paterno_apoderado);
+        $('#apoderado_ap_materno').val(data.apellido_materno_apoderado);
+        $('#apoderado_codigo_fono').val(data.telefono_apoderado.split('-')[0]);
+        $('#apoderado_fono').val(data.telefono_apoderado.split('-')[1]);
         modal.addClass('modal-show');
+        registrar  = 'editar_apoderado';
+        id_apoderado = data.id_apoderado;
     });
 
 
@@ -123,11 +173,12 @@ $(document).ready(function() {
                             timerProgressBar: true
                         });
                     }
+                    tabla_apoderados.ajax.reload(null, false);
                 }
             }
         });
-        tabla_apoderados.ajax.reload(null, false);
     });
+
 
     // ELIMINAR UN APODERADO
     $('#apoderados tbody').on('click', '#btn_eliminar_apoderado', function() {
@@ -170,16 +221,9 @@ $(document).ready(function() {
                         }
                     }
                 });
-                // tabla_apoderados.ajax.reload(null, false);
-            } //else {
-                //console.log("El apoderado no se eliminó");
-            //}
+            } 
         });
     });
-
-
-
-
 });
 
 

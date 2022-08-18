@@ -26,8 +26,8 @@
         </div>
         <!-- <hr> -->
         <div class="modal-footer">
-            <button class="btn btn-l" type="submit" id="btn_modal_registrar">Registrar</button>
-            <button class="btn btn-l" type="reset" id="btn_modal_cancelar">Cancelar</button>
+            <button class="btn btn-l btn-data" type="submit" id="btn_modal_registrar">Registrar</button>
+            <button class="btn btn-l btn-delete" type="reset" id="btn_modal_cancelar">Cancelar</button>
         </div>
     </form>
 </div>

@@ -26,6 +26,22 @@
             $this->conexion_db = null;
         }
 
+        public function newApoderado($apoderado) {
+            $query = "INSERT INTO apoderados (rut_apoderado, dv_rut_apoderado, apellido_paterno_apoderado, apellido_materno_apoderado, nombres_apoderado, telefono_apoderado)
+                    VALUES (?, ?, ?, ?, ?, ?);";
+
+            $sentencia = $this->conexion_db->prepare($query);
+            $resultado = $sentencia->execute([$apoderado[0], $apoderado[1], $apoderado[2], $apoderado[3], $apoderado[4], '569-'.$apoderado[5]]);
+
+            if ($resultado === true) {
+                return json_encode(true);
+            } else {
+                return json_encode(false);
+            }
+
+            $this->conexion_db = null;
+        }
+
         // EDITAR EL ESTADO DEL APODERADO
         public function updateEstadoApoderado($id, $estado) {
             if ($estado == 'true') {
