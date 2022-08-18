@@ -625,12 +625,12 @@ main .card .label {
     margin: 40px auto 15% auto;
     border: 1px solid var(--divisor);
     width: 35%;
+    max-width: 500px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    /*padding: 15px 25px;*/
 }
 
 .modal-show {
@@ -670,12 +670,12 @@ main .card .label {
 }
 
 .modal-inputs > input[id="apoderado_dv_rut"] {
-    width: 10%;
+    width: 12%;
     text-align: center;
 }
 
 .modal-inputs > input[id="apoderado_codigo_fono"] {
-    width: 15%;
+    width: 20%;
     text-align: center;
 }
 
