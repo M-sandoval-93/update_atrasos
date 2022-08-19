@@ -12,7 +12,9 @@ $(document).ready(function() {
         $('#form_apoderados').trigger('reset');
         $('#titulo-modal').text('Registrar nuevo apoderado');
         $('#apoderado_codigo_fono').val('569');
+        
         modal.addClass('modal-show');
+        $('#apoderado_rut').focus();
         registrar = 'nuevo_apoderado';
     });
 
@@ -20,20 +22,29 @@ $(document).ready(function() {
     // BOTÓN MODAL REGISTRAR /==================================
     $('#btn_modal_registrar').click(function(e) {
         e.preventDefault();
-        if (registrar == 'nuevo_apoderado') {
-            rut = $('#apoderado_rut').val();
-            dv_rut = $('#apoderado_dv_rut').val().toUpperCase();
-            nombres = $('#apoderado_nombres').val().toUpperCase();
-            a_paterno = $('#apoderado_ap_paterno').val().toUpperCase();
-            a_materno = $('#apoderado_ap_materno').val().toUpperCase();
-            fono = $('#apoderado_fono').val();
 
+        // SE CREAN LAS VARIABLES
+        rut = $('#apoderado_rut').val();
+        dv_rut = $('#apoderado_dv_rut').val().toUpperCase();
+        nombres = $('#apoderado_nombres').val().toUpperCase();
+        a_paterno = $('#apoderado_ap_paterno').val().toUpperCase();
+        a_materno = $('#apoderado_ap_materno').val().toUpperCase();
+        fono = $('#apoderado_fono').val();
+
+
+
+        // AGREGAR VALIDACIONES PARA RUT
+
+
+
+        if (registrar == 'nuevo_apoderado') {
             datos = "nuevo_apoderado";
             $.ajax({
-                url: "./controller/controller_tablas.php",
+                url: "./controller/controller_apoderados.php",
                 method: "post",
                 dataType: "json",
-                data: {rut: rut, dv_rut: dv_rut, nombres: nombres, a_paterno: a_paterno, a_materno: a_materno, fono: fono, datos: datos},
+                data: {rut: rut, dv_rut: dv_rut, nombres: nombres, a_paterno: a_paterno,
+                        a_materno: a_materno, fono: fono, datos: datos},
                 success: function(data) {
                     if (data === false) {
                         Swal.fire({
@@ -55,10 +66,47 @@ $(document).ready(function() {
             });
 
         } else if(registrar == 'editar_apoderado') {
-            console.log('editar');
+            datos = "editar_apoderado";
+            $.ajax({
+                url:"./controller/controller_apoderados.php",
+                method: "post",
+                dataType: "json",
+                data: {rut: rut, nombres: nombres, a_paterno: a_paterno, a_materno: a_materno, fono: fono, datos: datos},
+                success: function(data) {
+                    if (data === false) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error al actualizar !!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else if (data === null) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'El apoderado ya existe !!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Datos actualizados !!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        tabla_apoderados.ajax.reload(null, false);
+                    }
+                }
+            });
 
         } else {
-            console.log('error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Formulario inválido !!',
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
     });
 
@@ -75,7 +123,7 @@ $(document).ready(function() {
     datos = 'mostrar_apoderados';
     let tabla_apoderados = $('#apoderados').DataTable({
         "ajax": {
-            "url": "./controller/controller_tablas.php",
+            "url": "./controller/controller_apoderados.php",
             "method": "post",
             "data": {datos: datos}
          },
@@ -122,7 +170,12 @@ $(document).ready(function() {
         $('#apoderado_ap_materno').val(data.apellido_materno_apoderado);
         $('#apoderado_codigo_fono').val(data.telefono_apoderado.split('-')[0]);
         $('#apoderado_fono').val(data.telefono_apoderado.split('-')[1]);
+        
+
         modal.addClass('modal-show');
+        $('#apoderado_rut').attr('disabled', 'disabled');
+        $('#apoderado_dv_rut').attr('disabled', 'disabled');
+        $('#apoderado_nombres').focus();
         registrar  = 'editar_apoderado';
         id_apoderado = data.id_apoderado;
     });
@@ -136,7 +189,7 @@ $(document).ready(function() {
         datos = "editar_estado";
 
         $.ajax({
-            url: "./controller/controller_tablas.php",
+            url: "./controller/controller_apoderados.php",
             method: "post",
             dataType: "json",
             data: {id_apoderado: id_apoderado, estado: estado, datos: datos},
@@ -198,7 +251,7 @@ $(document).ready(function() {
                 datos = "eliminar_apoderado";
 
                 $.ajax({
-                    url: './controller/controller_tablas.php',
+                    url: './controller/controller_apoderados.php',
                     type: 'post',
                     dataType: 'json',
                     data: {id_apoderado: id_apoderado, datos: datos},
@@ -225,6 +278,9 @@ $(document).ready(function() {
         });
     });
 });
+
+
+// CREAR FUNCIÓN PARA VERIFICAR Y VALIDAR RUT
 
 
 let spanish = {
