@@ -14,6 +14,8 @@ $(document).ready(function() {
         $('#apoderado_codigo_fono').val('569');
         
         modal.addClass('modal-show');
+        $('#apoderado_rut').removeAttr('disabled', 'disable');
+        $('#apoderado_dv_rut').removeAttr('disabled', 'disabled');
         $('#apoderado_rut').focus();
         registrar = 'nuevo_apoderado';
     });
@@ -46,21 +48,31 @@ $(document).ready(function() {
                 data: {rut: rut, dv_rut: dv_rut, nombres: nombres, a_paterno: a_paterno,
                         a_materno: a_materno, fono: fono, datos: datos},
                 success: function(data) {
-                    if (data === false) {
+                    if (data == 'existe') {
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Error al registrar !!',
+                            icon: 'warning',
+                            title: 'El apoderado ya existe !!',
                             showConfirmButton: false,
                             timer: 1500
                         });
                     } else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Apoderado registrado !!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        tabla_apoderados.ajax.reload(null, false);
+                        if (data === false) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al registrar !!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Apoderado registrado !!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            modal.removeClass('modal-show');
+                            tabla_apoderados.ajax.reload(null, false);
+                        }
                     }
                 }
             });
@@ -80,14 +92,6 @@ $(document).ready(function() {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                    } else if (data === null) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'El apoderado ya existe !!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-
                     } else {
                         Swal.fire({
                             icon: 'success',
@@ -95,6 +99,7 @@ $(document).ready(function() {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        modal.removeClass('modal-show');
                         tabla_apoderados.ajax.reload(null, false);
                     }
                 }
@@ -109,7 +114,6 @@ $(document).ready(function() {
             });
         }
     });
-
 
 
     // BOTÓN MODAL CANCELAR /===================================

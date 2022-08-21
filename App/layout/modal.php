@@ -22,9 +22,8 @@
             <label for="apoderado_fono">Teléfono</label>
             <input type="text" id="apoderado_codigo_fono" disabled>
             <span></span>
-            <input type="text" id="apoderado_fono" name="fono">
+            <input type="text" id="apoderado_fono" name="fono" maxlength="8">
         </div>
-        <!-- <hr> -->
         <div class="modal-footer">
             <button class="btn btn-l btn-data" type="submit" id="btn_modal_registrar">Registrar</button>
             <button class="btn btn-l btn-delete" type="reset" id="btn_modal_cancelar">Cancelar</button>

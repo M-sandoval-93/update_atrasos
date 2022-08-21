@@ -40,14 +40,15 @@ if($_SESSION['Usuario']){
 <script type="text/javascript" src="jquery.js"></script>
 
 
-<script type="text/javascript">
-evento(obj){
-if(obj.checked)
-obj.value='S';
-else
-obj.value='N';
-}
-</script>
+<!-- <script type="text/javascript">
+  evento(obj){
+    if (obj.checked) {
+      obj.value='S';
+    } else {
+      obj.value='N';
+    }
+  }
+</script> -->
 
 <script>
 function MenuResponsive() {

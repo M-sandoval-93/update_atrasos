@@ -129,6 +129,20 @@ function MenuResponsive() {
 
 
 
+  <!-- =================== MODULO DE SUSPENDIDOS =================== -->
+  <div class="dropdown">
+    <button class="dropbtn"> <img src="imagenes/prohibision.png" width="35" height="20"> Suspenciones
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="suspencion_alumno.php">Suspender estudiante</a>
+    </div>
+  </div>
+
+  <!-- =================== MODULO DE SUSPENDIDOS =================== -->
+
+
+
 
   
   <div class="dropdown">

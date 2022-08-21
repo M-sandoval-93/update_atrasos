@@ -15,7 +15,7 @@ if($_SESSION['Usuario']){ //INICIO CONDICION PRINCIPAL SESION USUARIO
     if($rut== ""){
 ?>
         <meta charset="utf-8">
-        <script language="javascript"> alert("Error en la operación"); window.location="asistencia_junaeb.php"</>
+        <script language="javascript"> alert("Error en la operación"); window.location="asistencia_junaeb.php"</script>
 <?php
     }
 

@@ -35,7 +35,7 @@
             $sentencia->execute([$apoderado[0]]);
 
             if ($sentencia->rowCount() >= 1) {
-                return json_encode(null);
+                return json_encode('existe');
 
             } else {
                 $query = "INSERT INTO apoderados (rut_apoderado, dv_rut_apoderado, apellido_paterno_apoderado,

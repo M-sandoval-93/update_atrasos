@@ -21,6 +21,7 @@
             break;
 
         case "nuevo_apoderado":
+            // print json_encode(true);
             $apoderado = array($_POST['rut'], $_POST['dv_rut'], $_POST['nombres'], $_POST['a_paterno'], $_POST['a_materno'], $_POST['fono']);
             print $datosApoderados->newApoderado($apoderado);
             break;
