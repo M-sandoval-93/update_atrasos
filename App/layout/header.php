@@ -43,6 +43,7 @@
                     <li><a href="estudiantes">Estudiantes</a></li>
                     <li><a href="atrasos">Atrasos</a></li>
                     <li><a href="justificaciones">Justificaciones</a></li>
+                    <li><a href="#">Suspensiones</a></li>
                 </ul>
             </li>
             <li><a href="apoderados"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
@@ -70,7 +71,6 @@
                 </ul>
             </li>
 
-            <!-- <li class="divider"></li> -->
             <li><a href="mantenimiento"><i class="fas fa-server icon"></i> Mantenimiento</a></li>
         </ul>
     </section>

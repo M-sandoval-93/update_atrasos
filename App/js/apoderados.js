@@ -1,10 +1,103 @@
 
+// Librería de funciones básicas para validar RUT ==========
+let LibreriaFunciones = {
+    // Valida el rut con su cadena completa "XXXXXXXX-X"
+    validarRut: function(rutCompleto) {
+        if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto )) {
+            return false;
+        }
+        
+        let tmp = rutCompleto.split('-');
+        let rut = tmp[0];
+        let dvRut = tmp[1];
+
+        if (dvRut == 'K') {
+            dvRut = 'K';
+        }
+
+        return (LibreriaFunciones.dv(rut) == dvRut);
+    },
+
+
+    // Calcula el dígito verificador
+    dv: function(T) {
+        let M = 0, S = 1;
+        for (;T;T = Math.floor(T/10)) {
+            S = (S + T % 10 * (9 - M ++ % 6)) % 11;
+        }
+
+        return S?S - 1: 'K';
+    },
+
+
+    // Valida que el número sea un entero
+    validarEntero: function(value) {
+        let regExPattern = /[0-9]+$/;
+
+        return regExPattern.test(value);
+    },
+
+
+    // Formatea un número con puntos de miles
+    formatearNumero: function(value) {
+        if (LibreriaFunciones.validarEntero(value)) {
+            let retorno = '';
+            value = value.toString().split('').reverse().join('');
+            let i = value.length;
+
+            while (i > 0) {
+                retorno += ((i%3==0&&i!=value.length)?'':'')+value.substring(i--,i);
+                // retorno += ((i%3==0&&i!=value.length)?'.':'')+value.substring(i--,i);  //Para ir agregando el punto
+            }
+            return retorno;
+        }
+        return value;
+    }
+}
+// Librería de funciones básicas para validar RUT ==========
+
+
+// FUNCIONES ===============================================
+function generar_dv() {
+    // Traspasar valor a número entero
+    let numero = $('#apoderado_rut').val();
+    numero = numero.split('.').join('');
+
+    // Valida que sea realmente entero
+    if (LibreriaFunciones.validarEntero(numero)) {
+        $('#apoderado_dv_rut').val(LibreriaFunciones.dv(numero));
+
+    } else {
+        $('#apoderado_dv_rut').val('');
+    }
+
+    // Formatear el valor del rut con sus puntos
+    $('#apoderado_rut').val(LibreriaFunciones.formatearNumero(numero));
+}
+
+function camposVacios() {
+    const form = document.getElementById('modal_form');
+    const inputs = form.querySelectorAll('input[type="text"]');
+    let contador = 0;
+
+    inputs.forEach(elemento => {
+        if (elemento.value === '') {
+            contador = contador + 1;
+        }
+    });
+    return contador;
+}
+// FUNCIONES ===============================================
+
+
+
 $(document).ready(function() {
 
     // VARIABLES GLOBALES
     let modal = $('#modal_form');
     let registrar;
     let id_apoderado;
+
 
     // BOTÓN NUEVO APODERADO /==================================
     $('#btn_nuevo_apoderado').click(function(e) {
@@ -15,9 +108,11 @@ $(document).ready(function() {
         
         modal.addClass('modal-show');
         $('#apoderado_rut').removeAttr('disabled', 'disable');
-        $('#apoderado_dv_rut').removeAttr('disabled', 'disabled');
+        $('#apoderado_dv_rut').attr('disabled', 'disabled');
         $('#apoderado_rut').focus();
         registrar = 'nuevo_apoderado';
+        $('#apoderado_rut').keyup(generar_dv);
+        $('#apoderado_rut').blur(generar_dv);
     });
 
 
@@ -33,11 +128,16 @@ $(document).ready(function() {
         a_materno = $('#apoderado_ap_materno').val().toUpperCase();
         fono = $('#apoderado_fono').val();
 
-
-
-        // AGREGAR VALIDACIONES PARA RUT
-
-
+        // VALIDAR QUE TODOS LOS CAMPOS CONTENGAN INFORMACION
+        if (camposVacios() >= 1) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Hay campos vacios !!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return false;
+        }
 
         if (registrar == 'nuevo_apoderado') {
             datos = "nuevo_apoderado";
@@ -283,8 +383,6 @@ $(document).ready(function() {
     });
 });
 
-
-// CREAR FUNCIÓN PARA VERIFICAR Y VALIDAR RUT
 
 
 let spanish = {
