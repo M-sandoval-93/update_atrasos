@@ -14,7 +14,7 @@ function Conectarse(){
 
 $user = "postgres";
 $password = "admin";
-$dbname = "test";
+$dbname = "bd_junaeb";
 $port = "5432";
 $host = "localhost";
 

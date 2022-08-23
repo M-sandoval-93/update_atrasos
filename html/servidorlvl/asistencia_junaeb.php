@@ -258,7 +258,7 @@ $(document).ready(function(){
     
       // enviamos una petición al servidor mediante AJAX enviando el id
       // introducido por el usuario mediante POST
-      $.post("consulta_a.php", {"rut":$("#rut").val()}, function(data){
+      $.post("consulta_a_junaeb.php", {"rut":$("#rut").val()}, function(data){
       
         if(data.dv)
           $("#dv").val(data.dv);
@@ -277,7 +277,7 @@ $(document).ready(function(){
 
         if(data.junaeb) {
           $("#junaeb").val(data.junaeb);
-          if(data.junaeb == 'SI') {
+          if(data.junaeb === 'SI') {
             $("#resultado").html("<span style='font-weight:bold;color:green;' id='mensaje'>El estudiante cuenta con beneficio alimentacion escolar</span>");
           } else {
           $("#resultado").html(data);

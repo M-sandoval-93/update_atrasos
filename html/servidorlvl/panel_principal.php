@@ -123,6 +123,7 @@ function MenuResponsive() {
     </button>
     <div class="dropdown-content">
       <a href="asistencia_junaeb.php">Asistencia Colación</a>
+      <a href="#">Menu Junaeb</a>
     </div>
   </div>
   <!-- =================== MODULO DE JUNAEB =================== -->

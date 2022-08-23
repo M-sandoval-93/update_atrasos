@@ -262,7 +262,7 @@ $(document).ready(function() {
     });
 
 
-     // EDITAR UN APODERADO /===================================
+    // EDITAR UN APODERADO /====================================
     $('#apoderados tbody').on('click', '#btn_editar_apoderado', function() {
         let data = tabla_apoderados.row($(this).parents()).data();
         $('#form_apoderados').trigger('reset');
@@ -337,7 +337,7 @@ $(document).ready(function() {
     });
 
 
-    // ELIMINAR UN APODERADO
+    // ELIMINAR UN APODERADO /==================================
     $('#apoderados tbody').on('click', '#btn_eliminar_apoderado', function() {
         let data  = tabla_apoderados.row($(this).parents()).data();
         id_apoderado = data.id_apoderado;

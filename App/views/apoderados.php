@@ -35,7 +35,7 @@
             </table>
 
             <?php
-            include_once "./layout/modal.php";
+            include_once "./layout/modal_apoderados.php";
             ?>
 
         </main>

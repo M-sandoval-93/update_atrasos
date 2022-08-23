@@ -61,6 +61,12 @@ if($row['id_tipo_usuario']==3){
 <?php
 }
 
+else if ($row['id_tipo_usuario']==4){
+?>
+<script language="javascript"> window.location="asistencia_junaeb.php"</script>	
+<?php
+}
+
 else{
 ?>
 <script language="javascript"> window.location="panel_principal.php"</script>

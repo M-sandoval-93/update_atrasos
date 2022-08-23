@@ -9,6 +9,11 @@ if($_SESSION['Id_Tipo_Usuario']=='3'){
 <meta charset="utf-8">
   <script language="javascript"> alert("Acceso Restringido"); window.location="alumno_atraso.php"</script>
 <?php
+} else if($_SESSION['Id_Tipo_Usuario']=='4') {
+?>
+<meta charset="utf-8">
+  <script language="javascript"> alert("Acceso Restringido"); window.location="asistencia_junaeb.php"</script>
+<?php
 }
 
 if($_SESSION['Usuario']){
