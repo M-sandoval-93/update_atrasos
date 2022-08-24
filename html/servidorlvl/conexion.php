@@ -6,17 +6,17 @@ function Conectarse(){
 // $port = "5432";
 // $host = "localhost";
 
-// $user = "postgres";
-// $password = "user2019";
-// $dbname = "db_lvl_localhost";
-// $port = "5432";
-// $host = "localhost";
-
 $user = "postgres";
-$password = "admin";
-$dbname = "bd_junaeb";
+$password = "user2019";
+$dbname = "db_lvl_localhost";
 $port = "5432";
 $host = "localhost";
+
+// $user = "postgres";
+// $password = "admin";
+// $dbname = "bd_junaeb";
+// $port = "5432";
+// $host = "localhost";
 
 $cadenaConexion = "host=$host port=$port dbname=$dbname user=$user password=$password";
 
