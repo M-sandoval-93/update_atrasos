@@ -16,7 +16,6 @@ $(document).ready(function() {
 
     // FUNCION PARA GENERAR INFORMCION ADICIONAL
     function format(d) {
-        // `d` is the original data object for the row
         return (
             '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                 '<tr>' +
@@ -41,35 +40,31 @@ $(document).ready(function() {
         );
     }
 
-
     // DATATABLE /===============================================
     datos = 'mostrar_estudiantes';
     let tabla_apoderados = $('#estudiantes').DataTable({
-        "ajax": {
-            "url": "./controller/controller_estudiantes.php",
-            "method": "post",
-            "data": {datos: datos}
+        ajax: {
+            url: "./controller/controller_estudiantes.php",
+            method: "post",
+            data: {datos: datos}
          },
-         "columns": [ // INFORMACIÓN DE COLUMNAS
+         columns: [ // INFORMACIÓN DE COLUMNAS
             {
-                className: 'dt-control',
-                orderable: false,
-                
-                data: null,
-                // bSortable: false,
-                defaultContent: '',
+                className: 'xpand',
+                data: "id_estudiante",
+                mRender: function(data) {
+                    return '<button class="btn-expand" id="show_information" type="button"><i class="fas fa-plus-circle"></i></button>' + data;
+                }
             },
-
-            {data: "id_estudiante"}, // revisar o agregar nuevamente comillas
-            {"data": "rut_estudiante"}, // CELDA CONVINADA POR CONSULTA SQL
-            {"data": "apellido_paterno_estudiante"},
-            {"data": "apellido_materno_estudiante"},
-            {"data": "nombres_estudiante"},
-            {"data": "nombre_social_estudiante"},
+            {data: "rut_estudiante"}, // CELDA CONVINADA POR CONSULTA SQL
+            {data: "apellido_paterno_estudiante"},
+            {data: "apellido_materno_estudiante"},
+            {data: "nombres_estudiante"},
+            {data: "nombre_social_estudiante"},
             {
-                "data": 'estado_estudiante',
-                "bSortable": false,
-                "mRender": function(data) {
+                data: 'estado_estudiante',
+                bSortable: false,
+                mRender: function(data) {
                     let btn_estado;
                     if (data === true) {
                         btn_estado = `<button class="btn btn-s btn-success" id="btn_editar_estado" type="button"><i class="fas fa-lock-open"></i></button>`;
@@ -79,29 +74,36 @@ $(document).ready(function() {
                     return btn_estado;
                 }
             },
-            {"data": null,
-                "bSortable": false,
-                "defaultContent": // BOTONES
-                                `<button class="btn btn-s btn-data" id="btn_editar_apoderado" type="button"><i class="fas fa-pencil-alt"></i></i></button>
+            {data: null,
+                bSortable: false,
+                defaultContent: // BOTONES
+                                `<button class="btn btn-s btn-data" id="btn_editar_apoderado" type="button"><i class="fas fa-pencil-alt"></i></button>
                                 <button class="btn btn-s btn-delete" id="btn_eliminar_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
         "language": spanish
     });
 
-    // Add event listener for opening and closing details
-    $('#estudiantes tbody').on('click', 'td.dt-control', function () {
-        var tr = $(this).closest('tr');
-        var row = tabla_apoderados.row(tr);
+    // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN
+    $('#estudiantes tbody').on('click', 'td.xpand', function () {
+        let row = tabla_apoderados.row($(this).closest('tr'));
+        // let btn = tabla_apoderados.row($(this).parents('td.xpand').find('#show_information'));
+        // let btn = tabla_apoderados.row('fa-plus-circle');
  
         if (row.child.isShown()) {
-            // This row is already open - close it
+            // ACCIÓN PARA CUANDO SE CONTRAE LA TABLA
             row.child.hide();
-            tr.removeClass('shown');
+            // tr.removeClass('shown');
+            console.log('contraer');
+            // btn.removeClass('fa-plus-circle');
+            // btn.addClass('fa-times-circle');
+            
         } else {
-            // Open this row
+            // ACCIÓN PARA CUANDO SE EXPANDE LA TABLA
             row.child(format(row.data())).show();
-            tr.addClass('shown');
+            // tr.addClass('shown');
+            console.log('expandir');
+            // btn.removeClass('btn-expand');
         }
     });
 

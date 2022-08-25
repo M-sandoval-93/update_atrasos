@@ -438,6 +438,28 @@ main .nuevo_registro {
     background: var(--btn-cancel);
 }
 
+.btn-expand {
+    margin-right: 6px;
+    color: var(--new);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: none;
+}
+
+.btn-retract {
+    margin-right: 6px;
+    color: var(--new);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: none;
+}
+
 main .sub-title {
     font-size: 24px;
     font-weight: 600;
