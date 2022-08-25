@@ -11,6 +11,37 @@ $(document).ready(function() {
 
     // BOTÓN MODAL CANCELAR /====================================
 
+
+
+
+    // FUNCION PARA GENERAR INFORMCION ADICIONAL
+    function format(d) {
+        // `d` is the original data object for the row
+        return (
+            '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                    '<td>Full name:</td>' +
+                    '<td>' +
+                    d.rut_estudiante +
+                    '</td>' +
+                '</tr>' +
+
+                '<tr>' +
+                    '<td>Extension number:</td>' +
+                    '<td>' +
+                    d.nombres_estudiante +
+                    '</td>' +
+                '</tr>' +
+
+                '<tr>' +
+                    '<td>Extra info:</td>' +
+                    '<td>And any further details here (images etc)...</td>' +
+                '</tr>' +
+            '</table>'
+        );
+    }
+
+
     // DATATABLE /===============================================
     datos = 'mostrar_estudiantes';
     let tabla_apoderados = $('#estudiantes').DataTable({
@@ -20,7 +51,16 @@ $(document).ready(function() {
             "data": {datos: datos}
          },
          "columns": [ // INFORMACIÓN DE COLUMNAS
-            {"data": "id_estudiante"},
+            {
+                className: 'dt-control',
+                orderable: false,
+                
+                data: null,
+                // bSortable: false,
+                defaultContent: '',
+            },
+
+            {data: "id_estudiante"}, // revisar o agregar nuevamente comillas
             {"data": "rut_estudiante"}, // CELDA CONVINADA POR CONSULTA SQL
             {"data": "apellido_paterno_estudiante"},
             {"data": "apellido_materno_estudiante"},
@@ -47,6 +87,22 @@ $(document).ready(function() {
             }
         ],
         "language": spanish
+    });
+
+    // Add event listener for opening and closing details
+    $('#estudiantes tbody').on('click', 'td.dt-control', function () {
+        var tr = $(this).closest('tr');
+        var row = tabla_apoderados.row(tr);
+ 
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            // Open this row
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+        }
     });
 
 
