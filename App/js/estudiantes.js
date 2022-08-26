@@ -88,8 +88,9 @@ $(document).ready(function() {
 
     // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN
     $('#estudiantes tbody').on('click', 'td.xpand', function () {
+        let tr = $(this).closest('tr');
         let row = tabla_apoderados.row($(this).closest('tr'));
-        let row1 = tabla_apoderados.row($(this).parent('tr')).mRender();
+        // let row1 = tabla_apoderados.row($(this).parent('tr')).mRender();
  
         if (row.child.isShown()) {
             // ACCIÓN PARA CUANDO SE CONTRAE LA TABLA
@@ -103,6 +104,8 @@ $(document).ready(function() {
         } else {
             // ACCIÓN PARA CUANDO SE EXPANDE LA TABLA
             row.child(format(row.data())).show();
+
+            tr.removeClass('ocultar');
 
             // $('#hidde_information').removeClass('ocultar');
             // $('#show_information').addClass('ocultar');
