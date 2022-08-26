@@ -451,13 +451,17 @@ main .nuevo_registro {
 
 .btn-retract {
     margin-right: 6px;
-    color: var(--new);
+    color: var(--red);
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     border: none;
+}
+
+.ocultar {
+    display: none;
 }
 
 main .sub-title {
@@ -621,8 +625,15 @@ main .card .label {
     font-weight: 700;
 }
 
+/* SEPARACIÓN ENTRE TABLA Y BUSCADOR */
+.dataTables_length {  
+    margin-bottom: 10px;
+}
 
 /* MAIN */
+
+
+
 
 
 
@@ -718,8 +729,6 @@ main .card .label {
     padding: 8px 0;
     margin: 0 8px;
 }
-
-
 /* MODAL */
 
 

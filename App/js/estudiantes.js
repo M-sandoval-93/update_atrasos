@@ -53,7 +53,9 @@ $(document).ready(function() {
                 className: 'xpand',
                 data: "id_estudiante",
                 mRender: function(data) {
-                    return '<button class="btn-expand" id="show_information" type="button"><i class="fas fa-plus-circle"></i></button>' + data;
+                    return `<button class="btn-expand" id="show_information" type="button"><i class="fas fa-plus-circle"></i></button> 
+                            <button class="btn-retract ocultar" id="hidde_information" type="button"><i class="fas fa-times-circle"></i></button>`
+                            + data;
                 }
             },
             {data: "rut_estudiante"}, // CELDA CONVINADA POR CONSULTA SQL
@@ -87,23 +89,23 @@ $(document).ready(function() {
     // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN
     $('#estudiantes tbody').on('click', 'td.xpand', function () {
         let row = tabla_apoderados.row($(this).closest('tr'));
-        // let btn = tabla_apoderados.row($(this).parents('td.xpand').find('#show_information'));
-        // let btn = tabla_apoderados.row('fa-plus-circle');
+        let row1 = tabla_apoderados.row($(this).parent('tr')).mRender();
  
         if (row.child.isShown()) {
             // ACCIÓN PARA CUANDO SE CONTRAE LA TABLA
             row.child.hide();
-            // tr.removeClass('shown');
-            console.log('contraer');
-            // btn.removeClass('fa-plus-circle');
-            // btn.addClass('fa-times-circle');
+            // row1['id_estudiante'].removeClass('ocultar');
+             console.log();
+
+            // $('#hidde_information').addClass('ocultar');
+            // $('#show_information').removeClass('ocultar');
             
         } else {
             // ACCIÓN PARA CUANDO SE EXPANDE LA TABLA
             row.child(format(row.data())).show();
-            // tr.addClass('shown');
-            console.log('expandir');
-            // btn.removeClass('btn-expand');
+
+            // $('#hidde_information').removeClass('ocultar');
+            // $('#show_information').addClass('ocultar');
         }
     });
 
