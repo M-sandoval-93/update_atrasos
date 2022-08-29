@@ -10,6 +10,10 @@
         case "mostrar_estudiantes":
             print $datosEstudiantes->consultaEstudiantes();
             break;
+
+        case "editar_estado":
+            // AGREGAR LOS DATOS QUE MANDARÉ AL CONTROLADOR
+            print $datosEstudiantes->updateEstadoEstudiante();
     }
 
 

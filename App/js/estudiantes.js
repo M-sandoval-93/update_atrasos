@@ -16,25 +16,41 @@ $(document).ready(function() {
 
     // FUNCION PARA GENERAR INFORMCION ADICIONAL
     function format(d) {
+
+        let sexo;
+        if (d.sexo_estudiante == 'F') {
+            sexo = 'Femenina';
+        } else {
+            sexo = 'Masculino';
+        }
+        
         return (
             '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                 '<tr>' +
-                    '<td>Full name:</td>' +
+                    '<td>Nombre completo:</td>' +
                     '<td>' +
-                    d.rut_estudiante +
+                    d.nombres_estudiante + ' ' + d.apellido_paterno_estudiante + ' ' + d.apellido_paterno_estudiante +
                     '</td>' +
                 '</tr>' +
 
                 '<tr>' +
-                    '<td>Extension number:</td>' +
+                    '<td>Fecha Nacimiento:</td>' +
                     '<td>' +
-                    d.nombres_estudiante +
+                    // d.fecha_nacimiento_estudiante.datepicker("dateFormat", "dd-mm-yy") +
+                    d.fecha_nacimiento_estudiante +
                     '</td>' +
                 '</tr>' +
 
                 '<tr>' +
-                    '<td>Extra info:</td>' +
-                    '<td>And any further details here (images etc)...</td>' +
+                    '<td>Sexo estudiante:</td>' +
+                    '<td>' +
+                    sexo +
+                    '</td>' +
+                '</tr>' +
+
+                '<tr>' +
+                    '<td>Curso:</td>' +
+                    '<td>Agregar el curso correspondiente</td>' +
                 '</tr>' +
             '</table>'
         );
@@ -49,25 +65,13 @@ $(document).ready(function() {
             data: {datos: datos}
          },
          columns: [ // INFORMACIÓN DE COLUMNAS
-
-            {
+            { // BTN PARA EXPANDIR Y CONTRAER TABLA
                 className: 'dt-control',
                 orderable: false,
                 data: null,
                 defaultContent: '',
             },
-
-            // {
-            //     // className: 'xpand',
-            //     data: "id_estudiante",
-            //     mRender: function(data) {
-            //         return `<button class="xp btn-expand" id="show_information" type="button"><i class="fas fa-plus-circle"></i></button> 
-            //                 <button class="xp btn-retract ocultar" id="hidde_information" type="button"><i class="fas fa-times-circle"></i></button>`
-            //                 + data;
-            //     }
-            // },
-            
-            {
+            { // ID DEL ESTUDIANTE QUE NO ES VISIBLE
                 data: "id_estudiante",
                 visible: false
             },
@@ -77,11 +81,11 @@ $(document).ready(function() {
             {data: "nombres_estudiante"},
             {data: "nombre_social_estudiante"},
             {
-                data: 'estado_estudiante',
+                data: 'id_estado',
                 bSortable: false,
                 mRender: function(data) {
                     let btn_estado;
-                    if (data === true) {
+                    if (data == 1) {
                         btn_estado = `<button class="btn btn-s btn-success" id="btn_editar_estado" type="button"><i class="fas fa-lock-open"></i></button>`;
                     } else {
                         btn_estado = `<button class="btn btn-s btn-lock" id="btn_editar_estado" type="button"><i class="fas fa-lock"></i></button>`;
@@ -103,8 +107,6 @@ $(document).ready(function() {
     $('#estudiantes tbody').on('click', 'td.dt-control', function () {
         let tr = $(this).closest('tr');
         let row = tabla_apoderados.row(tr);
-
-        // let row = tabla_apoderados.row($(this).closest('tr'));
  
         if (row.child.isShown()) {
             // ACCIÓN PARA CUANDO SE CONTRAE LA TABLA
@@ -128,6 +130,57 @@ $(document).ready(function() {
     // EDITAR UN ESTUDIANTE /====================================
 
     // ACTIVAR O DESACTIVAR UN ESTUDIANTE /======================
+    $('#estudiantes tbody').on('click', '#btn_editar_estado', function() {
+        let data = tabla_apoderados.row($(this).parents()).data();
+        id_estudiante = data.id_estudiante;
+        estado = data.id_estado;
+        datos = "editar_estado";
+
+        console.log(id_estudiante); // SEGUIR TRABAJANDO AQUÍ
+
+        // $.ajax({
+        //     url: "./controller/controller_apoderados.php",
+        //     method: "post",
+        //     dataType: "json",
+        //     data: {id_apoderado: id_apoderado, estado: estado, datos: datos},
+        //     success: function(data) {
+        //         if (data === false) {
+        //             Swal.fire({
+        //                 position: 'top-end',
+        //                 icon: 'error',
+        //                 title: 'No se pudo desactivar al apoderado',
+        //                 toast: true,
+        //                 showConfirmButton: false,
+        //                 timer: 2000,
+        //                 timerProgressBar: true
+        //             });
+        //         } else {
+        //             if (estado === true) {
+        //                 Swal.fire({
+        //                     position: 'top-end',
+        //                     icon: 'warning',
+        //                     title: 'Apoderado bloqueado !!',
+        //                     toast: true,
+        //                     showConfirmButton: false,
+        //                     timer: 2000,
+        //                     timerProgressBar: true
+        //                 });
+        //             } else {
+        //                 Swal.fire({
+        //                     position: 'top-end',
+        //                     icon: 'success',
+        //                     title: 'Apoderado desbloqueado',
+        //                     toast: true,
+        //                     showConfirmButton: false,
+        //                     timer: 2000,
+        //                     timerProgressBar: true
+        //                 });
+        //             }
+        //             tabla_apoderados.ajax.reload(null, false);
+        //         }
+        //     }
+        // });
+    });
 
     // ELIMINAR UN ESTUDIANTE /==================================
 
