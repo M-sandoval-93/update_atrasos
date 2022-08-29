@@ -20,6 +20,7 @@
             <table id="estudiantes" class="display table tabl-hover text-nowrap" style="width: 100%">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Id</th>
                         <th>Rut</th>
                         <th>Ap. Paterno</th>

@@ -49,14 +49,27 @@ $(document).ready(function() {
             data: {datos: datos}
          },
          columns: [ // INFORMACIÓN DE COLUMNAS
+
             {
-                className: 'xpand',
+                className: 'dt-control',
+                orderable: false,
+                data: null,
+                defaultContent: '',
+            },
+
+            // {
+            //     // className: 'xpand',
+            //     data: "id_estudiante",
+            //     mRender: function(data) {
+            //         return `<button class="xp btn-expand" id="show_information" type="button"><i class="fas fa-plus-circle"></i></button> 
+            //                 <button class="xp btn-retract ocultar" id="hidde_information" type="button"><i class="fas fa-times-circle"></i></button>`
+            //                 + data;
+            //     }
+            // },
+            
+            {
                 data: "id_estudiante",
-                mRender: function(data) {
-                    return `<button class="btn-expand" id="show_information" type="button"><i class="fas fa-plus-circle"></i></button> 
-                            <button class="btn-retract ocultar" id="hidde_information" type="button"><i class="fas fa-times-circle"></i></button>`
-                            + data;
-                }
+                visible: false
             },
             {data: "rut_estudiante"}, // CELDA CONVINADA POR CONSULTA SQL
             {data: "apellido_paterno_estudiante"},
@@ -87,28 +100,24 @@ $(document).ready(function() {
     });
 
     // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN
-    $('#estudiantes tbody').on('click', 'td.xpand', function () {
+    $('#estudiantes tbody').on('click', 'td.dt-control', function () {
         let tr = $(this).closest('tr');
-        let row = tabla_apoderados.row($(this).closest('tr'));
-        // let row1 = tabla_apoderados.row($(this).parent('tr')).mRender();
+        let row = tabla_apoderados.row(tr);
+
+        // let row = tabla_apoderados.row($(this).closest('tr'));
  
         if (row.child.isShown()) {
             // ACCIÓN PARA CUANDO SE CONTRAE LA TABLA
             row.child.hide();
-            // row1['id_estudiante'].removeClass('ocultar');
-             console.log();
+            tr.removeClass('shown');
 
-            // $('#hidde_information').addClass('ocultar');
-            // $('#show_information').removeClass('ocultar');
             
         } else {
             // ACCIÓN PARA CUANDO SE EXPANDE LA TABLA
             row.child(format(row.data())).show();
+            tr.addClass('shown');
 
-            tr.removeClass('ocultar');
 
-            // $('#hidde_information').removeClass('ocultar');
-            // $('#show_information').addClass('ocultar');
         }
     });
 
