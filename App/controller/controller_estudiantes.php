@@ -12,8 +12,9 @@
             break;
 
         case "editar_estado":
-            // AGREGAR LOS DATOS QUE MANDARÉ AL CONTROLADOR
-            print $datosEstudiantes->updateEstadoEstudiante();
+            $estudiante = array($_POST['id_estudiante'], $_POST['estado']);
+            print $datosEstudiantes->updateEstadoEstudiante($estudiante);
+            break;
     }
 
 

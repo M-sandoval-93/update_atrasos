@@ -232,7 +232,7 @@ $(document).ready(function() {
             "data": {datos: datos}
          },
          "columns": [ // INFORMACIÓN DE COLUMNAS
-            {"data": "id_apoderado"},
+            {"data": "id_apoderado", "visible": false},
             {"data": "rut_apoderado"}, // CELDA CONVINADA POR CONSULTA SQL
             {"data": "apellido_paterno_apoderado"},
             {"data": "apellido_materno_apoderado"},
@@ -258,6 +258,7 @@ $(document).ready(function() {
                                 <button class="btn btn-s btn-delete" id="btn_eliminar_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
+        order: [[2, 'asc']],
         "language": spanish
     });
 

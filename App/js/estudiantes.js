@@ -16,7 +16,6 @@ $(document).ready(function() {
 
     // FUNCION PARA GENERAR INFORMCION ADICIONAL
     function format(d) {
-
         let sexo;
         if (d.sexo_estudiante == 'F') {
             sexo = 'Femenina';
@@ -58,7 +57,7 @@ $(document).ready(function() {
 
     // DATATABLE /===============================================
     datos = 'mostrar_estudiantes';
-    let tabla_apoderados = $('#estudiantes').DataTable({
+    let tabla_estudiantes = $('#estudiantes').DataTable({
         ajax: {
             url: "./controller/controller_estudiantes.php",
             method: "post",
@@ -100,26 +99,26 @@ $(document).ready(function() {
                                 <button class="btn btn-s btn-delete" id="btn_eliminar_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
-        "language": spanish
+        order: [[3, 'asc']],
+
+        language: spanish
     });
 
     // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN
     $('#estudiantes tbody').on('click', 'td.dt-control', function () {
         let tr = $(this).closest('tr');
-        let row = tabla_apoderados.row(tr);
+        let row = tabla_estudiantes.row(tr);
  
         if (row.child.isShown()) {
             // ACCIÓN PARA CUANDO SE CONTRAE LA TABLA
             row.child.hide();
             tr.removeClass('shown');
 
-            
         } else {
             // ACCIÓN PARA CUANDO SE EXPANDE LA TABLA
             row.child(format(row.data())).show();
             tr.addClass('shown');
-
-
+            
         }
     });
 
@@ -129,57 +128,57 @@ $(document).ready(function() {
 
     // EDITAR UN ESTUDIANTE /====================================
 
+
+
     // ACTIVAR O DESACTIVAR UN ESTUDIANTE /======================
     $('#estudiantes tbody').on('click', '#btn_editar_estado', function() {
-        let data = tabla_apoderados.row($(this).parents()).data();
+        let data = tabla_estudiantes.row($(this).parents()).data();
         id_estudiante = data.id_estudiante;
         estado = data.id_estado;
         datos = "editar_estado";
 
-        console.log(id_estudiante); // SEGUIR TRABAJANDO AQUÍ
-
-        // $.ajax({
-        //     url: "./controller/controller_apoderados.php",
-        //     method: "post",
-        //     dataType: "json",
-        //     data: {id_apoderado: id_apoderado, estado: estado, datos: datos},
-        //     success: function(data) {
-        //         if (data === false) {
-        //             Swal.fire({
-        //                 position: 'top-end',
-        //                 icon: 'error',
-        //                 title: 'No se pudo desactivar al apoderado',
-        //                 toast: true,
-        //                 showConfirmButton: false,
-        //                 timer: 2000,
-        //                 timerProgressBar: true
-        //             });
-        //         } else {
-        //             if (estado === true) {
-        //                 Swal.fire({
-        //                     position: 'top-end',
-        //                     icon: 'warning',
-        //                     title: 'Apoderado bloqueado !!',
-        //                     toast: true,
-        //                     showConfirmButton: false,
-        //                     timer: 2000,
-        //                     timerProgressBar: true
-        //                 });
-        //             } else {
-        //                 Swal.fire({
-        //                     position: 'top-end',
-        //                     icon: 'success',
-        //                     title: 'Apoderado desbloqueado',
-        //                     toast: true,
-        //                     showConfirmButton: false,
-        //                     timer: 2000,
-        //                     timerProgressBar: true
-        //                 });
-        //             }
-        //             tabla_apoderados.ajax.reload(null, false);
-        //         }
-        //     }
-        // });
+        $.ajax({
+            url: "./controller/controller_estudiantes.php",
+            method: "post",
+            dataType: "json",
+            data: {id_estudiante: id_estudiante, estado: estado, datos: datos},
+            success: function(data) {
+                if (data === false) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'No se pudo desactivar al estudiante',
+                        toast: true,
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+                } else {
+                    if (estado == 1) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'warning',
+                            title: 'Estudiante Suspendido !!',
+                            toast: true,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Estudiante reitegrado',
+                            toast: true,
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true
+                        });
+                    }
+                    tabla_estudiantes.ajax.reload(null, false);
+                }
+            }
+        });
     });
 
     // ELIMINAR UN ESTUDIANTE /==================================

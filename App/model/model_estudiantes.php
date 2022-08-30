@@ -27,11 +27,16 @@
         }
 
         // EDITAR EL ESTADO DEL ESTUDIANTE
-        public function updateEstadoEstudiante($id, $estado) {
+        public function updateEstadoEstudiante($estudiante) {
+            if ($estudiante[1] == 1) {
+                $new_estado = 2;
+            } else {
+                $new_estado = 1;
+            }
 
-            $query = "UPDATE apoderados SET id_estado = ? WHERE id_estudiante = ?;";
+            $query = "UPDATE estudiantes SET id_estado = ? WHERE id_estudiante = ?;";
             $sentencia = $this->conexion_db->prepare($query);
-            $resultado = $sentencia->execute([$estado, $id]);
+            $resultado = $sentencia->execute([$new_estado, intval($estudiante[0])]);
 
             if ($resultado === true) {
                 return json_encode(true);
