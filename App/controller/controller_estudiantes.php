@@ -15,6 +15,10 @@
             $estudiante = array($_POST['id_estudiante'], $_POST['estado']);
             print $datosEstudiantes->updateEstadoEstudiante($estudiante);
             break;
+
+        case "eliminar_estudiante":
+            print json_encode(false); // HABILITAR SECCIÓN PARA ELMIMINAR
+            break;
     }
 
 

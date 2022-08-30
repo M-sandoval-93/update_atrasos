@@ -1,4 +1,4 @@
-<div id="modal_form" class="modal">
+<div id="modal_form_apoderados" class="modal">
     <form action="#" class="modal-content animate" method="POST" id="form_apoderados">
         <div class="modal-header">
             <h2 id="titulo-modal"></h2>
@@ -6,7 +6,7 @@
         <hr>
         <div class="modal-inputs">
             <label for="apoderado_rut">Rut</label>
-            <input class="input-rut" type="text" id="apoderado_rut" name="rut">
+            <input class="input-rut" type="text" id="apoderado_rut" name="rut" maxlength="8">
             <span></span>
             <input class="input-rut-dv" type="text" id="apoderado_dv_rut" maxlength="1">
 
@@ -25,8 +25,8 @@
             <input type="text" id="apoderado_fono" name="fono" maxlength="8">
         </div>
         <div class="modal-footer">
-            <button class="btn btn-l btn-data" type="submit" id="btn_modal_registrar">Registrar</button>
-            <button class="btn btn-l btn-delete" type="reset" id="btn_modal_cancelar">Cancelar</button>
+            <button class="btn btn-l btn-data" type="submit" id="btn_modal_registrar_apoderado">Registrar</button>
+            <button class="btn btn-l btn-delete" type="reset" id="btn_modal_cancelar_apoderado">Cancelar</button>
         </div>
     </form>
 </div>

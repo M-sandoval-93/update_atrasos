@@ -1,17 +1,34 @@
 $(document).ready(function() {
 
     // VARIABLES GLOBALES
-    // let modal = $('#modal_form');
+    let modal = $('#modal_form_estudiantes');
     let registrar;
     let id_estudiante;
 
     // BOTÓN NUEVO ESTUDIANTE /==================================
+    $('#btn_nuevo_estudiante').click(function(e) {
+        e.preventDefault();
+        $('#form_estudiantes').trigger('reset');
+        $('#titulo-modal_estudiante').text('Registrar nuevo estudiante');
+        // $('#estudiante_codigo_fono').val('569');
+        
+        modal.addClass('modal-show');
+        $('#estudiante_rut').removeAttr('disabled', 'disable');
+        $('#estudiante_dv_rut').attr('disabled', 'disabled');
+        $('#estudiante_rut').focus();
+        // $('#estudiante_rut').keyup(generar_dv);
+        // $('#estudiante_rut').blur(generar_dv);
+
+        registrar = 'nuevo_estudiante';
+    });
 
     // BOTÓN MODAL REGISTRAR /===================================
 
     // BOTÓN MODAL CANCELAR /====================================
-
-
+    $('#btn_modal_cancelar_estudiante').click(function(e) {
+        e.preventDefault();
+        modal.removeClass('modal-show');
+    });
 
 
     // FUNCION PARA GENERAR INFORMCION ADICIONAL
@@ -28,8 +45,13 @@ $(document).ready(function() {
                 '<tr>' +
                     '<td>Nombre completo:</td>' +
                     '<td>' +
-                    d.nombres_estudiante + ' ' + d.apellido_paterno_estudiante + ' ' + d.apellido_paterno_estudiante +
+                    d.nombres_estudiante + ' ' + d.apellido_paterno_estudiante + ' ' + d.apellido_paterno_estudiante + " (" + d.nombre_social_estudiante + ")" +
                     '</td>' +
+                '</tr>' +
+
+                '<tr>' +
+                    '<td>Curso:</td>' +
+                    '<td>Agregar el curso correspondiente</td>' +
                 '</tr>' +
 
                 '<tr>' +
@@ -47,10 +69,6 @@ $(document).ready(function() {
                     '</td>' +
                 '</tr>' +
 
-                '<tr>' +
-                    '<td>Curso:</td>' +
-                    '<td>Agregar el curso correspondiente</td>' +
-                '</tr>' +
             '</table>'
         );
     }
@@ -58,6 +76,7 @@ $(document).ready(function() {
     // DATATABLE /===============================================
     datos = 'mostrar_estudiantes';
     let tabla_estudiantes = $('#estudiantes').DataTable({
+        // processing: true,  // PARA MOSTRAR CIRCULOS DE PROCESAMIENTO
         ajax: {
             url: "./controller/controller_estudiantes.php",
             method: "post",
@@ -95,8 +114,8 @@ $(document).ready(function() {
             {data: null,
                 bSortable: false,
                 defaultContent: // BOTONES
-                                `<button class="btn btn-s btn-data" id="btn_editar_apoderado" type="button"><i class="fas fa-pencil-alt"></i></button>
-                                <button class="btn btn-s btn-delete" id="btn_eliminar_apoderado" type="button"><i class="fas fa-trash-alt"></i></button>`
+                                `<button class="btn btn-s btn-data" id="btn_editar_estudiante" type="button"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-s btn-delete" id="btn_eliminar_estudiante" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
         order: [[3, 'asc']],
@@ -118,7 +137,7 @@ $(document).ready(function() {
             // ACCIÓN PARA CUANDO SE EXPANDE LA TABLA
             row.child(format(row.data())).show();
             tr.addClass('shown');
-            
+    
         }
     });
 
@@ -181,11 +200,51 @@ $(document).ready(function() {
         });
     });
 
+
     // ELIMINAR UN ESTUDIANTE /==================================
+    $('#estudiantes tbody').on('click', '#btn_eliminar_estudiante', function() {
+        let data  = tabla_estudiantes.row($(this).parents()).data();
+        id_estudiante = data.id_estudiante;
+        nombres = data.nombres_estudiante + " " + data.apellido_paterno_estudiante + " " + data.apellido_materno_estudiante;
+        Swal.fire({
+            icon: 'question',
+            title: 'Se eliminará al estudiante \n "' + nombres + '"',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#2691d9',
+            cancelButtonColor: '#adadad'
+        }).then(resultado => {
+            if (resultado.isConfirmed) {
+                datos = "eliminar_estudiante";
 
-
-
-
+                $.ajax({
+                    url: './controller/controller_estudiantes.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {id_estudiante: id_estudiante, datos: datos},
+                    success: function(data) {
+                        if (data === false) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al eliminar estudiante !!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Estudiante eliminado !!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            tabla_apoderados.ajax.reload(null, false);
+                        }
+                    }
+                });
+            } 
+        });
+    });
 
 
 })

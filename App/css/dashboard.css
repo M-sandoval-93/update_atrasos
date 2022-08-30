@@ -716,7 +716,6 @@ main .card .label {
     content: "-";
 }
 
-
 .modal-footer {
     padding: 5px 20px 20px 20px;
     display: flex;
@@ -729,6 +728,19 @@ main .card .label {
     padding: 8px 0;
     margin: 0 8px;
 }
+
+
+/* CAMPOS MODAL ESTUDIANTE */
+.modal-inputs > input[id="estudiante_nombre_social"] {
+    width: 60%;
+}
+
+.modal-inputs > select {
+    width: 30%;
+    display: inline-block;
+    margin: 10px 0;
+}
+
 /* MODAL */
 
 

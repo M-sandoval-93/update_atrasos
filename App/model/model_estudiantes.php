@@ -14,6 +14,20 @@
             $query = "SELECT id_estudiante, (rut_estudiante || '-' || dv_rut_estudiante) as rut_estudiante, apellido_paterno_estudiante,
                         apellido_materno_estudiante, nombres_estudiante, nombre_social_estudiante, id_estado, sexo_estudiante, fecha_nacimiento_estudiante FROM estudiantes;";
 
+            // CONSULTA COMPLETA CON TODOS LOS DATOS, SIN CONTAR LOS APODERADOS
+
+            // SELECT 
+            // estudiantes.id_estudiante, matriculas.matricula, estudiantes.rut_estudiante, 
+            // estudiantes.dv_rut_estudiante, estudiantes.nombres_estudiante, estudiantes.nombre_social_estudiante, 
+            // estudiantes.apellido_paterno_estudiante, estudiantes.apellido_materno_estudiante, 
+            // estudiantes.fecha_nacimiento_estudiante, estudiantes.id_estado, estudiantes.beneficio_junaeb, 
+            // estudiantes.sexo_estudiante, cursos.curso
+            // FROM 
+            // estudiantes, matriculas, cursos
+            // WHERE 
+            // matriculas.id_estudiante = estudiantes.id_estudiante AND cursos.id_curso = matriculas.id_curso;
+
+
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute();
             $estudiantes = $sentencia->fetchAll(PDO::FETCH_ASSOC);

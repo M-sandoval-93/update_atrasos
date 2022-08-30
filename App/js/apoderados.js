@@ -76,7 +76,7 @@ function generar_dv() {
 }
 
 function camposVacios() {
-    const form = document.getElementById('modal_form');
+    const form = document.getElementById('modal_form_apoderados');
     const inputs = form.querySelectorAll('input[type="text"]');
     let contador = 0;
 
@@ -94,7 +94,7 @@ function camposVacios() {
 $(document).ready(function() {
 
     // VARIABLES GLOBALES
-    let modal = $('#modal_form');
+    let modal = $('#modal_form_apoderados');
     let registrar;
     let id_apoderado;
 
@@ -110,14 +110,15 @@ $(document).ready(function() {
         $('#apoderado_rut').removeAttr('disabled', 'disable');
         $('#apoderado_dv_rut').attr('disabled', 'disabled');
         $('#apoderado_rut').focus();
-        registrar = 'nuevo_apoderado';
         $('#apoderado_rut').keyup(generar_dv);
         $('#apoderado_rut').blur(generar_dv);
+
+        registrar = 'nuevo_apoderado';
     });
 
 
     // BOTÓN MODAL REGISTRAR /==================================
-    $('#btn_modal_registrar').click(function(e) {
+    $('#btn_modal_registrar_apoderado').click(function(e) {
         e.preventDefault();
 
         // SE CREAN LAS VARIABLES
@@ -204,7 +205,6 @@ $(document).ready(function() {
                     }
                 }
             });
-
         } else {
             Swal.fire({
                 icon: 'error',
@@ -217,7 +217,7 @@ $(document).ready(function() {
 
 
     // BOTÓN MODAL CANCELAR /===================================
-    $('#btn_modal_cancelar').click(function(e) {
+    $('#btn_modal_cancelar_apoderado').click(function(e) {
         e.preventDefault();
         modal.removeClass('modal-show');
     });
