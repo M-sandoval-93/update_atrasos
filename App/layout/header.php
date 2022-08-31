@@ -40,7 +40,7 @@
             <li>
                 <a href="#"><i class="fas fa-user-graduate icon"></i> Estudiantes <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
-                    <li><a href="estudiantes">Estudiantes</a></li>
+                    <li><a href="estudiantes">Matriculas</a></li>
                     <li><a href="atrasos">Atrasos</a></li>
                     <li><a href="justificaciones">Justificaciones</a></li>
                     <li><a href="#">Suspensiones</a></li>

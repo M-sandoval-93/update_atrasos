@@ -14,7 +14,6 @@ let LibreriaFunciones = {
         if (dvRut == 'K') {
             dvRut = 'K';
         }
-
         return (LibreriaFunciones.dv(rut) == dvRut);
     },
 
@@ -22,10 +21,10 @@ let LibreriaFunciones = {
     // Calcula el dígito verificador
     dv: function(T) {
         let M = 0, S = 1;
+
         for (;T;T = Math.floor(T/10)) {
             S = (S + T % 10 * (9 - M ++ % 6)) % 11;
         }
-
         return S?S - 1: 'K';
     },
 
@@ -33,7 +32,6 @@ let LibreriaFunciones = {
     // Valida que el número sea un entero
     validarEntero: function(value) {
         let regExPattern = /[0-9]+$/;
-
         return regExPattern.test(value);
     },
 
@@ -42,7 +40,7 @@ let LibreriaFunciones = {
     formatearNumero: function(value) {
         if (LibreriaFunciones.validarEntero(value)) {
             let retorno = '';
-            value = value.toString().split('').reverse().join('');
+            let value = value.toString().split('').reverse().join('');
             let i = value.length;
 
             while (i > 0) {

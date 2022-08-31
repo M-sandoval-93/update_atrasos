@@ -1,3 +1,93 @@
+// Librería de funciones básicas para validar RUT ==========
+let LibreriaFunciones = {
+    // Valida el rut con su cadena completa "XXXXXXXX-X"
+    validarRut: function(rutCompleto) {
+        if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto )) {
+            return false;
+        }
+        
+        let tmp = rutCompleto.split('-');
+        let rut = tmp[0];
+        let dvRut = tmp[1];
+
+        if (dvRut == 'K') {
+            dvRut = 'K';
+        }
+        return (LibreriaFunciones.dv(rut) == dvRut);
+    },
+
+
+    // Calcula el dígito verificador
+    dv: function(T) {
+        let M = 0, S = 1;
+
+        for (;T;T = Math.floor(T/10)) {
+            S = (S + T % 10 * (9 - M ++ % 6)) % 11;
+        }
+        return S?S - 1: 'K';
+    },
+
+
+    // Valida que el número sea un entero
+    validarEntero: function(value) {
+        let regExPattern = /[0-9]+$/;
+        return regExPattern.test(value);
+    },
+
+
+    // Formatea un número con puntos de miles
+    formatearNumero: function(value) {
+        if (LibreriaFunciones.validarEntero(value)) {
+            let retorno = '';
+            let value = value.toString().split('').reverse().join('');
+            let i = value.length;
+
+            while (i > 0) {
+                retorno += ((i%3==0&&i!=value.length)?'':'')+value.substring(i--,i);
+                // retorno += ((i%3==0&&i!=value.length)?'.':'')+value.substring(i--,i);  //Para ir agregando el punto
+            }
+            return retorno;
+        }
+        return value;
+    }
+}
+// Librería de funciones básicas para validar RUT ==========
+
+// FUNCIONES ===============================================
+
+function generar_dv() {
+    // Traspasar valor a número entero
+    let numero = $('#estudiante_rut').val();
+    numero = numero.split('.').join('');
+
+    // Valida que sea realmente entero
+    if (LibreriaFunciones.validarEntero(numero)) {
+        $('#estudiante_dv_rut').val(LibreriaFunciones.dv(numero));
+
+    } else {
+        $('#estudiante_dv_rut').val('');
+    }
+
+    // Formatear el valor del rut con sus puntos
+    $('#estudiante_rut').val(LibreriaFunciones.formatearNumero(numero));
+}
+
+function camposVacios() {
+    const form = document.getElementById('modal_form_estudiantes');
+    const inputs = form.querySelectorAll('input[type="text"]');
+    let contador = 0;
+
+    inputs.forEach(elemento => {
+        if (elemento.value === '') {
+            contador = contador + 1;
+        }
+    });
+    return contador;
+}
+
+// FUNCIONES ===============================================
+
+
 $(document).ready(function() {
 
     // VARIABLES GLOBALES
@@ -16,13 +106,23 @@ $(document).ready(function() {
         $('#estudiante_rut').removeAttr('disabled', 'disable');
         $('#estudiante_dv_rut').attr('disabled', 'disabled');
         $('#estudiante_rut').focus();
-        // $('#estudiante_rut').keyup(generar_dv);
-        // $('#estudiante_rut').blur(generar_dv);
+        $('#estudiante_rut').keyup(generar_dv);
+        $('#estudiante_rut').blur(generar_dv);
 
         registrar = 'nuevo_estudiante';
     });
 
     // BOTÓN MODAL REGISTRAR /===================================
+    $('#btn_modal_registrar_estudiante').click(function(e) {
+        e.preventDefault();
+
+        // SE CREAN LAS VARIABLES
+        console.log('registrar información');
+
+    });
+
+
+
 
     // BOTÓN MODAL CANCELAR /====================================
     $('#btn_modal_cancelar_estudiante').click(function(e) {
@@ -51,8 +151,8 @@ $(document).ready(function() {
                 '</tr>' +
 
                 '<tr>' +
-                    '<td>Curso:</td>' +
-                    '<td>' + d.curso + '</td>' +
+                    '<td>Nombre social:</td>' +
+                    '<td>' + d.nombre_social_estudiante + '</td>' +
                 '</tr>' +
 
                 '<tr>' +
@@ -103,7 +203,7 @@ $(document).ready(function() {
             {data: "apellido_paterno_estudiante"},
             {data: "apellido_materno_estudiante"},
             {data: "nombres_estudiante"},
-            {data: "nombre_social_estudiante"},
+            {data: "curso"},
             {
                 data: 'id_estado',
                 bSortable: false,
@@ -111,9 +211,12 @@ $(document).ready(function() {
                     let btn_estado;
                     if (data == 1) {
                         btn_estado = `<button class="btn btn-s btn-success" id="btn_editar_estado" type="button"><i class="fas fa-lock-open"></i></button>`;
-                    } else {
+                    } else if (data == 4) {
+                        btn_estado = `<button class="btn btn-s btn-delete" id="btn_editar_estado" type="button"><i class="fas fa-ban"></i></button>`;
+                    } else if (data == 4) {
                         btn_estado = `<button class="btn btn-s btn-lock" id="btn_editar_estado" type="button"><i class="fas fa-lock"></i></button>`;
                     }
+
                     return btn_estado;
                 }
             },
@@ -155,55 +258,67 @@ $(document).ready(function() {
 
 
 
-    // ACTIVAR O DESACTIVAR UN ESTUDIANTE /======================
+    // ESTADOS DE UN ESTUDIANTE /======================
     $('#estudiantes tbody').on('click', '#btn_editar_estado', function() {
         let data = tabla_estudiantes.row($(this).parents()).data();
         id_estudiante = data.id_estudiante;
         estado = data.id_estado;
         datos = "editar_estado";
 
-        $.ajax({
-            url: "./controller/controller_estudiantes.php",
-            method: "post",
-            dataType: "json",
-            data: {id_estudiante: id_estudiante, estado: estado, datos: datos},
-            success: function(data) {
-                if (data === false) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: 'No se pudo desactivar al estudiante',
-                        toast: true,
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true
-                    });
-                } else {
-                    if (estado == 1) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'warning',
-                            title: 'Estudiante Suspendido !!',
-                            toast: true,
-                            showConfirmButton: false,
-                            timer: 2000,
-                            timerProgressBar: true
-                        });
-                    } else {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Estudiante reitegrado',
-                            toast: true,
-                            showConfirmButton: false,
-                            timer: 2000,
-                            timerProgressBar: true
-                        });
-                    }
-                    tabla_estudiantes.ajax.reload(null, false);
-                }
-            }
-        });
+        if (estado == 4) {
+            Swal.fire({
+                icon: 'error',
+                title: 'El estudiante esta retirado !!',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            return false;
+        } else {
+            console.log("alumno para suspender o retirar");
+        }
+
+        // $.ajax({
+        //     url: "./controller/controller_estudiantes.php",
+        //     method: "post",
+        //     dataType: "json",
+        //     data: {id_estudiante: id_estudiante, estado: estado, datos: datos},
+        //     success: function(data) {
+        //         if (data === false) {
+        //             Swal.fire({
+        //                 position: 'top-end',
+        //                 icon: 'error',
+        //                 title: 'No se pudo desactivar al estudiante',
+        //                 toast: true,
+        //                 showConfirmButton: false,
+        //                 timer: 2000,
+        //                 timerProgressBar: true
+        //             });
+        //         } else {
+        //             if (estado == 1) {
+        //                 Swal.fire({
+        //                     position: 'top-end',
+        //                     icon: 'warning',
+        //                     title: 'Estudiante Suspendido !!',
+        //                     toast: true,
+        //                     showConfirmButton: false,
+        //                     timer: 2000,
+        //                     timerProgressBar: true
+        //                 });
+        //             } else {
+        //                 Swal.fire({
+        //                     position: 'top-end',
+        //                     icon: 'success',
+        //                     title: 'Estudiante reitegrado',
+        //                     toast: true,
+        //                     showConfirmButton: false,
+        //                     timer: 2000,
+        //                     timerProgressBar: true
+        //                 });
+        //             }
+        //             tabla_estudiantes.ajax.reload(null, false);
+        //         }
+        //     }
+        // });
     });
 
 

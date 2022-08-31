@@ -650,7 +650,6 @@ main .card .label {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, .5);
-    /* padding-top: 40px; */
 }
 
 .modal-content {
@@ -664,6 +663,11 @@ main .card .label {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+}
+
+.modal-content.estudiantes {
+    width: 80%;
+    max-width: 1000px;
 }
 
 .modal-show {
@@ -689,7 +693,8 @@ main .card .label {
     display: flex;
 }
 
-.modal-inputs input[type="text"] {
+.modal-inputs input[type="text"],
+.modal-inputs input[type="date"] {
     width: 100%;
     display: inline-block;
     padding: 3px 15px;
@@ -727,12 +732,6 @@ main .card .label {
     height: 40px;
     padding: 8px 0;
     margin: 0 8px;
-}
-
-
-/* CAMPOS MODAL ESTUDIANTE */
-.modal-inputs > input[id="estudiante_nombre_social"] {
-    width: 60%;
 }
 
 .modal-inputs > select {

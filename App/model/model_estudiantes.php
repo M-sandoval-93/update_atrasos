@@ -9,23 +9,24 @@
             parent:: __construct();
         }
 
-        // CONSULTAR LOS ESTUDIANTES DE LA BASE DE DATOS
+        // CONSULTAR LOS ESTUDIANTES Y SUS DATOS DERIVADOS EN BASE DE DATOS
         public function consultaEstudiantes() {
             $query = "SELECT estudiantes.id_estudiante, matriculas.numero_matricula,
-            (estudiantes.rut_estudiante || '-' || estudiantes.dv_rut_estudiante) as rut_estudiante,
-            estudiantes.nombres_estudiante, estudiantes.nombre_social_estudiante,
-            estudiantes.apellido_paterno_estudiante, estudiantes.apellido_materno_estudiante,
-            estudiantes.fecha_nacimiento_estudiante, estudiantes.id_estado, 
-            estudiantes.sexo_estudiante, cursos.curso,
-            (apt.nombres_apoderado || ' ' || apt.apellido_paterno_apoderado || ' ' || 
-            apt.apellido_materno_apoderado) AS apoderado_titular,
-            (aps.nombres_apoderado || ' ' || aps.apellido_paterno_apoderado || ' ' || 
-            aps.apellido_materno_apoderado) AS apoderado_suplente
-            FROM matriculas
-            LEFT JOIN estudiantes ON estudiantes.id_estudiante = matriculas.id_estudiante
-            LEFT JOIN cursos ON cursos.id_curso = matriculas.id_curso
-            LEFT JOIN apoderados AS apt ON apt.id_apoderado = matriculas.id_apoderado_titular
-            LEFT JOIN apoderados AS aps ON aps.id_apoderado = matriculas.id_apoderado_suplente;";
+                    (estudiantes.rut_estudiante || '-' || estudiantes.dv_rut_estudiante) as rut_estudiante,
+                    estudiantes.nombres_estudiante, estudiantes.nombre_social_estudiante,
+                    estudiantes.apellido_paterno_estudiante, estudiantes.apellido_materno_estudiante,
+                    to_char(estudiantes.fecha_nacimiento_estudiante, 'dd / mm / yyyy') as fecha_nacimiento_estudiante, 
+                    estudiantes.id_estado, estudiantes.sexo_estudiante, cursos.curso,
+                    (apt.nombres_apoderado || ' ' || apt.apellido_paterno_apoderado || ' ' || 
+                    apt.apellido_materno_apoderado) AS apoderado_titular,
+                    (aps.nombres_apoderado || ' ' || aps.apellido_paterno_apoderado || ' ' || 
+                    aps.apellido_materno_apoderado) AS apoderado_suplente,
+                    matriculas.fecha_retiro_estudiante
+                    FROM matriculas
+                    LEFT JOIN estudiantes ON estudiantes.id_estudiante = matriculas.id_estudiante
+                    LEFT JOIN cursos ON cursos.id_curso = matriculas.id_curso
+                    LEFT JOIN apoderados AS apt ON apt.id_apoderado = matriculas.id_apoderado_titular
+                    LEFT JOIN apoderados AS aps ON aps.id_apoderado = matriculas.id_apoderado_suplente;";
 
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute();

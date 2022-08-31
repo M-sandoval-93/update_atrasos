@@ -26,7 +26,7 @@
                         <th>Ap. Paterno</th>
                         <th>Ap. Materno</th>
                         <th>Nombres</th>
-                        <th>Nombre Social</th>
+                        <th>Curso</th>
                         <th>Estado</th>
                         <th>Edición</th>
                     </tr>

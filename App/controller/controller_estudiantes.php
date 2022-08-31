@@ -12,8 +12,9 @@
             break;
 
         case "editar_estado":
-            $estudiante = array($_POST['id_estudiante'], $_POST['estado']);
-            print $datosEstudiantes->updateEstadoEstudiante($estudiante);
+            // $estudiante = array($_POST['id_estudiante'], $_POST['estado']);
+            // print $datosEstudiantes->updateEstadoEstudiante($estudiante);
+            print json_encode(true); // HABILITAR SECCIÓN PARA MODIFICAR ESTADO
             break;
 
         case "eliminar_estudiante":
