@@ -39,13 +39,12 @@
         public function consultarCurso($grado) {
             try {
                 $sentencia = $this->conexion_db->prepare($this->query_consultar);
-                // $sentencia->bindValue(1, $grado."%", PDO::PARAM_STR);
                 $sentencia->execute([$grado.'%']);
 
                 if ($sentencia->rowCount() >= 1) {
-                    return false;
+                    return json_encode(false);
                 } else {
-                    return true;
+                    return json_encode(true);
                 }
 
             } catch (Exception $e) {

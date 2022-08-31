@@ -7,13 +7,13 @@ $(document).ready(function () {
         let grado = $(this).attr('id');
 
         $.ajax({
-            url: './controller/controller_cursos.php',
-            type: 'post',
-            datatype: 'json',
+            url: "./controller/controller_cursos.php",
+            method: "post",
+            dataType: "json",
             data: { grado: grado},
             success: function(data) {
                 // SE VALIDA SI SE HAN CREADO LOS CURSOS PARA EL GRADO
-                if (data == 'false') {
+                if (data === false) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Los cursos ya han sido creados !',

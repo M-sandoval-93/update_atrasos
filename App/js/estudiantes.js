@@ -34,41 +34,46 @@ $(document).ready(function() {
     // FUNCION PARA GENERAR INFORMCION ADICIONAL
     function format(d) {
         let sexo;
+        let junaeb;
+
         if (d.sexo_estudiante == 'F') {
             sexo = 'Femenina';
         } else {
             sexo = 'Masculino';
         }
+
         
         return (
             '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                 '<tr>' +
-                    '<td>Nombre completo:</td>' +
-                    '<td>' +
-                    d.nombres_estudiante + ' ' + d.apellido_paterno_estudiante + ' ' + d.apellido_paterno_estudiante + " (" + d.nombre_social_estudiante + ")" +
-                    '</td>' +
+                    '<td>Número matrícula:</td>' +
+                    '<td>' + d.numero_matricula + '</td>' +
                 '</tr>' +
 
                 '<tr>' +
                     '<td>Curso:</td>' +
-                    '<td>Agregar el curso correspondiente</td>' +
-                '</tr>' +
-
-                '<tr>' +
-                    '<td>Fecha Nacimiento:</td>' +
-                    '<td>' +
-                    // d.fecha_nacimiento_estudiante.datepicker("dateFormat", "dd-mm-yy") +
-                    d.fecha_nacimiento_estudiante +
-                    '</td>' +
+                    '<td>' + d.curso + '</td>' +
                 '</tr>' +
 
                 '<tr>' +
                     '<td>Sexo estudiante:</td>' +
-                    '<td>' +
-                    sexo +
-                    '</td>' +
+                    '<td>' + sexo + '</td>' +
                 '</tr>' +
 
+                '<tr>' +
+                    '<td>Fecha Nacimiento:</td>' +
+                    '<td>' + d.fecha_nacimiento_estudiante + '</td>' +
+                '</tr>' +
+
+                '<tr>' +
+                    '<td>Apoderado titular:</td>' +
+                    '<td>' + d.apoderado_titular + '</td>' +
+                '</tr>' +
+
+                '<tr>' +
+                    '<td>Apoderado: suplente</td>' +
+                    '<td>' + d.apoderado_suplente + '</td>' +
+                '</tr>' +
             '</table>'
         );
     }
@@ -80,6 +85,7 @@ $(document).ready(function() {
         ajax: {
             url: "./controller/controller_estudiantes.php",
             method: "post",
+            // dateType: "json",
             data: {datos: datos}
          },
          columns: [ // INFORMACIÓN DE COLUMNAS

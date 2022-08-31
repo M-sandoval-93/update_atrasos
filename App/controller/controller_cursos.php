@@ -23,7 +23,7 @@
     }
 
     // SE DEVUELVEN LOS DATOS A LA CONSULTA AJAX
-    print json_encode($data);
+    print $data;
 
 
 
