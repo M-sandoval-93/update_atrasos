@@ -95,10 +95,10 @@
             <div class="section">
                 <div>
                     <label for="apoderado_titula_rut">Apoderado titular</label>
-                    <input class="input-rut" type="text" id="apoderado_titula_rut" name="rut_titular" maxlength="8">
+                    <input class="input-rut" type="text" id="apoderado_titular_rut" name="rut_titular" maxlength="8">
                     <span></span>
                     <input class="input-rut-dv" type="text" id="apoderado_titular_dv_rut" maxlength="1">
-                    <button id="btn_agregar_titular"><i class="fas fa-plus-circle"></i></button>
+                    <button id="btn_me_agregar_titular"><i class="fas fa-plus-circle"></i></button>
                 </div>
 
                 <label id="estudiante_ap_titular"></label>
@@ -106,11 +106,11 @@
 
             <div class="section">
                 <div>
-                    <label for="">Apoderado titular</label>
+                    <label for="apoderado_suplente_rut">Apoderado titular</label>
                     <input class="input-rut" type="text" id="apoderado_suplente_rut" name="rut_suplente" maxlength="8">
                     <span></span>
                     <input class="input-rut-dv" type="text" id="apoderado_suplente_dv_rut" maxlength="1">
-                    <button id="btn_agregar_suplente"><i class="fas fa-plus-circle"></i></button>
+                    <button id="btn_me_agregar_suplente"><i class="fas fa-plus-circle"></i></button>
                 </div>
                 
                 <label id="estudiante_ap_suplente"></label>
@@ -123,13 +123,3 @@
         </div>
     </form>
 </div>
-
-
-    <!-- ELIMINAR SCRIPT -->
-    <!-- <script src="../Pluggins/jQuery/jquery-3.6.0.min.js"></script>
-    <script src="../Pluggins/DataTables/datatables.min.js"></script>
-    <script src="../Pluggins/SweetAlert2/sweetalert2.all.min.js"></script>
-
-    <script src="../js/estudiantes.js"></script>
-    <script src="../js/dashboard.js"></script> -->
-    <!-- ELIMINAR SCRIPT -->

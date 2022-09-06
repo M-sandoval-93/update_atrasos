@@ -50,23 +50,35 @@ let LibreriaFunciones = {
 }
 // Librería de funciones básicas para validar RUT ==========
 
-// FUNCIONES ===============================================
 
-function generar_dv() {
+// FUNCIONES ===============================================
+function generar_dv(rut, dv_rut) {
     // Traspasar valor a número entero
-    let numero = $('#estudiante_rut').val();
+    let numero = $(rut).val();
     numero = numero.split('.').join('');
 
     // Valida que sea realmente entero
     if (LibreriaFunciones.validarEntero(numero)) {
-        $('#estudiante_dv_rut').val(LibreriaFunciones.dv(numero));
+        $(dv_rut).val(LibreriaFunciones.dv(numero));
 
     } else {
-        $('#estudiante_dv_rut').val('');
+        $(dv_rut).val('');
     }
 
     // Formatear el valor del rut con sus puntos
-    $('#estudiante_rut').val(LibreriaFunciones.formatearNumero(numero));
+    $(rut).val(LibreriaFunciones.formatearNumero(numero));
+}
+
+function buscar_info_apoderado(rut, label) {
+    $.ajax({
+        url: "./controller/controller_apoderados.php",
+        method: "post",
+        dataType: "json",
+
+    });
+
+    label.text(rut);
+    // console.log(rut);
 }
 
 function camposVacios() {
@@ -81,7 +93,6 @@ function camposVacios() {
     });
     return contador;
 }
-
 // FUNCIONES ===============================================
 
 
@@ -101,21 +112,101 @@ $(document).ready(function() {
         modal.addClass('modal-show');
         $('#estudiante_rut').removeAttr('disabled', 'disable');
         $('#estudiante_dv_rut').attr('disabled', 'disabled');
+        $('#apoderado_titular_dv_rut').attr('disabled', 'disabled');
+        $('#apoderado_suplente_dv_rut').attr('disabled', 'disabled');
         $('#estudiante_rut').focus();
-        $('#estudiante_rut').keyup(generar_dv);
-        $('#estudiante_rut').blur(generar_dv);
+
+        // VALIDADOR DE RUT ESTUDIANTE
+        $('#estudiante_rut').keyup(function() {
+            generar_dv('#estudiante_rut', '#estudiante_dv_rut');
+        });
+
+        // VALIDADOR DE RUT APODERADO TITULAR
+        $('#apoderado_titular_rut').keyup(function() {
+            generar_dv('#apoderado_titular_rut', '#apoderado_titular_dv_rut');
+            if ($(this).val().length == 8) {
+                buscar_info_apoderado($(this).val(), $('#estudiante_ap_titular'));
+            }
+        });
+
+        // VALIDADOR DE RUT APODERADO TITULAR
+        $('#apoderado_suplente_rut').keyup(function() {
+            generar_dv('#apoderado_suplente_rut', '#apoderado_suplente_dv_rut');
+            if ($(this).val().length == 8) {
+                buscar_info_apoderado($(this).val(), $('#estudiante_ap_suplente'));
+            }
+        });
 
         registrar = 'nuevo_estudiante';
     });
+
+
+
+
 
     // BOTÓN MODAL REGISTRAR /===================================
     $('#btn_modal_registrar_estudiante').click(function(e) {
         e.preventDefault();
 
+        if ($('#estudiante_letra').val() == null) {
+            // console.log("falta seleccionar la letra del curso");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Seleccionar letra de cursos !!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return false;
+        }
+
         // SE CREAN LAS VARIABLES
-        console.log('registrar información');
+        fecha_ingreso = $('#estudiante_fecha_ingreso').val();
+        matricula = $('#estudiante_matricula').val();
+        rut_e = $('#estudiante_rut').val();
+        dv_rut_e = $('#estudiante_dv_rut').val().toUpperCase();
+        nombres = $('#estudiante_nombres').val().toUpperCase();
+        ap = $('#estudiante_ap_paterno').val().toUpperCase();
+        am = $('#estudiante_ap_materno').val().toUpperCase();
+        nombre_social = $('#estudiante_nombre_social').val().toUpperCase();
+        id_curso = $('#estudiante_letra').val();
+        fecha_nacimiento = $('#estudiante_fecha_nacimiento').val();
+        sexo = $('#estudiante_sexo').val();
+        junaeb = $('#estudiante_junaeb').val();
+        rut_at = $('#apoderado_titular_rut').val();
+        rut_dv_at = $('#apoderado_titular_dv_rut').val();
+        rut_as = $('#apoderado_suplente_rut').val();
+        rut_dv_as = $('#apoderado_suplente_dv_rut').val();
+
+
+
+        if (registrar == 'nuevo_estudiante') {
+            console.log('registrar nuevo estudiantes');
+
+        } else if (registrar == 'editar_estudiante') {
+            console.log('registrar nuevo estudiantes');
+        }
+
+
 
     });
+
+
+
+
+
+    // TRABAJAR EN LA IMPLEMENTACION DE ESTE MODULO PARA AGREGAR APODERADOS
+    // BTN PARA AGREGAR UN APODERADO TITULAR
+    $('#btn_me_agregar_titular').click(function(e) {
+        e.preventDefault();
+        console.log("agregar titular");
+    });
+
+    // BTN PARA AGREGAR UN APODERADO SUPLENTE
+    $('#btn_me_agregar_suplente').click(function(e) {
+        e.preventDefault();
+        console.log("agregar suplente");
+    });
+    // TRABAJAR EN LA IMPLEMENTACION DE ESTE MODULO PARA AGREGAR APODERADOS
 
 
 
@@ -130,7 +221,6 @@ $(document).ready(function() {
     // FUNCION PARA GENERAR INFORMCION ADICIONAL
     function format(d) {
         let sexo;
-        let junaeb;
 
         if (d.sexo_estudiante == 'F') {
             sexo = 'Femenina';
@@ -138,7 +228,6 @@ $(document).ready(function() {
             sexo = 'Masculino';
         }
 
-        
         return (
             '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                 '<tr>' +
@@ -181,7 +270,7 @@ $(document).ready(function() {
         ajax: {
             url: "./controller/controller_estudiantes.php",
             method: "post",
-            // dateType: "json",
+            dateType: "json",
             data: {datos: datos}
          },
          columns: [ // INFORMACIÓN DE COLUMNAS
@@ -228,6 +317,7 @@ $(document).ready(function() {
         language: spanish
     });
 
+
     // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN
     $('#estudiantes tbody').on('click', 'td.dt-control', function () {
         let tr = $(this).closest('tr');
@@ -254,7 +344,11 @@ $(document).ready(function() {
 
 
 
-    // ESTADOS DE UN ESTUDIANTE /================================
+
+
+
+
+    // ESTADOS DE UN ESTUDIANTE /================================    TERMINAR DE TRABAJAR FUNCION
     $('#estudiantes tbody').on('click', '#btn_editar_estado', function() {
         let data = tabla_estudiantes.row($(this).parents()).data();
         id_estudiante = data.id_estudiante;

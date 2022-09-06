@@ -26,6 +26,11 @@
             $this->conexion_db = null;
         }
 
+        public function consultaNombreApoderado($rut) {
+            $query = "SELECT (nombres_apoderado || ' ' || apellido_paterno_apoderado || ' ' || apellido_materno_apoderado) AS nombre
+            FROM apoderados WHERE rut_apoderado = ?;";
+        }
+
         // AGREGAR NUEVO APODERADO A LA BASE DE DATOS
         public function newApoderado($apoderado) {
 

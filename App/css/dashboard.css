@@ -720,7 +720,6 @@ main > .div_profile > .profile__content {
     align-items: center;
 }
 
-/* .modal-inputs input[type="text"], */
 .modal-inputs input,
 .modal-inputs select {
     width: 100%;
@@ -799,7 +798,7 @@ main > .div_profile > .profile__content {
 }
 
 input[id="estudiante_rut"],
-input[id="apoderado_titula_rut"],
+input[id="apoderado_titular_rut"],
 input[id="apoderado_suplente_rut"] {
     width: 160px;
 }
