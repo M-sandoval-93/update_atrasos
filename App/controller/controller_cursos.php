@@ -12,19 +12,21 @@
     // SE OBTIENEN LOS DATOS ENVIADOS POR AJAX
     $grado = (isset($_POST['grado'])) ? $_POST['grado'] : '';
     $letra = (isset($_POST['letra'])) ? $_POST['letra'] : '';
-
+    $funcion = $_POST['funcion'];
     $cursos = new Curso();
 
-    if ($grado <> "" && $letra == "") {
-        $data = $cursos->consultarCurso($grado);
+    switch ($funcion) {
+        case 'consulta':
+            print $cursos->consultarCurso($grado);
+            break;
 
-    } else if ($grado <> "" && $letra <> "") {
-        $data = $cursos->generarCurso($grado, $letra);
+        case 'crear_curso':
+            break;
+
+        case 'cargar_letras':
+            print $cursos->cargarLetrasGrado($grado);
+            break;
     }
-
-    // SE DEVUELVEN LOS DATOS A LA CONSULTA AJAX
-    print $data;
-
 
 
 ?>

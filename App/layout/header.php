@@ -89,7 +89,7 @@
             <div class="profile">
                 <img src="./assets/logo_liceo.png" alt="Logo">
                 <ul class="profile-link">
-                    <li><a href="#"><i class="fas fa-address-card icon"></i> Profile</a></li>
+                    <li><a href="profile"><i class="fas fa-address-card icon"></i> Profile</a></li>
                     <li><a href="#"><i class="fas fa-lock icon"></i> Password</a></li>
                     <li><a href="./controller/controller_exit.php"><i class="fas fa-sign-out-alt icon"></i> Logout</a></li>
                 </ul>

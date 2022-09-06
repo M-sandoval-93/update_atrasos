@@ -26,7 +26,8 @@
                     LEFT JOIN estudiantes ON estudiantes.id_estudiante = matriculas.id_estudiante
                     LEFT JOIN cursos ON cursos.id_curso = matriculas.id_curso
                     LEFT JOIN apoderados AS apt ON apt.id_apoderado = matriculas.id_apoderado_titular
-                    LEFT JOIN apoderados AS aps ON aps.id_apoderado = matriculas.id_apoderado_suplente;";
+                    LEFT JOIN apoderados AS aps ON aps.id_apoderado = matriculas.id_apoderado_suplente
+                    WHERE anio_lectivo = EXTRACT(YEAR FROM NOW());";
 
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute();

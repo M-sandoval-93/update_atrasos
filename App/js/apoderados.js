@@ -37,10 +37,10 @@ let LibreriaFunciones = {
 
 
     // Formatea un número con puntos de miles
-    formatearNumero: function(value) {
-        if (LibreriaFunciones.validarEntero(value)) {
+    formatearNumero: function(val) {
+        if (LibreriaFunciones.validarEntero(val)) {
             let retorno = '';
-            let value = value.toString().split('').reverse().join('');
+            let value = val.toString().split('').reverse().join('');
             let i = value.length;
 
             while (i > 0) {
@@ -49,7 +49,7 @@ let LibreriaFunciones = {
             }
             return retorno;
         }
-        return value;
+        return val;
     }
 }
 // Librería de funciones básicas para validar RUT ==========

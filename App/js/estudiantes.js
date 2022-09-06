@@ -16,7 +16,6 @@ let LibreriaFunciones = {
         return (LibreriaFunciones.dv(rut) == dvRut);
     },
 
-
     // Calcula el dígito verificador
     dv: function(T) {
         let M = 0, S = 1;
@@ -27,19 +26,17 @@ let LibreriaFunciones = {
         return S?S - 1: 'K';
     },
 
-
     // Valida que el número sea un entero
     validarEntero: function(value) {
         let regExPattern = /[0-9]+$/;
         return regExPattern.test(value);
     },
 
-
     // Formatea un número con puntos de miles
-    formatearNumero: function(value) {
-        if (LibreriaFunciones.validarEntero(value)) {
+    formatearNumero: function(val) {
+        if (LibreriaFunciones.validarEntero(val)) {
             let retorno = '';
-            let value = value.toString().split('').reverse().join('');
+            let value = val.toString().split('').reverse().join('');
             let i = value.length;
 
             while (i > 0) {
@@ -48,7 +45,7 @@ let LibreriaFunciones = {
             }
             return retorno;
         }
-        return value;
+        return val;
     }
 }
 // Librería de funciones básicas para validar RUT ==========
@@ -100,7 +97,6 @@ $(document).ready(function() {
         e.preventDefault();
         $('#form_estudiantes').trigger('reset');
         $('#titulo-modal_estudiante').text('Registrar nuevo estudiante');
-        // $('#estudiante_codigo_fono').val('569');
         
         modal.addClass('modal-show');
         $('#estudiante_rut').removeAttr('disabled', 'disable');
@@ -258,7 +254,7 @@ $(document).ready(function() {
 
 
 
-    // ESTADOS DE UN ESTUDIANTE /======================
+    // ESTADOS DE UN ESTUDIANTE /================================
     $('#estudiantes tbody').on('click', '#btn_editar_estado', function() {
         let data = tabla_estudiantes.row($(this).parents()).data();
         id_estudiante = data.id_estudiante;
@@ -366,6 +362,28 @@ $(document).ready(function() {
             } 
         });
     });
+
+
+    // CARGAR LETRA DE GRADO EN MODAL /==========================
+    $('#estudiante_grado').change(function() {
+        let grado = $(this).val();
+        let funcion = 'cargar_letras';
+
+        if (grado == 'Grado') {
+            $("#estudiante_letra").html('');
+        } else {
+            $.ajax({
+                url: './controller/controller_cursos.php',
+                type: 'post',
+                dataType: 'json',
+                data: { grado: grado, funcion: funcion},
+                success: function(data) {
+                    $('#estudiante_letra').html(data);
+                }
+            });
+        }
+    });
+    
 
 
 })

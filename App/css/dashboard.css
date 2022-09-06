@@ -634,6 +634,32 @@ main .card .label {
 
 
 
+/* PROFILE */
+
+main > .div_profile {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+}
+
+main > .div_profile > .profile__content {
+    background-color: blue;
+    width: 50%;
+    display: flex;
+    
+}
+
+
+
+
+
+/* PROFILE */
+
+
+
 
 
 
@@ -689,16 +715,18 @@ main .card .label {
     padding: 10px 20px;
 }
 
-.modal-inputs > label {
+.modal-inputs label {
     display: flex;
+    align-items: center;
 }
 
-.modal-inputs input[type="text"],
-.modal-inputs input[type="date"] {
+/* .modal-inputs input[type="text"], */
+.modal-inputs input,
+.modal-inputs select {
     width: 100%;
     display: inline-block;
-    padding: 3px 15px;
-    margin: 10px 0;
+    padding: 3px 12px;
+    margin: 5px 0 20px 0;
     text-transform: uppercase;
 }
 
@@ -717,8 +745,10 @@ main .card .label {
     text-align: center;
 }
 
-.modal-inputs > span::before {
+.modal-inputs span::before { 
+/* .section_1 > div > span::before { */
     content: "-";
+    margin: 0px 4px;
 }
 
 .modal-footer {
@@ -741,6 +771,88 @@ main .card .label {
 }
 
 /* MODAL */
+
+
+/* MODAL ESTUDIANTES ==================== */
+.section {
+    display: flex;
+    width: 100%;
+}
+
+.section_2,
+.section_4 {
+    margin-bottom: 20px;
+}
+
+.section_1 > div:nth-child(1),
+.section_4 > div:nth-child(1) {
+    width: 178px;
+}
+.section_1 > div:nth-child(2),
+.section_4 > div:nth-child(2) {
+    margin: 0px 30px;
+    width: 150px;
+}
+
+.section_1 > div:nth-child(3) {
+    width: 250px;
+}
+
+input[id="estudiante_rut"],
+input[id="apoderado_titula_rut"],
+input[id="apoderado_suplente_rut"] {
+    width: 160px;
+}
+
+input[id="estudiante_dv_rut"],
+input[id="apoderado_titular_dv_rut"],
+input[id="apoderado_suplente_dv_rut"] {
+    width: 64.7px;
+    text-align: center;
+}
+
+.section_2 > div:nth-child(2) {
+    margin: 0px 30px;
+}
+
+.section_2 > div:nth-child(1) {
+    width: 35%;
+}
+
+.section_3 > div:nth-child(1) {
+    width: 40%;
+    margin-right: 20px;
+}
+
+.section_3 > div:nth-child(2),
+.section_4 > div:nth-child(3) {
+    width: 40%;
+}
+
+select[id="estudiante_grado"] {
+    width: 68%;
+    margin-right: 10px;
+}
+
+select[id="estudiante_letra"],
+select[id="estudiante_junaeb"] {
+    width: calc(32% - 30px);
+}
+
+.section button {
+    width: 35px;
+    height: 35px;
+    margin: 0 20px 0 10px;
+}
+
+.section > label {
+    width: 40%;
+    min-width: 250px;
+}
+
+
+
+/* MODAL ESTUDIANTES ==================== */
 
 
 
