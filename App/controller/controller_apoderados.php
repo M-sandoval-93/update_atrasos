@@ -20,6 +20,12 @@
             print $datosApoderados->consultaApoderados();
             break;
 
+        case "buscar_apoderado":
+            $rut = $_POST['rut'];
+            print $datosApoderados->consultaApoderado($rut);
+            // print json_encode(false);
+            break;
+
         case "nuevo_apoderado":
             // print json_encode(true);
             $apoderado = array($_POST['rut'], $_POST['dv_rut'], $_POST['nombres'], $_POST['a_paterno'], $_POST['a_materno'], $_POST['fono']);

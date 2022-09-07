@@ -69,18 +69,32 @@ function generar_dv(rut, dv_rut) {
     $(rut).val(LibreriaFunciones.formatearNumero(numero));
 }
 
-function buscar_info_apoderado(rut, label) {
-    $.ajax({
-        url: "./controller/controller_apoderados.php",
-        method: "post",
-        dataType: "json",
+function buscar_info_apoderado(rut, label, elemento) {
+    datos = 'buscar_apoderado';
 
-    });
+    if (rut.length <= 7) {
+        elemento.attr('hidden', 'hidden');
+        label.text('');
 
-    label.text(rut);
-    // console.log(rut);
+    } else if (rut.length == 8) {
+        $.ajax({
+            url: "./controller/controller_apoderados.php",
+            method: "post",
+            dataType: "json",
+            data: {rut: rut, datos: datos},
+            success: function(data) {
+                if (data === false) {
+                    label.text('Apoderado sin registros !!');
+                    elemento.removeAttr('hidden', 'hidden');
+                } else {
+                    label.text(data);
+                }
+            }
+        });
+    }
 }
 
+// revisar para el modal con select
 function camposVacios() {
     const form = document.getElementById('modal_form_estudiantes');
     const inputs = form.querySelectorAll('input[type="text"]');
@@ -100,6 +114,7 @@ $(document).ready(function() {
 
     // VARIABLES GLOBALES
     let modal = $('#modal_form_estudiantes');
+    let datos = 'mostrar_estudiantes';
     let registrar;
     let id_estudiante;
 
@@ -110,11 +125,17 @@ $(document).ready(function() {
         $('#titulo-modal_estudiante').text('Registrar nuevo estudiante');
         
         modal.addClass('modal-show');
+        // preparar modal
         $('#estudiante_rut').removeAttr('disabled', 'disable');
         $('#estudiante_dv_rut').attr('disabled', 'disabled');
         $('#apoderado_titular_dv_rut').attr('disabled', 'disabled');
         $('#apoderado_suplente_dv_rut').attr('disabled', 'disabled');
-        $('#estudiante_rut').focus();
+        $('#btn_me_agregar_titular').attr('hidden', 'hidden');
+        $('#btn_me_agregar_suplente').attr('hidden', 'hidden');
+        $("#estudiante_letra").html('');
+        $('#estudiante_ap_titular').text('');
+        $('#estudiante_ap_suplente').text('');
+        // $('#estudiante_rut').focus();
 
         // VALIDADOR DE RUT ESTUDIANTE
         $('#estudiante_rut').keyup(function() {
@@ -124,17 +145,13 @@ $(document).ready(function() {
         // VALIDADOR DE RUT APODERADO TITULAR
         $('#apoderado_titular_rut').keyup(function() {
             generar_dv('#apoderado_titular_rut', '#apoderado_titular_dv_rut');
-            if ($(this).val().length == 8) {
-                buscar_info_apoderado($(this).val(), $('#estudiante_ap_titular'));
-            }
+            buscar_info_apoderado($(this).val(), $('#estudiante_ap_titular'), $('#btn_me_agregar_titular'));
         });
 
         // VALIDADOR DE RUT APODERADO TITULAR
         $('#apoderado_suplente_rut').keyup(function() {
             generar_dv('#apoderado_suplente_rut', '#apoderado_suplente_dv_rut');
-            if ($(this).val().length == 8) {
-                buscar_info_apoderado($(this).val(), $('#estudiante_ap_suplente'));
-            }
+            buscar_info_apoderado($(this).val(), $('#estudiante_ap_suplente'), $('#btn_me_agregar_suplente'));
         });
 
         registrar = 'nuevo_estudiante';
@@ -264,7 +281,6 @@ $(document).ready(function() {
     }
 
     // DATATABLE /===============================================
-    datos = 'mostrar_estudiantes';
     let tabla_estudiantes = $('#estudiantes').DataTable({
         // processing: true,  // PARA MOSTRAR CIRCULOS DE PROCESAMIENTO
         ajax: {
@@ -316,6 +332,7 @@ $(document).ready(function() {
 
         language: spanish
     });
+    // DATATABLE /===============================================
 
 
     // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN

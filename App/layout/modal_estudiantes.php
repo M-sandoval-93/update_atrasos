@@ -92,31 +92,32 @@
             </div>
             
 
-            <div class="section">
+            <div class="section section_5">
                 <div>
                     <label for="apoderado_titula_rut">Apoderado titular</label>
                     <input class="input-rut" type="text" id="apoderado_titular_rut" name="rut_titular" maxlength="8">
                     <span></span>
                     <input class="input-rut-dv" type="text" id="apoderado_titular_dv_rut" maxlength="1">
-                    <button id="btn_me_agregar_titular"><i class="fas fa-plus-circle"></i></button>
+                    <button class="btn" id="btn_me_agregar_titular"><i class="fas fa-plus-circle"></i></button>
                 </div>
 
                 <label id="estudiante_ap_titular"></label>
             </div>
 
-            <div class="section">
+            <div class="section section_6">
                 <div>
                     <label for="apoderado_suplente_rut">Apoderado titular</label>
                     <input class="input-rut" type="text" id="apoderado_suplente_rut" name="rut_suplente" maxlength="8">
                     <span></span>
                     <input class="input-rut-dv" type="text" id="apoderado_suplente_dv_rut" maxlength="1">
-                    <button id="btn_me_agregar_suplente"><i class="fas fa-plus-circle"></i></button>
+                    <button class="btn" id="btn_me_agregar_suplente"><i class="fas fa-plus-circle"></i></button>
                 </div>
                 
                 <label id="estudiante_ap_suplente"></label>
             </div>
             
         </div>
+        <hr>
         <div class="modal-footer">
             <button class="btn btn-l btn-data" type="submit" id="btn_modal_registrar_estudiante">Registrar</button>
             <button class="btn btn-l btn-delete" type="reset" id="btn_modal_cancelar_estudiante">Cancelar</button>

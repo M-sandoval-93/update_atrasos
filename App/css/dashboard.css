@@ -692,8 +692,8 @@ main > .div_profile > .profile__content {
 }
 
 .modal-content.estudiantes {
-    width: 80%;
-    max-width: 1000px;
+    width: 50%;
+    max-width: 800px;
 }
 
 .modal-show {
@@ -815,7 +815,7 @@ input[id="apoderado_suplente_dv_rut"] {
 }
 
 .section_2 > div:nth-child(1) {
-    width: 35%;
+    width: 55%;
 }
 
 .section_3 > div:nth-child(1) {
@@ -825,7 +825,7 @@ input[id="apoderado_suplente_dv_rut"] {
 
 .section_3 > div:nth-child(2),
 .section_4 > div:nth-child(3) {
-    width: 40%;
+    width: 50%;
 }
 
 select[id="estudiante_grado"] {
@@ -835,18 +835,31 @@ select[id="estudiante_grado"] {
 
 select[id="estudiante_letra"],
 select[id="estudiante_junaeb"] {
-    width: calc(32% - 30px);
+    width: calc(32% - 20px);
 }
 
 .section button {
-    width: 35px;
-    height: 35px;
-    margin: 0 20px 0 10px;
+    width: 25px;
+    height: 25px;
+    margin: 0 10px 0 10px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-color: var(--new);
+    border: 1px solid var(--divisor);
 }
 
 .section > label {
     width: 40%;
     min-width: 250px;
+}
+
+.section_5 > div,
+.section_6 > div {
+    width: 40%;
+    min-width: 300px;
 }
 
 

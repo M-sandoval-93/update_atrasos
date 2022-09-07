@@ -26,9 +26,26 @@
             $this->conexion_db = null;
         }
 
-        public function consultaNombreApoderado($rut) {
+        public function consultaApoderado($rut) {
             $query = "SELECT (nombres_apoderado || ' ' || apellido_paterno_apoderado || ' ' || apellido_materno_apoderado) AS nombre
             FROM apoderados WHERE rut_apoderado = ?;";
+
+            $sentencia = $this->conexion_db->prepare($query);
+            $sentencia->execute([$rut]);
+            $apoderado = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($apoderado as $ap) {
+                $this->json[] = $ap['nombre'];
+            }
+
+
+            if ($sentencia->rowCount() >= 1) {
+                return json_encode($this->json);
+            } else {
+                return json_encode(false);
+            }
+
+            $this->conexion_db = null;
         }
 
         // AGREGAR NUEVO APODERADO A LA BASE DE DATOS
