@@ -69,6 +69,7 @@ function generar_dv(rut, dv_rut) {
     $(rut).val(LibreriaFunciones.formatearNumero(numero));
 }
 
+
 function buscar_info_apoderado(rut, label, elemento) {
     datos = 'buscar_apoderado';
 
@@ -94,10 +95,12 @@ function buscar_info_apoderado(rut, label, elemento) {
     }
 }
 
+
 // revisar para el modal con select
 function camposVacios() {
     const form = document.getElementById('modal_form_estudiantes');
-    const inputs = form.querySelectorAll('input[type="text"]');
+    // const inputs = form.querySelectorAll('input[type="text"]');
+    const inputs = form.querySelectorAll('input');
     let contador = 0;
 
     inputs.forEach(elemento => {
@@ -118,7 +121,7 @@ $(document).ready(function() {
     let registrar;
     let id_estudiante;
 
-    // BOTÓN NUEVO ESTUDIANTE /==================================
+    // BOTÓN NUEVO ESTUDIANTE /==================================   LISTO
     $('#btn_nuevo_estudiante').click(function(e) {
         e.preventDefault();
         $('#form_estudiantes').trigger('reset');
@@ -158,18 +161,22 @@ $(document).ready(function() {
     });
 
 
-
-
-
     // BOTÓN MODAL REGISTRAR /===================================
     $('#btn_modal_registrar_estudiante').click(function(e) {
         e.preventDefault();
 
         if ($('#estudiante_letra').val() == null) {
-            // console.log("falta seleccionar la letra del curso");
             Swal.fire({
                 icon: 'warning',
                 title: 'Seleccionar letra de cursos !!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return false;
+        } else if (camposVacios() >= 1) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Hay campos vacios !!',
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -180,7 +187,7 @@ $(document).ready(function() {
         fecha_ingreso = $('#estudiante_fecha_ingreso').val();
         matricula = $('#estudiante_matricula').val();
         rut_e = $('#estudiante_rut').val();
-        dv_rut_e = $('#estudiante_dv_rut').val().toUpperCase();
+        rut_dv_e = $('#estudiante_dv_rut').val().toUpperCase();
         nombres = $('#estudiante_nombres').val().toUpperCase();
         ap = $('#estudiante_ap_paterno').val().toUpperCase();
         am = $('#estudiante_ap_materno').val().toUpperCase();
@@ -194,10 +201,57 @@ $(document).ready(function() {
         rut_as = $('#apoderado_suplente_rut').val();
         rut_dv_as = $('#apoderado_suplente_dv_rut').val();
 
+        
+
 
 
         if (registrar == 'nuevo_estudiante') {
-            console.log('registrar nuevo estudiantes');
+            datos = "nuevo_estudiante";
+
+            $.ajax({
+                url: "./controller/controller_estudiantes.php",
+                method: "post",
+                dataType: "json",
+                data: {datos: datos,
+                    fecha_ingreso: fecha_ingreso, matricula: matricula, rut_e: rut_e, rut_dv_e: rut_dv_e, nombres: nombres,
+                    ap: ap, am: am, nombre_social: nombre_social, id_curso: id_curso, fecha_nacimiento: fecha_nacimiento, sexo: sexo,
+                    junaeb: junaeb, rut_at: rut_at, rut_dv_at: rut_dv_at, rut_as: rut_as, rut_dv_as: rut_dv_as},
+                success: function(data) {
+                    if (data == 'existe') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'El estudiante ya existe !!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                    } else {
+                        if (data === false) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al registrar !!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Estudiante registrado !!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            // modal.removeClass('modal-show');
+                            // tabla_apoderados.ajax.reload(null, false);
+                        }
+                    }
+                }
+            });
+
+
+
+
+
 
         } else if (registrar == 'editar_estudiante') {
             console.log('registrar nuevo estudiantes');
@@ -208,34 +262,28 @@ $(document).ready(function() {
     });
 
 
-
-
-
-    // TRABAJAR EN LA IMPLEMENTACION DE ESTE MODULO PARA AGREGAR APODERADOS
-    // BTN PARA AGREGAR UN APODERADO TITULAR
+    // BTN PARA AGREGAR UN APODERADO TITULAR /===================   TRABAJAR EN SECCION
     $('#btn_me_agregar_titular').click(function(e) {
         e.preventDefault();
         console.log("agregar titular");
     });
 
-    // BTN PARA AGREGAR UN APODERADO SUPLENTE
+
+    // BTN PARA AGREGAR UN APODERADO SUPLENTE /==================   TRABAJAR EN SECCION
     $('#btn_me_agregar_suplente').click(function(e) {
         e.preventDefault();
         console.log("agregar suplente");
     });
-    // TRABAJAR EN LA IMPLEMENTACION DE ESTE MODULO PARA AGREGAR APODERADOS
 
 
-
-
-    // BOTÓN MODAL CANCELAR /====================================
+    // BOTÓN MODAL CANCELAR /====================================   LISTO
     $('#btn_modal_cancelar_estudiante').click(function(e) {
         e.preventDefault();
         modal.removeClass('modal-show');
     });
 
 
-    // FUNCION PARA GENERAR INFORMCION ADICIONAL
+    // FUNCION PARA GENERAR INFORMCION ADICIONAL /===============   LISTO
     function format(d) {
         let sexo;
 
@@ -280,7 +328,7 @@ $(document).ready(function() {
         );
     }
 
-    // DATATABLE /===============================================
+    // DATATABLE /===============================================   LISTO
     let tabla_estudiantes = $('#estudiantes').DataTable({
         // processing: true,  // PARA MOSTRAR CIRCULOS DE PROCESAMIENTO
         ajax: {
@@ -332,10 +380,10 @@ $(document).ready(function() {
 
         language: spanish
     });
-    // DATATABLE /===============================================
+    // DATATABLE /===============================================   LISTO
 
 
-    // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN
+    // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN /=======   LISTO
     $('#estudiantes tbody').on('click', 'td.dt-control', function () {
         let tr = $(this).closest('tr');
         let row = tabla_estudiantes.row(tr);
@@ -355,12 +403,7 @@ $(document).ready(function() {
 
 
 
-
-
-    // EDITAR UN ESTUDIANTE /====================================
-
-
-
+    // EDITAR UN ESTUDIANTE /====================================   TRABAJAR SECCION
 
 
 
@@ -429,7 +472,7 @@ $(document).ready(function() {
     });
 
 
-    // ELIMINAR UN ESTUDIANTE /==================================
+    // ELIMINAR UN ESTUDIANTE /==================================   REVISAR
     $('#estudiantes tbody').on('click', '#btn_eliminar_estudiante', function() {
         let data  = tabla_estudiantes.row($(this).parents()).data();
         id_estudiante = data.id_estudiante;
@@ -475,7 +518,7 @@ $(document).ready(function() {
     });
 
 
-    // CARGAR LETRA DE GRADO EN MODAL /==========================
+    // CARGAR LETRA DE GRADO EN MODAL /==========================   LISTO
     $('#estudiante_grado').change(function() {
         let grado = $(this).val();
         let funcion = 'cargar_letras';
@@ -495,8 +538,6 @@ $(document).ready(function() {
         }
     });
     
-
-
 })
 
 

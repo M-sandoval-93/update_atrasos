@@ -694,6 +694,7 @@ main > .div_profile > .profile__content {
 .modal-content.estudiantes {
     width: 50%;
     max-width: 800px;
+    min-width:750px;
 }
 
 .modal-show {
@@ -852,7 +853,7 @@ select[id="estudiante_junaeb"] {
 }
 
 .section > label {
-    width: 40%;
+    width: 50%;
     min-width: 250px;
 }
 

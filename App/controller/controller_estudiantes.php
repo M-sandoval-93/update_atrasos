@@ -11,6 +11,10 @@
             print $datosEstudiantes->consultaEstudiantes();
             break;
 
+        case "nuevo_estudiante":
+            print json_encode(true);
+            break;
+
         case "editar_estado":
             // $estudiante = array($_POST['id_estudiante'], $_POST['estado']);
             // print $datosEstudiantes->updateEstadoEstudiante($estudiante);
