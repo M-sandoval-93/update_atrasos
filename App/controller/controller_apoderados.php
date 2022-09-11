@@ -9,10 +9,10 @@
     // }
 
     // SE INCLUYE EL MODELO PARA SER USADO POR EL CONTROLADOR
-    include_once '../model/model_apoderados.php';
+    include_once '../model/model_apoderado.php';
 
     $type = $_POST['datos']; // SE RECIBE EL TIPO DE ACCIÓN
-    $datosApoderados = new Apoderados(); // SE CREA EL OBJETO PARA TRABAJAR CON DATATABLE
+    $datosApoderados = new Apoderado(); // SE CREA EL OBJETO PARA TRABAJAR CON DATATABLE
 
 
     switch ($type) {

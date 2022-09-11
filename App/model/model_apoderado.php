@@ -2,7 +2,7 @@
 
     include_once "../model/model_conexion.php";
 
-    class Apoderados extends Conexion {
+    class Apoderado extends Conexion {
         private $json = array();
 
         public function __construct() {
@@ -12,7 +12,7 @@
         // CONSULTAR LOS APODERADOS DE LA BASE DE DATOS
         public function consultaApoderados() {
             $query = "SELECT id_apoderado, (rut_apoderado || '-' || dv_rut_apoderado) as rut_apoderado, apellido_paterno_apoderado,
-                        apellido_materno_apoderado, nombres_apoderado, estado_apoderado, telefono_apoderado FROM apoderados;";
+                        apellido_materno_apoderado, nombres_apoderado, estado_apoderado, telefono_apoderado FROM apoderado;";
 
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute();
@@ -28,7 +28,7 @@
 
         public function consultaApoderado($rut) {
             $query = "SELECT (nombres_apoderado || ' ' || apellido_paterno_apoderado || ' ' || apellido_materno_apoderado) AS nombre
-            FROM apoderados WHERE rut_apoderado = ?;";
+            FROM apoderado WHERE rut_apoderado = ?;";
 
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute([$rut]);
@@ -52,7 +52,7 @@
         public function newApoderado($apoderado) {
 
             // VERIFICAR ANTES SI EL RUT DEL USUARIO EXISTE
-            $query = "SELECT rut_apoderado FROM apoderados WHERE rut_apoderado = ?;";
+            $query = "SELECT rut_apoderado FROM apoderado WHERE rut_apoderado = ?;";
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute([$apoderado[0]]);
 
@@ -60,7 +60,7 @@
                 return json_encode('existe');
 
             } else {
-                $query = "INSERT INTO apoderados (rut_apoderado, dv_rut_apoderado, apellido_paterno_apoderado,
+                $query = "INSERT INTO apoderado (rut_apoderado, dv_rut_apoderado, apellido_paterno_apoderado,
                 apellido_materno_apoderado, nombres_apoderado, telefono_apoderado) VALUES (?, ?, ?, ?, ?, ?);";
 
                 $sentencia = $this->conexion_db->prepare($query);
@@ -78,7 +78,7 @@
 
         // EDITAR LOS DATOS DEL APODERADO
         public function updateApoderado($apoderado) {
-            $query = "UPDATE apoderados SET  apellido_paterno_apoderado = ?, apellido_materno_apoderado = ?,
+            $query = "UPDATE apoderado SET  apellido_paterno_apoderado = ?, apellido_materno_apoderado = ?,
                 nombres_apoderado = ?, telefono_apoderado = ? WHERE rut_apoderado = ?;";
 
             $sentencia = $this->conexion_db->prepare($query);
@@ -102,7 +102,7 @@
                 $new_estado = 'true';
             }
 
-            $query = "UPDATE apoderados SET estado_apoderado = ? WHERE id_apoderado = ?;";
+            $query = "UPDATE apoderado SET estado_apoderado = ? WHERE id_apoderado = ?;";
             $sentencia = $this->conexion_db->prepare($query);
             $resultado = $sentencia->execute([$new_estado, $id]);
 
@@ -117,7 +117,7 @@
 
         // ELIMINAR APODERADOS
         public function deleteApoderado($id) {
-            $query = "DELETE FROM apoderados WHERE id_apoderado = ?;";
+            $query = "DELETE FROM apoderado WHERE id_apoderado = ?;";
             $sentencia = $this->conexion_db->prepare($query);
             $resultado = $sentencia->execute([$id]);
 

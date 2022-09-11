@@ -141,7 +141,7 @@ $(document).ready(function() {
         if (registrar == 'nuevo_apoderado') {
             datos = "nuevo_apoderado";
             $.ajax({
-                url: "./controller/controller_apoderados.php",
+                url: "./controller/controller_apoderado.php",
                 method: "post",
                 dataType: "json",
                 data: {rut: rut, dv_rut: dv_rut, nombres: nombres, a_paterno: a_paterno,
@@ -179,7 +179,7 @@ $(document).ready(function() {
         } else if(registrar == 'editar_apoderado') {
             datos = "editar_apoderado";
             $.ajax({
-                url:"./controller/controller_apoderados.php",
+                url:"./controller/controller_apoderado.php",
                 method: "post",
                 dataType: "json",
                 data: {rut: rut, nombres: nombres, a_paterno: a_paterno, a_materno: a_materno, fono: fono, datos: datos},
@@ -225,7 +225,7 @@ $(document).ready(function() {
     datos = 'mostrar_apoderados';
     let tabla_apoderados = $('#apoderados').DataTable({
         "ajax": {
-            "url": "./controller/controller_apoderados.php",
+            "url": "./controller/controller_apoderado.php",
             "method": "post",
             "data": {datos: datos}
          },
@@ -292,7 +292,7 @@ $(document).ready(function() {
         datos = "editar_estado";
 
         $.ajax({
-            url: "./controller/controller_apoderados.php",
+            url: "./controller/controller_apoderado.php",
             method: "post",
             dataType: "json",
             data: {id_apoderado: id_apoderado, estado: estado, datos: datos},
@@ -354,7 +354,7 @@ $(document).ready(function() {
                 datos = "eliminar_apoderado";
 
                 $.ajax({
-                    url: './controller/controller_apoderados.php',
+                    url: './controller/controller_apoderado.php',
                     type: 'post',
                     dataType: 'json',
                     data: {id_apoderado: id_apoderado, datos: datos},
