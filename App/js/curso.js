@@ -7,7 +7,7 @@ $(document).ready(function () {
         let funcion = 'consulta'
 
         $.ajax({
-            url: "./controller/controller_cursos.php",
+            url: "./controller/controller_curso.php",
             method: "post",
             dataType: "json",
             data: { grado: grado, funcion: funcion},

@@ -10,7 +10,7 @@
         // consulta que busca el curso correspondiente al año lectivo
         protected $query_consultar = "SELECT curso FROM cursos WHERE curso LIKE ? AND anio_curso = EXTRACT(YEAR FROM NOW()) LIMIT 1;";
         // recuperar las letras del grado
-        protected $query_letras = "SELECT id_curso, substr(curso, 2,2) as curso FROM cursos WHERE curso LIKE ? AND anio_curso = EXTRACT(YEAR FROM NOW()) ORDER BY curso ASC;";
+        protected $query_letras = "SELECT id_curso, substr(curso, 2,2) as curso FROM curso WHERE curso LIKE ? AND anio_curso = EXTRACT(YEAR FROM NOW()) ORDER BY curso ASC;";
         // private $json = array();
 
         public function __construct() {

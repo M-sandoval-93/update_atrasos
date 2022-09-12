@@ -1,11 +1,11 @@
 <?php
 
     // SE INCLUYE EL MODELO PARA SER USADO POR EL CONTROLADOR
-    if (file_exists('./model/model_cursos.php')) {
-        include_once './model/model_cursos.php';
+    if (file_exists('./model/model_curso.php')) {
+        include_once './model/model_curso.php';
 
-    } else if (file_exists(include_once '../model/model_cursos.php')) {
-        include_once '../model/model_cursos.php';
+    } else if (file_exists(include_once '../model/model_curso.php')) {
+        include_once '../model/model_curso.php';
     }
 
  

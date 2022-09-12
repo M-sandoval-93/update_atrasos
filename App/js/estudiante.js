@@ -79,7 +79,7 @@ function buscar_info_apoderado(rut, label, elemento) {
 
     } else if (rut.length == 8) {
         $.ajax({
-            url: "./controller/controller_apoderados.php",
+            url: "./controller/controller_apoderado.php",
             method: "post",
             dataType: "json",
             data: {rut: rut, datos: datos},
@@ -95,19 +95,29 @@ function buscar_info_apoderado(rut, label, elemento) {
     }
 }
 
-
-// revisar para el modal con select
-function camposVacios() {
-    const form = document.getElementById('modal_form_estudiantes');
-    // const inputs = form.querySelectorAll('input[type="text"]');
-    const inputs = form.querySelectorAll('input');
+function comprobarLongitudRut() {
     let contador = 0;
 
-    inputs.forEach(elemento => {
-        if (elemento.value === '') {
+    $('.input-rut').each(function() {
+        if ($(this).val().length > 1 && $(this).val().length < 8) {
             contador = contador + 1;
         }
     });
+
+    return contador;
+}
+
+function camposVacios() { 
+    let contador = 0;
+
+    $('#modal_form_estudiantes input').each(function() {
+        if ($(this).val() == '' && 
+        $(this).attr('id') != 'apoderado_titular_rut' && $(this).attr('id') != 'apoderado_titular_dv_rut' && 
+        $(this).attr('id') != 'apoderado_suplente_rut' && $(this).attr('id') != 'apoderado_suplente_dv_rut') {
+            contador = contador + 1;
+        }
+    });
+
     return contador;
 }
 // FUNCIONES ===============================================
@@ -128,7 +138,7 @@ $(document).ready(function() {
         $('#titulo-modal_estudiante').text('Registrar nuevo estudiante');
         
         modal.addClass('modal-show');
-        // preparar modal
+        // PREPARAR MODAL
         $('#estudiante_rut').removeAttr('disabled', 'disable');
         $('#estudiante_dv_rut').attr('disabled', 'disabled');
         $('#apoderado_titular_dv_rut').attr('disabled', 'disabled');
@@ -161,11 +171,11 @@ $(document).ready(function() {
     });
 
 
-    // BOTÓN MODAL REGISTRAR /===================================
+    // BOTÓN MODAL REGISTRAR /===================================   TRABAJANDO SEGUIR AQUI ----------
     $('#btn_modal_registrar_estudiante').click(function(e) {
         e.preventDefault();
 
-        if ($('#estudiante_letra').val() == null) {
+        if ($('#estudiante_letra').val() == null || $('#estudiante_letra').val() == 'Letra') {
             Swal.fire({
                 icon: 'warning',
                 title: 'Seleccionar letra de cursos !!',
@@ -181,7 +191,17 @@ $(document).ready(function() {
                 timer: 1500
             });
             return false;
+        } else if (comprobarLongitudRut() >= 1) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Revisar los rut ingresados !!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return false;
         }
+
+        // COMPROBAR QUE SI SE INGRESA UN RUT DE APODERADO NO RESISTRADO NO SE PUEDA ENVIAR EL FORMULARIO
 
         // SE CREAN LAS VARIABLES
         fecha_ingreso = $('#estudiante_fecha_ingreso').val();
@@ -209,7 +229,7 @@ $(document).ready(function() {
             datos = "nuevo_estudiante";
 
             $.ajax({
-                url: "./controller/controller_estudiantes.php",
+                url: "./controller/controller_estudiante.php",
                 method: "post",
                 dataType: "json",
                 data: {datos: datos,
@@ -332,7 +352,7 @@ $(document).ready(function() {
     let tabla_estudiantes = $('#estudiantes').DataTable({
         // processing: true,  // PARA MOSTRAR CIRCULOS DE PROCESAMIENTO
         ajax: {
-            url: "./controller/controller_estudiantes.php",
+            url: "./controller/controller_estudiante.php",
             method: "post",
             dateType: "json",
             data: {datos: datos}
@@ -428,7 +448,7 @@ $(document).ready(function() {
         }
 
         // $.ajax({
-        //     url: "./controller/controller_estudiantes.php",
+        //     url: "./controller/controller_estudiante.php",
         //     method: "post",
         //     dataType: "json",
         //     data: {id_estudiante: id_estudiante, estado: estado, datos: datos},
@@ -490,7 +510,7 @@ $(document).ready(function() {
                 datos = "eliminar_estudiante";
 
                 $.ajax({
-                    url: './controller/controller_estudiantes.php',
+                    url: './controller/controller_estudiante.php',
                     type: 'post',
                     dataType: 'json',
                     data: {id_estudiante: id_estudiante, datos: datos},
@@ -527,7 +547,7 @@ $(document).ready(function() {
             $("#estudiante_letra").html('');
         } else {
             $.ajax({
-                url: './controller/controller_cursos.php',
+                url: './controller/controller_curso.php',
                 type: 'post',
                 dataType: 'json',
                 data: { grado: grado, funcion: funcion},

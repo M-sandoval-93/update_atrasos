@@ -23,7 +23,6 @@
         case "buscar_apoderado":
             $rut = $_POST['rut'];
             print $datosApoderados->consultaApoderado($rut);
-            // print json_encode(false);
             break;
 
         case "nuevo_apoderado":

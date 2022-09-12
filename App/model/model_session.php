@@ -5,7 +5,6 @@
     include_once "../model/model_conexion.php";
 
     class Session extends Conexion {
-    // class Session {
         public function __construct() {
             parent:: __construct();
             session_start();
@@ -39,7 +38,7 @@
             // VARIABLES
             // $md5Pass = md5($pass);   -> usar cuando la clave este en MD5
             $md5Pass = $pass;
-            $query = "SELECT * FROM usuarios WHERE nombre_usuario = '$usser' AND clave_usuario = '$md5Pass'";
+            $query = "SELECT * FROM usuario WHERE nombre_usuario = '$usser' AND clave_usuario = '$md5Pass'";
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute();
 

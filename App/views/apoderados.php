@@ -35,7 +35,7 @@
             </table>
 
             <?php
-            include_once "./layout/modal_apoderados.php";
+            include_once "./layout/modal_apoderado.php";
             ?>
 
         </main>
@@ -51,8 +51,8 @@
     <script src="./Pluggins/DataTables/datatables.min.js"></script>
     <script src="./Pluggins/SweetAlert2/sweetalert2.all.min.js"></script>
 
-    <script src="./js/apoderados.js"></script>
     <script src="./js/dashboard.js"></script>
+    <script src="./js/apoderado.js"></script>
     
 </body>
 </html>

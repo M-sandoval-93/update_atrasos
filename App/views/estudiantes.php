@@ -36,7 +36,7 @@
             </table>
 
             <?php
-            include_once "./layout/modal_estudiantes.php";
+            include_once "./layout/modal_estudiante.php";
             ?>
 
         </main>
@@ -52,8 +52,8 @@
     <script src="./Pluggins/DataTables/datatables.min.js"></script>
     <script src="./Pluggins/SweetAlert2/sweetalert2.all.min.js"></script>
 
-    <script src="./js/estudiantes.js"></script>
     <script src="./js/dashboard.js"></script>
+    <script src="./js/estudiante.js"></script>
     
 </body>
 </html>
