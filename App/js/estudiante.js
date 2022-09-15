@@ -111,7 +111,7 @@ function camposVacios() {
     let contador = 0;
 
     $('#modal_form_estudiantes input').each(function() {
-        if ($(this).val() == '' && 
+        if ($(this).val() == '' && $(this).attr('id') != 'estudiante_nombre_social' &&
         $(this).attr('id') != 'apoderado_titular_rut' && $(this).attr('id') != 'apoderado_titular_dv_rut' && 
         $(this).attr('id') != 'apoderado_suplente_rut' && $(this).attr('id') != 'apoderado_suplente_dv_rut') {
             contador = contador + 1;
@@ -119,6 +119,15 @@ function camposVacios() {
     });
 
     return contador;
+}
+
+function alertPopUp(icon, title) {
+    Swal.fire({
+        icon: icon,
+        title: title,
+        showConfirmButton: false,
+        timer: 1500
+    });
 }
 // FUNCIONES ===============================================
 
@@ -148,7 +157,7 @@ $(document).ready(function() {
         $("#estudiante_letra").html('');
         $('#estudiante_ap_titular').text('');
         $('#estudiante_ap_suplente').text('');
-        // $('#estudiante_rut').focus();
+        // $('#estudiante_fecha_ingreso').focus();
 
         // VALIDADOR DE RUT ESTUDIANTE
         $('#estudiante_rut').keyup(function() {
@@ -176,28 +185,16 @@ $(document).ready(function() {
         e.preventDefault();
 
         if ($('#estudiante_letra').val() == null || $('#estudiante_letra').val() == 'Letra') {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Seleccionar letra de cursos !!',
-                showConfirmButton: false,
-                timer: 1500
-            });
+            alertPopUp('warning', 'Seleccionar letra de cursos !!');
             return false;
         } else if (camposVacios() >= 1) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Hay campos vacios !!',
-                showConfirmButton: false,
-                timer: 1500
-            });
+            alertPopUp('warning', 'Hay campos vacios !!');
             return false;
         } else if (comprobarLongitudRut() >= 1) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Revisar los rut ingresados !!',
-                showConfirmButton: false,
-                timer: 1500
-            });
+            alertPopUp('warning', 'Revisar los rut ingresados');
+            return false;
+        } else if ($('#estudiante_ap_titular').text() === 'Apoderado sin registros !!' || $('#estudiante_ap_suplente').text() === 'Apoderado sin registros !!') {
+            alertPopUp('warning', 'Agregar al apoderado(a) sin registro !!');
             return false;
         }
 
@@ -221,9 +218,6 @@ $(document).ready(function() {
         rut_as = $('#apoderado_suplente_rut').val();
         rut_dv_as = $('#apoderado_suplente_dv_rut').val();
 
-        
-
-
 
         if (registrar == 'nuevo_estudiante') {
             datos = "nuevo_estudiante";
@@ -238,29 +232,14 @@ $(document).ready(function() {
                     junaeb: junaeb, rut_at: rut_at, rut_dv_at: rut_dv_at, rut_as: rut_as, rut_dv_as: rut_dv_as},
                 success: function(data) {
                     if (data == 'existe') {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'El estudiante ya existe !!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                        alertPopUp('warning', 'El estudiante ya existe !!');
 
                     } else {
                         if (data === false) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error al registrar !!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                            alertPopUp('error', 'Error al registrar !!');
                         
                         } else {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Estudiante registrado !!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                            alertPopUp('success', 'Estudiante registrado');
                             // modal.removeClass('modal-show');
                             // tabla_apoderados.ajax.reload(null, false);
                         }
@@ -436,12 +415,7 @@ $(document).ready(function() {
         datos = "editar_estado";
 
         if (estado == 4) {
-            Swal.fire({
-                icon: 'error',
-                title: 'El estudiante esta retirado !!',
-                showConfirmButton: false,
-                timer: 1500,
-            });
+            alertPopUp('error', 'El estudiante esta retirado');
             return false;
         } else {
             console.log("alumno para suspender o retirar");
@@ -516,19 +490,9 @@ $(document).ready(function() {
                     data: {id_estudiante: id_estudiante, datos: datos},
                     success: function(data) {
                         if (data === false) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error al eliminar estudiante !!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                            alertPopUp('error', 'Error al eliminar estudiante !!');
                         } else {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Estudiante eliminado !!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                            alertPopUp('success', 'Estudiante eliminado');
                             tabla_apoderados.ajax.reload(null, false);
                         }
                     }

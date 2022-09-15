@@ -12,7 +12,13 @@
             break;
 
         case "nuevo_estudiante":
-            print json_encode(true);
+            $estudiante = array(
+                // controlar que la variable venga vacia
+                $_POST['fecha_ingreso'], $_POST['matricula'], $_POST['rut_e'], $_POST['rut_dv_e'], $_POST['nombres'], 
+                $_POST['ap'], $_POST['am'], $_POST['nombre_social'], $_POST['id_curso'], $_POST['fecha_nacimiento'],
+                $_POST['sexo'], $_POST['junaeb'], $_POST['rut_at'], $_POST['rud_dv_at'], $_POST['rut_as'], $_POST['rut_dv_as']
+            );
+            print json_encode($estudiante);
             break;
 
         case "editar_estado":

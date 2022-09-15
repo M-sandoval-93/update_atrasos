@@ -41,6 +41,21 @@
             $this->conexion_db = null;
         }
 
+        public function newEstudiante($estudiante) {
+            $query = "SELECT rut_estudiante FROM estudiante WHERE rut_estudiante = ?;";
+            $sentencia = $this->conexion_db->prepare($query);
+            $sentencia->execute([$estudiante[0]]);
+
+            if ($sentencia->rowCount() >= 1) {
+                return json_encode('existe');
+            } else {
+                // sentencia para agregar al usuario
+            }
+
+
+
+        }
+
         // EDITAR EL ESTADO DEL ESTUDIANTE
         public function updateEstadoEstudiante($estudiante) {
             if ($estudiante[1] == 1) {
