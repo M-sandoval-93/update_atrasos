@@ -41,16 +41,63 @@
             $this->conexion_db = null;
         }
 
-        public function newEstudiante($estudiante) {
+        public function newEstudiante($e) {
             $query = "SELECT rut_estudiante FROM estudiante WHERE rut_estudiante = ?;";
             $sentencia = $this->conexion_db->prepare($query);
-            $sentencia->execute([$estudiante[0]]);
+            $sentencia->execute([$e[2]]);
 
             if ($sentencia->rowCount() >= 1) {
                 return json_encode('existe');
+
             } else {
-                // sentencia para agregar al usuario
+                // AGREGAR DATOS A TABLA ESTUDIANTES
+                $queryEstudiante = "INSERT INTO estudiante (rut_estudiante, dv_rut_estudiante, apellido_paterno_estudiante,
+                        apellido_materno_estudiante, nombres_estudiante, nombre_social_estudiante, fecha_nacimiento_estudiante,
+                        beneficio_junaeb, sexo_estudiante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                $sentencia = $this->conexion_db->prepare($queryEstudiante);
+                $sentencia->execute([$e[2], $e[3], $e[5], $e[6], $e[4], $e[7], $e[9], intval($e[11]), $e[10]]);
+
+                // CONSULTAR EL ID ASIGNADO AL ESTUDIANTE
+                $queryId = "SELECT id_estudiante FROM estudiante WHERE rut_estudiante = ?;";
+                $sentencia = $this->conexion_db->prepare($queryId);
+                $sentencia->execute([$e[2]]);
+                $id_estudiante = $sentencia->fetch();
+
+                // OBTENER ID APODERADOS
+                $queryAp = "SELECT id_apoderado FROM apoderado WHERE rut_apoderado = ?;";
+                $titular = null;
+                $suplente = null;
+
+                if ($e[12] != '') { // OBTENER APODERADO TITULAR
+                    $sentencia = $this->conexion_db->prepare($queryAp);
+                    $sentencia->execute([$e[12]]);
+                    $resultado = $sentencia->fetch();
+                    $titular = $resultado["id_apoderado"];
+                }
+
+                if ($e[13] != '') { // OBTENER APODERADO SUPLENTE
+                    $sentencia = $this->conexion_db->prepare($queryAp);
+                    $sentencia->execute([$e[13]]);
+                    $resultado = $sentencia->fetch();
+                    $suplente = $resultado["id_apoderado"];
+                }
+
+                // AGREGAR DATOS A TABLA MATRICULA
+                $queryMatricula = "INSERT INTO matricula (numero_matricula, id_estudiante, id_apoderado_titular,
+                        id_apoderado_suplente, id_curso, anio_lectivo, fecha_ingreso_estudiante) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?);";
+                $sentencia = $this->conexion_db->prepare($queryMatricula); 
+                $sentencia->execute([$e[1], $id_estudiante["id_estudiante"], $titular, $suplente, $e[8], date("Y"), $e[0]]);
+
+
+                if ($sentencia == true) {
+                    return json_encode(true);
+                } else {
+                    return json_encode(false);
+                }
             }
+
+            $this->conexion_db = null;
 
 
 

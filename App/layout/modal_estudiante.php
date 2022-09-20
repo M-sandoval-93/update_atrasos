@@ -85,8 +85,8 @@
                 <div>
                     <label>Beneficio junaeb</label>
                     <select name="junaeb" id="estudiante_junaeb">
-                        <option value="SI" selected>SI</option>
-                        <option value="NO">NO</option>
+                        <option value="1" selected>SI</option>
+                        <option value="2">NO</option>
                     </select>
                 </div>
             </div>

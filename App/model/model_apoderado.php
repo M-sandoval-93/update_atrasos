@@ -50,7 +50,6 @@
 
         // AGREGAR NUEVO APODERADO A LA BASE DE DATOS
         public function newApoderado($apoderado) {
-
             // VERIFICAR ANTES SI EL RUT DEL USUARIO EXISTE
             $query = "SELECT rut_apoderado FROM apoderado WHERE rut_apoderado = ?;";
             $sentencia = $this->conexion_db->prepare($query);

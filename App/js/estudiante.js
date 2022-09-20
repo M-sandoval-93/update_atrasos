@@ -214,9 +214,7 @@ $(document).ready(function() {
         sexo = $('#estudiante_sexo').val();
         junaeb = $('#estudiante_junaeb').val();
         rut_at = $('#apoderado_titular_rut').val();
-        rut_dv_at = $('#apoderado_titular_dv_rut').val();
         rut_as = $('#apoderado_suplente_rut').val();
-        rut_dv_as = $('#apoderado_suplente_dv_rut').val();
 
 
         if (registrar == 'nuevo_estudiante') {
@@ -229,7 +227,7 @@ $(document).ready(function() {
                 data: {datos: datos,
                     fecha_ingreso: fecha_ingreso, matricula: matricula, rut_e: rut_e, rut_dv_e: rut_dv_e, nombres: nombres,
                     ap: ap, am: am, nombre_social: nombre_social, id_curso: id_curso, fecha_nacimiento: fecha_nacimiento, sexo: sexo,
-                    junaeb: junaeb, rut_at: rut_at, rut_dv_at: rut_dv_at, rut_as: rut_as, rut_dv_as: rut_dv_as},
+                    junaeb: junaeb, rut_at: rut_at, rut_as: rut_as},
                 success: function(data) {
                     if (data == 'existe') {
                         alertPopUp('warning', 'El estudiante ya existe !!');
