@@ -27,7 +27,9 @@
             break;
 
         case "eliminar_estudiante":
-            print json_encode(false); // HABILITAR SECCIÓN PARA ELMIMINAR
+            $id = $_POST['id_estudiante'];
+            // print json_encode(false); // HABILITAR SECCIÓN PARA ELMIMINAR
+            print json_encode($id);
             break;
 
     }

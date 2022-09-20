@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'poppins', sans-serif;
+    font-family: 'poppins', sans-serif;  /* REVISAR FUENTE DE LA PÁGINA */
 }
 
 :root {
@@ -34,9 +34,9 @@ li {
     list-style: none;
 }
 
-
-
-
+body { /* PARA EVITAR EL DESBORDAMIENTO DE PANTALLA */
+    padding-right: 0px !important;
+}
 
 
 
@@ -287,7 +287,6 @@ nav .profile .profile-link {
     position: absolute;
     top: calc(100% + 10px);
     right: 0;
-    /* background: var(--navbar); */
     background: var(--letras);
     padding: 10px 0;
     box-shadow: 4px 4px 16px rgba(0, 0, 0, .1);
@@ -339,6 +338,7 @@ nav .profile .profile-link a:hover {
 
 main {
     width: 100%;
+    /* height: 100%; */
     padding: 24px 20px 20px 20px;
 }
 

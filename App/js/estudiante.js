@@ -133,7 +133,6 @@ function alertPopUp(icon, title) {
 
 
 $(document).ready(function() {
-
     // VARIABLES GLOBALES
     let modal = $('#modal_form_estudiantes');
     let datos = 'mostrar_estudiantes';
@@ -180,10 +179,11 @@ $(document).ready(function() {
     });
 
 
-    // BOTÓN MODAL REGISTRAR /===================================   TRABAJANDO SEGUIR AQUI ----------
+    // BOTÓN MODAL REGISTRAR /===================================   TRABAJANDO 
     $('#btn_modal_registrar_estudiante').click(function(e) {
         e.preventDefault();
 
+        // VALIDACIOINES PARA EL FORMULARIO
         if ($('#estudiante_letra').val() == null || $('#estudiante_letra').val() == 'Letra') {
             alertPopUp('warning', 'Seleccionar letra de cursos !!');
             return false;
@@ -197,8 +197,6 @@ $(document).ready(function() {
             alertPopUp('warning', 'Agregar al apoderado(a) sin registro !!');
             return false;
         }
-
-        // COMPROBAR QUE SI SE INGRESA UN RUT DE APODERADO NO RESISTRADO NO SE PUEDA ENVIAR EL FORMULARIO
 
         // SE CREAN LAS VARIABLES
         fecha_ingreso = $('#estudiante_fecha_ingreso').val();
@@ -217,7 +215,7 @@ $(document).ready(function() {
         rut_as = $('#apoderado_suplente_rut').val();
 
 
-        if (registrar == 'nuevo_estudiante') {
+        if (registrar == 'nuevo_estudiante') { //========================== LISTO
             datos = "nuevo_estudiante";
 
             $.ajax({
@@ -238,20 +236,16 @@ $(document).ready(function() {
                         
                         } else {
                             alertPopUp('success', 'Estudiante registrado');
-                            // modal.removeClass('modal-show');
-                            // tabla_apoderados.ajax.reload(null, false);
+                            modal.removeClass('modal-show');
+                            tabla_estudiantes.ajax.reload(null, false);
                         }
                     }
                 }
             });
 
 
-
-
-
-
         } else if (registrar == 'editar_estudiante') {
-            console.log('registrar nuevo estudiantes');
+            console.log('Editar un estudiante');
         }
 
 
@@ -401,6 +395,7 @@ $(document).ready(function() {
 
 
     // EDITAR UN ESTUDIANTE /====================================   TRABAJAR SECCION
+    $('#estudiante tbody')
 
 
 
@@ -465,6 +460,7 @@ $(document).ready(function() {
 
 
     // ELIMINAR UN ESTUDIANTE /==================================   REVISAR
+    // PARA ELIMINAR PRIMERO DESDE TABLA MATRICULA Y LUEGO TABLA ESTUDIANTE (SOLO ELIMINAR)
     $('#estudiantes tbody').on('click', '#btn_eliminar_estudiante', function() {
         let data  = tabla_estudiantes.row($(this).parents()).data();
         id_estudiante = data.id_estudiante;
@@ -491,7 +487,7 @@ $(document).ready(function() {
                             alertPopUp('error', 'Error al eliminar estudiante !!');
                         } else {
                             alertPopUp('success', 'Estudiante eliminado');
-                            tabla_apoderados.ajax.reload(null, false);
+                            tabla_estudiantes.ajax.reload(null, false);
                         }
                     }
                 });
@@ -521,8 +517,6 @@ $(document).ready(function() {
     });
     
 })
-
-
 
 
 let spanish = {
