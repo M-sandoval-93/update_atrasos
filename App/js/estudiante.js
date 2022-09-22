@@ -244,8 +244,12 @@ $(document).ready(function() {
             });
 
 
-        } else if (registrar == 'editar_estudiante') {
+        } else if (registrar == 'editar_estudiante') {  // ACCION QUE SE GENERA AL REGISTRAR HABIENDO PRESIONADO EL BTN EDITAR
             console.log('Editar un estudiante');
+
+            // CONSIDERAR LA ACTUALIZACIÓN DE UN APODERADO, SUPLENTE O TITULAR
+            // CONSIDEERAR LA ELIMINCIÓN DE UN APODERADO TITULAR O SUPLENTE
+            // VER LA OPCIÓN DE PODER ELIMINARLO DESDE EL DESPLEGABLE DEL ESTUDIANTE
         }
 
 
