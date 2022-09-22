@@ -126,24 +126,21 @@
 
         public function deleteEstudiante($id) {
             $query = "DELETE FROM matricula WHERE id_estudiante = ?;";
+            $resultado = false;
             $sentencia = $this->conexion_db->prepare($query);
-            // $sentencia->execute([$id]);
 
-            // VER SI PUEDO CREAR VARIABLE PARA CONTROLAR SALIDA DE JSON_ENCODE
             if ($sentencia->execute([$id])) {
                 $query = "DELETE FROM estudiante WHERE id_estudiante = ?;";
                 $sentencia = $this->conexion_db->prepare($query);
+
                 if ($sentencia->execute([$id])) {
-                    return json_encode(true);
-                } esle {
-                    return json_encode(false);
+                    $resultado = true;
                 }
-            } else {
-                return json_encode(false);
-            }
-            
+            } 
 
-
+            $this->conexion_db = null;
+            return json_encode($resultado);
+        
         }
 
 

@@ -28,8 +28,7 @@
 
         case "eliminar_estudiante":
             $id = $_POST['id_estudiante'];
-            // print json_encode(false); // HABILITAR SECCIÓN PARA ELMIMINAR
-            print json_encode($id);
+            print $datosEstudiantes->deleteEstudiante($id);
             break;
 
     }

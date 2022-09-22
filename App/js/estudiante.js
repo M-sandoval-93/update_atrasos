@@ -459,8 +459,7 @@ $(document).ready(function() {
     });
 
 
-    // ELIMINAR UN ESTUDIANTE /==================================   REVISAR
-    // PARA ELIMINAR PRIMERO DESDE TABLA MATRICULA Y LUEGO TABLA ESTUDIANTE (SOLO ELIMINAR)
+    // ELIMINAR UN ESTUDIANTE /==================================   LISTO
     $('#estudiantes tbody').on('click', '#btn_eliminar_estudiante', function() {
         let data  = tabla_estudiantes.row($(this).parents()).data();
         id_estudiante = data.id_estudiante;
