@@ -4,6 +4,7 @@
 
     class Estudiante extends Conexion {
         private $json = array();
+        private $res = false;
 
         public function __construct() {
             parent:: __construct();
@@ -113,20 +114,29 @@
 
             $query = "UPDATE estudiante SET id_estado = ? WHERE id_estudiante = ?;";
             $sentencia = $this->conexion_db->prepare($query);
-            $resultado = $sentencia->execute([$new_estado, intval($estudiante[0])]);
+            // $resultado = $sentencia->execute([$new_estado, intval($estudiante[0])]);
 
-            if ($resultado === true) {
-                return json_encode(true);
-            } else {
-                return json_encode(false);
+            if ($sentencia->execute([$new_estado, intval($estudiante[0])])) {
+                $this->res = true;
             }
 
+            // if ($resultado == true) {
+            //     $this->res = true;
+            // }
+
+            // if ($resultado === true) {
+            //     return json_encode(true);
+            // } else {
+            //     return json_encode(false);
+            // }
+
             $this->conexion_db = null;
+            return json_encode($this->res);
+
         }
 
         public function deleteEstudiante($id) {
             $query = "DELETE FROM matricula WHERE id_estudiante = ?;";
-            $resultado = false;
             $sentencia = $this->conexion_db->prepare($query);
 
             if ($sentencia->execute([$id])) {
@@ -134,12 +144,14 @@
                 $sentencia = $this->conexion_db->prepare($query);
 
                 if ($sentencia->execute([$id])) {
-                    $resultado = true;
+                    $this->res = true;
                 }
             } 
 
             $this->conexion_db = null;
-            return json_encode($resultado);
+            return json_encode($this->res);
+
+            // Prueba de cambios realizados
         
         }
 
