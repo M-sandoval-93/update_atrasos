@@ -5,7 +5,7 @@
   
    <!--  PRINCIPAL -->
         <!-- MAIN -->
-        <h1>Permisos</h1>
+        <h1>Horario</h1>
         <!-- MAIN -->
     <!--  PRINCIPAL -->
 

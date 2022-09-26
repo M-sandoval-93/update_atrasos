@@ -40,12 +40,13 @@
             <li>
                 <a href="#"><i class="fas fa-user-graduate icon"></i> Estudiantes <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
-                    <li><a href="estudiantes">Matriculas</a></li>
-                    <li><a href="atrasos">Atrasos</a></li>
-                    <li><a href="justificaciones">Justificaciones</a></li>
-                    <li><a href="#">Suspensiones</a></li>
+                    <li><a href="estudiantes"> Matriculas</a></li>
+                    <li><a href="atrasos"> Atrasos</a></li>
+                    <li><a href="justificaciones"> Justificaciones</a></li>
+                    <!-- <li><a href="#"> Suspensiones</a></li> -->
                 </ul>
             </li>
+            <li><a href="horario"><i class="fas fa-calendar-alt icon"></i> Horario</a></li>
             <li><a href="apoderados"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
             <li><a href="cursos"><i class="fas fa-graduation-cap icon"></i> Cursos</a></li>
             <li><a href="junaeb"><i class="fas fa-utensils icon"></i> JUNAEB</a></li>
@@ -54,9 +55,8 @@
             <li>
                 <a href="#"><i class="fas fa-user-friends icon"></i> Personal <i class="fas fa-angle-right icon icon-right"></i></a>
                 <ul class="side-dropdown">
-                    <li><a href="funcionarios">Funcionarios</a></li>
-                    <li><a href="permisos">Permisos</a></li>
-                    <li><a href="licencias">Licencias</a></li>
+                    <li><a href="funcionarios"> Funcionarios</a></li>
+                    <li><a href="inasistencias"> Inasistencias</a></li>
                     <li><a href="cambioFunciones">Cambio de funciones</a></li>
                 </ul>
             </li>

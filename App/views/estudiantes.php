@@ -37,6 +37,7 @@
 
             <?php
             include_once "./layout/modal_estudiante.php";
+            include_once "./layout/modal_apoderado.php";
             ?>
 
         </main>

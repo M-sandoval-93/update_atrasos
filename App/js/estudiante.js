@@ -109,7 +109,6 @@ function comprobarLongitudRut() {
 
 function camposVacios() { 
     let contador = 0;
-
     $('#modal_form_estudiantes input').each(function() {
         if ($(this).val() == '' && $(this).attr('id') != 'estudiante_nombre_social' &&
         $(this).attr('id') != 'apoderado_titular_rut' && $(this).attr('id') != 'apoderado_titular_dv_rut' && 
@@ -117,7 +116,16 @@ function camposVacios() {
             contador = contador + 1;
         }
     });
+    return contador;
+}
 
+function camposVaciosApodeado() {
+    let contador = 0;
+    $('#modal_form_apoderados input').each(function() {
+        if ($(this).val() == '') {
+            contador = contador + 1;
+        }
+    });
     return contador;
 }
 
@@ -129,12 +137,30 @@ function alertPopUp(icon, title) {
         timer: 1500
     });
 }
+
+function prepareModalApoderado(m1, m2) {
+    $('#form_apoderados').trigger('reset');
+    $('#titulo-modal').text('Registrar nuevo apoderado');
+    $('#apoderado_codigo_fono').val('569');
+    $('#apoderado_rut').removeAttr('disabled', 'disable');
+    $('#apoderado_dv_rut').attr('disabled', 'disabled');
+    $('#apoderado_rut').focus();
+    $('#apoderado_rut').keyup(function() {
+        generar_dv('#apoderado_rut', '#apoderado_dv_rut');
+    });
+
+    m1.removeClass('modal-show');
+    m2.addClass('modal-show');
+}
+
+
 // FUNCIONES ===============================================
 
 
 $(document).ready(function() {
     // VARIABLES GLOBALES
     let modal = $('#modal_form_estudiantes');
+    let modal_apoderado = $('#modal_form_apoderados');
     let datos = 'mostrar_estudiantes';
     let registrar;
     let id_estudiante;
@@ -177,6 +203,9 @@ $(document).ready(function() {
 
         registrar = 'nuevo_estudiante';
     });
+    // BOTÓN NUEVO ESTUDIANTE /==================================
+
+
 
 
     // BOTÓN MODAL REGISTRAR /===================================   TRABAJANDO 
@@ -255,12 +284,65 @@ $(document).ready(function() {
 
 
     });
+    // BOTÓN MODAL REGISTRAR /===================================
+
+
+    // BOTÓN MODAL REGISTRAR APODERADO /=========================   TRABAJANDO 
+    $('#btn_modal_registrar_apoderado').click(function(e) {
+        e.preventDefault();
+
+        // SE CREAN LAS VARIABLES
+        rut = $('#apoderado_rut').val();
+        dv_rut = $('#apoderado_dv_rut').val().toUpperCase();
+        nombres = $('#apoderado_nombres').val().toUpperCase();
+        a_paterno = $('#apoderado_ap_paterno').val().toUpperCase();
+        a_materno = $('#apoderado_ap_materno').val().toUpperCase();
+        fono = $('#apoderado_fono').val();
+
+        // VALIDAR QUE TODOS LOS CAMPOS CONTENGAN INFORMACION
+        if (camposVaciosApodeado() >= 1) {
+            alertPopUp('warning', 'Hay campos vacios !!');
+            return false;
+        }
+
+        console.log("listo para agregar el apoderado");
+
+        // datos = "nuevo_apoderado";
+        // $.ajax({
+        //     url: "./controller/controller_apoderado.php",
+        //     method: "post",
+        //     dataType: "json",
+        //     data: {rut: rut, dv_rut: dv_rut, nombres: nombres, a_paterno: a_paterno,
+        //             a_materno: a_materno, fono: fono, datos: datos},
+        //     success: function(data) {
+        //         if (data === false) {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Error al registrar !!',
+        //                 showConfirmButton: false,
+        //                 timer: 1500
+        //             });
+        //         } else {
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Apoderado registrado !!',
+        //                 showConfirmButton: false,
+        //                 timer: 1500
+        //             });
+        //             m1.removeClass('modal-show');
+        //         }
+        //     }
+        // });
+    });
+    // BOTÓN MODAL REGISTRAR APODERADO /=========================
+
+
 
 
     // BTN PARA AGREGAR UN APODERADO TITULAR /===================   TRABAJAR EN SECCION
     $('#btn_me_agregar_titular').click(function(e) {
         e.preventDefault();
-        console.log("agregar titular");
+        prepareModalApoderado(modal, modal_apoderado);
     });
 
 
@@ -269,13 +351,32 @@ $(document).ready(function() {
         e.preventDefault();
         console.log("agregar suplente");
     });
+    // BTN PARA AGREGAR UN APODERADO SUPLENTE /==================
 
 
-    // BOTÓN MODAL CANCELAR /====================================   LISTO
+
+
+
+
+
+
+    // BOTÓN MODAL CANCELAR DE ESTUDIANTE Y APODERADO /==========   LISTO
     $('#btn_modal_cancelar_estudiante').click(function(e) {
         e.preventDefault();
         modal.removeClass('modal-show');
     });
+
+    $('#btn_modal_cancelar_apoderado').click(function(e) {
+        e.preventDefault();
+        modal_apoderado.removeClass('modal-show');
+        modal.addClass('modal-show');
+    });
+    // BOTÓN MODAL CANCELAR DE ESTUDIANTE Y APODERADO /==========
+
+
+
+
+
 
 
     // FUNCION PARA GENERAR INFORMCION ADICIONAL /===============   LISTO
@@ -322,6 +423,10 @@ $(document).ready(function() {
             '</table>'
         );
     }
+    // FUNCION PARA GENERAR INFORMCION ADICIONAL /===============
+
+
+
 
     // DATATABLE /===============================================   LISTO
     let tabla_estudiantes = $('#estudiantes').DataTable({
@@ -375,7 +480,10 @@ $(document).ready(function() {
 
         language: spanish
     });
-    // DATATABLE /===============================================   LISTO
+    // DATATABLE /===============================================
+
+
+
 
 
     // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN /=======   LISTO
@@ -395,11 +503,14 @@ $(document).ready(function() {
     
         }
     });
+    // EVENTO PARA EXPANDIR TABLA CUANDO SE PRESIONA BTN /=======
+
 
 
 
     // EDITAR UN ESTUDIANTE /====================================   TRABAJAR SECCION
-    $('#estudiante tbody')
+    // $('#estudiante tbody')
+    // EDITAR UN ESTUDIANTE /====================================
 
 
 
@@ -461,6 +572,7 @@ $(document).ready(function() {
         //     }
         // });
     });
+    // ESTADOS DE UN ESTUDIANTE /================================    
 
 
     // ELIMINAR UN ESTUDIANTE /==================================   LISTO
@@ -720,3 +832,8 @@ let spanish = {
     "thousands": ".",
     "zeroRecords": "No se encontraron registros"
 }
+
+
+
+// TRABAJAR EN LAS VALIDADCIONES !!!!!!!
+// TRABAJAR EN OPTIMIZAR EL CÓDIGO DE APODERADOS, EN FUNCIÓN DEL DE ESTUDIANTES !!!!!!
