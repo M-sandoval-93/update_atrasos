@@ -141,12 +141,8 @@
             } 
 
             $this->conexion_db = null;
-            return json_encode($this->res);
-        
+            return json_encode($this->res);        
         }
-
-
-
 
     }
 
