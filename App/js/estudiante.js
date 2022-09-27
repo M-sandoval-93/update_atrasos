@@ -477,7 +477,6 @@ $(document).ready(function() {
             }
         ],
         order: [[3, 'asc']],
-
         language: spanish
     });
     // DATATABLE /===============================================
