@@ -12,6 +12,10 @@
             print $datosInasistenciaF->consultarInasistenciaF();
             break;
 
+        case "buscar_funcionario":
+            print json_encode(false);
+            break;
+
         case "registrar_inasistencia":
             print json_encode(true);
             break;

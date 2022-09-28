@@ -29,7 +29,7 @@
 
             <div class="section">
                 <label for="inasistenciaF_rut">Rut Funcionario</label>
-                <input class="input-rut" type="text" id="inasistenciaF_rut" name="rut">
+                <input class="input-rut" type="text" id="inasistenciaF_rut" name="rut" maxlength="8">   <!-- REVISAR SI MANTENGO EL LIMITE DE CARACTERES -->
                 <span></span>
                 <input class="input-rut-dv" type="text" id="inasistenciaF_rut_dv" name="rut_dv">
             </div>
@@ -71,7 +71,7 @@
             <div class="section_hidden reemplazo">
                 <div>
                     <label for="inasistenciaF_reemplazo_rut">Funcionario reemplazante</label>
-                    <input class="input-rut" type="text" id="inasistenciaF_reemplazo_rut" name="rut_reempalzo" maxlength="8">
+                    <input class="input-rut" type="text" id="inasistenciaF_reemplazo_rut" name="rut_reempalzo" maxlength="8">  <!-- REVISAR SI MANTENGO EL LIMITE DE CARACTERES -->
                     <span></span>
                     <input class="input-rut-dv" type="text" id="inasistenciaF_reemplazo_rut_dv" name="rut_dv_reemplazo">
                     <button class="btn" id="btn_mi_agregar_funcionario"><i class="fas fa-plus-circle"></i></button>

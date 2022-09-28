@@ -2,6 +2,31 @@
 // const libreria = require('./librerias/spanishDataTable');
 import { spanish, LibreriaFunciones, generar_dv } from './librerias/librerias.js';
 
+// ==================== FUNCIONES INTERNAS ===============================//
+
+function camposVacios() {
+    let contador = 0;
+    let radio1 = false;
+    let radio2 = false;
+
+    $('input[name=tipo_inasistencia]').each(function() {
+        if ($(this).is(':checked')) {
+            radio1 = true
+        }        
+    });
+
+    $('#modal_form_inasistenciaF input').each(function() {
+        // SEGUIR DESDE AQUI ........
+    })
+
+    return contador;
+}
+
+
+
+// ==================== FUNCIONES INTERNAS ===============================//
+
+// MODULO CENTRAL =================== >>>>>>>>>
 $(document).ready(function() {
     // ASIGNAR VARIABLES
     let modal = $('#modal_form_inasistenciaF');
@@ -9,7 +34,7 @@ $(document).ready(function() {
     let registrar;
     let id_inasistencia;
 
-    // LLENAR DATATABLE CON INFORMACIÓN
+    // LLENAR DATATABLE CON INFORMACIÓN =============================== LISTO
     let tabla_inasistencia = $('#inasistencias_funcionarios').DataTable({
         ajax: {
             url: "./controller/controller_inasistenciaF.php",
@@ -30,8 +55,8 @@ $(document).ready(function() {
             {data: null,
                 bSortable: false,
                 defaultContent: // BOTONES
-                                `<button class="btn btn-s btn-data" id="" type="button"><i class="fas fa-pencil-alt"></i></button>
-                                <button class="btn btn-s btn-delete" id="" type="button"><i class="fas fa-trash-alt"></i></button>`
+                                `<button class="btn btn-s btn-data" id="btn_modificar_inasistencia" type="button"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-s btn-delete" id="btn_eliminar_inasistencia" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
         order: [[3, 'asc']],
@@ -39,6 +64,7 @@ $(document).ready(function() {
     });
 
 
+    // BTN LANZAR MODAL DE NUEVA INSISTENCIA ========================== LISTO
     $('#btn_nueva_inasistencia').click(function(e) {
         e.preventDefault();
         $('#form_inasistenciaF').trigger('reset');
@@ -46,37 +72,84 @@ $(document).ready(function() {
 
         modal.addClass('modal-show');
 
-        // Prepara modal
-        $('#inaistenciaF_rut_dv').attr('disables', 'disabled');
-        $('#inasistenciaF_reemplazo_rut_dv').attr('disables', 'disabled');
+        // RPEPARAR MODAL
+        $('#inasistenciaF_rut_dv').attr('disabled', 'disabled');
+        $('#inasistenciaF_reemplazo_rut_dv').attr('disabled', 'disabled');
         $('#btn_mi_agregar_funcionario').attr('hidden', 'hidden');
         $('.reemplazo').addClass('section_hidden');
 
+        // CALCULAR RUT Y BUSCAR FUNCIONARIO
         $('#inasistenciaF_rut').keyup(function() {
-            LibreriaFunciones.generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
             generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
+            LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#nombre_inasistenciaF'));
         });
-        
-        
+        $('#inasistenciaF_reemplazo_rut').keyup(function() {
+            generar_dv('#inasistenciaF_reemplazo_rut', '#inasistenciaF_reemplazo_rut_dv');
+            LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_mi_agregar_funcionario'));
+        });
 
+        // CALCULAR DÍAS DE INASISTENCIA
+        $('#inasistenciaF_fecha_inicio').change(function() {
+            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
+        });
+        $('#inasistenciaF_fecha_termino').change(function() {
+            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
+        });
 
-
-        // Mostrar u ocultar sección de reemplazo
+        // MOSTRAR U OCULTAR SECCIÓN DE REEMPLAZO
         $('input[name=reemplazo]').click(function() {
             if ($(this).is(':checked') && $(this).attr('id') == 'reemplazo_si') {
-                console.log("checled");
                 $('.reemplazo').removeClass('section_hidden');
             } else {
                 $('.reemplazo').addClass('section_hidden');
             }
         });
-    })
+
+        registrar = "ingresar_inasistenciaF";
+    });
+
+    // BTN REGISTRAR DE MODAL ========================================= TRABAJAR
+    $('#btn_modal_registrar_insistenciaF').click(function(e) {
+        e.preventDefault();
+
+        if (registrar == 'ingresar_inasistenciaF') {
+            console.log("registrar nueva inasistencia");
+            if (camposVacios() >= 1) {
+                console.log(camposVacios() + "campos vacios");
+            } else {
+                console.log("Formulario validado");
+            }
 
 
+
+        } else if(registrar == 'editar_inasistencia') {
+            console.log("modificar inasistencia");
+        }
+    });
+
+
+    // BTN OCULTAR MODAL ============================================== LISTO
     $('#btn_modal_cancelar_inaistenciaF').click(function(e) {
         e.preventDefault();
         modal.removeClass('modal-show');
     })
+
+
+    // BTN LANZAR MODAL PARA EDITAR INAISITENCIA ====================== TRABAJAR
+    $('#inasistencias_funcionarios tbody').on('click', '#btn_modificar_inasistencia', function() {
+        console.log("editar inasistencia");
+
+        registrar = 'editar_inasistencia';
+    });
+
+
+    // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== TRABAJAR
+    $('#inasistencias_funcionarios tbody').on('click', '#btn_eliminar_inasistencia', function() {
+        console.log("eliminar inasistencia");
+    });
+
+
+    
 
 
 });

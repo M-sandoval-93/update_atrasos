@@ -266,25 +266,49 @@ export let LibreriaFunciones = {
             showConfirmButton: false,
             timer: 1500
         });
+    },
+
+    restarFechas: function(f1, f2) {
+        if (f1.val() != '' && f2.val() != '') {
+            let afecha1 = f1.val().split('-');
+            let afecha2 = f2.val().split('-');
+            let fFecha1 = Date.UTC(afecha1[0],afecha1[1]-1,afecha1[2]); 
+            let fFecha2 = Date.UTC(afecha2[0],afecha2[1]-1,afecha2[2]); 
+            let dif = fFecha2 - fFecha1;
+            let dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+            return dias;
+        }        
+    },
+
+    buscar_info_funcionario: function(rut, label, elemento = null) {
+        let datos = 'buscar_funcionario';
+
+        if (rut.length < 7) {
+            if (elemento != null) {
+                elemento.attr('hidden', 'hidden');
+            }
+            label.text('');
+    
+        } else if (rut.length >= 7) {
+            $.ajax({
+                url: "./controller/controller_inasistenciaF.php",
+                method: "post",
+                dataType: "json",
+                data: {rut: rut, datos: datos},
+                success: function(data) {
+                    if (data === false) {
+                        label.text('Apoderado sin registros !!');
+                        if (elemento != null) {
+                            elemento.removeAttr('hidden', 'hidden');
+                        }
+                    } else {
+                        label.text(data);
+                    }
+                }
+            });
+        }
     }
 
-    // revisar !!!!!!
-    
-    // generar_dv: function(rut1, dv_rut) { 
-    //     let numero = $(rut1).val();
-    //     numero = numero.split('.').join('');
-
-    //     // Valida que sea realmente entero
-    //     if (LibreriaFunciones.validarEntero(numero)) {
-    //         $(dv_rut).val(LibreriaFunciones.dv(numero));
-
-    //     } else {
-    //         $(dv_rut).val('');
-    //     }
-
-    //     // Formatear el valor del rut con sus puntos
-    //     $(rut1).val(LibreriaFunciones.formatearNumero(numero));
-    // }
 }
 
 

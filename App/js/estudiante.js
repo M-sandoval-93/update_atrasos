@@ -77,7 +77,7 @@ function buscar_info_apoderado(rut, label, elemento) {
         elemento.attr('hidden', 'hidden');
         label.text('');
 
-    } else if (rut.length == 8) {
+    } else if (rut.length >= 7) {
         $.ajax({
             url: "./controller/controller_apoderado.php",
             method: "post",
