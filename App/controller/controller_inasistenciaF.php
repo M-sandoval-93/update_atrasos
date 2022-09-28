@@ -11,6 +11,10 @@
         case "mostrar_inasistencias":
             print $datosInasistenciaF->consultarInasistenciaF();
             break;
+
+        case "registrar_inasistencia":
+            print json_encode(true);
+            break;
     }
 
 ?>

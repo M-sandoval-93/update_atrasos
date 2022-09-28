@@ -10,7 +10,7 @@
             <!-- MAQUETAR FORMULARIO PARA REGISTRAR INASISTENCIA -->
             
             <label>Tipo Inaistencia</label>
-            <div class="">
+            <div>
                 <div>
                     <input type="radio" name="tipo_inasistencia" value="1" id="licencia">
                     <label for="licencia">Licencia Medica</label>
@@ -53,22 +53,22 @@
             <label>Cuenta con reemplazo?</label>
             <div class="section">
                 <div>
-                    <input type="radio" name="reemplazo" value="1" id="reemplazo_si">
-                    <label for="reemplazo_si">Si</label>
+                    <input type="radio" name="reemplazo" value="1" id="reemplazo_si"> Si
+                    <!-- <label for="reemplazo_si">Si</label> -->
                 </div>
 
                 <div>
-                    <input type="radio" name="reemplazo" value="2" id="reemplazo_no">
-                    <label for="reemplazo_no">No</label>
+                    <input type="radio" name="reemplazo" value="2" id="reemplazo_no"> No
+                    <!-- <label for="reemplazo_no">No</label> -->
                 </div>
             </div>
 
-            <div class="section section_hidden">
+            <div class="section section_hidden reemplazo">
                 <label for="inasistenciaF_ordinario">Número Ordinario</label>
                 <input class="" type="number" id="inasistenciaF_ordinario" name="ordinario">
             </div>
 
-            <div class="section_hidden">
+            <div class="section_hidden reemplazo">
                 <div>
                     <label for="inasistenciaF_reemplazo_rut">Funcionario reemplazante</label>
                     <input class="input-rut" type="text" id="inasistenciaF_reemplazo_rut" name="rut_reempalzo" maxlength="8">

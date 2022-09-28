@@ -1,6 +1,6 @@
 
 // const libreria = require('./librerias/spanishDataTable');
-import { spanish, LibreriaFunciones } from './librerias/librerias.js';
+import { spanish, LibreriaFunciones, generar_dv } from './librerias/librerias.js';
 
 $(document).ready(function() {
     // ASIGNAR VARIABLES
@@ -38,6 +38,7 @@ $(document).ready(function() {
         language: spanish
     });
 
+
     $('#btn_nueva_inasistencia').click(function(e) {
         e.preventDefault();
         $('#form_inasistenciaF').trigger('reset');
@@ -45,7 +46,30 @@ $(document).ready(function() {
 
         modal.addClass('modal-show');
 
-        console.log("prueba");
+        // Prepara modal
+        $('#inaistenciaF_rut_dv').attr('disables', 'disabled');
+        $('#inasistenciaF_reemplazo_rut_dv').attr('disables', 'disabled');
+        $('#btn_mi_agregar_funcionario').attr('hidden', 'hidden');
+        $('.reemplazo').addClass('section_hidden');
+
+        $('#inasistenciaF_rut').keyup(function() {
+            LibreriaFunciones.generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
+            generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
+        });
+        
+        
+
+
+
+        // Mostrar u ocultar sección de reemplazo
+        $('input[name=reemplazo]').click(function() {
+            if ($(this).is(':checked') && $(this).attr('id') == 'reemplazo_si') {
+                console.log("checled");
+                $('.reemplazo').removeClass('section_hidden');
+            } else {
+                $('.reemplazo').addClass('section_hidden');
+            }
+        });
     })
 
 

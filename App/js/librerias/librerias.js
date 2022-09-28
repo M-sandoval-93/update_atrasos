@@ -258,7 +258,7 @@ export let LibreriaFunciones = {
         return contador;
     },
 
-    // Alertas de sweetAlert2 predefinidas  => PROBAR
+    // Alertas de sweetAlert2 predefinidas
     alertPopUp: function(icon, title) {
         Swal.fire({
             icon: icon,
@@ -267,6 +267,24 @@ export let LibreriaFunciones = {
             timer: 1500
         });
     }
+
+    // revisar !!!!!!
+    
+    // generar_dv: function(rut1, dv_rut) { 
+    //     let numero = $(rut1).val();
+    //     numero = numero.split('.').join('');
+
+    //     // Valida que sea realmente entero
+    //     if (LibreriaFunciones.validarEntero(numero)) {
+    //         $(dv_rut).val(LibreriaFunciones.dv(numero));
+
+    //     } else {
+    //         $(dv_rut).val('');
+    //     }
+
+    //     // Formatear el valor del rut con sus puntos
+    //     $(rut1).val(LibreriaFunciones.formatearNumero(numero));
+    // }
 }
 
 
