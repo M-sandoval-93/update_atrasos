@@ -32,7 +32,7 @@
             </table>
 
             <?php
-            // include_once "./layout/modal_apoderado.php";
+            include_once "./layout/modal_inasistenciaF.php";
             ?>
 
         </main>

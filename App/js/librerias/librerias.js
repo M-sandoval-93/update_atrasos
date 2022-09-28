@@ -197,5 +197,92 @@ export let spanish = {
     "zeroRecords": "No se encontraron registros"
 }
 
+export let LibreriaFunciones = {
+    // Valida el rut con su cadena completa "XXXXXXXX-X"
+    validarRut: function(rutCompleto) {
+        if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto )) {
+            return false;
+        }
+        
+        let tmp = rutCompleto.split('-');
+        let rut = tmp[0];
+        let dvRut = tmp[1];
 
-// export { spanish };
+        if (dvRut == 'K') {
+            dvRut = 'K';
+        }
+        return (LibreriaFunciones.dv(rut) == dvRut);
+    },
+
+    // Calcula el dígito verificador
+    dv: function(T) {
+        let M = 0, S = 1;
+
+        for (;T;T = Math.floor(T/10)) {
+            S = (S + T % 10 * (9 - M ++ % 6)) % 11;
+        }
+        return S?S - 1: 'K';
+    },
+
+    // Valida que el número sea un entero
+    validarEntero: function(value) {
+        let regExPattern = /[0-9]+$/;
+        return regExPattern.test(value);
+    },
+
+    // Formatea un número con puntos de miles
+    formatearNumero: function(val) {
+        if (LibreriaFunciones.validarEntero(val)) {
+            let retorno = '';
+            let value = val.toString().split('').reverse().join('');
+            let i = value.length;
+
+            while (i > 0) {
+                retorno += ((i%3==0&&i!=value.length)?'':'')+value.substring(i--,i);
+                // retorno += ((i%3==0&&i!=value.length)?'.':'')+value.substring(i--,i);  //Para ir agregando el punto
+            }
+            return retorno;
+        }
+        return val;
+    },
+
+    // Comprobar longitud del rut
+    comprobarLongitudRut: function() {
+        let contador = 0;
+        $('.input-rut').each(function() {
+            if ($(this).val().length > 1 && $(this).val().length < 8) {
+                contador = contador + 1;
+            }
+        });
+
+        return contador;
+    },
+
+    // Alertas de sweetAlert2 predefinidas  => PROBAR
+    alertPopUp: function(icon, title) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+}
+
+
+export function generar_dv(rut, dv_rut) {
+    // Traspasar valor a número entero
+    let numero = $(rut).val();
+    numero = numero.split('.').join('');
+
+    // Valida que sea realmente entero
+    if (LibreriaFunciones.validarEntero(numero)) {
+        $(dv_rut).val(LibreriaFunciones.dv(numero));
+
+    } else {
+        $(dv_rut).val('');
+    }
+
+    // Formatear el valor del rut con sus puntos
+    $(rut).val(LibreriaFunciones.formatearNumero(numero));
+}

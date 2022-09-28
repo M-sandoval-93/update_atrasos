@@ -273,7 +273,6 @@ nav .divider {
 
 nav .profile {
     position: relative;
-    /* padding: 0 12px 0 12px; */
 }
 
 nav .profile img {
@@ -338,7 +337,6 @@ nav .profile .profile-link a:hover {
 
 main {
     width: 100%;
-    /* height: 100%; */
     padding: 24px 20px 20px 20px;
 }
 
@@ -652,10 +650,6 @@ main > .div_profile > .profile__content {
     
 }
 
-
-
-
-
 /* PROFILE */
 
 
@@ -689,12 +683,6 @@ main > .div_profile > .profile__content {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-}
-
-.modal-content.estudiantes {
-    width: 50%;
-    max-width: 800px;
-    min-width:750px;
 }
 
 .modal-show {
@@ -774,6 +762,12 @@ main > .div_profile > .profile__content {
 
 
 /* MODAL ESTUDIANTES ==================== */
+.modal-content.estudiantes {
+    width: 50%;
+    max-width: 800px;
+    min-width:750px;
+}
+
 .section {
     display: flex;
     width: 100%;
@@ -800,13 +794,17 @@ main > .div_profile > .profile__content {
 
 input[id="estudiante_rut"],
 input[id="apoderado_titular_rut"],
-input[id="apoderado_suplente_rut"] {
+input[id="apoderado_suplente_rut"],
+input[id="inasistenciaF_rut"],
+input[id="inasistenciaF_reemplazo_rut"] {
     width: 160px;
 }
 
 input[id="estudiante_dv_rut"],
 input[id="apoderado_titular_dv_rut"],
-input[id="apoderado_suplente_dv_rut"] {
+input[id="apoderado_suplente_dv_rut"],
+input[id="inasistenciaF_rut_dv"],
+input[id="inasistenciaF_reemplazo_rut_dv"] {
     width: 64.7px;
     text-align: center;
 }
@@ -863,9 +861,27 @@ select[id="estudiante_junaeb"] {
     min-width: 300px;
 }
 
-
-
 /* MODAL ESTUDIANTES ==================== */
+
+
+/* MODAL INASISTENCIA FUNCIONARIO ==================== */
+.modal-content.inasistenciaF {
+    width: 50%;
+    max-width: 800px;
+    min-width:750px;
+}
+
+
+
+
+
+
+
+.section_hidden {
+    display: none;
+}
+
+/* MODAL INASISTENCIA FUNCIONARIO ==================== */
 
 
 

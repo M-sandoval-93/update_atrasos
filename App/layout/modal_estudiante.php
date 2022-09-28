@@ -1,11 +1,3 @@
-<?php 
-
-// Consultar datos de los cursos disponibles en php
-
-// rediseñar
-
-
-?>
 
 <div id="modal_form_estudiantes" class="modal">
     <form action="#" class="modal-content animate estudiantes" method="POST" id="form_estudiantes">
