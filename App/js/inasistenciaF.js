@@ -15,12 +15,33 @@ function camposVacios() {
         }        
     });
 
+    $('input[name=reemplazo]').each(function() {
+        if ($(this).is(':checked')) {
+            radio2 = true
+        }        
+    });
+
     $('#modal_form_inasistenciaF input').each(function() {
-        // SEGUIR DESDE AQUI ........
-    })
+        if ($(this).val() == '') {
+            contador = contador + 1
+        }
+    });
+
+    if (radio1 == false) {
+        contador = contador + 1;
+    }
+
+    if (radio2 == false) {
+        contador = contador + 1;
+    }
+
+    if ($('input[id=reemplazo_no]').is(':checked')) {
+        contador = contador - 3;
+    }
 
     return contador;
 }
+
 
 
 
@@ -112,15 +133,41 @@ $(document).ready(function() {
     $('#btn_modal_registrar_insistenciaF').click(function(e) {
         e.preventDefault();
 
+        // VALIDAR CAMPOS VACIOS
+        if (camposVacios() >= 1) {
+            alertPopUp('warning', 'Hay campos vacios !!');
+            return false;
+        }
+
+        // OBTENER DATOS PARA REGISTRAR
+        let tipoI = $('input[name=tipo_inasistencia]:checked').val();
+        let rutF = $('#inasistenciaF_rut').val();
+        let fechaI = $('#inasistenciaF_fecha_inicio').val();
+        let fechaT = $('#inasistenciaF_fecha_termino').val();
+        let diasI = $('#inasistenciaF_dias').val();
+        let ord = $('#inasistenciaF_ordinario').val();
+        let rutR = $('#inasistenciaF_reemplazo_rut').val();
+
+
         if (registrar == 'ingresar_inasistenciaF') {
-            console.log("registrar nueva inasistencia");
-            if (camposVacios() >= 1) {
-                console.log(camposVacios() + "campos vacios");
-            } else {
-                console.log("Formulario validado");
-            }
+            datos = "registrar_inasistencia";
 
-
+            $.ajax({
+                url: "./controller/controller_inasistenciaF.php",
+                method: "post",
+                dataType: "json",
+                data: {datos: datos, tipoI: tipoI, rutF: rutF, fechaI: fechaI, fechaT: fechaT, diasI: diasI, ord: ord, rutR: rutR},
+                success: function(data) {
+                    if (data === false) {
+                        alertPopUp('error', 'Error al registrar !!');
+                    
+                    } else {
+                        alertPopUp('success', 'Inasistencia registrada !!');
+                        modal.removeClass('modal-show');
+                        tabla_inasistencia.ajax.reload(null, false);
+                    }
+                }
+            });
 
         } else if(registrar == 'editar_inasistencia') {
             console.log("modificar inasistencia");
