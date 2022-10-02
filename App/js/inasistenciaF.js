@@ -135,7 +135,7 @@ $(document).ready(function() {
 
         // VALIDAR CAMPOS VACIOS
         if (camposVacios() >= 1) {
-            alertPopUp('warning', 'Hay campos vacios !!');
+            LibreriaFunciones.alertPopUp('warning', 'Hay campos vacios !!');
             return false;
         }
 
@@ -159,10 +159,10 @@ $(document).ready(function() {
                 data: {datos: datos, tipoI: tipoI, rutF: rutF, fechaI: fechaI, fechaT: fechaT, diasI: diasI, ord: ord, rutR: rutR},
                 success: function(data) {
                     if (data === false) {
-                        alertPopUp('error', 'Error al registrar !!');
+                        LibreriaFunciones.alertPopUp('error', 'Error al registrar !!');
                     
                     } else {
-                        alertPopUp('success', 'Inasistencia registrada !!');
+                        LibreriaFunciones.alertPopUp('success', 'Inasistencia registrada !!');
                         modal.removeClass('modal-show');
                         tabla_inasistencia.ajax.reload(null, false);
                     }

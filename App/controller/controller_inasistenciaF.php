@@ -18,8 +18,10 @@
 
         case "registrar_inasistencia":
             $inasistencia = array(
-                $_POST['tipoI'], $_POST['rutF'], $_POST['fechaI'], $_POST['fechaT'], $_POST['diasI'], (isset($_POST['ord'])) ? $_POST['ord'] : null, (isset($_POST['rutR'])) ? $_POST['rutR'] : null);
-            print json_encode(true);
+                $_POST['tipoI'], $_POST['rutF'], $_POST['fechaI'], $_POST['fechaT'], $_POST['diasI'], 
+                (isset($_POST['ord'])) ? $_POST['ord'] : '', (isset($_POST['rutR'])) ? $_POST['rutR'] : '');
+            // print json_encode($inasistencia);
+            print $datosInasistenciaF->newInaistenciaF($inasistencia);
             break;
     }
 
