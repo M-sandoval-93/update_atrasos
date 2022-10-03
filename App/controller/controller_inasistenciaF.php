@@ -13,7 +13,9 @@
             break;
 
         case "buscar_funcionario":
-            print json_encode(false);
+            $rut = $_POST['rut'];
+            print $datosInasistenciaF->buscarFuncionario($rut);
+            // print json_encode(false);
             break;
 
         case "registrar_inasistencia":

@@ -302,6 +302,7 @@ export let LibreriaFunciones = {
                             elemento.removeAttr('hidden', 'hidden');
                         }
                     } else {
+                        elemento.attr('hidden', 'hidden');
                         label.text(data);
                     }
                 }

@@ -34,6 +34,25 @@
 
         }
 
+        public function buscarFuncionario($rut) {
+            $query = "SELECT (nombres_funcionario || ' ' || apellido_paterno_funcionario || ' ' || apellido_materno_funcionario) as nombre_funcionario
+                    FROM funcionario WHERE rut_funcionario = ?;";
+            $sentencia = $this->conexion_db->prepare($query);
+            $sentencia->execute([$rut]);
+
+            if ($sentencia->rowCount() >=1) {
+                $funcionario = $sentencia->fetch(PDO::FETCH_ASSOC);
+                
+                return json_encode($this->json[] = $funcionario['nombre_funcionario']);
+                // $this->json[] = $sentencia->fetch();
+            } else {
+                return json_encode($this->res);
+            }
+
+            $this->conexion_db = null;
+            // return json_encode($this->res);
+        }
+
         public function newInaistenciaF($iF) {  // REVISAR NUEVAMENTE LA INFORMACIÓN QUE SE ALMACENARÁ Y COMO ??
             $query = "INSERT INTO inasistencia_funcionario (id_funcionario, fecha_inicio, fecha_termino, 
                     dias_inasistencia, id_tipo_inasistencia, id_reemplazante, ordinario) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -53,7 +72,7 @@
                 }
 
                 $sentencia = $this->conexion_db->prepare($query);
-                if ($sentencia->execute([$resultadoF["id_funcionario"], $iF[2], $iF[3], $iF[4], $iF[0], $resultadoR["id_funcionario"], $iF[5]])) {
+                if ($sentencia->execute([$resultadoF["id_funcionario"], $iF[2], $iF[3], $iF[4], $iF[0], (isset($resultadoR["id_funcionario"])) ? $resultadoR["id_funcionario"] : null, $iF[5]])) {
                     $this->res = true;
                 }
             }
