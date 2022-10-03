@@ -18,7 +18,8 @@
             <table id="inasistencias_funcionarios" class="display table tabl-hover text-nowrap" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>id</th>
+                        <th></th>
                         <th>Funcionario</th>
                         <th>Inasistencia</th>
                         <th>Inicio</th>
@@ -32,7 +33,9 @@
             </table>
 
             <?php
+            // SE INCLUYEN LOS MODALES A SER UTILIZADOS
             include_once "./layout/modal_inasistenciaF.php";
+            include_once "./layout/modal_funcionario.php";
             ?>
 
         </main>

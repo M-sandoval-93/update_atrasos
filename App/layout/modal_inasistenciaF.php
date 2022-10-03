@@ -9,9 +9,19 @@
         <div class="modal-inputs">
             <!-- MAQUETAR FORMULARIO PARA REGISTRAR INASISTENCIA -->
             
-            <label>Tipo Inaistencia</label>
+            <!-- <label>Tipo Inaistencia</label> -->
             <div>
-                <div>
+                <label for="tipo_inasistencia">Tipo inasistencia</label>
+                <select name="inasistencia" id="tipo_inasistencia">
+                    <option disable selected>Seleccionar tipo</option>
+                    <option value="1">Licencia Medica</option>
+                    <option value="2">Permiso administrativo</option>
+                    <option value="3">Ausencia injustificada</option>
+                    <!-- cargar por medio de ajax y jquery -->
+                    <!-- DE ESTA MANERA LA SECCIONES SE VUELVE ESCALABLE EN CASO DE AGREGAR NUEVA INFORMACION -->
+                </select>
+                
+                <!-- <div>
                     <input type="radio" name="tipo_inasistencia" value="1" id="licencia">
                     <label for="licencia">Licencia Medica</label>
                 </div>
@@ -23,8 +33,8 @@
 
                 <div>
                     <input type="radio" name="tipo_inasistencia" value="3" id="ausencia">
-                    <label for="ausencia">Ausencia Injustificada</label>
-                </div>
+                    <label for="ausencia">Ausencia injustificada</label>
+                </div> -->
             </div>
 
             <div class="section">
@@ -32,6 +42,7 @@
                 <input class="input-rut" type="text" id="inasistenciaF_rut" name="rut" maxlength="8">   <!-- REVISAR SI MANTENGO EL LIMITE DE CARACTERES -->
                 <span></span>
                 <input class="input-rut-dv" type="text" id="inasistenciaF_rut_dv" name="rut_dv">
+                <button class="btn" id="btn_agregar_funcionario_ausente"><i class="fas fa-plus-circle"></i></button>
             </div>
             <label id="nombre_inasistenciaF"></label>
 
@@ -68,13 +79,13 @@
                 <input class="" type="number" id="inasistenciaF_ordinario" name="ordinario">
             </div>
 
-            <div class="section_hidden reemplazo">
+            <div class="section section_hidden reemplazo">
                 <div>
                     <label for="inasistenciaF_reemplazo_rut">Funcionario reemplazante</label>
                     <input class="input-rut" type="text" id="inasistenciaF_reemplazo_rut" name="rut_reempalzo" maxlength="8">  <!-- REVISAR SI MANTENGO EL LIMITE DE CARACTERES -->
                     <span></span>
                     <input class="input-rut-dv" type="text" id="inasistenciaF_reemplazo_rut_dv" name="rut_dv_reemplazo">
-                    <button class="btn" id="btn_mi_agregar_funcionario"><i class="fas fa-plus-circle"></i></button>
+                    <button class="btn" id="btn_agregar_funcionario_reemplazo"><i class="fas fa-plus-circle"></i></button>
                 </div>
                 <label id="inasistenciaF_nombre_reemplazo"></label>
             </div>

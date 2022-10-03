@@ -397,22 +397,23 @@ main .nuevo_registro {
     height: 30px;
 }
 
-.btn:hover {
-    transform: scale(0.95);
-    -webkit-transform: scale(0.95);
-    -moz-transform: scale(0.95);
-    -ms-transform: scale(0.95);
-    -o-transform: scale(0.95);
+.btn:hover,
+.btn > i:hover {
+    transform: scale(0.96);
+    -webkit-transform: scale(0.96);
+    -moz-transform: scale(0.96);
+    -ms-transform: scale(0.96);
+    -o-transform: scale(0.96);
     opacity: 0.6;
     color: var(--oscuro);
 }
 
 .btn-m:hover {
-    transform: scale(0.95);
-    -webkit-transform: scale(0.95);
-    -moz-transform: scale(0.95);
-    -ms-transform: scale(0.95);
-    -o-transform: scale(0.95);
+    transform: scale(0.96);
+    -webkit-transform: scale(0.96);
+    -moz-transform: scale(0.96);
+    -ms-transform: scale(0.96);
+    -o-transform: scale(0.96);
     background: var(--divisor);
 }
 
@@ -437,7 +438,9 @@ main .nuevo_registro {
 }
 
 .btn-expand {
-    margin-right: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--new);
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -448,7 +451,9 @@ main .nuevo_registro {
 }
 
 .btn-retract {
-    margin-right: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--red);
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -879,6 +884,17 @@ select[id="estudiante_junaeb"] {
 }
 
 /* MODAL INASISTENCIA FUNCIONARIO ==================== */
+
+
+/* TABLA FUNCIONARIO REEMPLAZANTE */
+
+.expand_columna {
+    color: var(--fondo);
+    padding-left:25px;
+}
+
+
+
 
 
 

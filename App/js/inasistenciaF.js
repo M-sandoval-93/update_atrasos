@@ -6,20 +6,11 @@ import { spanish, LibreriaFunciones, generar_dv } from './librerias/librerias.js
 
 function camposVacios() {
     let contador = 0;
-    let radio1 = false;
-    let radio2 = false;
+    let radio = false;
 
-    $('input[name=tipo_inasistencia]').each(function() {
-        if ($(this).is(':checked')) {
-            radio1 = true
-        }        
-    });
-
-    $('input[name=reemplazo]').each(function() {
-        if ($(this).is(':checked')) {
-            radio2 = true
-        }        
-    });
+    if ($('#tipo_inasistencia').val() == 'Seleccionar tipo') {
+        contador = contador + 1;
+    }
 
     $('#modal_form_inasistenciaF input').each(function() {
         if ($(this).val() == '') {
@@ -27,11 +18,13 @@ function camposVacios() {
         }
     });
 
-    if (radio1 == false) {
-        contador = contador + 1;
-    }
+    $('input[name=reemplazo]').each(function() {
+        if ($(this).is(':checked')) {
+            radio = true
+        }        
+    });
 
-    if (radio2 == false) {
+    if (radio == false) {
         contador = contador + 1;
     }
 
@@ -42,7 +35,16 @@ function camposVacios() {
     return contador;
 }
 
-
+function format(d) {
+    return (
+        '<table class="expand_columna" cellpadding="4" cellspacing="2" border="0"">' +
+            '<tr>' +
+                '<td>FUNCIONARIO REEMPLAZANTE: </td>' +
+                '<td>' + d.reemplazante + '</td>' +
+            '</tr>' +
+        '</table>'
+    );
+}
 
 
 // ==================== FUNCIONES INTERNAS ===============================//
@@ -51,8 +53,9 @@ function camposVacios() {
 $(document).ready(function() {
     // ASIGNAR VARIABLES
     let modal = $('#modal_form_inasistenciaF');
+    let modal_funcionario =$('#modal_form_funcionario');
     let datos = 'mostrar_inasistencias';
-    let registrar;
+    let registrar; 
     let id_inasistencia;
 
     // LLENAR DATATABLE CON INFORMACIÓN =============================== LISTO
@@ -68,6 +71,18 @@ $(document).ready(function() {
                 data: "id_inasistencia",
                 visible: false
             },
+            { // BTN PARA EXPANDIR Y CONTRAER TABLA
+                orderable: false,
+                data: "reemplazante",
+                defaultContent: '',
+                mRender: function(data) {
+                    let btn;
+                    if (data != null) {
+                        btn = '<button class="btn-expand" id="mostrar_reemplazante"><i class="fas fa-plus-circle"></i></button>';
+                        return btn;
+                    }
+                }
+            },
             {data: "funcionario"},
             {data: "tipo_inasistencia"},
             {data: "fecha_inicio"},
@@ -80,8 +95,32 @@ $(document).ready(function() {
                                 <button class="btn btn-s btn-delete" id="btn_eliminar_inasistencia" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
-        order: [[3, 'asc']],
+        order: [[4, 'asc']],
         language: spanish
+    });
+
+
+    // BTN PARA EXPANDIR Y CONTRAER SECCIÓN DE REEMPLAZANTE ====================== LISTO
+    $('#inasistencias_funcionarios tbody').on('click', 'td button#mostrar_reemplazante', function () {
+        let tr = $(this).closest('tr');
+        let row = tabla_inasistencia.row(tr);
+ 
+        if (row.child.isShown()) {
+            // ACCIÓN PARA CUANDO SE CONTRAE LA TABLA
+            row.child.hide();
+            tr.removeClass('shown');
+            $(this).addClass('btn-expand');
+            $(this).removeClass('btn-retract');
+
+        } else {
+            // ACCIÓN PARA CUANDO SE EXPANDE LA TABLA
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+            $(this).removeClass('btn-expand');
+            $(this).addClass('btn-retract');
+            $('.expand_columna').parents('td').css('background-color', 'var(--opacidad)');
+    
+        }
     });
 
 
@@ -96,17 +135,18 @@ $(document).ready(function() {
         // RPEPARAR MODAL
         $('#inasistenciaF_rut_dv').attr('disabled', 'disabled');
         $('#inasistenciaF_reemplazo_rut_dv').attr('disabled', 'disabled');
-        $('#btn_mi_agregar_funcionario').attr('hidden', 'hidden');
+        $('#btn_agregar_funcionario_ausente').attr('hidden', 'hidden');
+        $('#btn_agregar_funcionario_reemplazo').attr('hidden', 'hidden');
         $('.reemplazo').addClass('section_hidden');
 
         // CALCULAR RUT Y BUSCAR FUNCIONARIO
         $('#inasistenciaF_rut').keyup(function() {
             generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
-            LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#nombre_inasistenciaF'));
+            LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#nombre_inasistenciaF'), $('#btn_agregar_funcionario_ausente'));
         });
         $('#inasistenciaF_reemplazo_rut').keyup(function() {
             generar_dv('#inasistenciaF_reemplazo_rut', '#inasistenciaF_reemplazo_rut_dv');
-            LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_mi_agregar_funcionario'));
+            LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_agregar_funcionario_reemplazo'));
         });
 
         // CALCULAR DÍAS DE INASISTENCIA
@@ -129,18 +169,27 @@ $(document).ready(function() {
         registrar = "ingresar_inasistenciaF";
     });
 
-    // BTN REGISTRAR DE MODAL ========================================= TRABAJAR
+    
+    // BTN REGISTRAR DE MODAL ========================================= TRABAJANDO
     $('#btn_modal_registrar_insistenciaF').click(function(e) {
         e.preventDefault();
 
         // VALIDAR CAMPOS VACIOS
-        if (camposVacios() >= 1) {
+        if (camposVacios() >= 1) { 
             LibreriaFunciones.alertPopUp('warning', 'Hay campos vacios !!');
             return false;
         }
 
+        // VALIDAR QUE LOS FUNCIONARIOS ESTEN INGRESADOS
+        if ($('#nombre_inasistenciaF').text() == 'Apoderado sin registros !!' || $('#inasistenciaF_nombre_reemplazo').text() == 'Apoderado sin registros !!') {
+            LibreriaFunciones.alertPopUp('warning', 'El rut no se encuentra registrado !!');
+            return false;
+        }
+
+
+
         // OBTENER DATOS PARA REGISTRAR
-        let tipoI = $('input[name=tipo_inasistencia]:checked').val();
+        let tipoI = $('#tipo_inasistencia').val();
         let rutF = $('#inasistenciaF_rut').val();
         let fechaI = $('#inasistenciaF_fecha_inicio').val();
         let fechaT = $('#inasistenciaF_fecha_termino').val();
@@ -194,6 +243,27 @@ $(document).ready(function() {
     $('#inasistencias_funcionarios tbody').on('click', '#btn_eliminar_inasistencia', function() {
         console.log("eliminar inasistencia");
     });
+
+
+    // BTN LANZAR MODAL DE FUNCIONARIO ================================ TRABAJAR
+    $('#btn_agregar_funcionario_ausente').click(function(e) {
+        e.preventDefault();
+        modal.removeClass('modal-show');
+        modal_funcionario.addClass('modal-show');
+        // AGREGAR VALIDACIONES NECESARIAS
+
+    });
+
+
+    // BTN LANZAR MODAL DE FUNCIONARIO REEMPLAZANTE =================== TRABAJAR
+    $('#btn_agregar_funcionario_reemplazo').click(function(e) {
+        e.preventDefault();
+        modal.removeClass('modal-show');
+        modal_funcionario.addClass('modal-show');
+        // BLOQUEAR EL TIPO DE FORMULARIO EN DOCENTE REEMPLAZANTE
+    }); 
+
+    // BTN PARA OCULTAR MODAL FUNCIONARIO ============================= TRABAJAR
 
 
     
