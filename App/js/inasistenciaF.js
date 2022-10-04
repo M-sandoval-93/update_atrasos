@@ -136,7 +136,9 @@ $(document).ready(function() {
         $('#inasistenciaF_reemplazo_rut_dv').attr('disabled', 'disabled');
         $('#btn_agregar_funcionario_ausente').attr('hidden', 'hidden');
         $('#btn_agregar_funcionario_reemplazo').attr('hidden', 'hidden');
+        $('.section .check').attr('hidden', 'hidden');
         $('.reemplazo').addClass('section_hidden');
+
 
         // CALCULAR RUT Y BUSCAR FUNCIONARIO
         $('#inasistenciaF_rut').keyup(function() {
@@ -148,38 +150,34 @@ $(document).ready(function() {
             LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_agregar_funcionario_reemplazo'));
         });
 
+
         // CALCULAR DÍAS DE INASISTENCIA
         $('#inasistenciaF_fecha_inicio').change(function() {
-            // if (LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')) >=1 && $('#inasistenciaF_fecha_termino').val() == '') {
-            //     $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
-            // } else {
-            //     $('#inasistenciaF_dias').val(0.5);
-            // }
+            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
+        });
 
-            $('#inasistenciaF_dias').val( function() {
-                if (LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')) == 0) {
-                    return 0.5;
+        $('#inasistenciaF_fecha_termino').change(function() {
+            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
+        });
+
+        $('#modal_form_inasistenciaF').change(function() {
+            if (($('#tipo_inasistencia').val() != "1" && $('#tipo_inasistencia').val() != "Seleccionar tipo") && ($('#inasistenciaF_dias').val() == "1" || $('#inasistenciaF_dias').val() == "0.5")) {
+                $('.section .check').removeAttr('hidden', 'hidden');
+                // ASIGNAR MEDIA DÍA SI ESTA SELECCIONADO EL CHECK
+                if ($('#check_medio_dia').prop('checked')) {
+                    $('#inasistenciaF_dias').val(0.5);
                 } else {
-                    return 1;
+                    // $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
+                    $('#inasistenciaF_dias').val(1);
                 }
                 
-            });
-
-            // PRINCIPAL
-            // $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
-        });
-        $('#inasistenciaF_fecha_termino').change(function() {
-            if (LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')) >=1 && $('#inasistenciaF_dias').val() != '') {
-                $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
             } else {
-                $('#inasistenciaF_dias').val(0.5);
+                $('.section .check').attr('hidden', 'hidden');
             }
-            // $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
         });
 
-        // if ($('#inasistenciaF_dias').val() == 0 && $('#inasistenciaF_dias').val() != '') {
-        //     $('#inasistenciaF_dias').val(0.5);
-        // }
+
+
 
         // MOSTRAR U OCULTAR SECCIÓN DE REEMPLAZO
         $('input[name=reemplazo]').click(function() {

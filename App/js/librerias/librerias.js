@@ -275,7 +275,7 @@ export let LibreriaFunciones = {
             let fFecha1 = Date.UTC(afecha1[0],afecha1[1]-1,afecha1[2]); 
             let fFecha2 = Date.UTC(afecha2[0],afecha2[1]-1,afecha2[2]); 
             let dif = fFecha2 - fFecha1;
-            let dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+            let dias = Math.floor(dif / (1000 * 60 * 60 * 24)) + 1; 
             return dias;
         }        
     },

@@ -59,6 +59,10 @@
                     <label for="inasistenciaF_dias">Días</label>
                     <input type="text" id="inasistenciaF_dias" name="dias" disabled>
                 </div>
+                <div class="check">
+                    <input type="checkbox" id="check_medio_dia" name="medio_dia">
+                    <label for="check_medio_dia">1/2 día</label>
+                </div>
             </div>
 
             <label>Cuenta con reemplazo?</label>
