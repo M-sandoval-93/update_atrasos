@@ -250,15 +250,20 @@ $(document).ready(function() {
     })
 
 
-    // BTN LANZAR MODAL PARA EDITAR INAISITENCIA ====================== TRABAJAR
+    // BTN LANZAR MODAL PARA EDITAR INAISITENCIA ====================== TRABAJANDO ....!!!!!
     $('#inasistencias_funcionarios tbody').on('click', '#btn_modificar_inasistencia', function() {
-        console.log("editar inasistencia");
+        // console.log("editar inasistencia");
+        let data = tabla_inasistencia.row($(this).parents()).data();
+        $('#form_inasistenciaF').trigger('reset');
+        $('#titulo-modal_inasistenciaF').text('Editar inasistencia');
+
+        modal.addClass('modal-show');
 
         registrar = 'editar_inasistencia';
     });
 
 
-    // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== TRABAJAR
+    // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== LISTO
     $('#inasistencias_funcionarios tbody').on('click', '#btn_eliminar_inasistencia', function() {
         console.log("eliminar inasistencia");
 

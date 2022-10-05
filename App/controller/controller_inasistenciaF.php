@@ -28,6 +28,10 @@
 
             break;
 
+        case "editar_inasistencia":
+            print json_encode(true);
+            break;
+
         case "eliminar_inasistencia":
             $id_inasistencia = $_POST['id_inasistencia'];
             // print ($id_inasistencia);

@@ -10,7 +10,7 @@
             parent:: __construct();
         }
 
-        public function consultarInasistenciaF() {
+        public function consultarInasistenciaF() { // LISTO
             $query = "SELECT inasistencia_funcionario.id_inasistencia, 
                     (reemplazante.nombres_funcionario || ' ' || reemplazante.apellido_paterno_funcionario || ' ' || reemplazante.apellido_materno_funcionario) AS reemplazante,
                     (funcionario.nombres_funcionario || ' ' || funcionario.apellido_paterno_funcionario || ' ' || funcionario.apellido_materno_funcionario) AS funcionario,
@@ -19,7 +19,8 @@
                     FROM inasistencia_funcionario
                     LEFT JOIN funcionario as reemplazante ON reemplazante.id_funcionario = inasistencia_funcionario.id_reemplazante
                     LEFT JOIN funcionario ON funcionario.id_funcionario = inasistencia_funcionario.id_funcionario
-                    LEFT JOIN tipo_inasistencia ON tipo_inasistencia.id_tipo_inasistencia = inasistencia_funcionario.id_tipo_inasistencia;";
+                    LEFT JOIN tipo_inasistencia ON tipo_inasistencia.id_tipo_inasistencia = inasistencia_funcionario.id_tipo_inasistencia
+                    WHERE EXTRACT(YEAR FROM fecha_termino) = EXTRACT(YEAR FROM NOW());";
 
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute();
@@ -34,7 +35,7 @@
 
         }
 
-        public function buscarFuncionario($rut) {
+        public function buscarFuncionario($rut) { // LISTO
             $query = "SELECT (nombres_funcionario || ' ' || apellido_paterno_funcionario || ' ' || apellido_materno_funcionario) as nombre_funcionario
                     FROM funcionario WHERE rut_funcionario = ?;";
             $sentencia = $this->conexion_db->prepare($query);
@@ -53,7 +54,7 @@
             // return json_encode($this->res);
         }
 
-        public function newInaistenciaF($iF) {  // REVISAR NUEVAMENTE LA INFORMACIÓN QUE SE ALMACENARÁ Y COMO ??
+        public function newInaistenciaF($iF) {  // LISTO
             $query = "INSERT INTO inasistencia_funcionario (id_funcionario, fecha_inicio, fecha_termino, 
                     dias_inasistencia, id_tipo_inasistencia, id_reemplazante, ordinario) VALUES (?, ?, ?, ?, ?, ?, ?);";
             
@@ -82,11 +83,11 @@
 
         }
 
-        public function updateInasistenciaF($id) {
+        public function updateInasistenciaF($iF) { // TRABAJANDO ...
 
         }
 
-        public function deleteInasistenciaF($id) {
+        public function deleteInasistenciaF($id) { // LISTO
             $query = "DELETE FROM inasistencia_funcionario WHERE id_inasistencia = ?;";
             $sentencia = $this->conexion_db->prepare($query);
 
