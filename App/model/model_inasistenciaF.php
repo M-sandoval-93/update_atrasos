@@ -43,15 +43,12 @@
 
             if ($sentencia->rowCount() >=1) {
                 $funcionario = $sentencia->fetch(PDO::FETCH_ASSOC);
-                
-                return json_encode($this->json[] = $funcionario['nombre_funcionario']);
-                // $this->json[] = $sentencia->fetch();
+                return json_encode($funcionario['nombre_funcionario']);
             } else {
                 return json_encode($this->res);
             }
 
             $this->conexion_db = null;
-            // return json_encode($this->res);
         }
 
         public function newInaistenciaF($iF) {  // LISTO

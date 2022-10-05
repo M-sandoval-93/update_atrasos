@@ -46,6 +46,19 @@ function format(d) {
     );
 }
 
+function prepararModalInasistencia(modal, titulo) {
+    $('#form_inasistenciaF').trigger('reset');
+    $('#titulo-modal_inasistenciaF').text(titulo);
+    $('#inasistenciaF_rut_dv').attr('disabled', 'disabled');
+    $('#inasistenciaF_reemplazo_rut_dv').attr('disabled', 'disabled');
+    $('#btn_agregar_funcionario_ausente').attr('hidden', 'hidden');
+    $('#btn_agregar_funcionario_reemplazo').attr('hidden', 'hidden');
+    $('.section .check').attr('hidden', 'hidden');
+    $('.reemplazo').addClass('section_hidden');
+
+    modal.addClass('modal-show');
+}
+
 
 // ==================== FUNCIONES INTERNAS ===============================//
 
@@ -129,16 +142,7 @@ $(document).ready(function() {
         $('#form_inasistenciaF').trigger('reset');
         $('#titulo-modal_inasistenciaF').text('Registrar nueva inasistencia');
 
-        modal.addClass('modal-show');
-
-        // RPEPARAR MODAL
-        $('#inasistenciaF_rut_dv').attr('disabled', 'disabled');
-        $('#inasistenciaF_reemplazo_rut_dv').attr('disabled', 'disabled');
-        $('#btn_agregar_funcionario_ausente').attr('hidden', 'hidden');
-        $('#btn_agregar_funcionario_reemplazo').attr('hidden', 'hidden');
-        $('.section .check').attr('hidden', 'hidden');
-        $('.reemplazo').addClass('section_hidden');
-
+        prepararModalInasistencia(modal);
 
         // CALCULAR RUT Y BUSCAR FUNCIONARIO
         $('#inasistenciaF_rut').keyup(function() {
@@ -252,12 +256,29 @@ $(document).ready(function() {
 
     // BTN LANZAR MODAL PARA EDITAR INAISITENCIA ====================== TRABAJANDO ....!!!!!
     $('#inasistencias_funcionarios tbody').on('click', '#btn_modificar_inasistencia', function() {
-        // console.log("editar inasistencia");
-        let data = tabla_inasistencia.row($(this).parents()).data();
-        $('#form_inasistenciaF').trigger('reset');
-        $('#titulo-modal_inasistenciaF').text('Editar inasistencia');
 
-        modal.addClass('modal-show');
+        $('#titulo-modal_inasistenciaF').text('Editar inasistencia');
+        let data = tabla_inasistencia.row($(this).parents()).data();
+
+        prepararModalInasistencia(modal, 'Editar inasistencia');
+
+
+
+        // let tipoI = $('#tipo_inasistencia').val();
+        // let rutF = $('#inasistenciaF_rut').val();
+        // let fechaI = $('#inasistenciaF_fecha_inicio').val();
+        // let fechaT = $('#inasistenciaF_fecha_termino').val();
+        // let diasI = $('#inasistenciaF_dias').val();
+        // let ord = $('#inasistenciaF_ordinario').val();
+        // let rutR = $('#inasistenciaF_reemplazo_rut').val();
+
+
+
+        
+
+
+
+
 
         registrar = 'editar_inasistencia';
     });
