@@ -261,6 +261,37 @@ $(document).ready(function() {
     // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== TRABAJAR
     $('#inasistencias_funcionarios tbody').on('click', '#btn_eliminar_inasistencia', function() {
         console.log("eliminar inasistencia");
+
+        let data = tabla_inasistencia.row($(this).parents()).data();
+        id_inasistencia = data.id_inasistencia;
+        Swal.fire({
+            icon: 'question',
+            title: 'Se eliminará el registro de \n "' + data.funcionario + '"',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#2691d9',
+            cancelButtonColor: '#adadad'
+        }).then(resultado => {
+            if (resultado.isConfirmed) {
+                datos = "eliminar_inasistencia";
+
+                $.ajax({
+                    url: './controller/controller_inasistenciaF.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {datos: datos, id_inasistencia: id_inasistencia},
+                    success: function(data) {
+                        if (data == false) {
+                            LibreriaFunciones.alertPopUp('error', 'No se pudo eliminar el registro !!');
+                        } else {
+                            LibreriaFunciones.alertPopUp('success', 'Registro eliminado !!');
+                            tabla_inasistencia.ajax.reload(null, false);
+                        }
+                    }
+                });
+            }
+        })
     });
 
 

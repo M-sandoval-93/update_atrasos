@@ -87,6 +87,15 @@
         }
 
         public function deleteInasistenciaF($id) {
+            $query = "DELETE FROM inasistencia_funcionario WHERE id_inasistencia = ?;";
+            $sentencia = $this->conexion_db->prepare($query);
+
+            if ($sentencia->execute([$id])) {
+                $this->res = true;
+            }
+
+            $this->conexion_db = null;
+            return json_encode($this->res);
 
         }
     }
