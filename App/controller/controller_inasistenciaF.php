@@ -20,12 +20,15 @@
         case "registrar_inasistencia":
             $inasistencia = array(
                 $_POST['tipoI'], $_POST['rutF'], $_POST['fechaI'], $_POST['fechaT'], $_POST['diasI'], 
-                ($_POST['ord'] != '') ? $_POST['ord'] : null, ($_POST['rutR'] != '') ? $_POST['rutR'] : null
-            );
+                ($_POST['ord'] != '') ? $_POST['ord'] : null, ($_POST['rutR'] != '') ? $_POST['rutR'] : null);
             print $datosInasistenciaF->newInaistenciaF($inasistencia);
 
             // AGREGAR FUNCIÓN PARA ENVIAR CORREO SI LA RESPUESTA ES VERDADERA, VER SI SE AGREGA POR JAVASCRIPT
+            break;
 
+        case "getInasistencia":
+            $id_inasistencia = $_POST['id_inasistencia'];
+            print json_encode($id_inasistencia);
             break;
 
         case "editar_inasistencia":

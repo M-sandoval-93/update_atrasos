@@ -80,6 +80,10 @@
 
         }
 
+        public function getInasistencia($id_inasistencia) {
+            $query = ""; // query para consultar los datos del formulario 
+        }
+
         public function updateInasistenciaF($iF) { // TRABAJANDO ...
 
         }

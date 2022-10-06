@@ -1,5 +1,4 @@
 
-// const libreria = require('./librerias/spanishDataTable');
 import { spanish, LibreriaFunciones, generar_dv } from './librerias/librerias.js';
 
 // ==================== FUNCIONES INTERNAS ===============================//
@@ -260,23 +259,20 @@ $(document).ready(function() {
         $('#titulo-modal_inasistenciaF').text('Editar inasistencia');
         let data = tabla_inasistencia.row($(this).parents()).data();
 
-        prepararModalInasistencia(modal, 'Editar inasistencia');
+        // prepararModalInasistencia(modal, 'Editar inasistencia');
+        // console.log(data.id_inasistencia);
 
+        datos = "getInasistencia"; 
+        $.ajax({
+            url: './controller/controller_inasistenciaF.php',
+            type: 'post',
+            dataType: 'json',
+            data: {datos: datos, id_inasistencia: data.id_inasistencia},
+            success: function (data) {
+                console.log(data);
+            }
 
-
-        // let tipoI = $('#tipo_inasistencia').val();
-        // let rutF = $('#inasistenciaF_rut').val();
-        // let fechaI = $('#inasistenciaF_fecha_inicio').val();
-        // let fechaT = $('#inasistenciaF_fecha_termino').val();
-        // let diasI = $('#inasistenciaF_dias').val();
-        // let ord = $('#inasistenciaF_ordinario').val();
-        // let rutR = $('#inasistenciaF_reemplazo_rut').val();
-
-
-
-        
-
-
+        });
 
 
 
