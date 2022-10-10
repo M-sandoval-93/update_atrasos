@@ -259,17 +259,23 @@ $(document).ready(function() {
         $('#titulo-modal_inasistenciaF').text('Editar inasistencia');
         let data = tabla_inasistencia.row($(this).parents()).data();
 
-        // prepararModalInasistencia(modal, 'Editar inasistencia');
+        prepararModalInasistencia(modal, 'Editar inasistencia');
         // console.log(data.id_inasistencia);
 
         datos = "getInasistencia"; 
         $.ajax({
             url: './controller/controller_inasistenciaF.php',
-            type: 'post',
+            method: 'post',
             dataType: 'json',
             data: {datos: datos, id_inasistencia: data.id_inasistencia},
-            success: function (data) {
-                console.log(data);
+            success: function (info) {
+                console.log(info);
+                // for (var i=0; i< info; i++) {
+                //     console.log(info['r_funcionario']);
+                // }
+                console.log(info['id_inasistencia']);
+                
+
             }
 
         });

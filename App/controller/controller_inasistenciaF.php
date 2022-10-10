@@ -28,7 +28,7 @@
 
         case "getInasistencia":
             $id_inasistencia = $_POST['id_inasistencia'];
-            print json_encode($id_inasistencia);
+            print $datosInasistenciaF->getInasistencia($id_inasistencia);
             break;
 
         case "editar_inasistencia":

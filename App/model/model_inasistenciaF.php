@@ -80,8 +80,32 @@
 
         }
 
-        public function getInasistencia($id_inasistencia) {
-            $query = ""; // query para consultar los datos del formulario 
+        public function getInasistencia($id_inasistencia) { // LISTO
+            $query = "SELECT inasistencias.id_inasistencia,
+                inasistencias.id_tipo_inasistencia, inasistencias.ordinario,
+                inasistencias.fecha_inicio, inasistencias.fecha_termino, 
+                funcionario.rut_funcionario AS r_funcionario,
+                rreemplazo.rut_funcionario AS r_reemplazo
+                FROM inasistencia_funcionario AS inasistencias
+                LEFT JOIN funcionario ON funcionario.id_funcionario = inasistencias.id_funcionario
+                LEFT JOIN funcionario AS rfuncionario ON rfuncionario.id_funcionario = inasistencias.id_funcionario
+                LEFT JOIN funcionario AS rreemplazo ON rreemplazo.id_funcionario = inasistencias.id_reemplazante
+                WHERE id_inasistencia = ?;"; 
+            $sentencia = $this->conexion_db->prepare($query);
+            $sentencia->execute([$id_inasistencia]);
+
+            if ($sentencia->rowCount() >=1) {
+                $inasistencias = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($inasistencias as $inasistencia) {
+                    $this->json[] = $inasistencia;
+                }
+                return json_encode($this->json);
+
+            } else {
+                return json_encode($this->res);
+            }
+
+            $this->conexion_db = null;
         }
 
         public function updateInasistenciaF($iF) { // TRABAJANDO ...
@@ -98,7 +122,6 @@
 
             $this->conexion_db = null;
             return json_encode($this->res);
-
         }
     }
 
