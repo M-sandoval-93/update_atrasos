@@ -14,8 +14,11 @@
             $query = "SELECT inasistencia_funcionario.id_inasistencia, 
                     (reemplazante.nombres_funcionario || ' ' || reemplazante.apellido_paterno_funcionario || ' ' || reemplazante.apellido_materno_funcionario) AS reemplazante,
                     (funcionario.nombres_funcionario || ' ' || funcionario.apellido_paterno_funcionario || ' ' || funcionario.apellido_materno_funcionario) AS funcionario,
-                    inasistencia_funcionario.fecha_inicio, inasistencia_funcionario.fecha_termino, inasistencia_funcionario.dias_inasistencia, 
-                    tipo_inasistencia.tipo_inasistencia
+                    to_char(inasistencia_funcionario.fecha_inicio, 'dd / mm / yyyy') as fecha_inicio,
+                    to_char(inasistencia_funcionario.fecha_termino, 'dd / mm / yyyy') as fecha_termino,
+                    inasistencia_funcionario.dias_inasistencia, 
+                    tipo_inasistencia.tipo_inasistencia,
+                    inasistencia_funcionario.ordinario
                     FROM inasistencia_funcionario
                     LEFT JOIN funcionario as reemplazante ON reemplazante.id_funcionario = inasistencia_funcionario.id_reemplazante
                     LEFT JOIN funcionario ON funcionario.id_funcionario = inasistencia_funcionario.id_funcionario
@@ -82,10 +85,11 @@
 
         public function getInasistencia($id_inasistencia) { // LISTO
             $query = "SELECT inasistencias.id_inasistencia,
-                inasistencias.id_tipo_inasistencia, inasistencias.ordinario,
-                inasistencias.fecha_inicio, inasistencias.fecha_termino, 
+                inasistencias.id_tipo_inasistencia AS inasistencia, inasistencias.ordinario,
+                inasistencias.fecha_inicio, inasistencias.fecha_termino,
                 funcionario.rut_funcionario AS r_funcionario,
-                rreemplazo.rut_funcionario AS r_reemplazo
+                rreemplazo.rut_funcionario AS r_reemplazo,
+                inasistencias.dias_inasistencia
                 FROM inasistencia_funcionario AS inasistencias
                 LEFT JOIN funcionario ON funcionario.id_funcionario = inasistencias.id_funcionario
                 LEFT JOIN funcionario AS rfuncionario ON rfuncionario.id_funcionario = inasistencias.id_funcionario

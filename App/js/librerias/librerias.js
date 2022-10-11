@@ -280,7 +280,7 @@ export let LibreriaFunciones = {
         }        
     },
 
-    buscar_info_funcionario: function(rut, label, elemento = null) {
+    buscar_info_funcionario: function(rut, label, elemento = null) { // VER SI SE PASA AL CONTROLADOR DE FUNCIONARIO PARA QUE SEA GENERALIZADO
         let datos = 'buscar_funcionario';
 
         if (rut.length < 7) {
@@ -297,7 +297,7 @@ export let LibreriaFunciones = {
                 data: {rut: rut, datos: datos},
                 success: function(data) {
                     if (data === false) {
-                        label.text('Apoderado sin registros !!');
+                        label.text('Funcionario sin registros !!');
                         if (elemento != null) {
                             elemento.removeAttr('hidden', 'hidden');
                         }

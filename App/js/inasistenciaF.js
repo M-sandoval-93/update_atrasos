@@ -38,6 +38,10 @@ function format(d) {
     return (
         '<table class="expand_columna" cellpadding="4" cellspacing="2" border="0"">' +
             '<tr>' +
+                '<td>NÚMERO DE ORDINARIO: </td>' +
+                '<td>' + d.ordinario + '</td>' +
+            '</tr>' +
+            '<tr>' +
                 '<td>FUNCIONARIO REEMPLAZANTE: </td>' +
                 '<td>' + d.reemplazante + '</td>' +
             '</tr>' +
@@ -54,21 +58,61 @@ function prepararModalInasistencia(modal, titulo) {
     $('#btn_agregar_funcionario_reemplazo').attr('hidden', 'hidden');
     $('.section .check').attr('hidden', 'hidden');
     $('.reemplazo').addClass('section_hidden');
+    $('#nombre_inasistenciaF').text('');
+    $('#inasistenciaF_nombre_reemplazo').text('');
 
     modal.addClass('modal-show');
 }
 
+function medioDia() {
+    $('#modal_form_inasistenciaF').change(function() {
+        if (($('#tipo_inasistencia').val() != "1" && $('#tipo_inasistencia').val() != "Seleccionar tipo") && ($('#inasistenciaF_dias').val() == "1" || $('#inasistenciaF_dias').val() == "0.5")) {
+            $('.section .check').removeAttr('hidden', 'hidden');
+            if ($('#check_medio_dia').prop('checked')) {
+                $('#inasistenciaF_dias').val(0.5);
+            } else {
+                $('#inasistenciaF_dias').val(1);
+            }    
+        } else {
+            $('.section .check').attr('hidden', 'hidden');
+            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
+        }
+    });
+}
+
+function validarBuscarRut() {
+    $('#inasistenciaF_rut').keyup(function() {
+        generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
+        LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#nombre_inasistenciaF'), $('#btn_agregar_funcionario_ausente'));
+    });
+
+    $('#inasistenciaF_reemplazo_rut').keyup(function() {
+        generar_dv('#inasistenciaF_reemplazo_rut', '#inasistenciaF_reemplazo_rut_dv');
+        LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_agregar_funcionario_reemplazo'));
+    });
+}
+
+function seccionReemplazo() {
+    $('input[name=reemplazo]').click(function() {
+        if ($(this).is(':checked') && $(this).attr('id') == 'reemplazo_si') {
+            $('.reemplazo').removeClass('section_hidden');
+        } else {
+            $('.reemplazo').addClass('section_hidden');
+        }
+    });
+}
 
 // ==================== FUNCIONES INTERNAS ===============================//
 
 // MODULO CENTRAL =================== >>>>>>>>>
-$(document).ready(function() {
-    // ASIGNAR VARIABLES
-    let modal = $('#modal_form_inasistenciaF');
-    let modal_funcionario =$('#modal_form_funcionario');
-    let datos = 'mostrar_inasistencias';
+$(document).ready(function() { 
+    // ASIGNAR VARIABLES 
+    let modal = $('#modal_form_inasistenciaF'); 
+    let modal_funcionario = $('#modal_form_funcionario'); 
+    let datos = 'mostrar_inasistencias'; 
     let registrar; 
     let id_inasistencia;
+
 
     // LLENAR DATATABLE CON INFORMACIÓN =============================== LISTO
     let tabla_inasistencia = $('#inasistencias_funcionarios').DataTable({
@@ -135,66 +179,6 @@ $(document).ready(function() {
     });
 
 
-    // BTN LANZAR MODAL DE NUEVA INSISTENCIA ========================== LISTO
-    $('#btn_nueva_inasistencia').click(function(e) {
-        e.preventDefault();
-        $('#form_inasistenciaF').trigger('reset');
-        $('#titulo-modal_inasistenciaF').text('Registrar nueva inasistencia');
-
-        prepararModalInasistencia(modal);
-
-        // CALCULAR RUT Y BUSCAR FUNCIONARIO
-        $('#inasistenciaF_rut').keyup(function() {
-            generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
-            LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#nombre_inasistenciaF'), $('#btn_agregar_funcionario_ausente'));
-        });
-        $('#inasistenciaF_reemplazo_rut').keyup(function() {
-            generar_dv('#inasistenciaF_reemplazo_rut', '#inasistenciaF_reemplazo_rut_dv');
-            LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_agregar_funcionario_reemplazo'));
-        });
-
-
-        // CALCULAR DÍAS DE INASISTENCIA
-        $('#inasistenciaF_fecha_inicio').change(function() {
-            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
-        });
-
-        $('#inasistenciaF_fecha_termino').change(function() {
-            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
-        });
-
-        $('#modal_form_inasistenciaF').change(function() {
-            if (($('#tipo_inasistencia').val() != "1" && $('#tipo_inasistencia').val() != "Seleccionar tipo") && ($('#inasistenciaF_dias').val() == "1" || $('#inasistenciaF_dias').val() == "0.5")) {
-                $('.section .check').removeAttr('hidden', 'hidden');
-                // ASIGNAR MEDIA DÍA SI ESTA SELECCIONADO EL CHECK
-                if ($('#check_medio_dia').prop('checked')) {
-                    $('#inasistenciaF_dias').val(0.5);
-                } else {
-                    // $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
-                    $('#inasistenciaF_dias').val(1);
-                }
-                
-            } else {
-                $('.section .check').attr('hidden', 'hidden');
-            }
-        });
-
-
-
-
-        // MOSTRAR U OCULTAR SECCIÓN DE REEMPLAZO
-        $('input[name=reemplazo]').click(function() {
-            if ($(this).is(':checked') && $(this).attr('id') == 'reemplazo_si') {
-                $('.reemplazo').removeClass('section_hidden');
-            } else {
-                $('.reemplazo').addClass('section_hidden');
-            }
-        });
-
-        registrar = "ingresar_inasistenciaF";
-    });
-
-    
     // BTN REGISTRAR DE MODAL ========================================= TRABAJANDO
     $('#btn_modal_registrar_insistenciaF').click(function(e) {
         e.preventDefault();
@@ -246,6 +230,24 @@ $(document).ready(function() {
     });
 
 
+    // BTN LANZAR MODAL DE NUEVA INSISTENCIA ========================== LISTO
+    $('#btn_nueva_inasistencia').click(function(e) {
+        e.preventDefault();
+        prepararModalInasistencia(modal, 'Registrar nueva inasistencia');   // Prepara modal
+        validarBuscarRut();                                                 // Validar rut y buscar información
+        medioDia();                                                         // Habilitar check para marcar medio día
+        seccionReemplazo();                                                 // Mostrar u ocultar sección de reemplazo
+
+        
+        // CALCULAR DÍAS DE INASISTENCIA 
+        $('input[name=fecha]').change(function() {
+            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
+        });
+
+        registrar = "ingresar_inasistenciaF";
+    });
+
+
     // BTN OCULTAR MODAL ============================================== LISTO
     $('#btn_modal_cancelar_inaistenciaF').click(function(e) {
         e.preventDefault();
@@ -253,14 +255,19 @@ $(document).ready(function() {
     })
 
 
-    // BTN LANZAR MODAL PARA EDITAR INAISITENCIA ====================== TRABAJANDO ....!!!!!
+    // BTN LANZAR MODAL PARA EDITAR INAISITENCIA ====================== LISTO
     $('#inasistencias_funcionarios tbody').on('click', '#btn_modificar_inasistencia', function() {
-
-        $('#titulo-modal_inasistenciaF').text('Editar inasistencia');
         let data = tabla_inasistencia.row($(this).parents()).data();
 
-        prepararModalInasistencia(modal, 'Editar inasistencia');
-        // console.log(data.id_inasistencia);
+        prepararModalInasistencia(modal, 'Editar inasistencia');        // Prepara modal
+        validarBuscarRut();                                             // Validar rut y buscar información
+        medioDia();                                                     // Habilitar check para marcar medio día
+        seccionReemplazo();                                             // Mostrar u ocultar sección de reemplazo
+
+        // CALCULAR DÍAS DE INASISTENCIA 
+        $('input[name=fecha]').change(function() {
+            $('#inasistenciaF_dias').val(LibreriaFunciones.restarFechas($('#inasistenciaF_fecha_inicio'), $('#inasistenciaF_fecha_termino')));
+        });
 
         datos = "getInasistencia"; 
         $.ajax({
@@ -269,15 +276,36 @@ $(document).ready(function() {
             dataType: 'json',
             data: {datos: datos, id_inasistencia: data.id_inasistencia},
             success: function (info) {
-                console.log(info);
-                // for (var i=0; i< info; i++) {
-                //     console.log(info['r_funcionario']);
-                // }
-                console.log(info['id_inasistencia']);
-                
+                // CARGAR INFORMACIÓN AL FORMULARIO
+                $('#tipo_inasistencia').val(info[0].inasistencia);
+                $('#inasistenciaF_rut').val(info[0].r_funcionario);
+                $('#inasistenciaF_fecha_inicio').val(info[0].fecha_inicio);
+                $('#inasistenciaF_fecha_termino').val(info[0].fecha_termino);
+
+                if (info[0].dias_inasistencia == '0.5') {
+                    $('#inasistenciaF_dias').val(info[0].dias_inasistencia);
+                    $('#check_medio_dia').prop('checked', true);
+                    $('.section .check').removeAttr('hidden', 'hidden');
+                } else {
+                    $('#inasistenciaF_dias').val(info[0].dias_inasistencia);
+                }
+
+                generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
+                LibreriaFunciones.buscar_info_funcionario($('#inasistenciaF_rut').val(), $('#nombre_inasistenciaF'), $('#btn_agregar_funcionario_ausente'));
+
+                if (info[0].r_reemplazo != null) {
+                    $('#reemplazo_si').prop("checked", true);
+                    $('#inasistenciaF_ordinario').val(info[0].ordinario);
+                    $('#inasistenciaF_reemplazo_rut').val(info[0].r_reemplazo);
+                    $('.reemplazo').removeClass('section_hidden');
+                    generar_dv('#inasistenciaF_reemplazo_rut', '#inasistenciaF_reemplazo_rut_dv');
+                    LibreriaFunciones.buscar_info_funcionario($('#inasistenciaF_reemplazo_rut').val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_agregar_funcionario_reemplazo'));
+                    
+                } else {
+                    $('#reemplazo_no').prop("checked", true);
+                }
 
             }
-
         });
 
 
@@ -286,7 +314,7 @@ $(document).ready(function() {
     });
 
 
-    // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== LISTO
+    // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== LISTO // SE PUEDE GENERALIZAR COMO FUNCION GENERAL "ELIMINAR REGISTRO"
     $('#inasistencias_funcionarios tbody').on('click', '#btn_eliminar_inasistencia', function() {
         console.log("eliminar inasistencia");
 
@@ -319,7 +347,7 @@ $(document).ready(function() {
                     }
                 });
             }
-        })
+        });
     });
 
 
@@ -342,9 +370,6 @@ $(document).ready(function() {
     }); 
 
     // BTN PARA OCULTAR MODAL FUNCIONARIO ============================= TRABAJAR
-
-
-    
 
 
 });

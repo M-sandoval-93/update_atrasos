@@ -37,7 +37,6 @@
 
         case "eliminar_inasistencia":
             $id_inasistencia = $_POST['id_inasistencia'];
-            // print ($id_inasistencia);
             print $datosInasistenciaF->deleteInasistenciaF($id_inasistencia);
             break;
     }

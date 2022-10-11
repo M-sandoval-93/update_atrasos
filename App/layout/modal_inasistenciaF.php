@@ -49,11 +49,11 @@
             <div class="section">
                 <div>
                     <label for="inasistenciaF_fecha_inicio">Fecha inicio</label>
-                    <input type="date" id="inasistenciaF_fecha_inicio" name="fecha_inicio">
+                    <input type="date" id="inasistenciaF_fecha_inicio" name="fecha">
                 </div>
                 <div>
                     <label for="inasistenciaF_fecha_termino">Fecha termino</label>
-                    <input type="date" id="inasistenciaF_fecha_termino" name="fecha_termino">
+                    <input type="date" id="inasistenciaF_fecha_termino" name="fecha">
                 </div>
                 <div>
                     <label for="inasistenciaF_dias">Días</label>
