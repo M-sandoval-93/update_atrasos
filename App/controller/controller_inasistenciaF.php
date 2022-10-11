@@ -6,7 +6,6 @@
     $type = $_POST['datos']; // SE RECIBE EL TIPO DE ACCIÓN
     $datosInasistenciaF = new InasistenciaFuncionario(); // SE CREA EL OBJETO PARA TRABAJAR CON DATATABLE
 
-
     switch ($type) {
         case "mostrar_inasistencias":
             print $datosInasistenciaF->consultarInasistenciaF();
@@ -31,8 +30,16 @@
             print $datosInasistenciaF->getInasistencia($id_inasistencia);
             break;
 
+        case "getTipoInasistencia":
+            print $datosInasistenciaF->getTipoInasistencia();
+            break;
+
         case "editar_inasistencia":
-            print json_encode(true);
+            // eliminar el rut del funcionario que no es necesario
+            $inasistencia = array(
+                $_POST['tipoI'], $_POST['rutF'], $_POST['fechaI'], $_POST['fechaT'], $_POST['diasI'], 
+                ($_POST['ord'] != '') ? $_POST['ord'] : null, ($_POST['rutR'] != '') ? $_POST['rutR'] : null, $_POST['id_inasistencia']);
+            print $datosInasistenciaF->updateInasistenciaF($inasistencia);
             break;
 
         case "eliminar_inasistencia":

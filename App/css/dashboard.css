@@ -739,7 +739,6 @@ main > .div_profile > .profile__content {
 }
 
 .modal-inputs span::before { 
-/* .section_1 > div > span::before { */
     content: "-";
     margin: 0px 4px;
 }
@@ -873,10 +872,42 @@ select[id="estudiante_junaeb"] {
 .modal-content.inasistenciaF {
     width: 50%;
     max-width: 800px;
-    min-width:750px;
+    min-width:600px;
 }
 
- /* seguir personalizando */
+.section_tipo_inasistencia {
+    width: 60%;
+}
+
+.section_rut_funcionario {
+    width: 45%;
+}
+
+.n_funcionario_inasistencia {
+    /* display: flex; */
+    width: 50%;
+}
+
+.inasistencia_fechas {
+    grid-template-columns: repeat(3);
+    grid-gap: 15px;
+}
+
+.inasistencia_fechas > div:nth-child(1),
+.inasistencia_fechas > div:nth-child(2) {
+    width: 175px;
+}
+
+.inasistencia_fechas > div:nth-child(3) {
+    width: 70px;
+}
+
+
+
+/* display: grid;
+    grid-template-columns: repeat(3, minmax(260px, 1fr));
+    grid-gap: 20px; */
+
 
 
 .section_hidden {

@@ -52,6 +52,7 @@ function format(d) {
 function prepararModalInasistencia(modal, titulo) {
     $('#form_inasistenciaF').trigger('reset');
     $('#titulo-modal_inasistenciaF').text(titulo);
+    $('#inasistenciaF_rut').removeAttr('disabled', 'disabled');
     $('#inasistenciaF_rut_dv').attr('disabled', 'disabled');
     $('#inasistenciaF_reemplazo_rut_dv').attr('disabled', 'disabled');
     $('#btn_agregar_funcionario_ausente').attr('hidden', 'hidden');
@@ -60,6 +61,7 @@ function prepararModalInasistencia(modal, titulo) {
     $('.reemplazo').addClass('section_hidden');
     $('#nombre_inasistenciaF').text('');
     $('#inasistenciaF_nombre_reemplazo').text('');
+    cargarTipoInasistencia();
 
     modal.addClass('modal-show');
 }
@@ -83,12 +85,14 @@ function medioDia() {
 function validarBuscarRut() {
     $('#inasistenciaF_rut').keyup(function() {
         generar_dv('#inasistenciaF_rut', '#inasistenciaF_rut_dv');
-        LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#nombre_inasistenciaF'), $('#btn_agregar_funcionario_ausente'));
+        // LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#nombre_inasistenciaF'), $('#btn_agregar_funcionario_ausente'));  // HABILITAR DESPUES
+        LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#nombre_inasistenciaF'));
     });
 
     $('#inasistenciaF_reemplazo_rut').keyup(function() {
         generar_dv('#inasistenciaF_reemplazo_rut', '#inasistenciaF_reemplazo_rut_dv');
-        LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_agregar_funcionario_reemplazo'));
+        // LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'), $('#btn_agregar_funcionario_reemplazo')); // HABILITAR DESPUES
+        LibreriaFunciones.buscar_info_funcionario($(this).val(), $('#inasistenciaF_nombre_reemplazo'));
     });
 }
 
@@ -98,6 +102,20 @@ function seccionReemplazo() {
             $('.reemplazo').removeClass('section_hidden');
         } else {
             $('.reemplazo').addClass('section_hidden');
+        }
+    });
+}
+
+function cargarTipoInasistencia() {
+    let datos = 'getTipoInasistencia';
+
+    $.ajax({
+        url: "./controller/controller_inasistenciaF.php",
+        method: "post", 
+        dataType: "json",
+        data: {datos: datos},
+        success: function(data) {
+            $('#tipo_inasistencia').html(data);
         }
     });
 }
@@ -178,8 +196,7 @@ $(document).ready(function() {
         }
     });
 
-
-    // BTN REGISTRAR DE MODAL ========================================= TRABAJANDO
+    // BTN REGISTRAR DE MODAL ========================================= LISTO
     $('#btn_modal_registrar_insistenciaF').click(function(e) {
         e.preventDefault();
 
@@ -225,10 +242,25 @@ $(document).ready(function() {
             });
 
         } else if(registrar == 'editar_inasistencia') {
-            console.log("modificar inasistencia");
+            datos = "editar_inasistencia";
+
+            $.ajax({
+                url: "./controller/controller_inasistenciaF.php",
+                method: "post",
+                dataType: "json",
+                data: {datos: datos, tipoI: tipoI, rutF: rutF, fechaI: fechaI, fechaT: fechaT, diasI: diasI, ord: ord, rutR: rutR, id_inasistencia: id_inasistencia},
+                success: function(data) {
+                    if (data == false) {
+                        LibreriaFunciones.alertPopUp('error', 'Error al Actualizar registro !!');
+                    } else {
+                        LibreriaFunciones.alertPopUp('success', 'Registro actualizado !!');
+                        modal.removeClass('modal-show');
+                        tabla_inasistencia.ajax.reload(null, false);
+                    }
+                }
+            });
         }
     });
-
 
     // BTN LANZAR MODAL DE NUEVA INSISTENCIA ========================== LISTO
     $('#btn_nueva_inasistencia').click(function(e) {
@@ -247,17 +279,16 @@ $(document).ready(function() {
         registrar = "ingresar_inasistenciaF";
     });
 
-
     // BTN OCULTAR MODAL ============================================== LISTO
     $('#btn_modal_cancelar_inaistenciaF').click(function(e) {
         e.preventDefault();
         modal.removeClass('modal-show');
-    })
-
+    });
 
     // BTN LANZAR MODAL PARA EDITAR INAISITENCIA ====================== LISTO
     $('#inasistencias_funcionarios tbody').on('click', '#btn_modificar_inasistencia', function() {
         let data = tabla_inasistencia.row($(this).parents()).data();
+        id_inasistencia = data.id_inasistencia;
 
         prepararModalInasistencia(modal, 'Editar inasistencia');        // Prepara modal
         validarBuscarRut();                                             // Validar rut y buscar información
@@ -281,6 +312,7 @@ $(document).ready(function() {
                 $('#inasistenciaF_rut').val(info[0].r_funcionario);
                 $('#inasistenciaF_fecha_inicio').val(info[0].fecha_inicio);
                 $('#inasistenciaF_fecha_termino').val(info[0].fecha_termino);
+                $('#inasistenciaF_rut').attr('disabled', 'disabled');
 
                 if (info[0].dias_inasistencia == '0.5') {
                     $('#inasistenciaF_dias').val(info[0].dias_inasistencia);
@@ -313,8 +345,7 @@ $(document).ready(function() {
         registrar = 'editar_inasistencia';
     });
 
-
-    // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== LISTO // SE PUEDE GENERALIZAR COMO FUNCION GENERAL "ELIMINAR REGISTRO"
+    // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== LISTO 
     $('#inasistencias_funcionarios tbody').on('click', '#btn_eliminar_inasistencia', function() {
         console.log("eliminar inasistencia");
 
@@ -350,26 +381,24 @@ $(document).ready(function() {
         });
     });
 
+    // BTN LANZAR MODAL DE FUNCIONARIO ================================ TRABAJAR !!
+    // $('#btn_agregar_funcionario_ausente').click(function(e) {
+    //     e.preventDefault();
+    //     modal.removeClass('modal-show');
+    //     modal_funcionario.addClass('modal-show');
+    //     // AGREGAR VALIDACIONES NECESARIAS
 
-    // BTN LANZAR MODAL DE FUNCIONARIO ================================ TRABAJAR
-    $('#btn_agregar_funcionario_ausente').click(function(e) {
-        e.preventDefault();
-        modal.removeClass('modal-show');
-        modal_funcionario.addClass('modal-show');
-        // AGREGAR VALIDACIONES NECESARIAS
+    // });
 
-    });
+    // BTN LANZAR MODAL DE FUNCIONARIO REEMPLAZANTE =================== TRABAJAR !!
+    // $('#btn_agregar_funcionario_reemplazo').click(function(e) {
+    //     e.preventDefault();
+    //     modal.removeClass('modal-show');
+    //     modal_funcionario.addClass('modal-show');
+    //     // BLOQUEAR EL TIPO DE FORMULARIO EN DOCENTE REEMPLAZANTE
+    // }); 
 
-
-    // BTN LANZAR MODAL DE FUNCIONARIO REEMPLAZANTE =================== TRABAJAR
-    $('#btn_agregar_funcionario_reemplazo').click(function(e) {
-        e.preventDefault();
-        modal.removeClass('modal-show');
-        modal_funcionario.addClass('modal-show');
-        // BLOQUEAR EL TIPO DE FORMULARIO EN DOCENTE REEMPLAZANTE
-    }); 
-
-    // BTN PARA OCULTAR MODAL FUNCIONARIO ============================= TRABAJAR
+    // BTN PARA OCULTAR MODAL FUNCIONARIO ============================= TRABAJAR !!
 
 
 });

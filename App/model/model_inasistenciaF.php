@@ -33,8 +33,8 @@
                 $this->json['data'][] = $inasistencia;
             }
 
-            $this->conexion_db = null;
             return json_encode($this->json);
+            $this->conexion_db = null;
 
         }
 
@@ -78,8 +78,8 @@
                 }
             }
 
-            $this->conexion_db = null;
             return json_encode($this->res);
+            $this->conexion_db = null;
 
         }
 
@@ -108,12 +108,28 @@
             } else {
                 return json_encode($this->res);
             }
-
             $this->conexion_db = null;
         }
 
-        public function updateInasistenciaF($iF) { // TRABAJANDO ...
+        public function updateInasistenciaF($iF) { // LISTO
+            $query = "UPDATE inasistencia_funcionario SET fecha_inicio = ?, fecha_termino = ?, dias_inasistencia = ?, id_tipo_inasistencia = ?,
+                    id_reemplazante = ?, ordinario = ? WHERE id_inasistencia = ?;";
 
+            $queryF = "SELECT id_funcionario FROM funcionario WHERE rut_funcionario = ?;";
+            $sentencia = $this->conexion_db->prepare($queryF);
+
+            if ($sentencia->execute([$iF[6]])) {
+                $resultadoR = $sentencia->fetch();
+
+                $sentencia = $this->conexion_db->prepare($query);
+                if ($sentencia->execute([$iF[2], $iF[3], $iF[4], $iF[0], (isset($resultadoR["id_funcionario"])) ? $resultadoR["id_funcionario"] : null, $iF[5], $iF[7]])) {
+                    $this->res = true;
+                }
+
+            }
+
+            return json_encode($this->res);
+            $this->conexion_db = null;
         }
 
         public function deleteInasistenciaF($id) { // LISTO
@@ -124,11 +140,27 @@
                 $this->res = true;
             }
 
-            $this->conexion_db = null;
             return json_encode($this->res);
+            $this->conexion_db = null;
+        }
+
+        public function getTipoInasistencia() { // LISTO
+            $query = "SELECT * FROM tipo_inasistencia;";
+            $sentencia = $this->conexion_db->prepare($query);
+            $sentencia->execute();
+            $inasistencia = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+            $option[] = "<option disable selected>SELECCIONAR TIPO</option>";
+
+            foreach ($inasistencia as $i) {
+                $option[] = "<option value='".$i['id_tipo_inasistencia']."' >".$i['tipo_inasistencia']."</option>";
+            }
+
+            return json_encode($option);
+            $this->conexion_db = null;
+
         }
     }
-
 
 
 ?>

@@ -60,9 +60,7 @@
 
             return json_encode($option);
             $this->conexion_db = null;
-
         }
-
     } 
 
 

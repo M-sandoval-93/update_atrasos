@@ -4,7 +4,7 @@
 ?>
   
   <main>
-            <h1 class="title">Personal</h1>
+            <h1 class="title">Funcionarios</h1>
             <ul class="breadcrumbs">
                 <li><a href="#">Inasistencias</a></li>
                 <li class="divider">/</li>
