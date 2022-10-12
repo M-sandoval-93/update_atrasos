@@ -38,30 +38,40 @@
                     <input type="text" id="inasistenciaF_dias" name="dias" disabled>
                 </div>
                 <div class="check">
-                    <input type="checkbox" id="check_medio_dia" name="medio_dia">
-                    <label for="check_medio_dia">1/2 día</label>
+                    <label for="check_medio_dia">
+                        <input type="checkbox" id="check_medio_dia" name="medio_dia">    
+                        1/2 día
+                    </label>
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section inasistencia_si_reemplazo">
                 <label>Cuenta con reemplazo?</label>
-                <div>
+                <div class="section_radio">
                     <div>
-                        <input type="radio" name="reemplazo" value="1" id="reemplazo_si"> Si
-                        <!-- <label for="reemplazo_si">Si</label> -->
+                        <label for="reemplazo_si">
+                            <input type="radio" name="reemplazo" value="1" id="reemplazo_si">
+                            Si
+                        </label>
                     </div>
     
                     <div>
-                        <input type="radio" name="reemplazo" value="2" id="reemplazo_no"> No
-                        <!-- <label for="reemplazo_no">No</label> -->
+                        <label for="reemplazo_no">
+                            <input type="radio" name="reemplazo" value="2" id="reemplazo_no">
+                            No
+                        </label>
                     </div>
                 </div>
             </div>
 
+            <hr class="section_hidden reemplazo separador_reemplazo">
+
             <div class="section_hidden reemplazo">
-                <div class="section">
-                    <label for="inasistenciaF_ordinario">Número Ordinario</label>
-                    <input class="" type="number" id="inasistenciaF_ordinario" name="ordinario">
+                <div class="section inasistencia_ordinario">
+                    <div>
+                        <label for="inasistenciaF_ordinario">Número Ordinario</label>
+                        <input class="" type="number" id="inasistenciaF_ordinario" name="ordinario">
+                    </div>
                 </div>
     
                 <div class="section">

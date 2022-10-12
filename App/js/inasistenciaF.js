@@ -7,7 +7,7 @@ function camposVacios() {
     let contador = 0;
     let radio = false;
 
-    if ($('#tipo_inasistencia').val() == 'Seleccionar tipo') {
+    if ($('#tipo_inasistencia').val() == 'SELECCIONAR TIPO') {
         contador = contador + 1;
     }
 
@@ -68,7 +68,7 @@ function prepararModalInasistencia(modal, titulo) {
 
 function medioDia() {
     $('#modal_form_inasistenciaF').change(function() {
-        if (($('#tipo_inasistencia').val() != "1" && $('#tipo_inasistencia').val() != "Seleccionar tipo") && ($('#inasistenciaF_dias').val() == "1" || $('#inasistenciaF_dias').val() == "0.5")) {
+        if (($('#tipo_inasistencia').val() != "1" && $('#tipo_inasistencia').val() != "SELECCIONAR TIPO") && ($('#inasistenciaF_dias').val() == "1" || $('#inasistenciaF_dias').val() == "0.5")) {
             $('.section .check').removeAttr('hidden', 'hidden');
             if ($('#check_medio_dia').prop('checked')) {
                 $('#inasistenciaF_dias').val(0.5);
@@ -340,15 +340,11 @@ $(document).ready(function() {
             }
         });
 
-
-
         registrar = 'editar_inasistencia';
     });
 
     // BTN LANZAR MODAL PARA ELIMINAR INAISITENCIA ==================== LISTO 
     $('#inasistencias_funcionarios tbody').on('click', '#btn_eliminar_inasistencia', function() {
-        console.log("eliminar inasistencia");
-
         let data = tabla_inasistencia.row($(this).parents()).data();
         id_inasistencia = data.id_inasistencia;
         Swal.fire({

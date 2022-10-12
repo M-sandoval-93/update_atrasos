@@ -870,8 +870,8 @@ select[id="estudiante_junaeb"] {
 
 /* MODAL INASISTENCIA FUNCIONARIO ==================== */
 .modal-content.inasistenciaF {
-    width: 50%;
-    max-width: 800px;
+    width: 45%;
+    max-width: 650px;
     min-width:600px;
 }
 
@@ -884,12 +884,10 @@ select[id="estudiante_junaeb"] {
 }
 
 .n_funcionario_inasistencia {
-    /* display: flex; */
     width: 50%;
 }
 
 .inasistencia_fechas {
-    grid-template-columns: repeat(3);
     grid-gap: 15px;
 }
 
@@ -902,11 +900,29 @@ select[id="estudiante_junaeb"] {
     width: 70px;
 }
 
+.inasistencia_fechas > div:nth-child(4) {
+    width: 100px;
+    margin-top: 25px;
+}
 
+.check > label > input {
+    width: auto;
+    margin: 10px;
+}
 
-/* display: grid;
-    grid-template-columns: repeat(3, minmax(260px, 1fr));
-    grid-gap: 20px; */
+.inasistencia_si_reemplazo > label {
+    width: 30%;
+    min-width: 200px;
+}
+
+.section_radio {
+    display: flex;
+    grid-gap: 20px;
+}
+
+.section_radio input {
+    margin: 10px;
+}
 
 
 
@@ -914,11 +930,17 @@ select[id="estudiante_junaeb"] {
     display: none;
 }
 
+.separador_reemplazo {
+    margin: 15px 0;
+}
+
+.inasistencia_ordinario > div > input {
+    width: 85px;
+}
 /* MODAL INASISTENCIA FUNCIONARIO ==================== */
 
 
 /* TABLA FUNCIONARIO REEMPLAZANTE */
-
 .expand_columna {
     color: var(--fondo);
     padding-left:25px;
@@ -967,7 +989,7 @@ select[id="estudiante_junaeb"] {
     #content {
         position: relative;
         width: calc(100% - 60px);
-        /* left: 260px; */
+        left: 260px;
         transition: all .3s ease;
         -webkit-transition: all .3s ease;
         -moz-transition: all .3s ease;
