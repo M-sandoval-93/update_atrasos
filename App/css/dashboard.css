@@ -629,9 +629,9 @@ main .card .label {
 }
 
 /* SEPARACIÓN ENTRE TABLA Y BUSCADOR */
-.dataTables_length {  
+/* .dataTables_length {  
     margin-bottom: 10px;
-}
+} */
 
 /* MAIN */
 
@@ -663,9 +663,10 @@ main > .div_profile > .profile__content {
 
 
 
-/* MODAL */
 
-.modal {
+/* MODAL ================================ */
+
+/* .modal {
     display: none;
     position: fixed;
     z-index: 201;
@@ -760,13 +761,14 @@ main > .div_profile > .profile__content {
     width: 30%;
     display: inline-block;
     margin: 10px 0;
-}
+} */
 
-/* MODAL */
+/* MODAL ================================ */
 
 
 /* MODAL ESTUDIANTES ==================== */
-.modal-content.estudiantes {
+
+/* .modal-content.estudiantes {
     width: 50%;
     max-width: 800px;
     min-width:750px;
@@ -863,13 +865,14 @@ select[id="estudiante_junaeb"] {
 .section_6 > div {
     width: 40%;
     min-width: 300px;
-}
+} */
 
 /* MODAL ESTUDIANTES ==================== */
 
 
 /* MODAL INASISTENCIA FUNCIONARIO ==================== */
-.modal-content.inasistenciaF {
+
+/* .modal-content.inasistenciaF {
     width: 45%;
     max-width: 650px;
     min-width:600px;
@@ -924,8 +927,6 @@ select[id="estudiante_junaeb"] {
     margin: 10px;
 }
 
-
-
 .section_hidden {
     display: none;
 }
@@ -936,45 +937,18 @@ select[id="estudiante_junaeb"] {
 
 .inasistencia_ordinario > div > input {
     width: 85px;
-}
+} */
 /* MODAL INASISTENCIA FUNCIONARIO ==================== */
 
 
 /* TABLA FUNCIONARIO REEMPLAZANTE */
-.expand_columna {
+
+/* .expand_columna {
     color: var(--fondo);
     padding-left:25px;
-}
+} */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* TABLA FUNCIONARIO REEMPLAZANTE */
 
 
 

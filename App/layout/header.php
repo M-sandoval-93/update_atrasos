@@ -19,11 +19,20 @@
     <!-- icons -->
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 
-    <!-- style -->
+    <!-- style normalize -->
     <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/dashboard.css">
+
+
+    <!-- style pluggins -->
     <link rel="stylesheet" href="./Pluggins/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="./Pluggins/Bootstrap-5.0.2/css/bootstrap.min.css">
+
+    
+    <!-- style internos -->
+    <link rel="stylesheet" href="./css/dashboard.css">
     <link rel="stylesheet" href="./css/data_table.css">
+
+    
     
 
     <title>Liceo Valentín Letelier</title>

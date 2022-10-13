@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+:root {
+    --blue: rgb(35, 109, 245);
+    --white: white;
+    --grey: rgb(163, 163, 163);
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.contenedor {
+    position: relative;
+    width: 100%;
+}
+
+.barra_navegacion {
+    position: fixed;
+    width: 220px;
+    height: 100%;
+    background: var(--blue);
+    border-left: 10px solid var(--blue);
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    overflow: hidden;
+}
+
+.barra_navegacion ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.barra_navegacion un li {
+    position: relative;
+    width: 200%;
+    list-style: none;
+}
+
+
+
+
+/* en dashboard responsibe */
+/* https://www.youtube.com/watch?v=nUUsUAPEjFc */
