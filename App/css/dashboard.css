@@ -64,9 +64,9 @@ body { /* PARA EVITAR EL DESBORDAMIENTO DE PANTALLA */
     max-width: 60px;
 }
 
-#sidebar.hide:hover {
+/* #sidebar.hide:hover {
     max-width: 260px;
-}
+} */
 
 #sidebar::-webkit-scrollbar {
     display: none;
@@ -201,6 +201,18 @@ body { /* PARA EVITAR EL DESBORDAMIENTO DE PANTALLA */
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /* CONTENT */ 
 #content {
     position: relative;
@@ -328,6 +340,13 @@ nav .profile .profile-link a:hover {
     background: var(--opacidad);
 }
 /* CONTENT */ 
+
+
+
+
+
+
+
 
 
 

@@ -22,15 +22,15 @@ allDropdown.forEach (items => {
 });
 
 
-sidebar.addEventListener('mouseleave', function() {
-    if (this.classList.contains('hide')) {
-        allDropdown.forEach (items => {
-            const a = items.parentElement.querySelector('a:first-child');
-            a.classList.remove('active');
-            items.classList.remove('show');
-        });
-    }
-});
+// sidebar.addEventListener('mouseleave', function() {
+//     if (this.classList.contains('hide')) {
+//         allDropdown.forEach (items => {
+//             const a = items.parentElement.querySelector('a:first-child');
+//             a.classList.remove('active');
+//             items.classList.remove('show');
+//         });
+//     }
+// });
 
 
 // PROFILE DROPDOWN
@@ -38,17 +38,17 @@ const profile = document.querySelector('nav .profile');
 const imgProfile = profile.querySelector('img');
 const dropdownProfile = profile.querySelector('.profile-link');
 
-imgProfile.addEventListener('click', function() {
-    dropdownProfile.classList.toggle('show');
-});
+// imgProfile.addEventListener('click', function() {
+//     dropdownProfile.classList.toggle('show');
+// });
 
-window.addEventListener('click', function(e) {
-    if (e.target !== imgProfile) {
-        if (e.target !== dropdownProfile) {
-            dropdownProfile.classList.remove('show');
-        }
-    }
-});
+// window.addEventListener('click', function(e) {
+//     if (e.target !== imgProfile) {
+//         if (e.target !== dropdownProfile) {
+//             dropdownProfile.classList.remove('show');
+//         }
+//     }
+// });
 
 
 // SIDEBAR COLLAPSE
@@ -59,11 +59,11 @@ toggleSidebar.addEventListener('click', function() {
 });
 
 
-// PROGRESS BAR
-const allProgress = document.querySelectorAll('main .card .progress');
+// // PROGRESS BAR
+// const allProgress = document.querySelectorAll('main .card .progress');
 
-allProgress.forEach (item => {
-    item.style.setProperty('--value', item.dataset.value);
-});
+// allProgress.forEach (item => {
+//     item.style.setProperty('--value', item.dataset.value);
+// });
 
 
