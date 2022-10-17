@@ -11,6 +11,8 @@
     --grey: rgb(163, 163, 163);
     --dark-ligth: rgb(32, 32, 32);
     --amarillo: rgb(249, 249, 65);
+    --rojo: rgb(197, 0, 0);
+    --rojo-ligth: rgb(249, 35, 35);
 }
 
 body {
@@ -116,6 +118,10 @@ li {
     margin-top: 20px;
     pointer-events: none;
     font-size: 2em;
+}
+
+.barra_navegacion > ul > li:last-child {
+    margin-bottom: 100px;
 }
 
 .barra_navegacion > ul > li > ul {
@@ -391,8 +397,71 @@ li {
     width: 36px;
     height: 42px;
     object-fit: cover;
+    cursor: pointer;
 }
 
+
+.logo_liceo .link_perfil {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: var(--white);
+    padding: 10px 0;
+    box-shadow: 0 7px 35px rgba(0, 0, 0, .08);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    width: 160px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    z-index: 10;
+}
+
+.logo_liceo .link_perfil.active {
+    opacity: 1;
+    pointer-events: visible;
+    top: 100%;
+}
+
+.logo_liceo .link_perfil a {
+    padding: 10px 16px;
+    display: flex;
+    grid-gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue);
+    align-items: center;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.logo_liceo .link_perfil a:hover {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.logo_liceo .link_perfil a.sistema_exit {
+    color: var(--rojo);
+}
+
+.logo_liceo .link_perfil a.sistema_exit:hover {
+    color: var(--rojo);
+}
 
 
 /* TARJETAS */
@@ -561,6 +630,153 @@ li {
     font-size: 14px;
     font-weight: 500;
 }
+
+.cliente_actual {
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    padding: 20px;
+    background-color: var(--white);
+    box-shadow: 0 7px 35px rgba(0, 0, 0, .08);
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.cliente_actual .boton {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    overflow: hidden;
+}
+
+.cliente_actual .boton img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cliente_actual table tr:hover {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.cliente_actual table tr td {
+    padding: 12px 10px;
+}
+
+.cliente_actual table tr td h4 {
+    font-size: 16px;
+    /* font-weight: 500; */
+    line-height: 1.2em;
+}
+
+.cliente_actual table tr td h4 span {
+    font-size: 14px;
+    color: var(--grey);
+}
+
+.cliente_actual table tr:hover td h4 span {
+    color: var(--white);
+}
+
+
+
+
+
+
+
+/* INPLEMENTACIÓN DE LAS MEDIA QUERY */
+
+@media (max-width: 991px) {
+    .barra_navegacion {
+        left: -80px;
+    }
+
+    .barra_navegacion.active {
+        width: 210px;
+        left: 0;
+    }
+
+    .main {
+        width: 100%;
+        left: 0;
+    }
+
+    .main.active {
+        left: 210px;
+    }
+
+    .caja_tarjeta {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .detalles {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .recepcion_orden {
+        overflow-x: auto;
+    }
+
+    /* .estado.enviado {   // usar solo si el texto de la celda, hace algun salto de linea implementar en datatable
+        white-space: nowrap;
+    } */
+}
+
+@media (max-width: 480px) {
+    .caja_tarjeta {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .cabecera h2 {
+        font-size: 20px;
+    }
+    
+    .logo_liceo {
+        min-width: 40px;
+    }
+
+    .barra_navegacion {
+        width: 100%;
+        left: -100%;
+        z-index: 10;
+    }
+
+    .barra_navegacion.active {
+        width: 100%;
+        left: 0;
+    }
+
+    .toggle_interactive {
+        right: 0;
+        z-index: 20;
+}
+
+    .main.active .toggle_interactive {
+        position: fixed;
+    }
+    
+    .main.active .toggle_interactive .menu-btn__burger::after,
+    .main.active .toggle_interactive .menu-btn__burger::before {
+        background-color: var(--white);
+    }
+}
+
+
+
 
 
 

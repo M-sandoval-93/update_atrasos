@@ -5,6 +5,9 @@ const toogle_interactive = document.querySelector('.toggle_interactive');
 const barra_navegacion = document.querySelector('.barra_navegacion');
 const sub_grupo = document.querySelectorAll('.sub_grupo');
 const main = document.querySelector('.main');
+const perfil = document.querySelector('.main .logo_liceo');
+const imgPerfil = perfil.querySelector('img');
+const seccionPerfil = perfil.querySelector('.link_perfil');
 
 
 
@@ -51,6 +54,12 @@ let side = new ResizeObserver(() => {
 });
 side.observe(barra_navegacion);
 
+
+
+// EVENTO PARA MOSTRAR SECCIÓN DE PERFIL Y SALIR
+imgPerfil.addEventListener('click', function() {
+    seccionPerfil.classList.toggle('active');
+});
 
 
 
