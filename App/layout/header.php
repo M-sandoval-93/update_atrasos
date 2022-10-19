@@ -5,103 +5,152 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="eS">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;1,600&display=swap" rel="stylesheet"> 
+    <!-- logo -->
+    <link rel="shortcut icon" href="./assets/logo_liceo.png">
 
+
+    <!-- fonts -->
+    
+    
     <!-- icons -->
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-
+    <link rel="stylesheet" href="./Pluggins/Fontawesome-5.15.4/css/all.min.css">
+    
+    
     <!-- style normalize -->
     <link rel="stylesheet" href="./css/normalize.css">
-
-
+    
+    
     <!-- style pluggins -->
-    <link rel="stylesheet" href="./Pluggins/DataTables/datatables.min.css">
     <link rel="stylesheet" href="./Pluggins/Bootstrap-5.0.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="./Pluggins/Bootstrap-5.1.3/css/bootstrap.min.css"> -->
 
-    
-    <!-- style internos -->
-    <link rel="stylesheet" href="./css/dashboard.css">
-    <link rel="stylesheet" href="./css/data_table.css">
+    <!-- <link rel="stylesheet" href="./Pluggins/DataTables/dataTables.bootstrap5.min.css"> -->
+    <!-- <link rel="stylesheet" href="./Pluggins/DataTables/DataTables-1.12.1/css/dataTables.bootstrap4.min.css"> -->
 
+    <link rel="stylesheet" href="./Pluggins/DataTables/datatables.min.css">
     
     
+    <!-- main style -->
+    <link rel="stylesheet" href="./css/main.css">
+
 
     <title>Liceo Valentín Letelier</title>
 </head>
 <body>
 
-    <!-- SIDEBAR -->
-    <section id="sidebar">
-        <a href="#" class="brand"><i class="fas fa-user-circle iconUsser icon"></i> usuario o logo</a>
-        <ul class="side-menu">
-            <li><a href="home" class="active"><i class="fas fa-school icon"></i> Home</a></li>
-
-            <li class="divider"></li>
+    <!-- <div class="contenedor"> -->
+    <div class="barra_navegacion">
+        <ul>
             <li>
-                <a href="#"><i class="fas fa-user-graduate icon"></i> Estudiantes <i class="fas fa-angle-right icon icon-right"></i></a>
-                <ul class="side-dropdown">
-                    <li><a href="estudiantes"> Matriculas</a></li>
-                    <li><a href="atrasos"> Atrasos</a></li>
-                    <li><a href="justificaciones"> Justificaciones</a></li>
-                    <!-- <li><a href="#"> Suspensiones</a></li> -->
+                <a href="#">
+                    <span class="icono"><i class="fas fa-school"></i></span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-home"></i></i></span>
+                    <span class="titulo">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-user-graduate"></i></span>
+                    <span class="titulo">Estudiantes</span>
+                    <i class="fas fa-angle-right icon icon-right"></i>
+                </a>
+                <ul class="sub_grupo">
+                    <li><a href="#"><span class="titulo">Matriculas</span></a></li>
+                    <li><a href="#"><span class="titulo">Atrasos</span></a></li>
+                    <li><a href="#"><span class="titulo">Justificaciones</span></a></li>
                 </ul>
             </li>
-            <li><a href="horario"><i class="fas fa-calendar-alt icon"></i> Horario</a></li>
-            <li><a href="apoderados"><i class="fas fa-user-tie icon"></i> Apoderados</a></li>
-            <li><a href="cursos"><i class="fas fa-graduation-cap icon"></i> Cursos</a></li>
-            <li><a href="junaeb"><i class="fas fa-utensils icon"></i> JUNAEB</a></li>
-
-            <li class="divider"></li>
             <li>
-                <a href="#"><i class="fas fa-user-friends icon"></i> Personal <i class="fas fa-angle-right icon icon-right"></i></a>
-                <ul class="side-dropdown">
-                    <li><a href="funcionarios"> Funcionarios</a></li>
-                    <li><a href="inasistencias"> Inasistencias</a></li>
-                    <li><a href="cambioFunciones">Cambio de funciones</a></li>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-calendar-alt"></i></span>
+                    <span class="titulo">Horario</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-user-tie"></i></span>
+                    <span class="titulo">Apoderados</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-graduation-cap"></i></span>
+                    <span class="titulo">Cursos</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-utensils"></i></span>
+                    <span class="titulo">Junaeb</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-user-friends"></i></span>
+                    <span class="titulo">Personal</span>
+                    <i class="fas fa-angle-right icon icon-right"></i>
+                </a>
+                <ul class="sub_grupo">
+                    <li><a href=""><span class="titulo">Funcionarios</span></a></li>
+                    <li><a href="inasistencias"><span class="titulo">Inasistencias</span></a></li>
                 </ul>
             </li>
-
-            <li class="divider"><hr></li>
             <li>
-                <a href="#"><i class="fas fa-cogs icon"></i> Setting <i class="fas fa-angle-right icon icon-right"></i></a>
-                <ul class="side-dropdown">
-                    <li><a href="usuarios">Usuarios</a></li>
-                    <li><a href="departamentos">Departamentos</a></li>
-                    <li><a href="cargosFunciones">Cargos y funciones</a></li>
-                </ul>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-cogs"></i></span>
+                    <span class="titulo">Setting</span>
+                </a>
             </li>
-
-            <li><a href="mantenimiento"><i class="fas fa-server icon"></i> Mantenimiento</a></li>
+            <li>
+                <a href="#">
+                    <span class="icono"><i class="fas fa-server"></i></span>
+                    <span class="titulo">Mantenimiento</span>
+                </a>
+            </li>
         </ul>
-    </section>
-    <!-- SIDEBAR -->
+    </div>
 
-    <!-- NAVBAR -->
-    <section id="content">
-        <!-- NAVBAR -->
-        <nav>
-            <i class="fas fa-bars toggle-sidebar"></i>
-            <a href="#" class="nav-link">
-                <i class="fas fa-bell icon"></i>
-                <span class="badge">5</span>
-            </a>
-            <span class="divider"></span>
-            <div class="profile">
-                <img src="./assets/logo_liceo.png" alt="Logo">
-                <ul class="profile-link">
-                    <li><a href="profile"><i class="fas fa-address-card icon"></i> Profile</a></li>
-                    <li><a href="#"><i class="fas fa-lock icon"></i> Password</a></li>
+    <!-- Main -->
+    <div class="main">
+        <div class="barra_superior">
+            <div class="toggle_interactive">
+                <div class="menu-btn__burger"></div>
+            </div>
+
+            <!-- search -->
+            <!-- <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <i class="fas fa-search"></i>
+                </label> 
+            </div> -->
+
+
+            <!-- AGREGAR EN BARRA SUPERIOR:
+                NOTIFICACIONES
+                MENSAJES
+                ETC. -->
+
+            <!-- img usuario -->
+            <div class="logo_liceo">
+                <img src="./assets/logo_liceo.png" alt="logo_liceo">
+                <ul class="link_perfil">
+                    <li><a href="#"><i class="fas fa-address-card icon"></i> Profile</a></li>
                     <li><a href="./controller/controller_exit.php"><i class="fas fa-sign-out-alt icon"></i> Logout</a></li>
                 </ul>
             </div>
-        </nav>
-        <!-- NAVBAR -->
+        </div>
+
+        <!-- container para el contenido principal -->
+        <div class="my_container">
+

@@ -1,104 +1,188 @@
-<?php
-    if (!isset($_SESSION['usser']['name'])) {
-        header("location: ../");
-    }
+<?php   include_once "./layout/header.php"; ?>
 
-    /* HEADER */
-    include_once "./layout/header.php";
-?>
+<!-- CONTENIDO PRINCIPAL -->
 
-    <!--  PRINCIPAL -->
-        <!-- MAIN -->
-        <main>
-            <h1 class="title">Home</h1>
-            <ul class="breadcrumbs">
-                <li><a href="#">Home</a></li>
-                <li class="divider">/</li>
-                <li><a href="#" class="active">Dashboard</a></li>
-            </ul>
+            <div class="titulo_main">
+                <h1 class="titulo_main__titulo">Home</h1>
+                <ul class="titulo_main__sub">
+                    <li><a href="#">Home</a></li>
+                    <li class="divider">/</li>
+                    <li><a href="#" class="active">Dashboard</a></li>
+                </ul>
+            </div>
+
+
+            <!-- card -->
+            <div class="caja_tarjeta">
+                <div class="tarjeta">
+                    <div>
+                        <div class="numero">1000</div>
+                        <div class="detalle">Estudiantes</div>
+                    </div>
+                    <div class="icono_tarjeta">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="tarjeta">
+                    <div>
+                        <div class="numero">1000</div>
+                        <div class="detalle">Retiro</div>
+                    </div>
+                    <div class="icono_tarjeta">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="tarjeta">
+                    <div>
+                        <div class="numero">1000</div>
+                        <div class="detalle">Funcionarios</div>
+                    </div>
+                    <div class="icono_tarjeta">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="tarjeta">
+                    <div>
+                        <div class="numero">1000</div>
+                        <div class="detalle">Licencias</div>
+                    </div>
+                    <div class="icono_tarjeta">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+
             
-            <label> MATRICULAS </label>
-            <div class="info-data">
-                <div class="card">
-                    <div class="head">
-                        <div>
-                            <label> ESTUDIANTES </label>
-                            <h2>1400</h2>
-                            <p>Alumnos matriculados</p>
-                        </div>
-                        <i class="fas fa-angle-double-up icon up"></i>
-                    </div>
-                    <span class="progress up" data-value="50%"></span>
-                    <span class="label">50%</span>
-                </div>
-                <div class="card">
-                    <div class="head">
-                        <div>
-                            <h2>17</h2>
-                            <p>Alumnos retirados</p>
-                        </div>
-                        <i class="fas fa-angle-double-down icon down"></i>
-                    </div>
-                    <span class="progress down" data-value="2%"></span>
-                    <span class="label">2%</span>
-                </div>
-                <div class="card">
-                    <div class="head">
-                        <div>
-                            <h2>50</h2>
-                            <p>Lista de espera</p>
-                        </div>
-                        <i class="fas fa-hourglass-start icon start"></i>
-                    </div>
-                    <span class="progress start" data-value="10%"></span>
-                    <span class="label">10%</span>
-                </div>
-            </div>
 
-            <label> FUNCIONARIOS </label>
-            <div class="info-data">
-                <div class="card">
-                    <div class="head">
-                        <div>
-                            <label> INASISTENCIAS </label>
-                            <h2>18</h2>
-                            <p>Funcionarios ausentes</p>
-                        </div>
-                        <i class="fas fa-angle-double-up icon up"></i>
+            <!-- LISTA PRINCIPAL //// NOTA, PUEDEN IR LISTA DE ALGUN DETALLE GENERAL O MÁS TARJETAS DE REDIRECCIÓN -->
+            <div class="detalles">
+                <!-- LISTA DE SOLICITUDES -->
+                <div class="recepcion_orden">
+                    <div class="cabecera">
+                        <h2>Orden recibida</h2>
+                        <a href="" class="boton">View All</a>
                     </div>
-                    <span class="progress up" data-value="50%"></span>
-                    <span class="label">50%</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Ordinario</td>
+                                <td>Departamento</td>
+                                <td>Financiamiento</td>
+                                <td>Estado</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado enviado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado pendiente">pendiente</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>Informática</td>
+                                <td>SEP</td>
+                                <td><span class="estado">Enviada</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- <div class="card">
-                    <div class="head">
-                        <div>
-                            <h2>17</h2>
-                            <p>Alumnos retirados</p>
-                        </div>
-                        <i class="fas fa-angle-double-down icon down"></i>
+
+                <!-- New Cliente -->
+                <div class="cliente_actual">
+                    <div class="cabecera">
+                        <h2>Lista de usuarios</h2>
                     </div>
-                    <span class="progress down" data-value="2%"></span>
-                    <span class="label">2%</span>
+
+                    <table>
+                        <tr>
+                            <td width="60px"><div class="boton"><img src="./assets/logo_liceo.png" alt=""></div></td>
+                            <td><h4>David<br><span>Italy</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td width="60px"><div class="boton"><img src="./assets/logo_liceo.png" alt=""></div></td>
+                            <td><h4>David<br><span>Italy</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td width="60px"><div class="boton"><img src="./assets/logo_liceo.png" alt=""></div></td>
+                            <td><h4>David<br><span>Italy</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td width="60px"><div class="boton"><img src="./assets/logo_liceo.png" alt=""></div></td>
+                            <td><h4>David<br><span>Italy</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td width="60px"><div class="boton"><img src="./assets/logo_liceo.png" alt=""></div></td>
+                            <td><h4>David<br><span>Italy</span></h4></td>
+                        </tr>
+                        <tr>
+                            <td width="60px"><div class="boton"><img src="./assets/logo_liceo.png" alt=""></div></td>
+                            <td><h4>David<br><span>Italy</span></h4></td>
+                        </tr>
+
+                    </table>
                 </div>
-                <div class="card">
-                    <div class="head">
-                        <div>
-                            <h2>50</h2>
-                            <p>Lista de espera</p>
-                        </div>
-                        <i class="fas fa-hourglass-start icon start"></i>
-                    </div>
-                    <span class="progress start" data-value="10%"></span>
-                    <span class="label">10%</span>
-                </div> -->
-            </div>
-        </main>
-        <!-- MAIN -->
-    <!--  PRINCIPAL -->
+            </div> 
+        </div>
+    </div>
 
-    <!-- FOOTER -->
-    <?php include_once "./layout/footer.php"; ?>
+<!-- CONTENIDO PRINCIPAL -->
 
-
-<!-- link para seguir con el proyecto
-https://www.youtube.com/watch?v=m3aC6t_9RK8 -->
+<?php   include_once "./layout/footer.php"; ?>

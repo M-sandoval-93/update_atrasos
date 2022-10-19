@@ -12,7 +12,6 @@
     --dark-ligth: rgb(32, 32, 32);
     --amarillo: rgb(249, 249, 65);
     --rojo: rgb(197, 0, 0);
-    --rojo-ligth: rgb(249, 35, 35);
 }
 
 body {
@@ -41,6 +40,7 @@ li {
     left: 0;
     background: var(--blue);
     border-left: 5px solid var(--blue);
+    border-right: 5px solid var(--amarillo);
     transition: 0.5s;
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
@@ -49,8 +49,8 @@ li {
     overflow: hidden;
     overflow-y: auto;
     scrollbar-width: none;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
     z-index: 2;
 }
 
@@ -192,7 +192,6 @@ li {
 
 
 /* curba en bordes externos */
-/* .barra_navegacion > ul > li:hover > a::before, */
 .barra_navegacion > ul > li > a:hover::before,
 .barra_navegacion > ul > li > a.active::before {
     content: '';
@@ -207,12 +206,10 @@ li {
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    /* box-shadow: 35px 35px 0 10px var(--white); */
     box-shadow: 35px 35px 0 10px var(--amarillo);
     pointer-events: none;
 }
 
-/* .barra_navegacion > ul > li:hover > a::after, */
 .barra_navegacion > ul > li > a:hover::after,
 .barra_navegacion > ul > li > a.active::after {
     content: '';
@@ -227,7 +224,6 @@ li {
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    /* box-shadow: 35px -35px 0 10px var(--white); */
     box-shadow: 35px -35px 0 10px var(--amarillo);
     pointer-events: none;
 }
@@ -349,7 +345,7 @@ li {
 }
 
 
-.search {
+/* .search {
     position: relative;
     width: 400px;
     margin: 0 10px;
@@ -379,7 +375,7 @@ li {
     top: 0;
     left: 10px;
     font-size: 1.2em;
-}
+} */
 
 .logo_liceo {
     display: flex;
@@ -405,7 +401,7 @@ li {
     position: absolute;
     top: calc(100% + 10px);
     right: 0;
-    background-color: var(--white);
+    background-color: var(--grey);
     padding: 10px 0;
     box-shadow: 0 7px 35px rgba(0, 0, 0, .08);
     border-radius: 5px;
@@ -425,7 +421,7 @@ li {
 }
 
 .logo_liceo .link_perfil.active {
-    opacity: 1;
+    opacity: .9;
     pointer-events: visible;
     top: 100%;
 }
@@ -436,7 +432,7 @@ li {
     grid-gap: 6px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--blue);
+    color: var(--dark-ligth);
     align-items: center;
     transition: all .3s ease;
     -webkit-transition: all .3s ease;
@@ -455,13 +451,43 @@ li {
     color: var(--white);
 }
 
-.logo_liceo .link_perfil a.sistema_exit {
-    color: var(--rojo);
+
+/* TITULO Y SUBTITULO DEL LAYOUT */
+
+.titulo_main {
+    width: 100%;
+    padding: 25px;
 }
 
-.logo_liceo .link_perfil a.sistema_exit:hover {
-    color: var(--rojo);
+.titulo_main__titulo {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 10px 0;
 }
+
+.titulo_main__sub {
+    display: flex;
+    grid-gap: 6px;
+}
+
+.titulo_main__sub li,
+.titulo_main__sub li a {
+    font-size: 16px;
+}
+
+.titulo_main__sub li a {
+    color: var(--blue);
+}
+
+.titulo_main__sub li a.active,
+.titulo_main__titulo li a.divider {
+    color: var(--dark-ligth);
+    pointer-events: none;
+}
+
+
+
+
 
 
 /* TARJETAS */
@@ -698,7 +724,7 @@ li {
 
 /* INPLEMENTACIÓN DE LAS MEDIA QUERY */
 
-@media (max-width: 991px) {
+@media only screen and (max-width: 991px) {
     .barra_navegacion {
         left: -80px;
     }
@@ -722,7 +748,7 @@ li {
     }
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     .detalles {
         grid-template-columns: repeat(1, 1fr);
     }
@@ -736,7 +762,7 @@ li {
     } */
 }
 
-@media (max-width: 480px) {
+@media only screen and (max-width: 480px) {
     .caja_tarjeta {
         grid-template-columns: repeat(1, 1fr);
     }
@@ -763,7 +789,7 @@ li {
     .toggle_interactive {
         right: 0;
         z-index: 20;
-}
+    }
 
     .main.active .toggle_interactive {
         position: fixed;
@@ -774,6 +800,7 @@ li {
         background-color: var(--white);
     }
 }
+
 
 
 

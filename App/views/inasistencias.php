@@ -1,58 +1,61 @@
-<?php
-    /* HEADER */
-    include_once "./layout/header.php";
-?>
-  
-  <main>
-            <h1 class="title">Funcionarios</h1>
-            <ul class="breadcrumbs">
-                <li><a href="#">Inasistencias</a></li>
-                <li class="divider">/</li>
-                <li><a href="#" class="active">Dashboard</a></li>
-            </ul>
+<?php   include_once "./layout/header.php"; ?>
 
-            <div class="nuevo_registro">
-                <button class="btn btn-s btn-data" type="button" id="btn_nueva_inasistencia"><i class="fas fa-user-plus icon"></i></button>
+<!-- TITULO DEL LAYOUT -->
+
+
+            <div class="titulo_main">
+                <h1 class="titulo_main__titulo">Inasistencias</h1>
+                <ul class="titulo_main__sub">
+                    <li><a href="home">Home</a></li>
+                    <li class="divider">/</li>
+                    <li><a href="#" class="active">Inasistencias</a></li>
+                </ul>
             </div>
 
-            <table id="inasistencias_funcionarios" class="display table tabl-hover text-nowrap" style="width: 100%">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th></th>
-                        <th>Funcionario</th>
-                        <th>Inasistencia</th>
-                        <th>Inicio</th>
-                        <th>Termino</th>
-                        <th>Días</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
 
-            <?php
-            // SE INCLUYEN LOS MODALES A SER UTILIZADOS
-            include_once "./layout/modal_inasistenciaF.php";
-            include_once "./layout/modal_funcionario.php";
-            ?>
+            <!-- CONTENIDO PRINCIPAL -->
+            <div class="d-flex justify-content-between mb-5">
+                <button class="btn-lg btn-primary " type="button" id="btn_nueva_inasistencia"><i class="fas fa-user-plus icon"></i></button>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <button class="btn-lg btn-success">excel</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn-lg btn-danger">PDF</button>
+                    </div>
+                </div>
+            </div>
 
-        </main>
-        <!-- MAIN -->
-    <!--  PRINCIPAL -->
+            <div class="table-responsive">
+                <table id="inasistencias_funcionarios" class="table " style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th></th>
+                            <th>Funcionario</th>
+                            <th>Inasistencia</th>
+                            <th>Inicio</th>
+                            <th>Termino</th>
+                            <th>Días</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
 
 
-    </section>
-    <!-- NAVBAR -->
+<!-- CONTENIDO PRINCIPAL -->
 
 
-    <script src="./Pluggins/jQuery/jquery-3.6.0.min.js"></script>
-    <script src="./Pluggins/DataTables/datatables.min.js"></script>
-    <script src="./Pluggins/SweetAlert2/sweetalert2.all.min.js"></script>
+<!-- SCRIPT GENERALES DEL PROYECTO -->
+<?php   include_once "./layout/footer.php"; ?>
 
-    <script src="./js/dashboard.js"></script>
+
+    <!-- SCRIPT DE CADA PANTALLA -->
     <script src="./js/inasistenciaF.js" type="module"></script>
-    
+
+
 </body>
 </html>

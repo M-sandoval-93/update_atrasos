@@ -13,10 +13,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;1,600&display=swap" rel="stylesheet"> 
 
     <!-- icons -->
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/a81368914c.js"></script> -->
+    <link rel="stylesheet" href="./Pluggins/Fontawesome-5.15.4/css/all.min.css">
 
     <!-- Style -->
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/loggin.css">
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./Pluggins/SweetAlert2/sweetalert2.min.css">
 
