@@ -152,7 +152,7 @@ $(document).ready(function() {
                 mRender: function(data) {
                     let btn;
                     if (data != null) {
-                        btn = '<button class="btn-expand" id="mostrar_reemplazante"><i class="fas fa-plus-circle"></i></button>';
+                        btn = '<button class=" btn-s btn-expand" id="mostrar_reemplazante"><i class="fas fa-plus-circle"></i></button>';
                         return btn;
                     }
                 }
@@ -165,8 +165,8 @@ $(document).ready(function() {
             {data: null,
                 bSortable: false,
                 defaultContent: // BOTONES
-                                `<button class="btn btn-s btn-data" id="btn_modificar_inasistencia" type="button"><i class="fas fa-pencil-alt"></i></button>
-                                <button class="btn btn-s btn-delete" id="btn_eliminar_inasistencia" type="button"><i class="fas fa-trash-alt"></i></button>`
+                                `<button class="btn btn-primary btn-s btn-data" id="btn_modificar_inasistencia" type="button"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-danger btn-s btn-delete" id="btn_eliminar_inasistencia" type="button"><i class="fas fa-trash-alt"></i></button>`
             }
         ],
         order: [[4, 'asc']],

@@ -27,7 +27,7 @@
             </div>
 
             <div class="table-responsive">
-                <table id="inasistencias_funcionarios" class="table " style="width: 100%">
+                <table id="inasistencias_funcionarios" class="table table-hover text-nowrap" style="width: 100%">
                     <thead>
                         <tr>
                             <th>id</th>

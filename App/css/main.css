@@ -509,8 +509,8 @@ li {
 /* CONTENEDOR INTERNO */
 .my_container {
     width: 100%;
-    /* padding: 0 25px 25px 25px; */
     padding: 25px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
 }
 
 
@@ -575,10 +575,15 @@ li {
 
 /* TABLA  */
 
-table > tbody > tr > td {
-
-    
+table.dataTable tbody tr {
+    vertical-align: baseline;
 }
+
+/* .table-responsive {
+    box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
+} */
+
+
 
 /* .detalles {
     position: relative;
