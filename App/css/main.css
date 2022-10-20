@@ -529,7 +529,16 @@ li {
     grid-gap: 30px;
 }
 
-.caja_tarjeta .tarjeta {
+.caja_tarjeta_2 {
+    position: relative;
+    width: 100%;
+    padding: 0 0 25px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 30px;
+}
+
+.tarjeta {
     position: relative;
     background-color: var(--white);
     padding: 30px;
@@ -544,44 +553,43 @@ li {
     box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
 }
 
-.caja_tarjeta .tarjeta .numero {
+.tarjeta .numero {
     position: relative;
     font-weight: 500;
-    font-size: 2.5em;
+    font-size: 2em;
     color: var(--blue);
 }
 
-.caja_tarjeta .tarjeta .detalle {
+.tarjeta .detalle {
     color: var(--grey);
-    font-size: 1.1em;
-    margin-top: 5px;
+    font-size: 1.3em;
+    margin-top: 10px;
 }
 
-.caja_tarjeta .tarjeta .icono_tarjeta {
+.tarjeta .icono_tarjeta {
     font-size: 3.5em;
     color: var(--grey);
 }
 
-.caja_tarjeta .tarjeta:hover {
+.tarjeta:hover {
     background-color: var(--blue);
 }
 
-.caja_tarjeta .tarjeta:hover .numero,
-.caja_tarjeta .tarjeta:hover .detalle,
-.caja_tarjeta .tarjeta:hover .icono_tarjeta {
+.tarjeta:hover .numero,
+.tarjeta:hover .detalle,
+.tarjeta:hover .icono_tarjeta {
     color: var(--white);
 }
 
 
-/* TABLA  */
 
+
+
+/* TABLA  */
 table.dataTable tbody tr {
     vertical-align: baseline;
 }
 
-/* .table-responsive {
-    box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
-} */
 
 
 
@@ -809,7 +817,8 @@ table.dataTable tbody tr {
         right: calc(100% - 190px);
     }
 
-    .caja_tarjeta {
+    .caja_tarjeta,
+    .caja_tarjeta_2 {
         grid-template-columns: repeat(1, 1fr);
     }
 

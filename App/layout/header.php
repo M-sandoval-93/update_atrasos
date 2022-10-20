@@ -28,11 +28,6 @@
     
     <!-- style pluggins -->
     <link rel="stylesheet" href="./Pluggins/Bootstrap-5.0.2/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="./Pluggins/Bootstrap-5.1.3/css/bootstrap.min.css"> -->
-
-    <!-- <link rel="stylesheet" href="./Pluggins/DataTables/dataTables.bootstrap5.min.css"> -->
-    <!-- <link rel="stylesheet" href="./Pluggins/DataTables/DataTables-1.12.1/css/dataTables.bootstrap4.min.css"> -->
-
     <link rel="stylesheet" href="./Pluggins/DataTables/datatables.min.css">
     
     
@@ -66,7 +61,7 @@
                 </a>
                 <ul class="sub_grupo">
                     <li><a href="#"><span class="titulo">Matriculas</span></a></li>
-                    <li><a href="#"><span class="titulo">Atrasos</span></a></li>
+                    <li><a href="atrasos"><span class="titulo">Atrasos</span></a></li>
                     <li><a href="#"><span class="titulo">Justificaciones</span></a></li>
                 </ul>
             </li>
