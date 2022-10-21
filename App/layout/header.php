@@ -78,7 +78,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="cursos">
                     <span class="icono"><i class="fas fa-graduation-cap"></i></span>
                     <span class="titulo">Cursos</span>
                 </a>
