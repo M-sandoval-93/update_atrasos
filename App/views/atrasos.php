@@ -56,10 +56,11 @@
             </div>
 
             <div class="table-responsive">
-                <table id="inasistencias_funcionarios" class="table table-hover text-nowrap" style="width: 100%">
+                <table id="atraso_estudiante" class="table table-hover text-nowrap" style="width: 100%">
                     <thead>
                         <tr>
                             <th>id</th>
+                            <th></th>
                             <th>Rut</th>
                             <th>Estudiante</th>
                             <th>Curso</th>
@@ -84,6 +85,7 @@
 
     <!-- script layout atrasos -->
     <!-- <script src="./js/inasistenciaF.js" type="module"></script> -->
+    <script src="./js/atraso.js" type="module"></script>
 
 
 </body>

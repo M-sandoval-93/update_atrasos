@@ -1,0 +1,22 @@
+select atraso.id_atraso,
+(estudiante.rut_estudiante || '-' || estudiante.dv_rut_estudiante) as rut,
+(estudiante.nombres_estudiante || ' ' || estudiante.apellido_paterno_estudiante
+|| ' ' || estudiante.apellido_materno_estudiante) as nombres, curso.curso,
+atraso.fecha_atraso, 
+to_char(atraso.hora_atraso, 'HH-MI-SS')
+-- atraso.hora_atraso
+, atraso.estado_atraso
+
+FROM atraso
+inner join estudiante on estudiante.id_estudiante = atraso.id_estudiante
+inner join curso on curso.id_curso = atraso.id_curso
+where extract(year from atraso.fecha_atraso) = extract(year from now());
+
+select * from atraso;
+
+insert into atraso
+(fecha_hora_actual, fecha_atraso, hora_atraso, id_estudiante, estado_atraso, id_curso)
+VALUES
+(CURRENT_TIMESTAMP, CURRENT_DATE, CURRENT_TIME, 1408, 'sin justificar', 137);
+
+to_char(CURRENT_TIME, 'HH-MI-SS');
