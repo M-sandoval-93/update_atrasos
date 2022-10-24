@@ -7,9 +7,15 @@
 
     switch ($type) {
         case "show_atrasos":
-            // print $datosInasistenciaF->consultarInasistenciaF();
-            // print json_encode("prueba de contenido");
             print $datosAtrasoE->consultarAtrasoE();
+            break;
+
+        case "getAtrasosDiario":
+            print $datosAtrasoE->atrasoDiario();
+            break;
+
+        case "getAtrasosTotal";
+            print$datosAtrasoE->atrasoTotal();
             break;
 
         // case "buscar_funcionario":

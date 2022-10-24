@@ -19,7 +19,7 @@
                     <div class="caja_tarjeta_2">
                         <div class="tarjeta">
                             <div>
-                                <div class="numero">285</div>
+                                <div class="numero" id="atraso_diario"></div>
                                 <div class="detalle">Atrados del día</div>
                             </div>
                             <div class="icono_tarjeta">
@@ -28,7 +28,7 @@
                         </div>
                         <div class="tarjeta">
                             <div>
-                                <div class="numero">14623</div>
+                                <div class="numero" id="atraso_total">1340</div>
                                 <div class="detalle">Atrasos del año</div>
                             </div>
                             <div class="icono_tarjeta">
@@ -60,13 +60,13 @@
                     <thead>
                         <tr>
                             <th>id</th>
-                            <th></th>
                             <th>Rut</th>
-                            <th>Estudiante</th>
+                            <th>Ap Paterno</th>
+                            <th>Aps Materno</th>
+                            <th>Nombres</th>
                             <th>Curso</th>
                             <th>Fecha</th>
                             <th>Hora</th>
-                            <th>Estado</th>
                             <th>Eliminar</th>
                         </tr>
                     </thead>

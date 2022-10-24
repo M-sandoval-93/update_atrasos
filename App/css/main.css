@@ -14,17 +14,20 @@
     --rojo: rgb(197, 0, 0);
 }
 
+
 body {
     min-height: 100vh;
-    overflow-x: hidden;
-    /* line-height: normal !important; */
     line-height: normal;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+
 } 
 
-/* .contenedor {
-    position: relative;
-    width: 100%;
+/* body::-webkit-scrollbar {
+    display: none;
 } */
+
 
 a {
     text-decoration: none;
@@ -586,9 +589,35 @@ li {
 
 
 /* TABLA  */
+table.dataTable {
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+
 table.dataTable tbody tr {
     vertical-align: baseline;
 }
+
+table button#btn_justificar_atraso {
+    margin-right: 20px;
+}
+
+
+
+/* MODAL ATRASO ESTUDIANTES */
+.not_padding {
+    padding: 0;
+}
+
+.rut {
+    padding-right: 0;
+}
+
+.dv_rut {
+    padding-left: 0;
+}
+
+
 
 
 
