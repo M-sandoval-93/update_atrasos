@@ -14,20 +14,18 @@
     --rojo: rgb(197, 0, 0);
 }
 
+html {
+    scrollbar-width: none;
+}
 
 body {
     min-height: 100vh;
     line-height: normal;
-    overflow: hidden;
-    overflow-y: auto;
-    scrollbar-width: none;
-
 } 
 
-/* body::-webkit-scrollbar {
+::-webkit-scrollbar {
     display: none;
-} */
-
+}
 
 a {
     text-decoration: none;

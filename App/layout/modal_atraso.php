@@ -31,18 +31,21 @@
             <div class="col-sm-6">
               <div class="row align-items-center">
                 <div class="col-7 rut">
-                  <input type="text" class="form-control text-center" id="rut_estudiante_atraso">
+                  <input type="text" class="form-control text-center" id="rut_estudiante_atraso" required>
+                  <!-- <div class="invalid-feedback" id="mensaje_validacion">
+                    El rut ingresado es inválido
+                  </div> -->
                 </div>
                 <div class="col-1 not_padding text-center">
                   <span>-</span>
                 </div>
                 <div class="col-4 dv_rut">
-                  <input type="text" class="form-control text-center" disabled>
+                  <input type="text" class="form-control text-center" id="dv_rut_estudiante_atraso" disabled>
                 </div>
               </div>
             </div>
             <div class="col-sm-6">
-              <span class="form-text">Rut sin puntos ni dígito verificados</span>
+              <span class="form-text" id="informacion_rut">Rut sin puntos, sin guión y sin dígito verificador</span>
             </div>
           </did>
 

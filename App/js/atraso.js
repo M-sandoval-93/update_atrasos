@@ -23,6 +23,12 @@ function prepararModalAtraso() {
     $('#modal_registro_atraso').trigger('reset');
     $('#staticFecha').val(fecha_hora_actual.toLocaleDateString());
     $('#staticHora').val(fecha_hora_actual.toLocaleTimeString());
+
+    validarRut();
+    autofocus();
+
+
+    // $('#rut_estudiante_atraso').find('[autofocus]').focus();
 }
 
 function alertBoostrap(elemento, message, type) {
@@ -35,6 +41,28 @@ function alertBoostrap(elemento, message, type) {
 
 function estudianteSuspendido() {
     // deshabilitar componentes para poder registrar atraso e ingreso del estudiante
+}
+
+function validarRut() {
+    $('#rut_estudiante_atraso').keyup(function() {
+        generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
+        if ($('#dv_rut_estudiante_atraso').val() == '' && $('#rut_estudiante_atraso').val() != '') {
+            $('#rut_estudiante_atraso').addClass('is-invalid');
+            $('#informacion_rut').removeClass('form-text');
+            // $('#informacion_rut').text('Rut inválido, revisar !!');
+            // $('#informacion_rut').addClass('invalid-feedback');
+
+        }  else {
+            $('#rut_estudiante_atraso').removeClass('is-invalid');
+        }
+    });
+
+}
+
+function autofocus() {
+    $('#modal_atraso').on('shown.bs.modal', function(e) {
+        $('#rut_estudiante_atraso').focus();
+    });
 }
 
 
