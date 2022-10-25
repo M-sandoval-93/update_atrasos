@@ -47,8 +47,9 @@ function estudianteSuspendido() {
 function validarRut() {
     $('#rut_estudiante_atraso').keyup(function() {
 
-
+        // ver por que me hace un envio doble en petición post
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
+        // LibreriaFunciones.buscar_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'), 'alerta_suspencion');
         LibreriaFunciones.buscar_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'), 'alerta_suspencion');
 
         if ($('#dv_rut_estudiante_atraso').val() == '' && $('#rut_estudiante_atraso').val() != '') {
