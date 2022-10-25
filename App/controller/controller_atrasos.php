@@ -1,27 +1,23 @@
 <?php
     // Incluimos el modelo que utilizara el controlador
-    include_once '../model/model_atrasoE.php';
+    include_once '../model/model_atraso.php';
 
     $type = $_POST['datos']; // Recibimos la acción a realizar por el controlador
-    $datosAtrasoE = new AtrasoEstudiante(); // Creamos el objeto para trabajar con datatable
+    $datosAtraso = new AtrasoEstudiante(); // Creamos el objeto para trabajar con datatable
 
     switch ($type) {
-        case "show_atrasos":
-            print $datosAtrasoE->consultarAtrasoE();
+        case "showAtrasos":
+            print $datosAtraso->consultarAtraso();
             break;
 
-        case "getAtrasosDiario":
-            print $datosAtrasoE->atrasoDiario();
+        case "getAtrasos":
+            print $datosAtraso->cantidadAtrasos($_POST['tipo']);
             break;
 
-        case "getAtrasosTotal";
-            print$datosAtrasoE->atrasoTotal();
+        case "getEstudiante":
+            // print json_encode(false);
+            print $datosAtraso->getEstudiante($_POST['rut']);
             break;
-
-        // case "buscar_funcionario":
-        //     $rut = $_POST['rut'];
-        //     print $datosInasistenciaF->buscarFuncionario($rut);
-        //     break;
 
         // case "registrar_inasistencia":
         //     $inasistencia = array(

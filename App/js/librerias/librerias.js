@@ -310,6 +310,47 @@ export let LibreriaFunciones = {
                 }
             });
         }
+    },
+
+    buscar_info_estudiante: function(rut, input_nombre, input_curso, elemento = null) {
+        let datos = 'getEstudiante';
+
+        // condicion para que solo se ejecute la consulta una ves !!!!!!
+
+        if (rut.length < 8) {
+            input_nombre.val('');
+            input_curso.val('');
+        } else {
+            $.ajax({
+                url: "./controller/controller_atrasos.php",
+                method: "post",
+                dataType: "json",
+                data: {rut: rut, datos: datos},
+                success: function(info) {
+                    if (info == false) {
+                        input_nombre.val('Sin Registro !!');
+                        input_curso.val('N/A');
+                    } else {
+                        input_nombre.val(info[0].nombre_estudiante);
+                        input_curso.val(info[0].curso);
+
+                        // revisar alerta para estudiante suspendido !!!!!!!!
+                        if (info[0].id_estado == 5) {
+                            LibreriaFunciones.alertBoostrap(elemento, "El estudiante se encuentra suspendido !!", 'danger');
+                        }
+                    }
+                }
+            });
+        }
+        
+    },
+
+    alertBoostrap: function(elemento, message, type) {
+        let componente = document.getElementById(elemento);
+
+        let wrapper = document.createElement('div');
+        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '</div>';
+        componente.append(wrapper);
     }
 
 }

@@ -1,12 +1,14 @@
 import { spanish, LibreriaFunciones, generar_dv } from './librerias/librerias.js';
 
 // ==================== FUNCIONES INTERNAS ===============================//
-function atrasoDiario(datos, id_campo) {
+function cantidadAtrasos(tipo, id_campo) {
+    let datos = 'getAtrasos';
+
     $.ajax({
         url: "./controller/controller_atrasos.php",
         method: "post",
         dataType: "json",
-        data: {datos: datos},
+        data: {datos: datos, tipo: tipo},
         success: function(data) {
             let valor = data;
             if (data == false) {
@@ -28,7 +30,6 @@ function prepararModalAtraso() {
     autofocus();
 
 
-    // $('#rut_estudiante_atraso').find('[autofocus]').focus();
 }
 
 function alertBoostrap(elemento, message, type) {
@@ -45,15 +46,22 @@ function estudianteSuspendido() {
 
 function validarRut() {
     $('#rut_estudiante_atraso').keyup(function() {
+
+
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
+        LibreriaFunciones.buscar_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'), 'alerta_suspencion');
+
         if ($('#dv_rut_estudiante_atraso').val() == '' && $('#rut_estudiante_atraso').val() != '') {
             $('#rut_estudiante_atraso').addClass('is-invalid');
             $('#informacion_rut').removeClass('form-text');
-            // $('#informacion_rut').text('Rut inválido, revisar !!');
-            // $('#informacion_rut').addClass('invalid-feedback');
+            $('#informacion_rut').text('Rut inválido, revisar !!');
+            $('#informacion_rut').addClass('text-danger');
 
         }  else {
             $('#rut_estudiante_atraso').removeClass('is-invalid');
+            $('#informacion_rut').removeClass('text-danger');
+            $('#informacion_rut').text('Rut sin puntos, sin guión y sin dígito verificador');
+            $('#informacion_rut').addClass('form-text');
         }
     });
 
@@ -72,7 +80,7 @@ function autofocus() {
 $(document).ready(function() {
     // variables globales
     let modal = $('#modal_atraso'); 
-    let datos = 'show_atrasos'; 
+    let datos = 'showAtrasos'; 
     let registrar; 
     let id_atraso;
 
@@ -109,10 +117,9 @@ $(document).ready(function() {
 
 
     // Btn nuevo atraso
-    $('#btn_nueva_inasistencia').click(function() {
+    $('#btn_nuevo_atraso').click(function() {
         prepararModalAtraso();
-        // $('#cantidad_atrasos').text('Existne 8 atrasos sin justificar !!');
-        // alertBoostrap('alerta_suspencion', 'Estudiante suspendido', 'danger'); // prueba de alert
+        
 
 
 
@@ -131,8 +138,8 @@ $(document).ready(function() {
 
 
     // CANTIDAD DE ATRASOS DEL DÍA
-    atrasoDiario('getAtrasosDiario', '#atraso_diario');
-    atrasoDiario('getAtrasosTotal', '#atraso_total');
+    cantidadAtrasos('diario', '#atraso_diario');
+    cantidadAtrasos('total', '#atraso_total');
 
 
 
