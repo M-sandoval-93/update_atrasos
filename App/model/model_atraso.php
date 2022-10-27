@@ -30,7 +30,6 @@
             foreach ($atrasos as $atraso) {
                 if ($atraso['n_social'] != null) {
                     $atraso['nombre'] = $atraso['nombre'].' ('. $atraso['n_social']. ')';
-                    $atraso['n_social'] = "bueno";
                 }
                 $this->json['data'][] = $atraso;
             }
@@ -63,6 +62,28 @@
         }
 
         public function getEstudiante($rut) {
+            // $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
+            // || ' ' || estudiante.am_estudiante) AS nombre_estudiante, 
+            // estudiante.nombre_social, curso.curso, estudiante.id_estado
+            // FROM estudiante
+            // INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
+            // INNER JOIN curso ON curso.id_curso = matricula.id_curso
+            // WHERE estudiante.rut_estudiante = ? limit 1;";
+
+            // $sentencia = $this->conexion_db->prepare($query);
+            // $sentencia->execute([$rut]);
+
+            // if ($sentencia->rowCount() >= 1) {
+            //     $datos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+            //     foreach ($datos as $dato) {
+            //         $this->json[] = $dato;
+            //     }
+            //     return json_encode($this->json);
+            // } else {
+            //     return json_encode($this->res);
+            // }
+            // $this->conexion_db = null;
+
             $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
             || ' ' || estudiante.am_estudiante) AS nombre_estudiante, 
             estudiante.nombre_social, curso.curso, estudiante.id_estado
@@ -71,36 +92,33 @@
             INNER JOIN curso ON curso.id_curso = matricula.id_curso
             WHERE estudiante.rut_estudiante = ?;";
 
+            // $sentencia = $this->conexion_db->prepare($query);
+            // $sentencia->execute([$rut]);
+            // $datos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+            // foreach ($datos as $dato) {
+            //     $this->json[] = $dato;
+            // }
+
+            // return json_encode($this->json);
+            // $this->conexion_db = null;
+
+
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute([$rut]);
 
-            if ($sentencia->rowCount() >= 1) {
-                $datos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+            if ($datos = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {
                 foreach ($datos as $dato) {
                     $this->json[] = $dato;
                 }
                 return json_encode($this->json);
-            } else {
-                return json_encode($this->res);
-            }
+            } 
+
+            return json_encode($this->res);
             $this->conexion_db = null;
+
         }
 
-        public function buscarFuncionario($rut) { // LISTO
-            $query = "SELECT (nombres_funcionario || ' ' || apellido_paterno_funcionario || ' ' || apellido_materno_funcionario) as nombre_funcionario
-                    FROM funcionario WHERE rut_funcionario = ?;";
-            $sentencia = $this->conexion_db->prepare($query);
-            $sentencia->execute([$rut]);
-
-            if ($sentencia->rowCount() >=1) {
-                $funcionario = $sentencia->fetch(PDO::FETCH_ASSOC);
-                return json_encode($funcionario['nombre_funcionario']);
-            } else {
-                return json_encode($this->res);
-            }
-
-            $this->conexion_db = null;
-        }
 
 
 

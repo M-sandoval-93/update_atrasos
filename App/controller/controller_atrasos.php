@@ -15,40 +15,9 @@
             break;
 
         case "getEstudiante":
-            // print json_encode(false);
             print $datosAtraso->getEstudiante($_POST['rut']);
+            // print json_encode(true);
             break;
-
-        // case "registrar_inasistencia":
-        //     $inasistencia = array(
-        //         $_POST['tipoI'], $_POST['rutF'], $_POST['fechaI'], $_POST['fechaT'], $_POST['diasI'], 
-        //         ($_POST['ord'] != '') ? $_POST['ord'] : null, ($_POST['rutR'] != '') ? $_POST['rutR'] : null);
-        //     print $datosInasistenciaF->newInaistenciaF($inasistencia);
-
-        //     // AGREGAR FUNCIÓN PARA ENVIAR CORREO SI LA RESPUESTA ES VERDADERA, VER SI SE AGREGA POR JAVASCRIPT
-        //     break;
-
-        // case "getInasistencia":
-        //     $id_inasistencia = $_POST['id_inasistencia'];
-        //     print $datosInasistenciaF->getInasistencia($id_inasistencia);
-        //     break;
-
-        // case "getTipoInasistencia":
-        //     print $datosInasistenciaF->getTipoInasistencia();
-        //     break;
-
-        // case "editar_inasistencia":
-        //     // eliminar el rut del funcionario que no es necesario
-        //     $inasistencia = array(
-        //         $_POST['tipoI'], $_POST['rutF'], $_POST['fechaI'], $_POST['fechaT'], $_POST['diasI'], 
-        //         ($_POST['ord'] != '') ? $_POST['ord'] : null, ($_POST['rutR'] != '') ? $_POST['rutR'] : null, $_POST['id_inasistencia']);
-        //     print $datosInasistenciaF->updateInasistenciaF($inasistencia);
-        //     break;
-
-        // case "eliminar_inasistencia":
-        //     $id_inasistencia = $_POST['id_inasistencia'];
-        //     print $datosInasistenciaF->deleteInasistenciaF($id_inasistencia);
-        //     break;
     }
 
 ?>

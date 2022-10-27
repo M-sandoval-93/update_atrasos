@@ -58,7 +58,9 @@
               </div>
             </div>
             <p class="text-success mt-3" id="cantidad_atrasos"></p>
-            <div id="alerta_suspencion" class="mt-3"></div>
+            <div id="alerta_suspencion" class="mt-3">
+            <div id="alerta"></div>
+            </div>
           </fieldset>
         </div>
 

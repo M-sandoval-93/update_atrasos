@@ -19,6 +19,46 @@ function cantidadAtrasos(tipo, id_campo) {
     });
 }
 
+function get_info_estudiante(rut, input_nombre, input_curso) {
+    let datos = 'getEstudiante';
+
+    if (rut != '' && rut.length > 7) {
+        $.ajax({
+            url: "./controller/controller_atrasos.php",
+            type: "post",
+            dataType: "json",
+            data: {datos: datos, rut: rut},
+            success: function(info) {
+                console.log(info);
+            }
+        });
+
+    }
+
+
+    // $.ajax({
+    //     url: "./controller/controller_atrasos.php",
+    //     type: "post",
+    //     dataType: "json",
+    //     data: {rut: rut, datos: datos},
+    //     success: function(info) {
+    //         if (info != false) {
+    //             input_nombre.val(info[0].nombre_estudiante);
+    //             input_curso.val(info[0].curso);
+    //         } else {
+    //             input_nombre.val('Sin datos');
+    //             input_curso.val('N/A');
+    //         }
+    //     }
+    // });
+
+    // } else {
+    //     input_nombre.val('');
+    //     input_curso.val('');
+    // }
+
+}
+
 function prepararModalAtraso() {
     let fecha_hora_actual = new Date();
     
@@ -26,31 +66,32 @@ function prepararModalAtraso() {
     $('#staticFecha').val(fecha_hora_actual.toLocaleDateString());
     $('#staticHora').val(fecha_hora_actual.toLocaleTimeString());
 
-    validarRut();
     autofocus();
+    validarRut();
+    // get_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
+
+    // aca colocar buscar info estudiantres
 
 
 }
 
-function alertBoostrap(elemento, message, type) {
-    let componente = document.getElementById(elemento);
 
-    let wrapper = document.createElement('div');
-    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '</div>';
-    componente.append(wrapper);
-}
+// function alertBoostrap(elemento, message, type) {
+//     let componente = document.getElementById(elemento);
+
+//     let wrapper = document.createElement('div');
+//     wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '</div>';
+//     componente.append(wrapper);
+// }
 
 function estudianteSuspendido() {
     // deshabilitar componentes para poder registrar atraso e ingreso del estudiante
 }
 
-function validarRut() {
+function validarRut() {     // LISTO
     $('#rut_estudiante_atraso').keyup(function() {
-
-        // ver por que me hace un envio doble en petición post
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
-        // LibreriaFunciones.buscar_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'), 'alerta_suspencion');
-        LibreriaFunciones.buscar_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'), 'alerta_suspencion');
+        get_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
 
         if ($('#dv_rut_estudiante_atraso').val() == '' && $('#rut_estudiante_atraso').val() != '') {
             $('#rut_estudiante_atraso').addClass('is-invalid');
@@ -64,11 +105,12 @@ function validarRut() {
             $('#informacion_rut').text('Rut sin puntos, sin guión y sin dígito verificador');
             $('#informacion_rut').addClass('form-text');
         }
+
     });
 
 }
 
-function autofocus() {
+function autofocus() {      // LISTO
     $('#modal_atraso').on('shown.bs.modal', function(e) {
         $('#rut_estudiante_atraso').focus();
     });
@@ -85,8 +127,8 @@ $(document).ready(function() {
     let registrar; 
     let id_atraso;
 
-    // LLENAR DATATABLE CON INFORMACIÓN =============================== LISTO
-    let tabla_atrasos = $('#atraso_estudiante').DataTable({
+    // LLENAR DATATABLE CON INFORMACIÓN =============================== 
+    let tabla_atrasos = $('#atraso_estudiante').DataTable({     // LISTO
         ajax: {
             url: "./controller/controller_atrasos.php",
             method: "post",
