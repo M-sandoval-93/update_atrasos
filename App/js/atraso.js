@@ -21,41 +21,42 @@ function cantidadAtrasos(tipo, id_campo) {
 
 function get_info_estudiante(rut, input_nombre, input_curso) {
     let datos = 'getEstudiante';
+    // let alerta = '<div class="alert alert-danger alert-dismissible" role="alert">' + "prueba" + '</div>';
 
     if (rut != '' && rut.length > 7) {
-        $.ajax({
-            url: "./controller/controller_atrasos.php",
-            type: "post",
-            dataType: "json",
-            data: {datos: datos, rut: rut},
-            success: function(info) {
-                console.log(info);
-            }
-        });
+        if (input_nombre.val() == '') {
+            $.ajax({
+                url: "./controller/controller_atrasos.php",
+                type: "post",
+                dataType: "json",
+                data: {rut: rut, datos: datos},
+                success: function(info) {
+                    if (info != false) {
+                        input_nombre.val(info[0].nombre_estudiante);
+                        input_curso.val(info[0].curso);
 
+                        if (info[0].nombre_social != null) {
+                            input_nombre.val('(' + info[0].nombre_social + ') ' + info[0].nombre_estudiante);
+                        }
+
+                        if (info[0].id_estado = 5) {
+                            $('#alerta').show();
+                        } 
+
+                    } else {
+                        input_nombre.val('Sin datos');
+                        input_curso.val('N/A');
+                        $('#alerta').hide();
+                    }
+                }
+            });
+        }
+
+    } else {
+        input_nombre.val('');
+        input_curso.val('');
+        $('#alerta').hide();
     }
-
-
-    // $.ajax({
-    //     url: "./controller/controller_atrasos.php",
-    //     type: "post",
-    //     dataType: "json",
-    //     data: {rut: rut, datos: datos},
-    //     success: function(info) {
-    //         if (info != false) {
-    //             input_nombre.val(info[0].nombre_estudiante);
-    //             input_curso.val(info[0].curso);
-    //         } else {
-    //             input_nombre.val('Sin datos');
-    //             input_curso.val('N/A');
-    //         }
-    //     }
-    // });
-
-    // } else {
-    //     input_nombre.val('');
-    //     input_curso.val('');
-    // }
 
 }
 
@@ -63,17 +64,17 @@ function prepararModalAtraso() {
     let fecha_hora_actual = new Date();
     
     $('#modal_registro_atraso').trigger('reset');
+    $('#alerta').hide();
     $('#staticFecha').val(fecha_hora_actual.toLocaleDateString());
     $('#staticHora').val(fecha_hora_actual.toLocaleTimeString());
 
     autofocus();
     validarRut();
-    // get_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
-
-    // aca colocar buscar info estudiantres
 
 
 }
+
+
 
 
 // function alertBoostrap(elemento, message, type) {
@@ -84,12 +85,15 @@ function prepararModalAtraso() {
 //     componente.append(wrapper);
 // }
 
+
+
 function estudianteSuspendido() {
     // deshabilitar componentes para poder registrar atraso e ingreso del estudiante
 }
 
 function validarRut() {     // LISTO
-    $('#rut_estudiante_atraso').keyup(function() {
+    $('#rut_estudiante_atraso').keyup(function(e) {
+        e.preventDefault();
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
         get_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
 

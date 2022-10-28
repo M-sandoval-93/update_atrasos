@@ -16,7 +16,6 @@
 
         case "getEstudiante":
             print $datosAtraso->getEstudiante($_POST['rut']);
-            // print json_encode(true);
             break;
     }
 

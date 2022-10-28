@@ -59,7 +59,9 @@
             </div>
             <p class="text-success mt-3" id="cantidad_atrasos"></p>
             <div id="alerta_suspencion" class="mt-3">
-            <div id="alerta"></div>
+              <div class="alert alert-danger alert-dismissible" role="alert" id="alerta">
+                Estudiante suspendido !!!
+              </div>
             </div>
           </fieldset>
         </div>
