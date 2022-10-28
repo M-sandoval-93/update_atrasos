@@ -84,6 +84,41 @@
             $this->conexion_db = null;
         }
 
+        public function setAtraso($rut) {
+
+            $queryE = "SELECT id_estudiante FROM estudiante WHERE rut_estudiante = ?;";
+            $sentencia = $this->conexion_db->prepare($queryE);
+
+            if ($sentencia->execute([$rut])) {
+                $resultadoE = $sentencia->fetch();
+
+                $query = "INSERT INTO atraso (fecha_hora_actual, fecha_atraso, hora_atraso, id_estudiante)
+                VALUES (CURRENT_TIMESTAMP, CURRENT_DATE, CURRENT_TIME, ?);";
+
+                $sentencia = $this->conexion_db->prepare($query);
+                if ($sentencia->execute([$resultadoE["id_estudiante"]])) {
+                    $this->res = true;
+                }
+            }
+
+            return json_encode($this->res);
+            $this->conexion_db = null;
+        }
+
+        public function eliminarAtraso($id_atraso) {
+
+            $query = "DELETE FROM atraso WHERE id_atraso = ?;";
+            $sentencia = $this->conexion_db->prepare($query);
+            
+            if ($sentencia->execute([$id_atraso])) {
+                $this->res = true;
+            }
+
+            return json_encode($this->res);
+            $this->conexion_db = null;
+
+        }
+
 
     }
 

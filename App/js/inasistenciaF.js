@@ -251,7 +251,7 @@ $(document).ready(function() {
                 data: {datos: datos, tipoI: tipoI, rutF: rutF, fechaI: fechaI, fechaT: fechaT, diasI: diasI, ord: ord, rutR: rutR, id_inasistencia: id_inasistencia},
                 success: function(data) {
                     if (data == false) {
-                        LibreriaFunciones.alertPopUp('error', 'Error al Actualizar registro !!');
+                        LibreriaFunciones.alertPopUp('info', 'Error al Actualizar registro !!');
                     } else {
                         LibreriaFunciones.alertPopUp('success', 'Registro actualizado !!');
                         modal.removeClass('modal-show');

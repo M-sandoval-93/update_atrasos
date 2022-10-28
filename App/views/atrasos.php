@@ -28,7 +28,7 @@
                         </div>
                         <div class="tarjeta">
                             <div>
-                                <div class="numero" id="atraso_total">1340</div>
+                                <div class="numero" id="atraso_total"></div>
                                 <div class="detalle">Atrasos del año</div>
                             </div>
                             <div class="icono_tarjeta">

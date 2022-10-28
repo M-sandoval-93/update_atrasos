@@ -17,6 +17,16 @@
         case "getEstudiante":
             print $datosAtraso->getEstudiante($_POST['rut']);
             break;
+
+        case "setAtraso":
+            print $datosAtraso->setAtraso($_POST['rut']);
+            break;
+
+        case "eliminarAtraso":
+            print $datosAtraso->eliminarAtraso($_POST['id_atraso']);
+            // print json_encode(false);
+            break;
+
     }
 
 ?>
