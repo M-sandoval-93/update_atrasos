@@ -126,9 +126,9 @@
             </div>
           </div>
 
-          <div class="d-flex justify-content-end">
+          <!-- <div class="d-flex justify-content-end">
             <button class="btn btn-warning" type="button" id="marcar_desmarcar_atrasos">Marcar todo</button>
-          </div>
+          </div> -->
           
           <div class="row g-3">
             <div class="col-12">
@@ -138,7 +138,8 @@
                       <tr>
                           <th>Fecha</th>
                           <th>Hora</th>
-                          <th>Marcar</th>
+                          <!-- <th>Marcar</th> -->
+                          <th></th>
                       </tr>
                   </thead>
                   <tbody>

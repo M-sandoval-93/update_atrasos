@@ -37,19 +37,18 @@ function atrasosSinJustificar(rut) {
         columns: [
             {data: "fecha_atraso", className: 'text-center'},
             {data: "hora_atraso", className: 'text-center'},
+            {data: "id_atraso", className: 'text-center'}
+        ],
+        columnDefs: [
             {
-                data: "id_atraso",
-                bSortable: false,
-                searchable: false,
-                mRender: function(data) {
-                    let check;
-                    check = '<input type="checkbox" class="form-check-input" id="chek_justificar" value="' + data +'">'
-                    return check;
-                },
-                className: "text-center"
+                target: 2,
+                checkboxes: {selectRow: true}
             }
         ],
-        order: [[0, 'desc'], [1, 'desc']],
+        select: {style: 'multi'},
+
+
+        order: [[0, 'asc'], [1, 'asc']],
         language: spanish
     });
 
@@ -180,7 +179,7 @@ $(document).ready(function() {
     let datos = 'showAtrasos'; 
     let id_atraso;
 
-    // CANTIDAD DE ATRASOS DEL DÍA
+    // Cantidad de atrasos diarios y total
     cantidadAtrasos('diario', '#atraso_diario');
     cantidadAtrasos('total', '#atraso_total');
 
@@ -212,7 +211,7 @@ $(document).ready(function() {
                 className: 'text-center'
             }
         ],
-        order: [[6, 'desc'], [7, 'desc']],
+        order: [[6, 'asc'], [7, 'asc']],
         language: spanish
     });
 
@@ -262,81 +261,47 @@ $(document).ready(function() {
 
     });
 
-
-
-
-
-
-    // Btn para marcar y desmarcar
-    $('#marcar_desmarcar_atrasos').click(function(e) {
-        e.preventDefault();
-        $(this).toggleClass('active');
-
-        if ($(this).hasClass('active') == false) {
-            // Tiene la clase active
-            $('#atraso_sinJustificar input[type="checkbox"]').each(function() {
-                $(this).prop('checked', false);
-            });
-            $(this).text('Marcar todo');
-            
-        } else {
-            // No tiene la clase active
-            $('#atraso_sinJustificar input[type="checkbox"]').each(function() {
-                $(this).prop('checked', true);
-            });
-            $(this).text('Desmarcar todo');
-        }
-
-
-
-    });
-
     // Btn para justificar atrasos
     $('#btn_justificar_atraso').click(function(e) {
         e.preventDefault();
+        let row_selected = $('#atraso_sinJustificar').DataTable().column(2).checkboxes.selected();
+        let atrasos = [];
+        let id_apoderado = $('#apoderado_justifica').val();
+        datos = 'setJustificar';
 
-        // Verificar que el modal este listo para ser enviado:
-            // Que exista un apoderado seleccionado
-            // Que exista como mínimo un atraso seleccionado
-            // Verificar los atrasos seleccionados
+        if ($('#apoderado_justifica').val() == 'Sin apoderados !!' || $('#apoderado_justifica').val() == 'Seleccionar apoderado') {
+            LibreriaFunciones.alertPopUp('warning', 'Seleccionar apoderado !!');
+            return false;
+        }
 
-        // let table = $('#atraso_sinJustificar').DataTable().data();
-        // console.log(table.length);
-        // console.log(table);
+        if (row_selected.length < 1) {
+            LibreriaFunciones.alertPopUp('warning', 'Seleccionar atraso !!');
+            return false;
+        }
 
+        $.each(row_selected, function(index, rowId) {
+            atrasos.push(rowId);
+        });
 
-        // let valoresCheck = [];
+        $.ajax({
+            url: "./controller/controller_atrasos.php",
+            type: "post",
+            dataType: "json",
+            cache: false,
+            data: {datos: datos, id_apoderado: id_apoderado, atrasos: atrasos},
+            success: function(data) {
+                // console.log(data);
+                if (data == false) {
+                    LibreriaFunciones.alertPopUp('error', 'Error de registro !!');
+                }
 
-        let table = $('#atraso_sinJustificar').DataTable().row().nodes(3);
-        console.log(table);
-        // let data = table.rows().nodes();
-
-        // data.each(function(value, index) {
-        //     let valor = value.cells[0].children[0].value;
-        //     let check = value.cells[0].children[0].checked;
-
-        //     if (check) {
-        //         valoresCheck.push(valor);
-        //     }
-        // })
-
-        // console.log(valoresCheck);
-
-
-        // table.data().each(function() {
-        //     console.log(id_estado);
-        // });
-
-            
+                tabla_atrasos.ajax.reload(null, false);
+                $('#modal_justificar_atraso').modal('hide');
+                LibreriaFunciones.alertPopUp('success', 'Atrasos justificados !!');
+            }
+        });    
     });
     
-
-
-
-
-
-
-
     // Btn para eliminar un registro
     $('#atraso_estudiante tbody').on('click', '#btn_eliminar_atraso', function() {
         let data = tabla_atrasos.row($(this).parents()).data();

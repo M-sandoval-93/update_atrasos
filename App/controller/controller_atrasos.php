@@ -1,6 +1,11 @@
 <?php
     // Incluimos el modelo que utilizara el controlador
     include_once '../model/model_atraso.php';
+    include_once "../model/model_session.php";
+
+    $session = new Session();
+    $id_usuario = $session->getId();
+
 
     $type = $_POST['datos']; // Recibimos la acción a realizar por el controlador
     $datosAtraso = new AtrasoEstudiante(); // Creamos el objeto para trabajar con datatable
@@ -32,6 +37,11 @@
 
         case "eliminarAtraso":
             print $datosAtraso->eliminarAtraso($_POST['id_atraso']);
+            break;
+
+        case "setJustificar":
+            // print json_encode($id_usuario);
+            print $datosAtraso->setJustificar($_POST['id_apoderado'], $_POST['atrasos'], $id_usuario);
             break;
 
     }

@@ -1,7 +1,7 @@
 <?php
 
     // SE INCLUYE EL ARCHIVO DE CONEXION BBDD
-    include_once "./model_conexion.php";
+    // include_once "./model_conexion.php";
     include_once "../model/model_conexion.php";
 
     class Session extends Conexion {
@@ -38,13 +38,14 @@
             // VARIABLES
             // $md5Pass = md5($pass);   -> usar cuando la clave este en MD5
             $md5Pass = $pass;
-            $query = "SELECT * FROM usuario WHERE nombre_usuario = '$usser' AND clave_usuario = '$md5Pass'";
+            $query = "SELECT * FROM usuario WHERE nombre_usuario = '$usser' AND clave_usuario = '$md5Pass';";
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute();
 
             // SI EL USUARIO EXISTE Y ESTA CORRECTO, DEBUELVE TRUE
             if ($sentencia->rowCount() >= 1) {
                 $this->setUsser('msandoval'); // NOTA: PASAR PRIVILEGIO, ID Y NOMBRE DE USUARIO
+                $this->setId(1);
                 return true;
             } else {
                 return false;

@@ -99,7 +99,7 @@
                 return json_encode($this->json);
             }
 
-            return json_encode($this->res);
+            return json_encode($this->res);s
             $this->closeConnection();
         }
 
@@ -134,6 +134,23 @@
 
             return json_encode($this->res);
             $this->closeConnection();
+        }
+
+        public function setJustificar($id_apoderado, $atrasos, $id_usuario) {
+            $query = "UPDATE atraso
+                SET estado_atraso = 'justificado', id_usuario_justifica = ?, fecha_hora_justificacion = CURRENT_TIMESTAMP, id_apoderado_justifica = ?
+                WHERE id_atraso = ?;";
+
+            $sentencia = $this->preConsult($query);
+            foreach ($atrasos as $atraso) {
+                if ($sentencia->execute([$id_usuario, $id_apoderado, $atraso])) {
+                    $this->res = true;
+                }
+            }
+            
+            return json_encode($this->res);
+            $this->closeConnection();
+
         }
 
 

@@ -1,7 +1,6 @@
 <?php
 
     // SE INCLUYEN LOS ARCHIVOS DE CONFIGURACIÓN
-    //include_once "./config/config.php";
     include_once "../config/config.php"; 
 
     class Conexion {
