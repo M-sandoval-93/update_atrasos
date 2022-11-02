@@ -3,8 +3,8 @@
     include_once "../model/model_conexion.php";
 
     class Estudiante extends Conexion {
-        private $json = array();
-        private $res = false;
+        // private $json = array();
+        // private $res = false;
 
         public function __construct() {
             parent:: __construct();

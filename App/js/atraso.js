@@ -6,7 +6,7 @@ function cantidadAtrasos(tipo, id_campo) {
 
     $.ajax({
         url: "./controller/controller_atrasos.php",
-        method: "post",
+        type: "post",
         dataType: "json",
         data: {datos: datos, tipo: tipo},
         success: function(data) {
@@ -19,15 +19,52 @@ function cantidadAtrasos(tipo, id_campo) {
     });
 }
 
+function atrasosSinJustificar(rut) {
+    let datos = 'showAtrasosSinJustificar';
+    $('#atraso_sinJustificar').DataTable().destroy();
+
+    $('#atraso_sinJustificar').DataTable({
+        searching: false,
+        info: false,
+        lengthChange: false,
+        iDisplayLength: 5,
+        ajax: {
+            url: "./controller/controller_atrasos.php",
+            type: "post",
+            dateType: "json",	
+            data: {datos: datos, rut: rut}
+        },
+        columns: [
+            {data: "fecha_atraso", className: 'text-center'},
+            {data: "hora_atraso", className: 'text-center'},
+            {
+                data: "id_atraso",
+                bSortable: false,
+                searchable: false,
+                mRender: function(data) {
+                    let check;
+                    check = '<input type="checkbox" class="form-check-input" id="chek_justificar" value="' + data +'">'
+                    return check;
+                },
+                className: "text-center"
+            }
+        ],
+        order: [[0, 'desc'], [1, 'desc']],
+        language: spanish
+    });
+
+}
+
 function get_info_estudiante(rut, input_nombre, input_curso) { // REVISAR INFORMACIÓN, PROCESOS Y FUNCIONAMIENTOS
     let datos = 'getEstudiante';
 
-    if (rut != '' && rut.length > 7) {
-        // if (input_nombre.val() == '') {
+    if (rut != '' && rut.length > 7 && rut.length < 9) {
+        if (input_nombre.val() == '') {
             $.ajax({
                 url: "./controller/controller_atrasos.php",
                 type: "post",
                 dataType: "json",
+                cache: false,
                 data: {datos: datos, rut: rut},
                 success: function(info) {
                     if (info != false) {
@@ -38,47 +75,78 @@ function get_info_estudiante(rut, input_nombre, input_curso) { // REVISAR INFORM
                             input_nombre.val('(' + info[0].nombre_social + ') ' + info[0].nombre_estudiante);
                         }
 
-                        if (info[0].id_estado == 5) {
-                            $('#alerta').show();
-                            $('#registrar_atraso').prop('disabled', true);
-                        } else {
-                            $('#alerta').hide();
+                        if (info[0].cantidad_atraso >= 1) {
+                            $('#alerta_atraso_cantidad').text('Atrasos sin justificar: ' + info[0].cantidad_atraso);
+                            $('#alerta_atraso_cantidad').show();
                         }
+
+                        if (info[0].id_estado == 5) {
+                            $('#registrar_atraso').prop('disabled', true);
+                            $('#alerta_suspencion_activa').text('Estudiante suspendido !!!');
+                            $('#alerta_suspencion_activa').show();
+                        } 
 
                     } else {
                         input_nombre.val('Sin datos');
                         input_curso.val('N/A');
-                        $('#alerta').hide();
                     }
-                    return true;
                 }
             });
-        // }
+        }
+    } else {
+        input_nombre.val('');
+        input_curso.val('');
+        $('#alerta_atraso_cantidad').hide();
+        $('#alerta_suspencion_activa').hide();
+        $('#registrar_atraso').removeAttr('disabled');
     }
 }
 
-function prepararModalAtraso() {
+function prepararModalAtraso() {    // LISTO    preparar el modal de atraso antes de mostrarlo
     let fecha_hora_actual = new Date();
-    $('#modal_registro_atraso').trigger('reset');
-    $('#alerta').hide();
+    $('#form_registro_atraso').trigger('reset');
     $('#staticFecha').val(fecha_hora_actual.toLocaleDateString());
     $('#staticHora').val(fecha_hora_actual.toLocaleTimeString());
-
-    autofocus();
-    validarRut();
-
+    $('#registrar_atraso').removeAttr('disabled');
+    $('#alerta_atraso_cantidad').hide();
+    $('#alerta_suspencion_activa').hide();
+    $('#rut_estudiante_atraso').removeClass('is-invalid');
+    $('#informacion_rut').removeClass('text-danger');
+    $('#informacion_rut').text('Rut sin puntos, sin guión y sin dígito verificador');
+    $('#informacion_rut').addClass('form-text');
+    LibreriaFunciones.autoFocus($('#modal_registro_atraso'), $('#rut_estudiante_atraso'));
 
 }
 
-function validarRut() {     // LISTO
-    $('#rut_estudiante_atraso').blur(function(e) {
-        get_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
-    });
+function prepararModalJustificar(data) {
+    $('#modal_justificar_atraso').modal('show');
+    $('#rut_estudiante_justifica').val(data.rut);
+    $('#curso_estudiante_justifica').val(data.curso);
+    $('#nombre_estudiante_justifica').val(data.nombre + ' ' + data.ap_paterno + ' ' + data.ap_materno);
+    $('#marcar_desmarcar_atrasos').removeClass('active');
+    $('#marcar_desmarcar_atrasos').text('Marcar todo');
+    
+}
 
+function cargarApodaerado(rut) {
+    let datos = 'getApoderado_justifica';
+
+    $.ajax({
+        url: "./controller/controller_apoderado.php",
+        type: "post",
+        dataType: "json",
+        data: {datos: datos, rut: rut},
+        success: function(data) {
+            $('#apoderado_justifica').html(data);
+        }
+    });
+}
+
+function validarRut() {     // LISTO
     $('#rut_estudiante_atraso').keyup(function(e) {
         e.preventDefault();
-        // get_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
+        get_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
 
         if ($('#dv_rut_estudiante_atraso').val() == '' && $('#rut_estudiante_atraso').val() != '') {
             $('#rut_estudiante_atraso').addClass('is-invalid');
@@ -92,28 +160,16 @@ function validarRut() {     // LISTO
             $('#informacion_rut').text('Rut sin puntos, sin guión y sin dígito verificador');
             $('#informacion_rut').addClass('form-text');
         }    
-
-        if ($('#rut_estudiante_atraso').val().length < 8) {
-            $('#nombre_estudiante_atraso').val('');
-            $('#curso_estudiante_atraso').val('');
-            $('#alerta').hide();
-            $('#registrar_atraso').removeAttr('disabled');
-        }
-    });
-}
-    
-function autofocus() {      // LISTO
-    $('#modal_atraso').on('shown.bs.modal', function(e) {
-        $('#rut_estudiante_atraso').focus();
     });
 }
 
-function beforeRegistro(tabla) {
+function beforeRegistro(tabla) {    // LISTO función para cuando se almacena un registro y se recargan los datos necesarios
     tabla.ajax.reload(null, false);
-    prepararModalAtraso();
     cantidadAtrasos('diario', '#atraso_diario');
     cantidadAtrasos('total', '#atraso_total');
+    prepararModalAtraso();
 }
+
 
 
 
@@ -121,9 +177,7 @@ function beforeRegistro(tabla) {
 
 $(document).ready(function() {
     // variables globales
-    let modal = $('#modal_atraso'); 
     let datos = 'showAtrasos'; 
-    let registrar; 
     let id_atraso;
 
     // CANTIDAD DE ATRASOS DEL DÍA
@@ -134,14 +188,15 @@ $(document).ready(function() {
     let tabla_atrasos = $('#atraso_estudiante').DataTable({     // LISTO
         ajax: {
             url: "./controller/controller_atrasos.php",
-            method: "post",
+            type: "post",
             dateType: "json",
             data: {datos: datos}
         },
         columns: [
             {   
                 data: "id_atraso",
-                visible: false
+                visible: false,
+                searchable: false
             },
             {data: "rut"},
             {data: "ap_paterno"},
@@ -167,7 +222,7 @@ $(document).ready(function() {
     });
 
     // Btn para registrar un atraso
-    $('#registrar_atraso').click(function(e) {  // LISTO
+    $('#btn_registrar_atraso').click(function(e) {  // LISTO
         e.preventDefault();
         datos = 'setAtraso';
         let rut;
@@ -195,6 +250,92 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Btn para mostrar modal justificaciones
+    $('#atraso_estudiante tbody').on('click', '#btn_justificar_atraso', function() {
+        let data = tabla_atrasos.row($(this).parents()).data();
+        let rut = data.rut.slice(0, -2);
+        
+        prepararModalJustificar(data);
+        cargarApodaerado(rut);
+        atrasosSinJustificar(rut);
+
+    });
+
+
+
+
+
+
+    // Btn para marcar y desmarcar
+    $('#marcar_desmarcar_atrasos').click(function(e) {
+        e.preventDefault();
+        $(this).toggleClass('active');
+
+        if ($(this).hasClass('active') == false) {
+            // Tiene la clase active
+            $('#atraso_sinJustificar input[type="checkbox"]').each(function() {
+                $(this).prop('checked', false);
+            });
+            $(this).text('Marcar todo');
+            
+        } else {
+            // No tiene la clase active
+            $('#atraso_sinJustificar input[type="checkbox"]').each(function() {
+                $(this).prop('checked', true);
+            });
+            $(this).text('Desmarcar todo');
+        }
+
+
+
+    });
+
+    // Btn para justificar atrasos
+    $('#btn_justificar_atraso').click(function(e) {
+        e.preventDefault();
+
+        // Verificar que el modal este listo para ser enviado:
+            // Que exista un apoderado seleccionado
+            // Que exista como mínimo un atraso seleccionado
+            // Verificar los atrasos seleccionados
+
+        // let table = $('#atraso_sinJustificar').DataTable().data();
+        // console.log(table.length);
+        // console.log(table);
+
+
+        // let valoresCheck = [];
+
+        let table = $('#atraso_sinJustificar').DataTable().row().nodes(3);
+        console.log(table);
+        // let data = table.rows().nodes();
+
+        // data.each(function(value, index) {
+        //     let valor = value.cells[0].children[0].value;
+        //     let check = value.cells[0].children[0].checked;
+
+        //     if (check) {
+        //         valoresCheck.push(valor);
+        //     }
+        // })
+
+        // console.log(valoresCheck);
+
+
+        // table.data().each(function() {
+        //     console.log(id_estado);
+        // });
+
+            
+    });
+    
+
+
+
+
+
+
 
     // Btn para eliminar un registro
     $('#atraso_estudiante tbody').on('click', '#btn_eliminar_atraso', function() {
@@ -232,14 +373,6 @@ $(document).ready(function() {
         });
     });
 
+    validarRut();
 
-
-
-
-
-
-
-    // // CANTIDAD DE ATRASOS DEL DÍA
-    // cantidadAtrasos('diario', '#atraso_diario');
-    // cantidadAtrasos('total', '#atraso_total');
 });

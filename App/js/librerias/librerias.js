@@ -280,37 +280,38 @@ export let LibreriaFunciones = {
         }        
     },
 
-    buscar_info_funcionario: function(rut, label, elemento = null) { // VER SI SE PASA AL CONTROLADOR DE FUNCIONARIO PARA QUE SEA GENERALIZADO
-        let datos = 'buscar_funcionario';
+    // Agregar como función interna en controlador funcionario
+    // buscar_info_funcionario: function(rut, label, elemento = null) { // VER SI SE PASA AL CONTROLADOR DE FUNCIONARIO PARA QUE SEA GENERALIZADO
+    //     let datos = 'buscar_funcionario';
 
-        if (rut.length < 7) {
-            if (elemento != null) {
-                elemento.attr('hidden', 'hidden');
-            }
-            label.text('');
+    //     if (rut.length < 7) {
+    //         if (elemento != null) {
+    //             elemento.attr('hidden', 'hidden');
+    //         }
+    //         label.text('');
     
-        } else if (rut.length >= 7) {
-            $.ajax({
-                url: "./controller/controller_inasistenciaF.php",
-                method: "post",
-                dataType: "json",
-                data: {rut: rut, datos: datos},
-                success: function(data) {
-                    if (data === false) {
-                        label.text('Funcionario sin registros !!');
-                        if (elemento != null) {
-                            elemento.removeAttr('hidden', 'hidden');
-                        }
-                    } else {
-                        if (elemento != null) {
-                            elemento.attr('hidden', 'hidden');
-                        }
-                        label.text(data);
-                    }
-                }
-            });
-        }
-    },
+    //     } else if (rut.length >= 7) {
+    //         $.ajax({
+    //             url: "./controller/controller_inasistenciaF.php",
+    //             method: "post",
+    //             dataType: "json",
+    //             data: {rut: rut, datos: datos},
+    //             success: function(data) {
+    //                 if (data === false) {
+    //                     label.text('Funcionario sin registros !!');
+    //                     if (elemento != null) {
+    //                         elemento.removeAttr('hidden', 'hidden');
+    //                     }
+    //                 } else {
+    //                     if (elemento != null) {
+    //                         elemento.attr('hidden', 'hidden');
+    //                     }
+    //                     label.text(data);
+    //                 }
+    //             }
+    //         });
+    //     }
+    // },
 
     alertBoostrap: function(elemento, message, type) {
         let componente = document.getElementById(elemento);
@@ -318,6 +319,12 @@ export let LibreriaFunciones = {
         let wrapper = document.createElement('div');
         wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '</div>';
         componente.append(wrapper);
+    },
+
+    autoFocus: function(modal, input) {
+        modal.on('shown.bs.modal', function() {
+            input.focus();
+        });
     }
 
 }

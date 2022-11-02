@@ -3,7 +3,7 @@
     include_once "../model/model_conexion.php";
 
     class Apoderado extends Conexion {
-        private $json = array();
+        // private $json = array();
 
         public function __construct() {
             parent:: __construct();
@@ -127,6 +127,44 @@
             }
 
             $this->conexion_db = null;
+        }
+
+        // Función utilizada para mostrar los apoderados que justifican en atrasos y justificaciones
+        public function getApoderadoJustifica($rut) {
+            $query = "SELECT ap_titular.id_apoderado AS id_titular,
+                (ap_titular.nombres_apoderado || ' ' || ap_titular.ap_apoderado || ' ' || ap_titular.am_apoderado) AS titular,
+                ap_suplente.id_apoderado AS id_suplente,
+                (ap_suplente.nombres_apoderado || ' ' || ap_suplente.ap_apoderado || ' ' || ap_suplente.am_apoderado) AS suplente
+                FROM estudiante
+                INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
+                LEFT JOIN apoderado AS ap_titular ON ap_titular.id_apoderado = matricula.id_ap_titular
+                LEFT JOIN apoderado AS ap_suplente ON ap_suplente.id_apoderado = matricula.id_ap_suplente
+                WHERE estudiante.rut_estudiante = ? AND matricula.anio_lectivo = EXTRACT(YEAR FROM now());";
+
+            $sentencia = $this->preConsult($query);
+            $sentencia->execute([$rut]);
+            $datos = $sentencia->fetch(PDO::FETCH_ASSOC);
+            $this->json[0] = "<option disable selected>Seleccionar apoderado</option>";
+
+            if ($datos['id_titular'] != null && $datos['id_suplente'] != null) {
+                $this->json[] = "<option value='".$datos['id_titular']."'>".$datos['titular'].'  (TITULAR)'."</option>";
+                $this->json[] = "<option value='".$datos['id_suplente']."'>".$datos['suplente'].'  (SUPLENTE)'."</option>";
+
+            } else if ($datos['id_titular'] != null && $datos['id_suplente'] == null) {
+                $this->json[] = "<option value='".$datos['id_titular']."'>".$datos['titular'].'  (TITULAR)'."</option>";
+
+            } else if ($datos['id_titular'] == null && $datos['id_suplente'] != null) {
+                $this->json[] = "<option value='".$datos['id_suplente']."'>".$datos['suplente'].'  (SUPLENTE)'."</option>";
+
+            } else {
+                $this->json[0] = "<option disable selected>Sin apoderados !!</option>";
+
+            }
+            
+
+            return json_encode($this->json);
+            $this->closeConnection();
+
         }
 
     }

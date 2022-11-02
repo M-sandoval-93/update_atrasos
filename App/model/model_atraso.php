@@ -3,8 +3,6 @@
     include_once "../model/model_conexion.php";
 
     class AtrasoEstudiante extends Conexion {
-        private $json = array();
-        private $res = false;
 
         public function __construct() {
             parent:: __construct();
@@ -23,19 +21,39 @@
             WHERE EXTRACT(YEAR FROM atraso.fecha_atraso) = EXTRACT(YEAR FROM now())
             AND atraso.estado_atraso = 'sin justificar';";
 
-            $sentencia = $this->conexion_db->prepare($query);
+            // $sentencia = $this->conexion_db->prepare($query);
+            $sentencia = $this->preConsult($query);
             $sentencia->execute();
             $atrasos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($atrasos as $atraso) {
                 if ($atraso['n_social'] != null) {
-                    $atraso['nombre'] = $atraso['nombre'].' ('. $atraso['n_social']. ')';
+                    $atraso['nombre'] = '('. $atraso['n_social']. ') '. $atraso['nombre'];
                 }
                 $this->json['data'][] = $atraso;
             }
 
             return json_encode($this->json);
-            $this->conexion_db = null;
+            $this->closeConnection();
+        }
+
+        public function atrasosSinJustificar($rut) {
+            $query = "SELECT atraso.id_atraso, to_char(atraso.fecha_atraso, 'DD/MM/YYYY') AS fecha_atraso,
+                to_char(atraso.hora_atraso, 'HH:MI:SS') AS hora_atraso
+                FROM estudiante
+                INNER JOIN atraso ON atraso.id_estudiante = estudiante.id_estudiante
+                WHERE estudiante.rut_estudiante = ? AND atraso.estado_atraso = 'sin justificar';";
+
+            $sentencia = $this->preConsult($query);
+            $sentencia->execute([$rut]);
+            $atrasos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($atrasos as $atraso) {
+                $this->json['data'][] = $atraso;
+            }
+
+            return json_encode($this->json);
+            $this->closeConnection();
         }
 
         public function cantidadAtrasos($tipo) {
@@ -58,51 +76,51 @@
             }
 
             return json_encode($this->res);
-            $this->conexion_db = null;
+            // $this->conexion_db = null;
+            $this->closeConnection();
         }
 
         public function getEstudiante($rut) {
             $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
             || ' ' || estudiante.am_estudiante) AS nombre_estudiante, 
-            estudiante.nombre_social, curso.curso, estudiante.id_estado
+            estudiante.nombre_social, curso.curso, estudiante.id_estado,
+            count(atraso.id_atraso) AS cantidad_atraso
             FROM estudiante
             INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
             INNER JOIN curso ON curso.id_curso = matricula.id_curso
-            WHERE estudiante.rut_estudiante = ?;";
+            LEFT JOIN atraso ON atraso.id_estudiante = estudiante.id_estudiante
+            WHERE estudiante.rut_estudiante = ?
+            group by nombre_estudiante, estudiante.nombre_social, curso.curso, estudiante.id_estado;";
 
             $sentencia = $this->conexion_db->prepare($query);
             $sentencia->execute([$rut]);
 
-            if ($datos = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {
-                foreach ($datos as $dato) {
-                    $this->json[] = $dato;
-                }
+            if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {
                 return json_encode($this->json);
-            } 
+            }
 
             return json_encode($this->res);
-            $this->conexion_db = null;
+            $this->closeConnection();
         }
 
         public function setAtraso($rut) {
-
             $queryE = "SELECT id_estudiante FROM estudiante WHERE rut_estudiante = ?;";
             $sentencia = $this->conexion_db->prepare($queryE);
 
             if ($sentencia->execute([$rut])) {
-                $resultadoE = $sentencia->fetch();
+                $resultadoE = $sentencia->fetch(PDO::FETCH_ASSOC);
 
                 $query = "INSERT INTO atraso (fecha_hora_actual, fecha_atraso, hora_atraso, id_estudiante)
-                VALUES (CURRENT_TIMESTAMP, CURRENT_DATE, CURRENT_TIME, ?);";
+                    VALUES (CURRENT_TIMESTAMP, CURRENT_DATE, CURRENT_TIME, ?);";
 
                 $sentencia = $this->conexion_db->prepare($query);
-                if ($sentencia->execute([$resultadoE["id_estudiante"]])) {
+                if ($sentencia->execute([$resultadoE['id_estudiante']])) {
                     $this->res = true;
                 }
             }
 
             return json_encode($this->res);
-            $this->conexion_db = null;
+            $this->closeConnection();
         }
 
         public function eliminarAtraso($id_atraso) {
@@ -115,8 +133,7 @@
             }
 
             return json_encode($this->res);
-            $this->conexion_db = null;
-
+            $this->closeConnection();
         }
 
 

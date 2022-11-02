@@ -42,7 +42,7 @@
 
             <!-- Tabla de contenido principal -->
             <div class="d-flex justify-content-between mb-5">
-                <button type="button" class="btn-lg btn-primary" id="btn_nuevo_atraso" data-bs-toggle="modal" data-bs-target="#modal_atraso">
+                <button type="button" class="btn-lg btn-primary" id="btn_nuevo_atraso" data-bs-toggle="modal" data-bs-target="#modal_registro_atraso">
                     <i class="fas fa-user-plus icon"></i>
                 </button>
                 <div class="row g-2">
@@ -62,7 +62,7 @@
                             <th>id</th>
                             <th>Rut</th>
                             <th>Ap Paterno</th>
-                            <th>Aps Materno</th>
+                            <th>Ap Materno</th>
                             <th>Nombres</th>
                             <th>Curso</th>
                             <th>Fecha</th>

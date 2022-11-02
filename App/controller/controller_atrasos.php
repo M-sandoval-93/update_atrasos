@@ -10,12 +10,20 @@
             print $datosAtraso->consultarAtraso();
             break;
 
+        case "showAtrasosSinJustificar";
+            print $datosAtraso->atrasosSinJustificar($_POST['rut']);
+            break;
+
         case "getAtrasos":
             print $datosAtraso->cantidadAtrasos($_POST['tipo']);
             break;
 
         case "getEstudiante":
-            print $datosAtraso->getEstudiante($_POST['rut']);
+            if (is_numeric($_POST['rut'])) {
+                print $datosAtraso->getEstudiante($_POST['rut']);
+            } else {
+                print json_encode(false);
+            }
             break;
 
         case "setAtraso":
@@ -24,7 +32,6 @@
 
         case "eliminarAtraso":
             print $datosAtraso->eliminarAtraso($_POST['id_atraso']);
-            // print json_encode(false);
             break;
 
     }
