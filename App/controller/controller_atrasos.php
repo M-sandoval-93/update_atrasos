@@ -40,7 +40,6 @@
             break;
 
         case "setJustificar":
-            // print json_encode($id_usuario);
             print $datosAtraso->setJustificar($_POST['id_apoderado'], $_POST['atrasos'], $id_usuario);
             break;
 
