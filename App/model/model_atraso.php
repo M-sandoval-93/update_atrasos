@@ -81,17 +81,6 @@
         }
 
         public function getEstudiante($rut) {
-            // $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
-            // || ' ' || estudiante.am_estudiante) AS nombre_estudiante, 
-            // estudiante.nombre_social, curso.curso, estudiante.id_estado,
-            // count(atraso.id_atraso) AS cantidad_atraso
-            // FROM estudiante
-            // INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
-            // INNER JOIN curso ON curso.id_curso = matricula.id_curso
-            // LEFT JOIN atraso ON atraso.id_estudiante = estudiante.id_estudiante
-            // WHERE estudiante.rut_estudiante = ?
-            // group by nombre_estudiante, estudiante.nombre_social, curso.curso, estudiante.id_estado;";
-
             $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
                 || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
                 estudiante.nombre_social, curso.curso, estudiante.id_estado

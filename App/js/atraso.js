@@ -169,9 +169,6 @@ function beforeRegistro(tabla) {    // LISTO función para cuando se almacena un
     prepararModalAtraso();
 }
 
-
-
-
 // ==================== FUNCIONES INTERNAS ===============================//
 
 $(document).ready(function() {
@@ -337,6 +334,25 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Btn para generar EXCEL
+    $('#btn_excel_atraso').click(function(e) {
+        e.preventDefault();
+
+        console.log("generar excel");
+
+    });
+
+
+
+
+    // Btn apra generar PDF
+
+    $('#btn_pdf_atraso').click(function(e) {
+        e.preventDefault();
+
+        console.log("generar pdf");
+    })
 
     validarRut();
 

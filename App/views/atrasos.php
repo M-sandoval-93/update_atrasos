@@ -47,10 +47,10 @@
                 </button>
                 <div class="row g-2">
                     <div class="col-6">
-                        <button class="btn-lg btn-success">excel</button>
+                        <button class="btn-lg btn-success" id="btn_excel_atraso">excel</button>
                     </div>
                     <div class="col-6">
-                        <button class="btn-lg btn-danger">PDF</button>
+                        <button class="btn-lg btn-danger" id="btn_pdf_atraso">PDF</button>
                     </div>
                 </div>
             </div>
