@@ -1,7 +1,9 @@
 <?php
-    if (!isset($_SESSION['usser']['name'])) {
+    
+     if (!isset($_SESSION['usser']['name'])) {
         header("location: ../");
     }
+
 ?>
 
 <!DOCTYPE html>

@@ -338,8 +338,25 @@ $(document).ready(function() {
     // Btn para generar EXCEL
     $('#btn_excel_atraso').click(function(e) {
         e.preventDefault();
+        // window.location.href = '/update_atrasos/App/controller/controller_excel.php';
+        window.location.href = '/update_atrasos/App/Pluggins/Excel/excel_atraso.php';
 
-        console.log("generar excel");
+        // console.log("generar excel")
+
+        // let datos = 'excel_atraso';
+
+        // $.ajax({
+        //     // url: "./controller/controller_atrasos.php",
+        //     url: "./controller/controller_excel.php",
+        //     type: "post",
+        //     dataType: "json",
+        //     cache: false,
+        //     data: {datos: datos},
+        //     success: function(data) {
+        //         console.log("se envió el excel");
+        //     }
+        // }); 
+
 
     });
 
