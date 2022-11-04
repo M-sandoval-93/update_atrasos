@@ -9,6 +9,7 @@
         if (isset($_GET['ruta'])) {
             include_once "./controller/controller_ruta.php";
         } else {
+            // header("location: home");
             header("location: home");
         }
     } else {

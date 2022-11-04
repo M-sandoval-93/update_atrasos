@@ -338,10 +338,8 @@ $(document).ready(function() {
     // Btn para generar EXCEL
     $('#btn_excel_atraso').click(function(e) {
         e.preventDefault();
-        // window.location.href = '/update_atrasos/App/controller/controller_excel.php';
         window.location.href = '/update_atrasos/App/Pluggins/Excel/excel_atraso.php';
 
-        // console.log("generar excel")
 
         // let datos = 'excel_atraso';
 
