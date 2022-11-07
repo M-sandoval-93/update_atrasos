@@ -2,6 +2,10 @@
 
     include_once "../model/model_conexion.php";
 
+    // require __DIR__."/vendor/autoload.php";
+    // use PhpOffice\PhpSpreadsheet\{Spreadsheet, IOFactory};
+    
+
     class AtrasoEstudiante extends Conexion {
 
         public function __construct() {
@@ -160,6 +164,117 @@
             $this->closeConnection();
 
         }
+
+        // public function getExcelAtraso() {
+        //     $query = "SELECT (estudiante.rut_estudiante || '-' || estudiante.dv_rut_estudiante) AS rut,
+        //     estudiante.ap_estudiante AS ap_paterno, estudiante.am_estudiante AS ap_materno,
+        //     estudiante.nombres_estudiante AS nombre, estudiante.nombre_social AS n_social, curso.curso, 
+        //     to_char(atraso.fecha_atraso, 'DD/MM/YYYY') AS fecha_atraso,
+        //     to_char(atraso.hora_atraso, 'HH:MI:SS') AS hora_atraso,
+        //     atraso.estado_atraso
+        //     FROM atraso
+        //     INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
+        //     INNER JOIN matricula ON matricula.id_estudiante = atraso.id_estudiante
+        //     INNER JOIN curso ON curso.id_curso = matricula.id_curso;";
+
+        //     $sentencia = $this->preConsult($query);
+        //     $sentencia->execute();
+        //     $atrasos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+        //     $file = new Spreadsheet();
+        //     $file
+        //         ->getProperties()
+        //         ->setCreator("Dpto. Informática")
+        //         ->setLastModifiedBy('Informática')
+        //         ->setTitle('Registro atrasos');
+            
+        //     $file->setActiveSheetIndex(0);
+        //     $sheetActive = $file->getActiveSheet();
+        //     $sheetActive->setTitle("Atrasos");
+        //     $sheetActive->getColumnDimension('A')->setAutoSize(true);
+        //     $sheetActive->getColumnDimension('B')->setAutoSize(true);
+        //     $sheetActive->getColumnDimension('C')->setAutoSize(true);
+        //     $sheetActive->getColumnDimension('D')->setAutoSize(true);
+        //     $sheetActive->getColumnDimension('E')->setAutoSize(true);
+        //     $sheetActive->getColumnDimension('F')->setAutoSize(true);
+        //     $sheetActive->getColumnDimension('H')->setAutoSize(true);
+        //     $sheetActive->getColumnDimension('G')->setAutoSize(true);
+        
+        //     $sheetActive->setCellValue('A1', 'RUT');
+        //     $sheetActive->setCellValue('B1', 'AP PATERNO');
+        //     $sheetActive->setCellValue('C1', 'AP MATERNO');
+        //     $sheetActive->setCellValue('D1', 'NOMBRES');
+        //     $sheetActive->setCellValue('E1', 'CURSO');
+        //     $sheetActive->setCellValue('F1', 'FECHA');
+        //     $sheetActive->setCellValue('G1', 'HORA');
+        //     $sheetActive->setCellValue('H1', 'ESTADO ATRASO');
+
+        //     $fila = 2;
+        //     foreach ($atrasos as $atraso) {
+        //         $sheetActive->setCellValue('A'.$fila, $atraso['rut']);
+        //         $sheetActive->setCellValue('B'.$fila, $atraso['ap_paterno']);
+        //         $sheetActive->setCellValue('C'.$fila, $atraso['ap_materno']);
+        //         $sheetActive->setCellValue('D'.$fila, $atraso['nombre']);
+        //         // Agregar nombre social
+        //         $sheetActive->setCellValue('E'.$fila, $atraso['curso']);
+        //         $sheetActive->setCellValue('F'.$fila, $atraso['fecha_atraso']);
+        //         $sheetActive->setCellValue('G'.$fila, $atraso['hora_atraso']);
+        //         $sheetActive->setCellValue('H'.$fila, $atraso['estado_atraso']);
+        //         $fila++;
+        //     }
+        
+        //     $this->closeConnection();
+
+        //     // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        //     // header('Content-Disposition: attachment;filename="Registro atrasos.xlsx"');
+        //     // header('Cache-Control: max-age=0');
+
+        //     $writer = IOFactory::createWriter($file, 'Xlsx');
+        //     // $writer->save('php://output');
+        //     // exit;
+
+
+        //     ob_start();
+        //     $writer->save("Registro_atrasos.xlsx");
+        //     // header('Content-Disposition: attachment;filename="Registro_Atrasos.xlsx"');
+        //     // header('Cache-Control: max-age=0');
+        //     // $writer->save('Content-Disposition: attachment;filename="Registro_Atrasos.xlsx"');
+        //     // $writer->save('Registro_Atrasos.xlsx');
+        //     // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        //     $xlsData = ob_get_contents();
+        //     ob_end_clean();
+
+
+        //     $file = array (
+        //         "status" => 0,
+        //         "data" => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; base64,'.base64_encode($xlsData)
+        //     );
+
+        //     return json_encode($file);
+
+        
+
+        //     // ob_start();
+        //     // $writer->save($ruta);
+
+
+        //     // $xlsData = ob_get_contents();
+        //     // ob_end_clean();
+
+
+        //     // $opResult = array(
+        //     //     'status' => 1,
+        //     //     'data'=>"data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($xlsData)
+        //     // );
+
+        //     // $opResult = array(
+        //     //     "mensaje" => $mensaje,
+        //     //     "data" => "$data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        //     // );
+
+        //     // return json_encode($opResult);
+
+        // }
 
     }
 

@@ -338,31 +338,36 @@ $(document).ready(function() {
     // Btn para generar EXCEL
     $('#btn_excel_atraso').click(function(e) {
         e.preventDefault();
-        window.location.href = '/update_atrasos/App/Pluggins/Excel/excel_atraso.php';
+        // window.location.href = './Pluggins/Excel/excel_atraso.php';
+        window.location.href = './model/model_atrasoExcel.php';
 
-
-        // let datos = 'excel_atraso';
+        // datos = 'getExcel';
 
         // $.ajax({
-        //     // url: "./controller/controller_atrasos.php",
-        //     url: "./controller/controller_excel.php",
+        //     url: "./controller/controller_atrasos.php",
         //     type: "post",
-        //     dataType: "json",
+        //     dataType: "html",
         //     cache: false,
         //     data: {datos: datos},
         //     success: function(data) {
-        //         console.log("se envió el excel");
+        //         let opResult = JSON.parse(data);
+        //         // console.log(opResult.data);
+        //         // console.log(data);
+        //         let $a = $("<a>");
+
+        //         $a.attr("href", opResult.data);
+        //         $("body").append($a);
+        //         // $a.attr("download", "Registro_atrasos.xlsx");
+        //         $a[0].click();
+        //         $a.remove();
         //     }
-        // }); 
+        // });
 
 
     });
 
 
-
-
     // Btn apra generar PDF
-
     $('#btn_pdf_atraso').click(function(e) {
         e.preventDefault();
 

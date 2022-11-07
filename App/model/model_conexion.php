@@ -3,6 +3,7 @@
     // SE INCLUYEN LOS ARCHIVOS DE CONFIGURACIÓN
     include_once "../config/config.php"; 
 
+
     class Conexion {
         protected $conexion_db; // hacerla variable privada
         protected $json = array();
@@ -21,11 +22,11 @@
             }
         }
 
-        protected function preConsult($query) {
+        public function preConsult($query) {
             return $this->conexion_db->prepare($query);
         }
 
-        protected function closeConnection() {
+        public function closeConnection() {
             $this->conexion_db = null;
         }
     }

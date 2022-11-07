@@ -79,12 +79,6 @@
 
 
 
-
-
-
-
-
-
 <!-- Modal Justificación -->
 <div class="modal fade" id="modal_justificar_atraso" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -161,3 +155,5 @@
   </div>
 </div>
 
+<!-- CREAR MODAL PARA SELECCIONAR EL AÑO DEL QUE SE QUIERE DESCARGAR LA INFORMACIÓN -->
+<!-- VER SI ES RECOMENDABLE SELECCIONAR EL AÑO O NO SELECCIONAR NINGUN FILTRO -->

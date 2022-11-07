@@ -43,9 +43,10 @@
             print $datosAtraso->setJustificar($_POST['id_apoderado'], $_POST['atrasos'], $id_usuario);
             break;
 
-        // case "excel_atraso":
-        //     // print $datosAtraso->excelAtraso();
+        // case "getExcel":
+        //     print $datosAtraso->getExcelAtraso();
         //     break;
+
 
     }
 
