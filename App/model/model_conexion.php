@@ -5,7 +5,7 @@
 
 
     class Conexion {
-        protected $conexion_db; // hacerla variable privada
+        private $conexion_db; // hacerla variable privada
         protected $json = array();
         protected $res = false;
 
@@ -22,11 +22,11 @@
             }
         }
 
-        public function preConsult($query) {
+        protected function preConsult($query) {
             return $this->conexion_db->prepare($query);
         }
 
-        public function closeConnection() {
+        protected function closeConnection() {
             $this->conexion_db = null;
         }
     }

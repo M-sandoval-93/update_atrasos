@@ -338,31 +338,26 @@ $(document).ready(function() {
     // Btn para generar EXCEL
     $('#btn_excel_atraso').click(function(e) {
         e.preventDefault();
-        // window.location.href = './Pluggins/Excel/excel_atraso.php';
-        window.location.href = './model/model_atrasoExcel.php';
+        datos = 'getExcel';
 
-        // datos = 'getExcel';
+        $.ajax({
+            url: "./controller/controller_atrasos.php",
+            type: "post",
+            dataType: "html",
+            cache: false,
+            data: {datos: datos},
+            success: function(data) {
+                let opResult = JSON.parse(data);
+                let $a = $("<a>");
 
-        // $.ajax({
-        //     url: "./controller/controller_atrasos.php",
-        //     type: "post",
-        //     dataType: "html",
-        //     cache: false,
-        //     data: {datos: datos},
-        //     success: function(data) {
-        //         let opResult = JSON.parse(data);
-        //         // console.log(opResult.data);
-        //         // console.log(data);
-        //         let $a = $("<a>");
-
-        //         $a.attr("href", opResult.data);
-        //         $("body").append($a);
-        //         // $a.attr("download", "Registro_atrasos.xlsx");
-        //         $a[0].click();
-        //         $a.remove();
-        //     }
-        // });
-
+                $a.attr("href", opResult.data);
+                $("body").append($a);
+                // $a.attr("download", "Registro atrasos.csv");
+                $a.attr("download", "Registro atrasos.xlsx");
+                $a[0].click();
+                $a.remove();
+            }
+        });
 
     });
 

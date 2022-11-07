@@ -2,8 +2,9 @@
 
     include_once "../model/model_conexion.php";
 
-    // require __DIR__."/vendor/autoload.php";
-    // use PhpOffice\PhpSpreadsheet\{Spreadsheet, IOFactory};
+    require __DIR__."/vendor/autoload.php";
+    use PhpOffice\PhpSpreadsheet\{Spreadsheet, IOFactory};
+    // use PhpOffice\PhpSpreadsheet\Style\Fill;
     
 
     class AtrasoEstudiante extends Conexion {
@@ -93,7 +94,8 @@
                 INNER JOIN curso ON curso.id_curso = matricula.id_curso
                 WHERE estudiante.rut_estudiante = ?;";
 
-            $sentencia = $this->conexion_db->prepare($query);
+            // $sentencia = $this->conexion_db->prepare($query);
+            $sentencia = $this->preConsult($query);
             $sentencia->execute([$rut]);
 
             if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {
@@ -101,7 +103,8 @@
                     INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
                     WHERE estudiante.rut_estudiante = ? AND estado_atraso = 'sin justificar';";
                 
-                $sentencia = $this->conexion_db->prepare($query);
+                // $sentencia = $this->conexion_db->prepare($query);
+                $sentencia = $this->preConsult($query);
                 $sentencia->execute([$rut]);
                 if ($cantidad_atraso = $sentencia->fetch()) {
                     $this->json[0]['cantidad_atraso'] = $cantidad_atraso['cantidad_atraso'];
@@ -125,7 +128,8 @@
                 $query = "INSERT INTO atraso (fecha_hora_actual, fecha_atraso, hora_atraso, id_estudiante)
                     VALUES (CURRENT_TIMESTAMP, CURRENT_DATE, CURRENT_TIME, ?);";
 
-                $sentencia = $this->conexion_db->prepare($query);
+                // $sentencia = $this->conexion_db->prepare($query);
+                $sentencia = $this->preConsult($query);
                 if ($sentencia->execute([$resultadoE['id_estudiante']])) {
                     $this->res = true;
                 }
@@ -165,116 +169,109 @@
 
         }
 
-        // public function getExcelAtraso() {
-        //     $query = "SELECT (estudiante.rut_estudiante || '-' || estudiante.dv_rut_estudiante) AS rut,
-        //     estudiante.ap_estudiante AS ap_paterno, estudiante.am_estudiante AS ap_materno,
-        //     estudiante.nombres_estudiante AS nombre, estudiante.nombre_social AS n_social, curso.curso, 
-        //     to_char(atraso.fecha_atraso, 'DD/MM/YYYY') AS fecha_atraso,
-        //     to_char(atraso.hora_atraso, 'HH:MI:SS') AS hora_atraso,
-        //     atraso.estado_atraso
-        //     FROM atraso
-        //     INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
-        //     INNER JOIN matricula ON matricula.id_estudiante = atraso.id_estudiante
-        //     INNER JOIN curso ON curso.id_curso = matricula.id_curso;";
+        public function getExcelAtraso() {
+            $query = "SELECT (estudiante.rut_estudiante || '-' || estudiante.dv_rut_estudiante) AS rut,
+            estudiante.ap_estudiante AS ap_paterno, estudiante.am_estudiante AS ap_materno,
+            estudiante.nombres_estudiante AS nombre, estudiante.nombre_social AS n_social, curso.curso, 
+            to_char(atraso.fecha_atraso, 'DD/MM/YYYY') AS fecha_atraso,
+            to_char(atraso.hora_atraso, 'HH:MI:SS') AS hora_atraso,
+            atraso.estado_atraso
+            FROM atraso
+            INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
+            INNER JOIN matricula ON matricula.id_estudiante = atraso.id_estudiante
+            INNER JOIN curso ON curso.id_curso = matricula.id_curso;";
 
-        //     $sentencia = $this->preConsult($query);
-        //     $sentencia->execute();
-        //     $atrasos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+            $sentencia = $this->preConsult($query);
+            $sentencia->execute();
+            $atrasos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
-        //     $file = new Spreadsheet();
-        //     $file
-        //         ->getProperties()
-        //         ->setCreator("Dpto. Informática")
-        //         ->setLastModifiedBy('Informática')
-        //         ->setTitle('Registro atrasos');
+            $file = new Spreadsheet();
+            $file
+                ->getProperties()
+                ->setCreator("Dpto. Informática")
+                ->setLastModifiedBy('Informática')
+                ->setTitle('Registro atrasos');
             
-        //     $file->setActiveSheetIndex(0);
-        //     $sheetActive = $file->getActiveSheet();
-        //     $sheetActive->setTitle("Atrasos");
-        //     $sheetActive->getColumnDimension('A')->setAutoSize(true);
-        //     $sheetActive->getColumnDimension('B')->setAutoSize(true);
-        //     $sheetActive->getColumnDimension('C')->setAutoSize(true);
-        //     $sheetActive->getColumnDimension('D')->setAutoSize(true);
-        //     $sheetActive->getColumnDimension('E')->setAutoSize(true);
-        //     $sheetActive->getColumnDimension('F')->setAutoSize(true);
-        //     $sheetActive->getColumnDimension('H')->setAutoSize(true);
-        //     $sheetActive->getColumnDimension('G')->setAutoSize(true);
+            $file->setActiveSheetIndex(0);
+            $sheetActive = $file->getActiveSheet();
+            $sheetActive->setTitle("Atrasos");
+            $sheetActive->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+            $sheetActive->getStyle('A3:H3')->getFont()->setBold(true)->setSize(12);
+            $sheetActive->setAutoFilter('A3:H3');
+            // $sheetActive->getStyle('E')->getAlignment()->setHorizontal('center');
+            // $sheetActive->getStyle('E3')->getAlignment()->setHorizontal('left');
+
+            $sheetActive->mergeCells('A1:D1');
+            $sheetActive->setCellValue('A1', 'REGISTRO ATRASO ESTUDIANTES');
+            
+
+            $sheetActive->getColumnDimension('A')->setWidth(13);
+            $sheetActive->getColumnDimension('A')->setWidth(15);
+            $sheetActive->getColumnDimension('B')->setWidth(15);
+            $sheetActive->getColumnDimension('C')->setWidth(15);
+            $sheetActive->getColumnDimension('D')->setWidth(25);
+            $sheetActive->getColumnDimension('E')->setWidth(10);
+            $sheetActive->getColumnDimension('F')->setWidth(15);
+            $sheetActive->getColumnDimension('G')->setWidth(15);
+            $sheetActive->getColumnDimension('H')->setWidth(20);
         
-        //     $sheetActive->setCellValue('A1', 'RUT');
-        //     $sheetActive->setCellValue('B1', 'AP PATERNO');
-        //     $sheetActive->setCellValue('C1', 'AP MATERNO');
-        //     $sheetActive->setCellValue('D1', 'NOMBRES');
-        //     $sheetActive->setCellValue('E1', 'CURSO');
-        //     $sheetActive->setCellValue('F1', 'FECHA');
-        //     $sheetActive->setCellValue('G1', 'HORA');
-        //     $sheetActive->setCellValue('H1', 'ESTADO ATRASO');
+            $sheetActive->setCellValue('A3', 'RUT');
+            $sheetActive->setCellValue('B3', 'AP PATERNO');
+            $sheetActive->setCellValue('C3', 'AP MATERNO');
+            $sheetActive->setCellValue('D3', 'NOMBRES');
+            $sheetActive->setCellValue('E3', 'CURSO');
+            $sheetActive->setCellValue('F3', 'FECHA');
+            $sheetActive->setCellValue('G3', 'HORA');
+            $sheetActive->setCellValue('H3', 'ESTADO ATRASO');
 
-        //     $fila = 2;
-        //     foreach ($atrasos as $atraso) {
-        //         $sheetActive->setCellValue('A'.$fila, $atraso['rut']);
-        //         $sheetActive->setCellValue('B'.$fila, $atraso['ap_paterno']);
-        //         $sheetActive->setCellValue('C'.$fila, $atraso['ap_materno']);
-        //         $sheetActive->setCellValue('D'.$fila, $atraso['nombre']);
-        //         // Agregar nombre social
-        //         $sheetActive->setCellValue('E'.$fila, $atraso['curso']);
-        //         $sheetActive->setCellValue('F'.$fila, $atraso['fecha_atraso']);
-        //         $sheetActive->setCellValue('G'.$fila, $atraso['hora_atraso']);
-        //         $sheetActive->setCellValue('H'.$fila, $atraso['estado_atraso']);
-        //         $fila++;
-        //     }
+
+            $fila = 4;
+            foreach ($atrasos as $atraso) {
+                $sheetActive->setCellValue('A'.$fila, $atraso['rut']);
+                $sheetActive->setCellValue('B'.$fila, $atraso['ap_paterno']);
+                $sheetActive->setCellValue('C'.$fila, $atraso['ap_materno']);
+
+
+                // Control de nombre social
+
+                if ($atraso['n_social'] == '') {
+                    $sheetActive->setCellValue('D'.$fila, $atraso['nombre']);
+                } else {
+                    $sheetActive->setCellValue('D'.$fila, '('.$atraso['n_social'].') '.$atraso['nombre']);
+                }
+
+
+                $sheetActive->setCellValue('E'.$fila, $atraso['curso']);
+                $sheetActive->setCellValue('F'.$fila, $atraso['fecha_atraso']);
+                $sheetActive->setCellValue('G'.$fila, $atraso['hora_atraso']);
+                $sheetActive->setCellValue('H'.$fila, $atraso['estado_atraso']);
+                $fila++;
+            }
         
-        //     $this->closeConnection();
+            $this->closeConnection();
 
-        //     // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        //     // header('Content-Disposition: attachment;filename="Registro atrasos.xlsx"');
-        //     // header('Cache-Control: max-age=0');
+            // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            // header('Content-Disposition: attachment;filename="Registro atrasos.xlsx"');
+            // header('Cache-Control: max-age=0');
 
-        //     $writer = IOFactory::createWriter($file, 'Xlsx');
-        //     // $writer->save('php://output');
-        //     // exit;
+            $writer = IOFactory::createWriter($file, 'Xlsx');
+            // $writer = IOFactory::createWriter($file, 'Csv');
+            // $writer->save('php://output');
+            // exit;
 
+            ob_start();
+            $writer->save('php://output');
+            $xlsData = ob_get_contents();
+            ob_end_clean();
 
-        //     ob_start();
-        //     $writer->save("Registro_atrasos.xlsx");
-        //     // header('Content-Disposition: attachment;filename="Registro_Atrasos.xlsx"');
-        //     // header('Cache-Control: max-age=0');
-        //     // $writer->save('Content-Disposition: attachment;filename="Registro_Atrasos.xlsx"');
-        //     // $writer->save('Registro_Atrasos.xlsx');
-        //     // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        //     $xlsData = ob_get_contents();
-        //     ob_end_clean();
+            $file = array (
+                "status" => 0,
+                "data" => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; base64,'.base64_encode($xlsData)
+            );
 
+            return json_encode($file);
 
-        //     $file = array (
-        //         "status" => 0,
-        //         "data" => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; base64,'.base64_encode($xlsData)
-        //     );
-
-        //     return json_encode($file);
-
-        
-
-        //     // ob_start();
-        //     // $writer->save($ruta);
-
-
-        //     // $xlsData = ob_get_contents();
-        //     // ob_end_clean();
-
-
-        //     // $opResult = array(
-        //     //     'status' => 1,
-        //     //     'data'=>"data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($xlsData)
-        //     // );
-
-        //     // $opResult = array(
-        //     //     "mensaje" => $mensaje,
-        //     //     "data" => "$data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        //     // );
-
-        //     // return json_encode($opResult);
-
-        // }
+        }
 
     }
 

@@ -36,27 +36,37 @@
 
         public function checkUsser($usser, $pass) {
             // VARIABLES
-            // $md5Pass = md5($pass);   -> usar cuando la clave este en MD5
-            $md5Pass = $pass;
-            $query = "SELECT * FROM usuario WHERE nombre_usuario = '$usser' AND clave_usuario = '$md5Pass';";
-            $sentencia = $this->conexion_db->prepare($query);
-            $sentencia->execute();
+            $md5Pass = md5($pass);   //-> usar cuando la clave este en MD5
+            // $md5Pass = $pass;
+            $query = "SELECT * FROM usuario WHERE nombre_usuario = ? AND clave_usuario = ?;";
+            // $sentencia = $this->conexion_db->prepare($query);
+            $sentencia = $this->preConsult($query);
+            $sentencia->execute([$usser, $md5Pass]);
 
-            // SI EL USUARIO EXISTE Y ESTA CORRECTO, DEBUELVE TRUE
-            if ($sentencia->rowCount() >= 1) {
-                $this->setUsser('msandoval'); // NOTA: PASAR PRIVILEGIO, ID Y NOMBRE DE USUARIO
-                $this->setId(1);
-                return true;
-            } else {
-                return false;
+            if ($usuario = $sentencia->fetch()) {
+                $this->setUsser($usuario['nombre_usuario']);
+                $this->setId($usuario['id_funcionario']);
+                $this->res = true;
             }
 
-            $this->conexion_db = null; 
+            // SI EL USUARIO EXISTE Y ESTA CORRECTO, DEBUELVE TRUE
+            // if ($sentencia->rowCount() >= 1) {
+            //     $this->setUsser('msandoval'); // NOTA: PASAR PRIVILEGIO, ID Y NOMBRE DE USUARIO
+            //     $this->setId(1);
+            //     return true;
+            // } else {
+            //     return false;
+            // }
+
+            // $this->conexion_db = null;
+            return json_encode($this->res);
+            $this->closeConnection(); 
 
         }
 
         public function closeSession() {
-            $this->conexion_db = null;
+            // $this->conexion_db = null;
+            $this->closeConnection();
             session_unset();
             session_destroy();
         }
