@@ -41,16 +41,19 @@
 
 
             <!-- Tabla de contenido principal -->
-            <div class="d-flex justify-content-between mb-5">
+            <div class="d-flex justify-content-between mb-4">
                 <button type="button" class="btn-lg btn-primary" id="btn_nuevo_atraso" data-bs-toggle="modal" data-bs-target="#modal_registro_atraso">
                     <i class="fas fa-user-plus icon"></i>
                 </button>
                 <div class="row g-2">
-                    <div class="col-6">
-                        <button class="btn-lg btn-success" id="btn_excel_atraso">excel</button>
+                    <div class="col-4">
+                        <button class="btn-lg btn-success" id="btn_excel_atraso" title="Exportar Excel"><i class="fas fa-file-excel icon"></i></button>
                     </div>
-                    <div class="col-6">
-                        <button class="btn-lg btn-danger" id="btn_pdf_atraso">PDF</button>
+                    <div class="col-4">
+                        <button class="btn-lg btn-secondary" id="btn_csv_atraso" title="Exportar CSV"><i class="fas fa-file-csv icon"></i></button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn-lg btn-danger" id="btn_pdf_atraso" title="Exportar PDF"><i class="fas fa-file-pdf icon"></i></button>
                     </div>
                 </div>
             </div>
@@ -84,7 +87,6 @@
 
 
     <!-- script layout atrasos -->
-    <!-- <script src="./js/inasistenciaF.js" type="module"></script> -->
     <script src="./js/atraso.js" type="module"></script>
 
 

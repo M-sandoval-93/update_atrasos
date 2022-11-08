@@ -26,7 +26,6 @@
             WHERE EXTRACT(YEAR FROM atraso.fecha_atraso) = EXTRACT(YEAR FROM now())
             AND atraso.estado_atraso = 'sin justificar';";
 
-            // $sentencia = $this->conexion_db->prepare($query);
             $sentencia = $this->preConsult($query);
             $sentencia->execute();
             $atrasos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
@@ -38,8 +37,8 @@
                 $this->json['data'][] = $atraso;
             }
 
-            return json_encode($this->json);
             $this->closeConnection();
+            return json_encode($this->json);
         }
 
         public function atrasosSinJustificar($rut) {
@@ -57,8 +56,8 @@
                 $this->json['data'][] = $atraso;
             }
 
-            return json_encode($this->json);
             $this->closeConnection();
+            return json_encode($this->json);
         }
 
         public function cantidadAtrasos($tipo) {
@@ -72,7 +71,7 @@
                 WHERE EXTRACT(YEAR FROM fecha_atraso) = EXTRACT(YEAR FROM CURRENT_DATE);";
             }
 
-            $sentencia = $this->conexion_db->prepare($query);
+            $sentencia = $this->preConsult($query);
             $sentencia->execute();
             $resultado = $sentencia->fetch();
 
@@ -80,9 +79,8 @@
                 $this->res = $resultado['atrasos'];
             }
 
-            return json_encode($this->res);
-            // $this->conexion_db = null;
             $this->closeConnection();
+            return json_encode($this->res);
         }
 
         public function getEstudiante($rut) {
@@ -94,7 +92,6 @@
                 INNER JOIN curso ON curso.id_curso = matricula.id_curso
                 WHERE estudiante.rut_estudiante = ?;";
 
-            // $sentencia = $this->conexion_db->prepare($query);
             $sentencia = $this->preConsult($query);
             $sentencia->execute([$rut]);
 
@@ -103,24 +100,23 @@
                     INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
                     WHERE estudiante.rut_estudiante = ? AND estado_atraso = 'sin justificar';";
                 
-                // $sentencia = $this->conexion_db->prepare($query);
                 $sentencia = $this->preConsult($query);
                 $sentencia->execute([$rut]);
                 if ($cantidad_atraso = $sentencia->fetch()) {
                     $this->json[0]['cantidad_atraso'] = $cantidad_atraso['cantidad_atraso'];
                 }
-
+                $this->closeConnection();
                 return json_encode($this->json);
 
             }
 
-            return json_encode($this->res);
             $this->closeConnection();
+            return json_encode($this->res);
         }
 
         public function setAtraso($rut) {
             $queryE = "SELECT id_estudiante FROM estudiante WHERE rut_estudiante = ?;";
-            $sentencia = $this->conexion_db->prepare($queryE);
+            $sentencia = $this->preConsult($queryE);
 
             if ($sentencia->execute([$rut])) {
                 $resultadoE = $sentencia->fetch(PDO::FETCH_ASSOC);
@@ -128,28 +124,26 @@
                 $query = "INSERT INTO atraso (fecha_hora_actual, fecha_atraso, hora_atraso, id_estudiante)
                     VALUES (CURRENT_TIMESTAMP, CURRENT_DATE, CURRENT_TIME, ?);";
 
-                // $sentencia = $this->conexion_db->prepare($query);
                 $sentencia = $this->preConsult($query);
                 if ($sentencia->execute([$resultadoE['id_estudiante']])) {
                     $this->res = true;
                 }
             }
 
-            return json_encode($this->res);
             $this->closeConnection();
+            return json_encode($this->res);
         }
 
         public function eliminarAtraso($id_atraso) {
-
             $query = "DELETE FROM atraso WHERE id_atraso = ?;";
-            $sentencia = $this->conexion_db->prepare($query);
+            $sentencia = $this->preConsult($query);
             
             if ($sentencia->execute([$id_atraso])) {
                 $this->res = true;
             }
 
-            return json_encode($this->res);
             $this->closeConnection();
+            return json_encode($this->res);
         }
 
         public function setJustificar($id_apoderado, $atrasos, $id_usuario) {
@@ -164,8 +158,8 @@
                 }
             }
             
-            return json_encode($this->res);
             $this->closeConnection();
+            return json_encode($this->res);
 
         }
 
@@ -204,7 +198,6 @@
             $sheetActive->mergeCells('A1:D1');
             $sheetActive->setCellValue('A1', 'REGISTRO ATRASO ESTUDIANTES');
             
-
             $sheetActive->getColumnDimension('A')->setWidth(13);
             $sheetActive->getColumnDimension('A')->setWidth(15);
             $sheetActive->getColumnDimension('B')->setWidth(15);
@@ -224,22 +217,18 @@
             $sheetActive->setCellValue('G3', 'HORA');
             $sheetActive->setCellValue('H3', 'ESTADO ATRASO');
 
-
             $fila = 4;
             foreach ($atrasos as $atraso) {
                 $sheetActive->setCellValue('A'.$fila, $atraso['rut']);
                 $sheetActive->setCellValue('B'.$fila, $atraso['ap_paterno']);
                 $sheetActive->setCellValue('C'.$fila, $atraso['ap_materno']);
 
-
                 // Control de nombre social
-
                 if ($atraso['n_social'] == '') {
                     $sheetActive->setCellValue('D'.$fila, $atraso['nombre']);
                 } else {
                     $sheetActive->setCellValue('D'.$fila, '('.$atraso['n_social'].') '.$atraso['nombre']);
                 }
-
 
                 $sheetActive->setCellValue('E'.$fila, $atraso['curso']);
                 $sheetActive->setCellValue('F'.$fila, $atraso['fecha_atraso']);
@@ -248,16 +237,8 @@
                 $fila++;
             }
         
-            $this->closeConnection();
-
-            // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            // header('Content-Disposition: attachment;filename="Registro atrasos.xlsx"');
-            // header('Cache-Control: max-age=0');
-
             $writer = IOFactory::createWriter($file, 'Xlsx');
             // $writer = IOFactory::createWriter($file, 'Csv');
-            // $writer->save('php://output');
-            // exit;
 
             ob_start();
             $writer->save('php://output');
@@ -265,10 +246,11 @@
             ob_end_clean();
 
             $file = array (
-                "status" => 0,
+                // "status" => 0,
                 "data" => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; base64,'.base64_encode($xlsData)
             );
 
+            $this->closeConnection();
             return json_encode($file);
 
         }

@@ -44,10 +44,10 @@ inputs.forEach(input => {
             $.ajax ({
                 url: './controller/controller_login.php',
                 type: 'post',
-                datatype: 'json',
+                dataType: 'json',
                 data: { usuario: usuario, clave: clave},
                 success: function(data) {
-                    if (data == 'false') {
+                    if (data == false) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Usuario o Clave incorrectos',
