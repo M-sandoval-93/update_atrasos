@@ -4,6 +4,7 @@
 
     require __DIR__."/vendor/autoload.php";
     use PhpOffice\PhpSpreadsheet\{Spreadsheet, IOFactory};
+    // use PhpOffice\PhpSpreadsheet\Helper\Sample;
     // use PhpOffice\PhpSpreadsheet\Style\Fill;
     
 
@@ -163,7 +164,7 @@
 
         }
 
-        public function getExcelAtraso() {
+        public function getExcelAtraso($ext) {
             $query = "SELECT (estudiante.rut_estudiante || '-' || estudiante.dv_rut_estudiante) AS rut,
             estudiante.ap_estudiante AS ap_paterno, estudiante.am_estudiante AS ap_materno,
             estudiante.nombres_estudiante AS nombre, estudiante.nombre_social AS n_social, curso.curso, 
@@ -179,6 +180,8 @@
             $sentencia->execute();
             $atrasos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+            $extension = 'Xlsx';
+
             $file = new Spreadsheet();
             $file
                 ->getProperties()
@@ -189,11 +192,10 @@
             $file->setActiveSheetIndex(0);
             $sheetActive = $file->getActiveSheet();
             $sheetActive->setTitle("Atrasos");
+            $sheetActive->setShowGridLines(false);
             $sheetActive->getStyle('A1')->getFont()->setBold(true)->setSize(14);
             $sheetActive->getStyle('A3:H3')->getFont()->setBold(true)->setSize(12);
             $sheetActive->setAutoFilter('A3:H3');
-            // $sheetActive->getStyle('E')->getAlignment()->setHorizontal('center');
-            // $sheetActive->getStyle('E3')->getAlignment()->setHorizontal('left');
 
             $sheetActive->mergeCells('A1:D1');
             $sheetActive->setCellValue('A1', 'REGISTRO ATRASO ESTUDIANTES');
@@ -236,9 +238,16 @@
                 $sheetActive->setCellValue('H'.$fila, $atraso['estado_atraso']);
                 $fila++;
             }
-        
-            $writer = IOFactory::createWriter($file, 'Xlsx');
-            // $writer = IOFactory::createWriter($file, 'Csv');
+
+            if ($ext == 'Csv') {
+                $extension = 'Csv';
+            } 
+            // else if ($ext == 'Pdf') {
+            //     $extension = 'Mpdf';
+            //     // IOFactory::registerWriter('pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
+            // }
+            
+            $writer = IOFactory::createWriter($file, $extension);
 
             ob_start();
             $writer->save('php://output');
@@ -246,8 +255,10 @@
             ob_end_clean();
 
             $file = array (
-                // "status" => 0,
                 "data" => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; base64,'.base64_encode($xlsData)
+                // "data" => 'data: application/pdf; base64,'.base64_encode($xlsData)
+                // "data" => 'data:application/pdf; base64,'.base64_encode($xlsData)
+                // "data" => 'data:application/pdf; base64'.base64_encode($xlsData)
             );
 
             $this->closeConnection();

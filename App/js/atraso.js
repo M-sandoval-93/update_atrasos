@@ -169,6 +169,28 @@ function beforeRegistro(tabla) {    // LISTO función para cuando se almacena un
     prepararModalAtraso();
 }
 
+function generarDocumento(ext) {
+    let datos = 'getDocument';
+
+    $.ajax({
+        url: "./controller/controller_atrasos.php",
+        type: "post",
+        dataType: "html",
+        cache: false,
+        data: {datos: datos, ext: ext},
+        success: function(data) {
+            let opResult = JSON.parse(data);
+            let $a = $("<a>");
+
+            $a.attr("href", opResult.data);
+            $("body").append($a);
+            $a.attr("download", "Registro atrasos." + ext);
+            $a[0].click();
+            $a.remove();
+        }
+    });
+}
+
 // ==================== FUNCIONES INTERNAS ===============================//
 
 $(document).ready(function() {
@@ -229,6 +251,10 @@ $(document).ready(function() {
         }
 
         rut = $.trim($('#rut_estudiante_atraso').val());
+
+        // utilizar fetch para generar impresion
+        // de lo contrario, traer los datos del ingreso y luego usarlos en la impresion
+        // en dicho caso, ver lo der elrror cors de la cabecera
 
         $.ajax({
             url: "./controller/controller_atrasos.php",
@@ -338,35 +364,55 @@ $(document).ready(function() {
     // Btn para generar EXCEL
     $('#btn_excel_atraso').click(function(e) {
         e.preventDefault();
-        datos = 'getExcel';
+        generarDocumento('xlsx');
 
-        $.ajax({
-            url: "./controller/controller_atrasos.php",
-            type: "post",
-            dataType: "html",
-            cache: false,
-            data: {datos: datos},
-            success: function(data) {
-                let opResult = JSON.parse(data);
-                let $a = $("<a>");
+        // datos = 'getExcel';
 
-                $a.attr("href", opResult.data);
-                $("body").append($a);
-                // $a.attr("download", "Registro atrasos.csv");
-                $a.attr("download", "Registro atrasos.xlsx");
-                $a[0].click();
-                $a.remove();
-            }
-        });
+        // $.ajax({
+        //     url: "./controller/controller_atrasos.php",
+        //     type: "post",
+        //     dataType: "html",
+        //     cache: false,
+        //     data: {datos: datos},
+        //     success: function(data) {
+        //         let opResult = JSON.parse(data);
+        //         let $a = $("<a>");
 
+        //         $a.attr("href", opResult.data);
+        //         $("body").append($a);
+        //         // $a.attr("download", "Registro atrasos.csv");
+        //         $a.attr("download", "Registro atrasos.xlsx");
+        //         $a[0].click();
+        //         $a.remove();
+        //     }
+        // });
+
+    });
+
+    $('#btn_csv_atraso').click(function(e) {
+       e.preventDefault();
+       generarDocumento('csv'); 
     });
 
 
     // Btn apra generar PDF
     $('#btn_pdf_atraso').click(function(e) {
         e.preventDefault();
+        // console.log("generar pdf");
 
-        console.log("generar pdf");
+        // trabajando para probar fetch !!!!!!!
+        const data = new FormData();
+        data.append('nombre', 'juan manuel');
+
+
+        fetch('http://localhost/update_atrasos/impresion/', {
+            method: 'POST',
+            body: data
+        })
+        .then (resultado => resultado.json());
+        // .then (datos => console.log(datos));
+
+
     })
 
     validarRut();
