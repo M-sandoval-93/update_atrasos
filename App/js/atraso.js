@@ -225,8 +225,8 @@ $(document).ready(function() {
             {data: "hora_atraso"},
             {
                 data: null,
-                defaultContent: `<button class="btn-lg btn-primary btn-delete" id="btn_justificar_atraso" type="button"><span class="text-white">Justificar</span></button>
-                                <button class="btn-lg btn-danger btn-delete" id="btn_eliminar_atraso" type="button"><i class="fas fa-trash-alt"></i></button>`,
+                defaultContent: `<button class="btn btn-primary btn-justify" id="btn_justificar_atraso" type="button"><i class="fas fa-user-check"></i></button>
+                                <button class="btn btn-danger btn-delete" id="btn_eliminar_atraso" type="button"><i class="fas fa-trash-alt"></i></button>`,
                 className: 'text-center'
             }
         ],
@@ -404,16 +404,25 @@ $(document).ready(function() {
         const data = new FormData();
         data.append('nombre', 'juan manuel');
 
+        // let data = {nombre: 'juan manuel'};
+
 
         fetch('http://localhost/update_atrasos/impresion/', {
             method: 'POST',
             body: data
+            // body: JSON.stringify(data)
         })
-        .then (resultado => resultado.json());
-        // .then (datos => console.log(datos));
+        .then(response => response.json())
+        .then(data => {
+            if (data == true) {
+                console.log('impresion ejecutada');
+            } else {
+                console.log('impresión no ejecutada');
+            }
+        });
 
 
-    })
+    });
 
     validarRut();
 

@@ -132,7 +132,6 @@
                       <tr>
                           <th>Fecha</th>
                           <th>Hora</th>
-                          <!-- <th>Marcar</th> -->
                           <th></th>
                       </tr>
                   </thead>

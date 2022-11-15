@@ -54,6 +54,7 @@
                     </div>
                     <div class="col-4">
                         <button class="btn-lg btn-danger" id="btn_pdf_atraso" title="Exportar PDF"><i class="fas fa-file-pdf icon"></i></button>
+                        <!-- <button class="btn-lg btn-danger" id="btn_pdf_atraso" title="Exportar PDF"><i class="fas fa-user-check"></i></button> -->
                     </div>
                 </div>
             </div>
@@ -70,7 +71,7 @@
                             <th>Curso</th>
                             <th>Fecha</th>
                             <th>Hora</th>
-                            <th>Eliminar</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>

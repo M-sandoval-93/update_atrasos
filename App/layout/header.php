@@ -64,7 +64,7 @@
                 <ul class="sub_grupo">
                     <li><a href="#"><span class="titulo">Matriculas</span></a></li>
                     <li><a href="atrasos"><span class="titulo">Atrasos</span></a></li>
-                    <li><a href="#"><span class="titulo">Justificaciones</span></a></li>
+                    <li><a href="justificaciones"><span class="titulo">Justificaciones</span></a></li>
                 </ul>
             </li>
             <li>
