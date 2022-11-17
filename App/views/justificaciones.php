@@ -87,7 +87,7 @@
 
 
 <!-- modal -->
-<?php   include_once "./layout/modal_atraso.php";   ?>
+<?php   //include_once "./layout/modal_atraso.php";   ?>
 
 
 
@@ -185,7 +185,7 @@
 
 
     <!-- script layout atrasos -->
-    <script src="./js/justificar.js" type="module"></script>
+    <script src="./js/justificacion.js" type="module"></script>
 
 
 </body>
