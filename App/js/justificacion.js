@@ -1,7 +1,26 @@
 import {LibreriaFunciones, generar_dv, spanish } from './librerias/librerias.js';
 
 // ==================== FUNCIONES INTERNAS ===============================//
+function infoSecundaria(data) {
+    return(
+        '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            '<tr>' +
+                '<td>Full name:</td>' +
+                '<td>' + data.rut_apoderado_titular + '</td>' +
+            '</tr>' +
+        
+            '<tr>' +
+                '<td>Extension number:</td>' +
+                '<td>' + data.rut_apoderado_suplente + '</td>' +
+            '</tr>' +
 
+            // '<tr>' +
+            //     '<td>Extra info:</td>' +
+            //     '<td>And any further details here (images etc)...</td>' +
+            // '</tr>' +
+        '</table>'
+    );
+}
 
 
 // ==================== FUNCIONES INTERNAS ===============================//
@@ -31,9 +50,6 @@ $(document).ready(function() {
                 searchable: false
             },
             {
-                // data: null,
-                // defaultContent: `<button class="btn btn-success btn-xpand" id="btn_show_info_justificar" type="button"><i class="fas fa-plus-circle"></i></button>`,
-                // className: "text-center"
                 className: "dt-control",
                 orderable: false,
                 data: null,
@@ -56,6 +72,29 @@ $(document).ready(function() {
         order: [[7, 'asc']],
         lenguage: spanish
     });
+
+    // Traer información al hacer click en el boton de expand
+    $('#justificacion_estudiante tbody').on('click', 'td.dt-control', function() {
+        let data = tabla_justificacion.row($(this).parents()).data();
+        let tr = $(this).closest('tr');
+        let row = tabla_justificacion.row(tr);
+
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('show');
+        } else {
+
+            $.
+
+
+
+            row.child(infoSecundaria(row.data())).show();
+            tr.addClass('shown');
+            // console.log(data.id_justificacion);
+        }
+    });
+
+
 
 });
 

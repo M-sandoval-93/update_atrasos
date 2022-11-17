@@ -1,19 +1,5 @@
 <?php   include_once "./layout/header.php"; ?>
 
-            <!-- titulo del layout -->
-            <!-- <div class="row d-flex align-items-center">
-                <div class="col-md-12">
-                    <div class="titulo_main">
-                        <h1 class="titulo_main__titulo">Registro Justificación Estudiantes</h1>
-                        <ul class="titulo_main__sub">
-                            <li><a href="home">Home</a></li>
-                            <li class="divider">/</li>
-                            <li><a href="#" class="active">Justificación estudiantes</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
-
 
             <!-- titulo del layout -->
             <div class="row d-flex align-items-center">
@@ -47,7 +33,7 @@
 
             <!-- Tabla de contenido principal -->
             <div class="d-flex justify-content-between mb-4">
-                <button type="button" class="btn-lg btn-primary" id="btn_nuevo_atraso" data-bs-toggle="modal" data-bs-target="#modal_registro_atraso">
+                <button type="button" class="btn btn-primary" id="btn_nuevo_atraso" data-bs-toggle="modal" data-bs-target="#modal_registro_atraso">
                     <i class="fas fa-user-plus icon"></i>
                 </button>
                 <!-- <div class="row g-2">
