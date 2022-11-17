@@ -1,7 +1,7 @@
 <?php   include_once "./layout/header.php"; ?>
 
             <!-- titulo del layout -->
-            <div class="row d-flex align-items-center">
+            <!-- <div class="row d-flex align-items-center">
                 <div class="col-md-12">
                     <div class="titulo_main">
                         <h1 class="titulo_main__titulo">Registro Justificación Estudiantes</h1>
@@ -12,9 +12,86 @@
                         </ul>
                     </div>
                 </div>
+            </div> -->
+
+
+            <!-- titulo del layout -->
+            <div class="row d-flex align-items-center">
+                <div class="col-md-5">
+                    <!-- titulo del layout -->
+                    <div class="titulo_main">
+                        <h1 class="titulo_main__titulo">Registro Justificación Estudiantes</h1>
+                        <ul class="titulo_main__sub">
+                            <li><a href="home">Home</a></li>
+                            <li class="divider">/</li>
+                            <li><a href="#" class="active">Justificación estudiantes</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <!-- card -->
+                    <div class="caja_tarjeta_2 d-flex justify-content-center">
+                        <div class="tarjeta">
+                            <div class="px-3">
+                                <div class="numero" id="justificacion_diaria"></div>
+                                <div class="detalle">Justificaciones anuales</div>
+                            </div>
+                            <div class="icono_tarjeta">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="row mt-4">
+            <!-- Tabla de contenido principal -->
+            <div class="d-flex justify-content-between mb-4">
+                <button type="button" class="btn-lg btn-primary" id="btn_nuevo_atraso" data-bs-toggle="modal" data-bs-target="#modal_registro_atraso">
+                    <i class="fas fa-user-plus icon"></i>
+                </button>
+                <!-- <div class="row g-2">
+                    <div class="col-4">
+                        <button class="btn-lg btn-success" id="btn_excel_atraso" title="Exportar Excel"><i class="fas fa-file-excel icon"></i></button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn-lg btn-secondary" id="btn_csv_atraso" title="Exportar CSV"><i class="fas fa-file-csv icon"></i></button>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn-lg btn-danger" id="btn_pdf_atraso" title="Exportar PDF"><i class="fas fa-file-pdf icon"></i></button>
+                    </div>
+                </div> -->
+            </div>
+
+
+            <div class="table-responsive">
+                <table id="justificacion_estudiante" class="table table-hover text-nowrap" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th></th>
+                            <th>Rut</th>
+                            <th>Ap Paterno</th>
+                            <th>Ap Materno</th>
+                            <th>Nombres</th>
+                            <th>Curso</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+
+<!-- modal -->
+<?php   include_once "./layout/modal_atraso.php";   ?>
+
+
+
+            <!-- <div class="row mt-4">
                 <div class="col-sm-5 col-lg-3">
                     <div class="row align-items-center">
                         <label for="rut_estudiante_atraso" class="form-label">Rut estudiante</label>
@@ -93,7 +170,7 @@
                 <div class="col-6 d-flex justify-content-end">
                     <button type="button" class="btn btn-primary">Justificar</button>
                 </div>
-            </div>
+            </div> -->
 
 
 

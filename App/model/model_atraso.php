@@ -116,6 +116,11 @@
         }
 
         public function setAtraso($rut) {
+
+
+            // TRABAJAR PARA CAMBIAR EL ID DE ESTUDIANTE, POR EL ID DE LA MATRICULA
+            // CUANDO DE ALMACENA UN ATRASO.
+
             $queryE = "SELECT id_estudiante FROM estudiante WHERE rut_estudiante = ?;";
             $sentencia = $this->preConsult($queryE);
 
