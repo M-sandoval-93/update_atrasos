@@ -199,6 +199,9 @@ export let spanish = {
 
 export let LibreriaFunciones = {
     // Valida el rut con su cadena completa "XXXXXXXX-X"
+    //  ^(\d{1}|\d{2})\.(\d{3}\.\d{3}-)([a-zA-Z]{1}$|\d{1}$) // expreion regular para rut
+    // expresion para validar lonjitud y formato
+    // ^(\d{7}|\d{8}|\d{9})\-([a-zA-Z]{1}$|\d{1}$)
     validarRut: function(rutCompleto) {
         if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto )) {
             return false;

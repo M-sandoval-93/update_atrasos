@@ -15,6 +15,10 @@ switch ($type) {
         // print json_encode(true);
         print $datosJustificacion->showJustificacion();
         break;
+
+    case "getInfoAdicional":
+        print $datosJustificacion->infoAdicional($_POST['id_justificacion']);
+        break;
 }
 
 
