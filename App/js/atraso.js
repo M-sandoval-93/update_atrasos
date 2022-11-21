@@ -3,6 +3,7 @@ import { spanish, LibreriaFunciones, generar_dv } from './librerias/librerias.js
 // ==================== FUNCIONES INTERNAS ===============================//
 function cantidadAtrasos(tipo, id_campo) {
     let datos = 'getAtrasos';
+    let valor = 0;
 
     $.ajax({
         url: "./controller/controller_atrasos.php",
@@ -10,10 +11,9 @@ function cantidadAtrasos(tipo, id_campo) {
         dataType: "json",
         data: {datos: datos, tipo: tipo},
         success: function(data) {
-            let valor = data;
-            if (data == false) {
-                valor = 0;
-            } 
+            if (data != false) {
+                valor = data;
+            }
             $(id_campo).text(valor);
         }
     });

@@ -9,8 +9,8 @@ function infoSecundaria(data) {
         documento = 'SI';
     }
 
-    if (data.prueba_pendiente) {
-        pruebas = data.lista_asignaturas
+    if (data.prueba_pendiente == true) {
+        pruebas = data.asignatura;
     }
 
     return(
@@ -43,6 +43,24 @@ function infoSecundaria(data) {
     );
 }
 
+function cantidadJustificacion(id_campo) {
+    let datos = 'getJustificaciones';
+    let valor = 0;
+
+    $.ajax({
+        url: "./controller/controller_justificacion.php",
+        type: "post",
+        dataType: "json",
+        data: {datos: datos},
+        success: function(data) {
+            if (data != false) {
+                valor = data;
+            }
+            $(id_campo).text(valor);
+        }
+    });
+}
+
 
 // ==================== FUNCIONES INTERNAS ===============================//
 
@@ -54,7 +72,7 @@ $(document).ready(function() {
 
 
     // Cantidad de atrasos diarios y total
-    // cantidadAtrasos('diario', '#atraso_diario');
+    cantidadJustificacion('#justificacion_diaria');
 
     // LLENAR DATATABLE CON INFORMACIÓN =============================== 
     let tabla_justificacion = $('#justificacion_estudiante').DataTable({
@@ -83,6 +101,7 @@ $(document).ready(function() {
             {data: "curso"},
             {data: "fecha_inicio"},
             {data: "fecha_termino"},
+            {data: "dias"},
             {
                 data: null,
                 defaultContent: `<button class="btn btn-primary btn-justify px-3" id="btn_download_justificar" type="button"><i class="fas fa-file-download"></i></button>
@@ -113,18 +132,10 @@ $(document).ready(function() {
                 data: {datos: datos, id_justificacion: dataRow.id_justificacion},
                 success: function(data) {
                     row.child(infoSecundaria(data[0])).show();
-                    // console.log(data);
-                    // console.log(data[0].fecha_justificacion);
                 }
             });
             
             tr.addClass('shown');
-
-
-            // row.child(infoSecundaria(row.data())).show();
-            // row.child(infoSecundaria(data)).show();
-            // tr.addClass('shown');
-            // console.log(data.id_justificacion);
         }
     });
 

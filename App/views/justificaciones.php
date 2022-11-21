@@ -20,7 +20,7 @@
                     <div class="caja_tarjeta_2 d-flex justify-content-center">
                         <div class="tarjeta">
                             <div class="px-3">
-                                <div class="numero" id="justificacion_diaria"></div>
+                                <div class="numero d-flex justify-content-center" id="justificacion_diaria"></div>
                                 <div class="detalle">Justificaciones anuales</div>
                             </div>
                             <div class="icono_tarjeta">
@@ -33,7 +33,7 @@
 
             <!-- Tabla de contenido principal -->
             <div class="d-flex justify-content-between mb-4">
-                <button type="button" class="btn btn-primary" id="btn_nuevo_atraso" data-bs-toggle="modal" data-bs-target="#modal_registro_atraso">
+                <button type="button" class="btn btn-primary" id="btn_nueva_justificacion" data-bs-toggle="modal" data-bs-target="#modal_registro_justificacion_falta">
                     <i class="fas fa-user-plus icon"></i>
                 </button>
                 <!-- <div class="row g-2">
@@ -63,6 +63,7 @@
                             <th>Curso</th>
                             <th>Desde</th>
                             <th>Hasta</th>
+                            <th>Días</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
@@ -73,7 +74,7 @@
 
 
 <!-- modal -->
-<?php   //include_once "./layout/modal_atraso.php";   ?>
+<?php   include_once "./layout/modal_justificacion.php";   ?>
 
 
 

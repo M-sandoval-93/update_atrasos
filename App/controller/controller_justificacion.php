@@ -19,6 +19,10 @@ switch ($type) {
     case "getInfoAdicional":
         print $datosJustificacion->infoAdicional($_POST['id_justificacion']);
         break;
+
+    case "getJustificaciones":
+        print $datosJustificacion->getJustificaciones();
+        break;
 }
 
 
