@@ -15,21 +15,21 @@
             print $datosAtraso->consultarAtraso();
             break;
 
-        case "showAtrasosSinJustificar";
-            print $datosAtraso->atrasosSinJustificar($_POST['rut']);
+        case "getAtrasosSinJustificar";
+            print $datosAtraso->getAtrasoSinJustificar($_POST['rut']);
             break;
 
         case "getAtrasos":
             print $datosAtraso->cantidadAtrasos($_POST['tipo']);
             break;
 
-        case "getEstudiante":
-            if (is_numeric($_POST['rut'])) {
-                print $datosAtraso->getEstudiante($_POST['rut']);
-            } else {
-                print json_encode(false);
-            }
-            break;
+        // case "getEstudianteAtraso":
+        //     if (is_numeric($_POST['rut'])) {
+        //         print $datosAtraso->getEstudiante($_POST['rut']);
+        //     } else {
+        //         print json_encode(false);
+        //     }
+        //     break;
 
         case "setAtraso":
             print $datosAtraso->setAtraso($_POST['rut']);

@@ -63,7 +63,6 @@
                             <th>Curso</th>
                             <th>Desde</th>
                             <th>Hasta</th>
-                            <th>Días</th>
                             <th>Acción</th>
                         </tr>
                     </thead>

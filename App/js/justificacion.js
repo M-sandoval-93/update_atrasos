@@ -61,6 +61,133 @@ function cantidadJustificacion(id_campo) {
     });
 }
 
+function prepararModalJustificacion() {
+    let fecha_actual = new Date();
+
+    $('#form_registro_justificacion_falta').trigger('reset');
+    $('#justificacion_fecha').val(fecha_actual.toLocaleDateString());
+
+    //revisar
+    // $('#justificacion_rut_estudiante').removeClass('is-invalid');
+
+    LibreriaFunciones.autoFocus($('#modal_registro_justificacion_falta'), $('#justificacion_rut_estudiante'));
+
+
+    $('#justificacion_documento').click(function() {
+        if ($(this).is(':checked')) {
+            $('#justificacion_prueba_pendiente').prop('disabled', false);
+        } else {
+            $('#justificacion_prueba_pendiente').prop('disabled', true);
+            $('#justificacion_prueba_pendiente').prop('checked', false);
+        }
+    });
+}
+
+function get_info_estudiante(rut, input_nombre, input_curso) {
+    let datos = 'getEstudiante';
+
+    if (rut != '' && rut.length > 7 && rut.length <= 9) {
+        if (input_nombre.val() == '') {
+            $.ajax({
+                url: "./controller/controller_justificacion.php",
+                type: "POST",
+                dataType: "json",
+                cache: false,
+                data: {datos: datos, rut: rut},
+                success: function(data) {
+                    if (data != false) {
+                        input_nombre.val(data[0].nombre_estudiante);
+                        input_curso.val(data[0].curso);
+                        cargarApoderado(rut);
+                    } else {
+                        input_nombre.val('sin datos');
+                        input_curso.val('N/A');
+                    }
+                }
+            });
+        }
+    
+    } else {
+        input_nombre.val('');
+        input_curso.val('');
+    }
+
+    // if (rut != '' && rut.length > 7 && rut.length < 9) {
+    //     if (input_nombre.val() == '') {
+    //         $.ajax({
+    //             url: "./controller/controller_justificacion.php",
+    //             type: "post",
+    //             dataType: "json",
+    //             cache: false,
+    //             data: {datos: datos, rut: rut},
+    //             success: function(info) {
+    //                 if (info != false) {
+    //                     input_nombre.val(info[0].nombre_estudiante);
+    //                     input_curso.val(info[0].curso);
+
+    //                     if (info[0].nombre_social != null) {
+    //                         input_nombre.val('(' + info[0].nombre_social + ') ' + info[0].nombre_estudiante);
+    //                     }
+
+    //                     // if (info[0].cantidad_atraso >= 1) {
+    //                     //     $('#alerta_atraso_cantidad').text('Atrasos sin justificar: ' + info[0].cantidad_atraso);
+    //                     //     $('#alerta_atraso_cantidad').show();
+    //                     // }
+
+    //                     // if (info[0].id_estado == 5) {
+    //                     //     $('#registrar_atraso').prop('disabled', true);
+    //                     //     $('#alerta_suspencion_activa').text('Estudiante suspendido !!!');
+    //                     //     $('#alerta_suspencion_activa').show();
+    //                     // } 
+
+    //                 } else {
+    //                     input_nombre.val('Sin datos');
+    //                     input_curso.val('N/A');
+    //                 }
+    //             }
+    //         });
+    //     }
+    // } else {
+    //     input_nombre.val('');
+    //     input_curso.val('');
+    //     // $('#alerta_atraso_cantidad').hide();
+    //     // $('#alerta_suspencion_activa').hide();
+    //     // $('#registrar_atraso').removeAttr('disabled');
+    // }
+
+}
+
+function validarRut() {
+    $('#justificacion_rut_estudiante').keyup(function(e) {
+        e.preventDefault();
+        generar_dv($('#justificacion_rut_estudiante'), $('#justificacion_dv_rut_estudiante'));
+        get_info_estudiante($('#justificacion_rut_estudiante').val(), $('#justificacion_nombre_estudiante'), $('#justificacion_curso_estudiante'));
+
+        if ($('#justificacion_dv_rut_estudiante').val() == '' && $('#justificacion_rut_estudiante').val() != '') {
+            $('#justificacion_rut_estudiante').addClass('is-invalid');
+        } else {
+            $('#justificacion_rut_estudiante').removeClass('is-invalid');
+        }
+
+    });
+}
+
+function cargarApoderado(rut) {
+    let datos = 'getApoderado_justifica';
+
+    $.ajax({
+        url: "./controller/controller_apoderado.php",
+        type: "POST",
+        dataType: "json",
+        data: {datos: datos, rut: rut},
+        success: (data) => {
+            $('#justificacion_apoderado').html(data);
+        }
+    });
+}
+
+
+
 
 // ==================== FUNCIONES INTERNAS ===============================//
 
@@ -101,7 +228,6 @@ $(document).ready(function() {
             {data: "curso"},
             {data: "fecha_inicio"},
             {data: "fecha_termino"},
-            {data: "dias"},
             {
                 data: null,
                 defaultContent: `<button class="btn btn-primary btn-justify px-3" id="btn_download_justificar" type="button"><i class="fas fa-file-download"></i></button>
@@ -139,7 +265,14 @@ $(document).ready(function() {
         }
     });
 
+    $('#btn_nueva_justificacion').click(function() {
+        prepararModalJustificacion();
+    });
 
+
+
+
+    validarRut();
 
 });
 

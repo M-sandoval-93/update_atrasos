@@ -22,7 +22,7 @@
                             <span>-</span>
                         </div>
                         <div class="col-3 dv_rut">
-                            <input type="text" class="form-control text-center" id="justifica_dv_rut_estudiante" disabled>
+                            <input type="text" class="form-control text-center" id="justificacion_dv_rut_estudiante" disabled>
                         </div>
                     </div>
                 </div>
@@ -55,21 +55,21 @@
                     <input type="date" id="justificacion_fecha_termino" class="form-control">
                 </div>
 
-                <div class="col-sm-2 col-md-2">
+                <!-- <div class="col-sm-2 col-md-2">
                     <label for="justificacion_dias_falta" class="form-label">Días</label>
                     <input type="text" id="justificacion_dias_falta" class="form-control" disabled>
-                </div>
+                </div> -->
             </div>
 
             <div class="row mt-3">
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <label for="justificacion_apoderado" class="form-label">Apoderado(a)</label>
                     <select id="justificacion_apoderado" class="form-select"></select>
                 </div>
-                <div class="col-sm-4">
+                <!-- <div class="col-sm-4">
                     <label for="Justificacion_tipo_apoderado" class="form-label">Tipo</label>
                     <input type="text" id="Justificacion_tipo_apoderado" class="form-control" disabled>
-                </div>
+                </div> -->
             </div>
 
             <div class="row mt-4">
@@ -89,7 +89,7 @@
 
                 <div class="col-3">
                     <div class="form-check">
-                        <input type="checkbox" id="justificacion_prueba_pendiente" class="form-check-input">
+                        <input type="checkbox" id="justificacion_prueba_pendiente" class="form-check-input" disabled>
                         <label for="justificacion_prueba_pendiente" class="form-check-label">Prueba pendiente</label>
                     </div>
                 </div>

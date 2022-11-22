@@ -47,8 +47,9 @@
             break;
 
         case "getApoderado_justifica":
-            print $datosApoderados->getApoderadoJustifica($_POST['rut']);
+            print $datosApoderados->getApoderadoAtraso($_POST['rut']);
             break;
+
 
     }
 

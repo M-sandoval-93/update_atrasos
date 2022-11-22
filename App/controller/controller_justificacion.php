@@ -23,6 +23,12 @@ switch ($type) {
     case "getJustificaciones":
         print $datosJustificacion->getJustificaciones();
         break;
+
+    case "getEstudiante":
+        // print json_encode(false);
+        print $datosJustificacion->getEstudiante($_POST['rut']);
+        break;
+
 }
 
 

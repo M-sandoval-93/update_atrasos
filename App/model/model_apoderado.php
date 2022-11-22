@@ -130,7 +130,7 @@
         }
 
         // Función utilizada para mostrar los apoderados que justifican en atrasos y justificaciones
-        public function getApoderadoJustifica($rut) {
+        public function getApoderadoAtraso($rut) {
             $query = "SELECT ap_titular.id_apoderado AS id_titular,
                 (ap_titular.nombres_apoderado || ' ' || ap_titular.ap_apoderado || ' ' || ap_titular.am_apoderado) AS titular,
                 ap_suplente.id_apoderado AS id_suplente,
@@ -147,14 +147,14 @@
             $this->json[0] = "<option disable selected>Seleccionar apoderado</option>";
 
             if ($datos['id_titular'] != null && $datos['id_suplente'] != null) {
-                $this->json[] = "<option value='".$datos['id_titular']."'>".$datos['titular'].'  (TITULAR)'."</option>";
-                $this->json[] = "<option value='".$datos['id_suplente']."'>".$datos['suplente'].'  (SUPLENTE)'."</option>";
+                $this->json[] = "<option value='".$datos['id_titular']."'>".$datos['titular'].'  ----  (TITULAR)'."</option>";
+                $this->json[] = "<option value='".$datos['id_suplente']."'>".$datos['suplente'].'  ----  (SUPLENTE)'."</option>";
 
             } else if ($datos['id_titular'] != null && $datos['id_suplente'] == null) {
-                $this->json[] = "<option value='".$datos['id_titular']."'>".$datos['titular'].'  (TITULAR)'."</option>";
+                $this->json[] = "<option value='".$datos['id_titular']."'>".$datos['titular'].'  ----  (TITULAR)'."</option>";
 
             } else if ($datos['id_titular'] == null && $datos['id_suplente'] != null) {
-                $this->json[] = "<option value='".$datos['id_suplente']."'>".$datos['suplente'].'  (SUPLENTE)'."</option>";
+                $this->json[] = "<option value='".$datos['id_suplente']."'>".$datos['suplente'].'  ----  (SUPLENTE)'."</option>";
 
             } else {
                 $this->json[0] = "<option disable selected>Sin apoderados !!</option>";
@@ -166,6 +166,7 @@
             $this->closeConnection();
 
         }
+
 
     }
 

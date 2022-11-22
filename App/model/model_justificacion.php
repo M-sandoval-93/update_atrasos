@@ -125,6 +125,27 @@
 
         }
 
+        public function getEstudiante($rut) {
+            $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
+                || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
+                estudiante.nombre_social, curso.curso
+                FROM estudiante
+                INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
+                INNER JOIN curso ON curso.id_curso = matricula.id_curso
+                WHERE estudiante.rut_estudiante = ?;";
+
+            $sentencia = $this->preConsult($query);
+            $sentencia->execute([$rut]);
+
+            if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {                
+                $this->closeConnection();
+                return json_encode($this->json);
+            }
+
+            $this->closeConnection();
+            return json_encode($this->res);
+        }
+
 
     }
 

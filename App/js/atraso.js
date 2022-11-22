@@ -19,8 +19,8 @@ function cantidadAtrasos(tipo, id_campo) {
     });
 }
 
-function atrasosSinJustificar(rut) {
-    let datos = 'showAtrasosSinJustificar';
+function getAtrasosSinJustificar(rut) {
+    let datos = 'getAtrasosSinJustificar';
     $('#atraso_sinJustificar').DataTable().destroy();
 
     $('#atraso_sinJustificar').DataTable({
@@ -54,13 +54,13 @@ function atrasosSinJustificar(rut) {
 
 }
 
-function get_info_estudiante(rut, input_nombre, input_curso) { // REVISAR INFORMACIÓN, PROCESOS Y FUNCIONAMIENTOS
-    let datos = 'getEstudiante';
+function getEstudiante(rut, input_nombre, input_curso) { // REVISAR INFORMACIÓN, PROCESOS Y FUNCIONAMIENTOS
+    let datos = 'getEstudianteAtraso';
 
     if (rut != '' && rut.length > 7 && rut.length < 9) {
         if (input_nombre.val() == '') {
             $.ajax({
-                url: "./controller/controller_atrasos.php",
+                url: "./controller/controller_estudiante.php",
                 type: "post",
                 dataType: "json",
                 cache: false,
@@ -145,7 +145,7 @@ function validarRut() {     // LISTO
     $('#rut_estudiante_atraso').keyup(function(e) {
         e.preventDefault();
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
-        get_info_estudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
+        getEstudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
 
         if ($('#dv_rut_estudiante_atraso').val() == '' && $('#rut_estudiante_atraso').val() != '') {
             $('#rut_estudiante_atraso').addClass('is-invalid');
@@ -280,7 +280,7 @@ $(document).ready(function() {
         
         prepararModalJustificar(data);
         cargarApodaerado(rut);
-        atrasosSinJustificar(rut);
+        getAtrasosSinJustificar(rut);
 
     });
 
@@ -395,7 +395,7 @@ $(document).ready(function() {
     });
 
 
-    // Btn apra generar PDF
+    // Btn para generar PDF
     $('#btn_pdf_atraso').click(function(e) {
         e.preventDefault();
         // console.log("generar pdf");
