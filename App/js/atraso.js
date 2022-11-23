@@ -54,7 +54,7 @@ function getAtrasosSinJustificar(rut) { // Terminado...
 }
 
 // traer información del estudiante al ingresar nuevo atraso
-function getEstudiante(rut, input_nombre, input_curso) { // Terminado
+function getEstudiante(rut, input_nombre, input_curso) { // Terminado...
     let datos = 'getEstudianteAtraso';
 
     if (rut != '' && rut.length > 7 && rut.length < 9) {
