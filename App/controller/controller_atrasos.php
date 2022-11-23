@@ -11,35 +11,27 @@
     $datosAtraso = new AtrasoEstudiante(); // Creamos el objeto para trabajar con datatable
 
     switch ($type) {
-        case "showAtrasos":
-            print $datosAtraso->consultarAtraso();
+        case "getAtraso": // Terminado...
+            print $datosAtraso->getAtraso();
             break;
 
-        case "getAtrasosSinJustificar";
+        case "getAtrasosSinJustificar"; // Terminado...
             print $datosAtraso->getAtrasoSinJustificar($_POST['rut']);
             break;
 
-        case "getAtrasos":
-            print $datosAtraso->cantidadAtrasos($_POST['tipo']);
+        case "getCantidadAtraso": // Terminado...
+            print $datosAtraso->getCantidadAtraso($_POST['tipo']);
             break;
-
-        // case "getEstudianteAtraso":
-        //     if (is_numeric($_POST['rut'])) {
-        //         print $datosAtraso->getEstudiante($_POST['rut']);
-        //     } else {
-        //         print json_encode(false);
-        //     }
-        //     break;
 
         case "setAtraso":
             print $datosAtraso->setAtraso($_POST['rut']);
             break;
 
-        case "eliminarAtraso":
-            print $datosAtraso->eliminarAtraso($_POST['id_atraso']);
+        case "deleteAtraso": // Terminado...
+            print $datosAtraso->deleteAtraso($_POST['id_atraso']);
             break;
 
-        case "setJustificar":
+        case "setJustificar": // Terminado...
             print $datosAtraso->setJustificar($_POST['id_apoderado'], $_POST['atrasos'], $id_usuario);
             break;
 

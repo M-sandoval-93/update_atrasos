@@ -144,7 +144,8 @@
             return json_encode($this->res);        
         }
 
-        public function getEstudianteAtraso($rut) {
+        // OBTANER DATOS DE ESTUDIANTE PARA REGISTRAR ATRASO
+        public function getEstudianteAtraso($rut) { // Terminado...
             $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
                 || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
                 estudiante.nombre_social, curso.curso, estudiante.id_estado
@@ -154,9 +155,11 @@
                 WHERE estudiante.rut_estudiante = ?;";
 
             $sentencia = $this->preConsult($query);
-            $sentencia->execute([$rut]);
 
-            if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {
+            try {
+                $sentencia->execute([$rut]);
+                $this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
                 $query = "SELECT count(atraso.id_atraso) AS cantidad_atraso FROM atraso
                     INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
                     WHERE estudiante.rut_estudiante = ? AND estado_atraso = 'sin justificar';";
@@ -168,11 +171,12 @@
                 }
                 $this->closeConnection();
                 return json_encode($this->json);
-
+                
+            } catch (Exception $e) {
+                $this->closeConnection();
+                return json_encode($this->res);
             }
 
-            $this->closeConnection();
-            return json_encode($this->res);
         }
 
     }

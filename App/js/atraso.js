@@ -1,8 +1,9 @@
 import { spanish, LibreriaFunciones, generar_dv } from './librerias/librerias.js';
 
 // ==================== FUNCIONES INTERNAS ===============================//
-function cantidadAtrasos(tipo, id_campo) {
-    let datos = 'getAtrasos';
+// para obtener la cantidad de atrasos por dia y total
+function getCantidadAtraso(tipo, id_campo) { // Terminado...
+    let datos = 'getCantidadAtraso';
     let valor = 0;
 
     $.ajax({
@@ -19,7 +20,8 @@ function cantidadAtrasos(tipo, id_campo) {
     });
 }
 
-function getAtrasosSinJustificar(rut) {
+// trae información de los atrasos de un estudiante sin justificar
+function getAtrasosSinJustificar(rut) { // Terminado...
     let datos = 'getAtrasosSinJustificar';
     $('#atraso_sinJustificar').DataTable().destroy();
 
@@ -46,15 +48,13 @@ function getAtrasosSinJustificar(rut) {
             }
         ],
         select: {style: 'multi'},
-
-
         order: [[0, 'asc'], [1, 'asc']],
         language: spanish
     });
-
 }
 
-function getEstudiante(rut, input_nombre, input_curso) { // REVISAR INFORMACIÓN, PROCESOS Y FUNCIONAMIENTOS
+// traer información del estudiante al ingresar nuevo atraso
+function getEstudiante(rut, input_nombre, input_curso) { // Terminado
     let datos = 'getEstudianteAtraso';
 
     if (rut != '' && rut.length > 7 && rut.length < 9) {
@@ -101,7 +101,8 @@ function getEstudiante(rut, input_nombre, input_curso) { // REVISAR INFORMACIÓN
     }
 }
 
-function prepararModalAtraso() {    // LISTO    preparar el modal de atraso antes de mostrarlo
+// funcion para preparar el modal antes de ingresar datos
+function prepararModalAtraso() {    // Terminado...
     let fecha_hora_actual = new Date();
     $('#form_registro_atraso').trigger('reset');
     $('#staticFecha').val(fecha_hora_actual.toLocaleDateString());
@@ -117,7 +118,8 @@ function prepararModalAtraso() {    // LISTO    preparar el modal de atraso ante
 
 }
 
-function prepararModalJustificar(data) {
+// funcion que prepara el modal de justificación de atrasos
+function prepararModalJustificar(data) { // Terminado...
     $('#modal_justificar_atraso').modal('show');
     $('#rut_estudiante_justifica').val(data.rut);
     $('#curso_estudiante_justifica').val(data.curso);
@@ -127,21 +129,8 @@ function prepararModalJustificar(data) {
     
 }
 
-function cargarApodaerado(rut) {
-    let datos = 'getApoderado_justifica';
-
-    $.ajax({
-        url: "./controller/controller_apoderado.php",
-        type: "post",
-        dataType: "json",
-        data: {datos: datos, rut: rut},
-        success: function(data) {
-            $('#apoderado_justifica').html(data);
-        }
-    });
-}
-
-function validarRut() {     // LISTO
+// función para validar el rut y consultar datos del mismo
+function validarRut() { // Terminado...
     $('#rut_estudiante_atraso').keyup(function(e) {
         e.preventDefault();
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
@@ -162,14 +151,16 @@ function validarRut() {     // LISTO
     });
 }
 
-function beforeRegistro(tabla) {    // LISTO función para cuando se almacena un registro y se recargan los datos necesarios
+// función para cuando se almacena un registro y se recargan los datos necesarios
+function beforeRegistro(tabla) { // Terminado...
     tabla.ajax.reload(null, false);
-    cantidadAtrasos('diario', '#atraso_diario');
-    cantidadAtrasos('total', '#atraso_total');
+    getCantidadAtraso('diario', '#atraso_diario');
+    getCantidadAtraso('total', '#atraso_total');
     prepararModalAtraso();
 }
 
-function generarDocumento(ext) {
+// función para generar documento, ver si se puede generalizar !!!!
+function generarDocumento(ext) { // Terminado...
     let datos = 'getDocument';
 
     $.ajax({
@@ -178,7 +169,7 @@ function generarDocumento(ext) {
         dataType: "html",
         cache: false,
         data: {datos: datos, ext: ext},
-        success: function(data) {
+        success: (data) => {
             let opResult = JSON.parse(data);
             let $a = $("<a>");
 
@@ -188,6 +179,8 @@ function generarDocumento(ext) {
             $a[0].click();
             $a.remove();
         }
+    }). fail(() => {
+        LibreriaFunciones.alertPopUp('error', 'Error al generar documento');
     });
 }
 
@@ -195,15 +188,15 @@ function generarDocumento(ext) {
 
 $(document).ready(function() {
     // variables globales
-    let datos = 'showAtrasos'; 
+    let datos = 'getAtraso'; 
     let id_atraso;
 
     // Cantidad de atrasos diarios y total
-    cantidadAtrasos('diario', '#atraso_diario');
-    cantidadAtrasos('total', '#atraso_total');
+    getCantidadAtraso('diario', '#atraso_diario');
+    getCantidadAtraso('total', '#atraso_total');
 
     // LLENAR DATATABLE CON INFORMACIÓN =============================== 
-    let tabla_atrasos = $('#atraso_estudiante').DataTable({     // LISTO
+    let tabla_atrasos = $('#atraso_estudiante').DataTable({ // Terminado...
         ajax: {
             url: "./controller/controller_atrasos.php",
             type: "post",
@@ -235,12 +228,12 @@ $(document).ready(function() {
     });
 
     // Btn nuevo atraso
-    $('#btn_nuevo_atraso').click(function() {
+    $('#btn_nuevo_atraso').click(() => { //Termonado...
         prepararModalAtraso();
     });
 
     // Btn para registrar un atraso
-    $('#btn_registrar_atraso').click(function(e) {  // LISTO
+    $('#btn_registrar_atraso').click((e) => {  // En progreso ... implementar impresión de ticket !!!
         e.preventDefault();
         datos = 'setAtraso';
         let rut;
@@ -274,18 +267,18 @@ $(document).ready(function() {
     });
 
     // Btn para mostrar modal justificaciones
-    $('#atraso_estudiante tbody').on('click', '#btn_justificar_atraso', function() {
+    $('#atraso_estudiante tbody').on('click', '#btn_justificar_atraso', function() { // Terminado...
         let data = tabla_atrasos.row($(this).parents()).data();
         let rut = data.rut.slice(0, -2);
         
         prepararModalJustificar(data);
-        cargarApodaerado(rut);
+        LibreriaFunciones.loadApoderado(rut, '#apoderado_justifica');
         getAtrasosSinJustificar(rut);
 
     });
 
     // Btn para justificar atrasos
-    $('#btn_justificar_atraso').click(function(e) {
+    $('#btn_justificar_atraso').click(function(e) { // Terminado...
         e.preventDefault();
         let row_selected = $('#atraso_sinJustificar').DataTable().column(2).checkboxes.selected();
         let atrasos = [];
@@ -308,12 +301,11 @@ $(document).ready(function() {
 
         $.ajax({
             url: "./controller/controller_atrasos.php",
-            type: "post",
+            type: "POST",
             dataType: "json",
             cache: false,
             data: {datos: datos, id_apoderado: id_apoderado, atrasos: atrasos},
             success: function(data) {
-                // console.log(data);
                 if (data == false) {
                     LibreriaFunciones.alertPopUp('error', 'Error de registro !!');
                 }
@@ -326,7 +318,7 @@ $(document).ready(function() {
     });
     
     // Btn para eliminar un registro
-    $('#atraso_estudiante tbody').on('click', '#btn_eliminar_atraso', function() {
+    $('#atraso_estudiante tbody').on('click', '#btn_eliminar_atraso', function() { // Terminado...
         let data = tabla_atrasos.row($(this).parents()).data();
         id_atraso = data.id_atraso;
 
@@ -340,7 +332,7 @@ $(document).ready(function() {
             cancelButtonColor: '#adadad'
         }). then(resultado => {
             if (resultado.isConfirmed) {
-                datos = "eliminarAtraso";
+                datos = "deleteAtraso";
 
                 $.ajax({
                     url: "./controller/controller_atrasos.php",
@@ -362,64 +354,43 @@ $(document).ready(function() {
     });
 
     // Btn para generar EXCEL
-    $('#btn_excel_atraso').click(function(e) {
+    $('#btn_excel_atraso').click((e) => { // Terminado...
         e.preventDefault();
         generarDocumento('xlsx');
 
-        // datos = 'getExcel';
-
-        // $.ajax({
-        //     url: "./controller/controller_atrasos.php",
-        //     type: "post",
-        //     dataType: "html",
-        //     cache: false,
-        //     data: {datos: datos},
-        //     success: function(data) {
-        //         let opResult = JSON.parse(data);
-        //         let $a = $("<a>");
-
-        //         $a.attr("href", opResult.data);
-        //         $("body").append($a);
-        //         // $a.attr("download", "Registro atrasos.csv");
-        //         $a.attr("download", "Registro atrasos.xlsx");
-        //         $a[0].click();
-        //         $a.remove();
-        //     }
-        // });
-
     });
 
-    $('#btn_csv_atraso').click(function(e) {
+    $('#btn_csv_atraso').click((e) => { // Terminado...
        e.preventDefault();
        generarDocumento('csv'); 
     });
 
 
     // Btn para generar PDF
-    $('#btn_pdf_atraso').click(function(e) {
+    $('#btn_pdf_atraso').click(function(e) { // En progreso...
         e.preventDefault();
-        // console.log("generar pdf");
+        console.log("generar pdf");
 
-        // trabajando para probar fetch !!!!!!!
-        const data = new FormData();
-        data.append('nombre', 'juan manuel');
+        // // trabajando para probar fetch !!!!!!!
+        // const data = new FormData();
+        // data.append('nombre', 'juan manuel');
 
-        // let data = {nombre: 'juan manuel'};
+        // // let data = {nombre: 'juan manuel'};
 
 
-        fetch('http://localhost/update_atrasos/impresion/', {
-            method: 'POST',
-            body: data
-            // body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data == true) {
-                console.log('impresion ejecutada');
-            } else {
-                console.log('impresión no ejecutada');
-            }
-        });
+        // fetch('http://localhost/update_atrasos/impresion/', {
+        //     method: 'POST',
+        //     body: data
+        //     // body: JSON.stringify(data)
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     if (data == true) {
+        //         console.log('impresion ejecutada');
+        //     } else {
+        //         console.log('impresión no ejecutada');
+        //     }
+        // });
 
 
     });

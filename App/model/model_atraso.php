@@ -4,8 +4,6 @@
 
     require __DIR__."/vendor/autoload.php";
     use PhpOffice\PhpSpreadsheet\{Spreadsheet, IOFactory};
-    // use PhpOffice\PhpSpreadsheet\Helper\Sample;
-    // use PhpOffice\PhpSpreadsheet\Style\Fill;
     
 
     class AtrasoEstudiante extends Conexion {
@@ -14,7 +12,7 @@
             parent:: __construct();
         }
 
-        public function consultarAtraso() {
+        public function getAtraso() { // Terminado...
             $query = "SELECT atraso.id_atraso, (estudiante.rut_estudiante || '-' || estudiante.dv_rut_estudiante) AS rut,
             estudiante.ap_estudiante AS ap_paterno, estudiante.am_estudiante AS ap_materno,
             estudiante.nombres_estudiante AS nombre, estudiante.nombre_social AS n_social, curso.curso, 
@@ -42,7 +40,7 @@
             return json_encode($this->json);
         }
 
-        public function getAtrasoSinJustificar($rut) {
+        public function getAtrasoSinJustificar($rut) {  // Terminado...
             $query = "SELECT atraso.id_atraso, to_char(atraso.fecha_atraso, 'DD/MM/YYYY') AS fecha_atraso,
                 to_char(atraso.hora_atraso, 'HH:MI:SS') AS hora_atraso
                 FROM estudiante
@@ -59,12 +57,14 @@
 
             $this->closeConnection();
             return json_encode($this->json);
+
         }
 
-        public function cantidadAtrasos($tipo) {
+        public function getCantidadAtraso($tipo) { // Terminado...
             if ($tipo == 'diario') {
                 $query = "SELECT COUNT(id_atraso) AS atrasos FROM atraso 
                 WHERE EXTRACT(DAY FROM fecha_atraso) = EXTRACT(DAY FROM CURRENT_DATE)
+                AND EXTRACT(MONTH FROM fecha_atraso) = EXTRACT(MONTH FROM CURRENT_DATE)
                 AND EXTRACT(YEAR FROM fecha_atraso) = EXTRACT(YEAR FROM CURRENT_DATE);";
 
             } else if ($tipo == 'total') {
@@ -83,37 +83,6 @@
             $this->closeConnection();
             return json_encode($this->res);
         }
-
-        // public function getEstudiante($rut) {
-        //     $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
-        //         || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
-        //         estudiante.nombre_social, curso.curso, estudiante.id_estado
-        //         FROM estudiante
-        //         INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
-        //         INNER JOIN curso ON curso.id_curso = matricula.id_curso
-        //         WHERE estudiante.rut_estudiante = ?;";
-
-        //     $sentencia = $this->preConsult($query);
-        //     $sentencia->execute([$rut]);
-
-        //     if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {
-        //         $query = "SELECT count(atraso.id_atraso) AS cantidad_atraso FROM atraso
-        //             INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
-        //             WHERE estudiante.rut_estudiante = ? AND estado_atraso = 'sin justificar';";
-                
-        //         $sentencia = $this->preConsult($query);
-        //         $sentencia->execute([$rut]);
-        //         if ($cantidad_atraso = $sentencia->fetch()) {
-        //             $this->json[0]['cantidad_atraso'] = $cantidad_atraso['cantidad_atraso'];
-        //         }
-        //         $this->closeConnection();
-        //         return json_encode($this->json);
-
-        //     }
-
-        //     $this->closeConnection();
-        //     return json_encode($this->res);
-        // }
 
         public function setAtraso($rut) {
 
@@ -140,7 +109,7 @@
             return json_encode($this->res);
         }
 
-        public function eliminarAtraso($id_atraso) {
+        public function deleteAtraso($id_atraso) { // Terminado...
             $query = "DELETE FROM atraso WHERE id_atraso = ?;";
             $sentencia = $this->preConsult($query);
             
@@ -152,10 +121,27 @@
             return json_encode($this->res);
         }
 
-        public function setJustificar($id_apoderado, $atrasos, $id_usuario) {
+        public function setJustificar($id_apoderado, $atrasos, $id_usuario) { // Terminado...
             $query = "UPDATE atraso
                 SET estado_atraso = 'justificado', id_usuario_justifica = ?, fecha_hora_justificacion = CURRENT_TIMESTAMP, id_apoderado_justifica = ?
                 WHERE id_atraso = ?;";
+            
+            $sentencia = $this->preConsult($query);
+
+            try {
+                foreach ($atrasos as $atraso) {
+                    if ($sentencia->execute([$id_usuario, $id_apoderado, $atraso])) {
+                        $this->res = true;
+                    }
+                }
+                
+                $this->closeConnection();
+                return json_encode($this->res);
+
+            } catch (Exception $e) {
+                $this->closeConnection();
+                return json_encode($this->res);
+            }
 
             $sentencia = $this->preConsult($query);
             foreach ($atrasos as $atraso) {
@@ -182,7 +168,7 @@
             INNER JOIN curso ON curso.id_curso = matricula.id_curso;";
 
             $sentencia = $this->preConsult($query);
-            $sentencia->execute();
+            $sentencia->execute();            
             $atrasos = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
             $extension = 'Xlsx';
@@ -247,10 +233,6 @@
             if ($ext == 'Csv') {
                 $extension = 'Csv';
             } 
-            // else if ($ext == 'Pdf') {
-            //     $extension = 'Mpdf';
-            //     // IOFactory::registerWriter('pdf', \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf::class);
-            // }
             
             $writer = IOFactory::createWriter($file, $extension);
 
@@ -259,12 +241,7 @@
             $xlsData = ob_get_contents();
             ob_end_clean();
 
-            $file = array (
-                "data" => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; base64,'.base64_encode($xlsData)
-                // "data" => 'data: application/pdf; base64,'.base64_encode($xlsData)
-                // "data" => 'data:application/pdf; base64,'.base64_encode($xlsData)
-                // "data" => 'data:application/pdf; base64'.base64_encode($xlsData)
-            );
+            $file = array ( "data" => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; base64,'.base64_encode($xlsData));
 
             $this->closeConnection();
             return json_encode($file);

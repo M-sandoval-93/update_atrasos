@@ -202,7 +202,7 @@ export let LibreriaFunciones = {
     //  ^(\d{1}|\d{2})\.(\d{3}\.\d{3}-)([a-zA-Z]{1}$|\d{1}$) // expreion regular para rut
     // expresion para validar lonjitud y formato
     // ^(\d{7}|\d{8}|\d{9})\-([a-zA-Z]{1}$|\d{1}$)
-    validarRut: function(rutCompleto) {
+    validarRut: (rutCompleto) => {
         if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto )) {
             return false;
         }
@@ -218,7 +218,7 @@ export let LibreriaFunciones = {
     },
 
     // Calcula el dígito verificador
-    dv: function(T) {
+    dv: (T) => {
         let M = 0, S = 1;
 
         for (;T;T = Math.floor(T/10)) {
@@ -228,13 +228,13 @@ export let LibreriaFunciones = {
     },
 
     // Valida que el número sea un entero
-    validarEntero: function(value) {
+    validarEntero: (value) => {
         let regExPattern = /[0-9]+$/;
         return regExPattern.test(value);
     },
 
     // Formatea un número con puntos de miles
-    formatearNumero: function(val) {
+    formatearNumero: (val) => {
         if (LibreriaFunciones.validarEntero(val)) {
             let retorno = '';
             let value = val.toString().split('').reverse().join('');
@@ -262,7 +262,7 @@ export let LibreriaFunciones = {
     },
 
     // Alertas de sweetAlert2 predefinidas
-    alertPopUp: function(icon, title) {
+    alertPopUp: (icon, title) => {
         Swal.fire({
             icon: icon,
             title: title,
@@ -271,7 +271,7 @@ export let LibreriaFunciones = {
         });
     },
 
-    restarFechas: function(f1, f2) {
+    restarFechas: (f1, f2) => { // revisar como hacer que se resten solo los dias hábiles, sin contar fines de semana y feriados, ver uso de api
         if (f1.val() != '' && f2.val() != '') {
             let afecha1 = f1.val().split('-');
             let afecha2 = f2.val().split('-');
@@ -280,43 +280,10 @@ export let LibreriaFunciones = {
             let dif = fFecha2 - fFecha1;
             let dias = Math.floor(dif / (1000 * 60 * 60 * 24)) + 1; 
             return dias;
-        }        
+        }    
     },
 
-    // Agregar como función interna en controlador funcionario
-    // buscar_info_funcionario: function(rut, label, elemento = null) { // VER SI SE PASA AL CONTROLADOR DE FUNCIONARIO PARA QUE SEA GENERALIZADO
-    //     let datos = 'buscar_funcionario';
-
-    //     if (rut.length < 7) {
-    //         if (elemento != null) {
-    //             elemento.attr('hidden', 'hidden');
-    //         }
-    //         label.text('');
-    
-    //     } else if (rut.length >= 7) {
-    //         $.ajax({
-    //             url: "./controller/controller_inasistenciaF.php",
-    //             method: "post",
-    //             dataType: "json",
-    //             data: {rut: rut, datos: datos},
-    //             success: function(data) {
-    //                 if (data === false) {
-    //                     label.text('Funcionario sin registros !!');
-    //                     if (elemento != null) {
-    //                         elemento.removeAttr('hidden', 'hidden');
-    //                     }
-    //                 } else {
-    //                     if (elemento != null) {
-    //                         elemento.attr('hidden', 'hidden');
-    //                     }
-    //                     label.text(data);
-    //                 }
-    //             }
-    //         });
-    //     }
-    // },
-
-    alertBoostrap: function(elemento, message, type) {
+    alertBoostrap: (elemento, message, type) => {
         let componente = document.getElementById(elemento);
 
         let wrapper = document.createElement('div');
@@ -324,9 +291,24 @@ export let LibreriaFunciones = {
         componente.append(wrapper);
     },
 
-    autoFocus: function(modal, input) {
+    autoFocus: (modal, input) => {
         modal.on('shown.bs.modal', function() {
             input.focus();
+        });
+    },
+
+
+    loadApoderado: (rut, campo) => {
+        let datos = 'getApoderado_justifica';
+
+        $.ajax({
+            url: "./controller/controller_apoderado.php",
+            type: "post",
+            dataType: "json",
+            data: {datos: datos, rut: rut},
+            success: function(data) {
+                $(campo).html(data);
+            }
         });
     }
 
