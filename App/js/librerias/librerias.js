@@ -310,6 +310,27 @@ export let LibreriaFunciones = {
                 $(campo).html(data);
             }
         });
+    },
+
+    validarNumberRut: (rut, informacion = true) => {
+        rut.val(rut.val().replace(/[^0-9]/g, ''));
+
+        if (rut.val().length > 9 && rut.val() != '') {
+            rut.addClass('is-invalid');
+            $('#rut_estudiante_atraso').addClass('is-invalid');
+            if (informacion != true) {
+                informacion.removeClass('form-text');
+                informacion.text('Rut inválido, revisar !!');
+                informacion.addClass('text-danger');
+            }
+        } else {
+            rut.removeClass('is-invalid');
+            if (informacion != true) {
+                informacion.removeClass('text-danger');
+                informacion.text('Rut sin puntos, sin guión y sin dígito verificador');
+                informacion.addClass('form-text')
+            }
+        }
     }
 
 }

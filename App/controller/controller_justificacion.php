@@ -12,7 +12,6 @@ $datosJustificacion = new JustificacionEstudiante();
 
 switch ($type) {
     case "showJustificaciones":
-        // print json_encode(true);
         print $datosJustificacion->showJustificacion();
         break;
 
@@ -20,14 +19,13 @@ switch ($type) {
         print $datosJustificacion->infoAdicional($_POST['id_justificacion']);
         break;
 
-    case "getJustificaciones":
+    case "getCantidadJustificacion":
         print $datosJustificacion->getJustificaciones();
         break;
 
-    case "getEstudiante":
-        // print json_encode(false);
-        print $datosJustificacion->getEstudiante($_POST['rut']);
-        break;
+    // case "getEstudiante":
+    //     print $datosJustificacion->getEstudiante($_POST['rut']);
+    //     break;
 
 }
 

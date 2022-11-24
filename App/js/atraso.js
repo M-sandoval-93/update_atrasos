@@ -17,6 +17,8 @@ function getCantidadAtraso(tipo, id_campo) { // Terminado...
             }
             $(id_campo).text(valor);
         }
+    }).fail(() => {
+        $(id_campo).text('Error !!');
     });
 }
 
@@ -55,7 +57,7 @@ function getAtrasosSinJustificar(rut) { // Terminado...
 
 // traer información del estudiante al ingresar nuevo atraso
 function getEstudiante(rut, input_nombre, input_curso) { // Terminado...
-    let datos = 'getEstudianteAtraso';
+    let datos = 'getEstudiante';
 
     if (rut != '' && rut.length > 7 && rut.length < 9) {
         if (input_nombre.val() == '') {
@@ -64,15 +66,11 @@ function getEstudiante(rut, input_nombre, input_curso) { // Terminado...
                 type: "post",
                 dataType: "json",
                 cache: false,
-                data: {datos: datos, rut: rut},
+                data: {datos: datos, rut: rut, tipo: 'atraso'},
                 success: function(info) {
                     if (info != false) {
                         input_nombre.val(info[0].nombre_estudiante);
                         input_curso.val(info[0].curso);
-
-                        if (info[0].nombre_social != null) {
-                            input_nombre.val('(' + info[0].nombre_social + ') ' + info[0].nombre_estudiante);
-                        }
 
                         if (info[0].cantidad_atraso >= 1) {
                             $('#alerta_atraso_cantidad').text('Atrasos sin justificar: ' + info[0].cantidad_atraso);
@@ -136,18 +134,7 @@ function validarRut() { // Terminado...
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
         getEstudiante($('#rut_estudiante_atraso').val(), $('#nombre_estudiante_atraso'), $('#curso_estudiante_atraso'));
 
-        if ($('#dv_rut_estudiante_atraso').val() == '' && $('#rut_estudiante_atraso').val() != '') {
-            $('#rut_estudiante_atraso').addClass('is-invalid');
-            $('#informacion_rut').removeClass('form-text');
-            $('#informacion_rut').text('Rut inválido, revisar !!');
-            $('#informacion_rut').addClass('text-danger');
-    
-        }  else {
-            $('#rut_estudiante_atraso').removeClass('is-invalid');
-            $('#informacion_rut').removeClass('text-danger');
-            $('#informacion_rut').text('Rut sin puntos, sin guión y sin dígito verificador');
-            $('#informacion_rut').addClass('form-text');
-        }    
+        LibreriaFunciones.validarNumberRut($('#rut_estudiante_atraso'), $('#informacion_rut'));  
     });
 }
 

@@ -1,7 +1,7 @@
 import {LibreriaFunciones, generar_dv, spanish } from './librerias/librerias.js';
 
 // ==================== FUNCIONES INTERNAS ===============================//
-function infoSecundaria(data) {
+function getInfoSecundaria(data) { // Terminado...
     let documento = 'NO';
     let pruebas = 'SIN PRUEBAS PENDIENTES';
 
@@ -43,8 +43,8 @@ function infoSecundaria(data) {
     );
 }
 
-function cantidadJustificacion(id_campo) {
-    let datos = 'getJustificaciones';
+function getCantidadJustificacion(id_campo) { // Terminado...
+    let datos = 'getCantidadJustificacion';
     let valor = 0;
 
     $.ajax({
@@ -58,20 +58,18 @@ function cantidadJustificacion(id_campo) {
             }
             $(id_campo).text(valor);
         }
+    }).fail(() => {
+        $(id_campo).text('Error !!');
     });
 }
 
-function prepararModalJustificacion() {
+function prepararModalJustificacion() { // Terminado...
     let fecha_actual = new Date();
 
     $('#form_registro_justificacion_falta').trigger('reset');
     $('#justificacion_fecha').val(fecha_actual.toLocaleDateString());
-
-    //revisar
-    // $('#justificacion_rut_estudiante').removeClass('is-invalid');
-
+    $('#justificacion_rut_estudiante').removeClass('is-invalid');
     LibreriaFunciones.autoFocus($('#modal_registro_justificacion_falta'), $('#justificacion_rut_estudiante'));
-
 
     $('#justificacion_documento').click(function() {
         if ($(this).is(':checked')) {
@@ -81,19 +79,43 @@ function prepararModalJustificacion() {
             $('#justificacion_prueba_pendiente').prop('checked', false);
         }
     });
+
+    $('#justificacion_prueba_pendiente').click(function (e) {
+        if ($(this).is(':checked')) {
+            $('#modal_registro_justificacion_falta').modal('hide');
+            crearModalAsignatura();
+            // $('#justificacion_asignatura_nombre').text($('#justificacion_nombre_estudiante').text());
+            // $('#justificacion_asignatura_curso').text($('#justificacion_curso_estudiante').text());
+            // $('#modal_justificacion_asignatura').modal('show');
+        }
+    });
 }
 
-function get_info_estudiante(rut, input_nombre, input_curso) {
+function crearModalAsignatura() {
+    // if ($('#justificacion_nombre_estudiante').text() == '' || $('#justificacion_curso_estudiante'.text() == '')) {
+    //     $('#modal_registro_justificacion_falta').modal('show');
+    //     LibreriaFunciones.alertPopUp('warning', 'Ingresar Rut !!');
+    //     return false;
+
+    // }
+
+    $('#justificacion_asignatura_nombre').val($('#justificacion_nombre_estudiante').val());
+    $('#justificacion_asignatura_curso').val($('#justificacion_curso_estudiante').val());
+    $('#modal_justificacion_asignatura').modal('show');
+
+}
+
+function getInfoEstudiante(rut, input_nombre, input_curso) { // Terminado...
     let datos = 'getEstudiante';
 
     if (rut != '' && rut.length > 7 && rut.length <= 9) {
         if (input_nombre.val() == '') {
             $.ajax({
-                url: "./controller/controller_justificacion.php",
+                url: "./controller/controller_estudiante.php",
                 type: "POST",
                 dataType: "json",
                 cache: false,
-                data: {datos: datos, rut: rut},
+                data: {datos: datos, rut: rut, tipo: 'justificacion'},
                 success: function(data) {
                     if (data != false) {
                         input_nombre.val(data[0].nombre_estudiante);
@@ -111,64 +133,15 @@ function get_info_estudiante(rut, input_nombre, input_curso) {
         input_nombre.val('');
         input_curso.val('');
     }
-
-    // if (rut != '' && rut.length > 7 && rut.length < 9) {
-    //     if (input_nombre.val() == '') {
-    //         $.ajax({
-    //             url: "./controller/controller_justificacion.php",
-    //             type: "post",
-    //             dataType: "json",
-    //             cache: false,
-    //             data: {datos: datos, rut: rut},
-    //             success: function(info) {
-    //                 if (info != false) {
-    //                     input_nombre.val(info[0].nombre_estudiante);
-    //                     input_curso.val(info[0].curso);
-
-    //                     if (info[0].nombre_social != null) {
-    //                         input_nombre.val('(' + info[0].nombre_social + ') ' + info[0].nombre_estudiante);
-    //                     }
-
-    //                     // if (info[0].cantidad_atraso >= 1) {
-    //                     //     $('#alerta_atraso_cantidad').text('Atrasos sin justificar: ' + info[0].cantidad_atraso);
-    //                     //     $('#alerta_atraso_cantidad').show();
-    //                     // }
-
-    //                     // if (info[0].id_estado == 5) {
-    //                     //     $('#registrar_atraso').prop('disabled', true);
-    //                     //     $('#alerta_suspencion_activa').text('Estudiante suspendido !!!');
-    //                     //     $('#alerta_suspencion_activa').show();
-    //                     // } 
-
-    //                 } else {
-    //                     input_nombre.val('Sin datos');
-    //                     input_curso.val('N/A');
-    //                 }
-    //             }
-    //         });
-    //     }
-    // } else {
-    //     input_nombre.val('');
-    //     input_curso.val('');
-    //     // $('#alerta_atraso_cantidad').hide();
-    //     // $('#alerta_suspencion_activa').hide();
-    //     // $('#registrar_atraso').removeAttr('disabled');
-    // }
-
 }
 
-function validarRut() {
-    $('#justificacion_rut_estudiante').keyup(function(e) {
+
+function validarRut() { // Terminado...
+    $('#justificacion_rut_estudiante').keyup((e) => {
         e.preventDefault();
         generar_dv($('#justificacion_rut_estudiante'), $('#justificacion_dv_rut_estudiante'));
-        get_info_estudiante($('#justificacion_rut_estudiante').val(), $('#justificacion_nombre_estudiante'), $('#justificacion_curso_estudiante'));
-
-        if ($('#justificacion_dv_rut_estudiante').val() == '' && $('#justificacion_rut_estudiante').val() != '') {
-            $('#justificacion_rut_estudiante').addClass('is-invalid');
-        } else {
-            $('#justificacion_rut_estudiante').removeClass('is-invalid');
-        }
-
+        getInfoEstudiante($('#justificacion_rut_estudiante').val(), $('#justificacion_nombre_estudiante'), $('#justificacion_curso_estudiante'));
+        LibreriaFunciones.validarNumberRut($('#justificacion_rut_estudiante'));
     });
 }
 
@@ -199,7 +172,7 @@ $(document).ready(function() {
 
 
     // Cantidad de atrasos diarios y total
-    cantidadJustificacion('#justificacion_diaria');
+    getCantidadJustificacion('#justificacion_diaria');
 
     // LLENAR DATATABLE CON INFORMACIÓN =============================== 
     let tabla_justificacion = $('#justificacion_estudiante').DataTable({
@@ -257,7 +230,7 @@ $(document).ready(function() {
                 dataType: "json",
                 data: {datos: datos, id_justificacion: dataRow.id_justificacion},
                 success: function(data) {
-                    row.child(infoSecundaria(data[0])).show();
+                    row.child(getInfoSecundaria(data[0])).show();
                 }
             });
             
@@ -265,9 +238,10 @@ $(document).ready(function() {
         }
     });
 
-    $('#btn_nueva_justificacion').click(function() {
+    $('#btn_nueva_justificacion').click((e) => {
         prepararModalJustificacion();
     });
+
 
 
 

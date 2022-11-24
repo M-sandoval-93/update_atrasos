@@ -176,6 +176,48 @@
                 $this->closeConnection();
                 return json_encode($this->res);
             }
+        }
+
+        public function getEstudiante($rut, $tipo) { //Terminado ...
+            $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
+                || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
+                estudiante.nombre_social, curso.curso, estudiante.id_estado
+                FROM estudiante
+                INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
+                INNER JOIN curso ON curso.id_curso = matricula.id_curso
+                WHERE estudiante.rut_estudiante = ?;";
+            $sentencia = $this->preConsult($query);
+            $sentencia->execute([$rut]);
+
+            if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {
+                // $this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($this->json[0]['nombre_social'] != null) {
+                    $this->json[0]['nombre_estudiante'] = $this->json[0]['nombre_estudiante']. '('.$this->json[0]['nombre_social']. ')';
+                }
+
+                if ($tipo == "atraso") {
+                    $queryCantidad = "SELECT count(atraso.id_atraso) AS cantidad_atraso FROM atraso
+                        INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
+                        WHERE estudiante.rut_estudiante = ? AND estado_atraso = 'sin justificar';";
+                    $sentencia = $this->preConsult($queryCantidad);
+                    $sentencia->execute([$rut]);
+
+                    if ($cantidad_atraso = $sentencia->fetch()) {
+                        $this->json[0]['cantidad_atraso'] = $cantidad_atraso['cantidad_atraso'];
+                    }
+                } else if ($tipo == 'justificacion') {
+                    unset($this->json[0]['id_estado']);
+                }
+
+                unset($this->json[0]['nombre_social']);
+
+                $this->closeConnection();
+                return json_encode($this->json);
+            }
+
+            $this->closeConnection();
+            return json_encode($this->res);
 
         }
 
