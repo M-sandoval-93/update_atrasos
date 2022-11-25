@@ -162,8 +162,8 @@
             }
             
 
-            return json_encode($this->json);
             $this->closeConnection();
+            return json_encode($this->json);
 
         }
 

@@ -49,7 +49,7 @@ function getCantidadJustificacion(id_campo) { // Terminado...
 
     $.ajax({
         url: "./controller/controller_justificacion.php",
-        type: "post",
+        type: "POST",
         dataType: "json",
         data: {datos: datos},
         success: function(data) {
@@ -80,30 +80,50 @@ function prepararModalJustificacion() { // Terminado...
         }
     });
 
+}
+
+function prepararModalAsignatura() {
+    let datos = "getAsignatura";
+    
     $('#justificacion_prueba_pendiente').click(function (e) {
         if ($(this).is(':checked')) {
-            $('#modal_registro_justificacion_falta').modal('hide');
-            crearModalAsignatura();
-            // $('#justificacion_asignatura_nombre').text($('#justificacion_nombre_estudiante').text());
-            // $('#justificacion_asignatura_curso').text($('#justificacion_curso_estudiante').text());
-            // $('#modal_justificacion_asignatura').modal('show');
+
+            if ($('#justificacion_asignatura_nombre').val() == '' && $('#justificacion_curso_estudiante').val() == '') {
+                LibreriaFunciones.alertPopUp('warning', 'Ingresar rut del estudiante !!');
+                return false
+            }
+
+            $('#justificacion_asignatura_nombre').val($('#justificacion_nombre_estudiante').val());
+            $('#justificacion_asignatura_curso').val($('#justificacion_curso_estudiante').val());
+
+            $.ajax({
+                url: "./controller/controller_asignatura.php",
+                type: "POST",
+                dataType: "json",
+                data: {datos: datos},
+                success: function(data) {
+                    $.each(data, (obj, datos) => {
+                        $('#group_of_the_check').append(`<div class="col-6">
+                                                            <div class="form-check">
+                                                                <input type="checkbox" id="check_asignatura" class="form-check-input" value="` + datos['id_asignatura'] + `">
+                                                                <label for="check_asignatura" class="form-check-label">` + datos['asignatura'] + `</label>
+                                                            </div>
+                                                        </div>`);
+                    });
+                }
+            }).fail(() => {
+                $('#group_of_the_check').append('<h2>Error al consultar datos</h2>');
+            });
+            
+            
+            $('#modal_justificacion_asignatura').modal('show');
+
+
         }
     });
 }
 
-function crearModalAsignatura() {
-    // if ($('#justificacion_nombre_estudiante').text() == '' || $('#justificacion_curso_estudiante'.text() == '')) {
-    //     $('#modal_registro_justificacion_falta').modal('show');
-    //     LibreriaFunciones.alertPopUp('warning', 'Ingresar Rut !!');
-    //     return false;
 
-    // }
-
-    $('#justificacion_asignatura_nombre').val($('#justificacion_nombre_estudiante').val());
-    $('#justificacion_asignatura_curso').val($('#justificacion_curso_estudiante').val());
-    $('#modal_justificacion_asignatura').modal('show');
-
-}
 
 function getInfoEstudiante(rut, input_nombre, input_curso) { // Terminado...
     let datos = 'getEstudiante';
@@ -245,6 +265,7 @@ $(document).ready(function() {
 
 
 
+    prepararModalAsignatura();
 
     validarRut();
 
