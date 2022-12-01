@@ -130,7 +130,7 @@
         }
 
         // Función utilizada para mostrar los apoderados que justifican en atrasos y justificaciones
-        public function getApoderadoAtraso($rut) {
+        public function getApoderado($rut) {
             $query = "SELECT ap_titular.id_apoderado AS id_titular,
                 (ap_titular.nombres_apoderado || ' ' || ap_titular.ap_apoderado || ' ' || ap_titular.am_apoderado) AS titular,
                 ap_suplente.id_apoderado AS id_suplente,

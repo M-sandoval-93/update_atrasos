@@ -40,6 +40,7 @@
             // $md5Pass = $pass;
             $query = "SELECT * FROM usuario WHERE nombre_usuario = ? AND clave_usuario = ?;";
             $sentencia = $this->preConsult($query);
+            
             $sentencia->execute([$usser, $md5Pass]);
 
             if ($usuario = $sentencia->fetch()) {

@@ -299,14 +299,14 @@ export let LibreriaFunciones = {
 
 
     loadApoderado: (rut, campo) => {
-        let datos = 'getApoderado_justifica';
+        let datos = 'getApoderado';
 
         $.ajax({
             url: "./controller/controller_apoderado.php",
             type: "post",
             dataType: "json",
             data: {datos: datos, rut: rut},
-            success: function(data) {
+            success: (data) => {
                 $(campo).html(data);
             }
         });

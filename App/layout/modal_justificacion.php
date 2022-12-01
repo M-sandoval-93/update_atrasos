@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-5 col-sm-6">
                     <div class="row align-items-center">
-                        <label for="justificacion_rut_estudiante" class="form-label">Rut estudiante</label>
+                        <label for="justificacion_rut_estudiante" class="form-label">Rut estudiante <span class="text-danger fs-5">*</span></label>
                         <div class="col-8 rut">
                             <input type="text" class="form-control text-center" id="justificacion_rut_estudiante" required>
                         </div>
@@ -46,19 +46,19 @@
 
             <div class="row mt-3">
                 <div class="col-sm-5 col-md-3">
-                    <label for="justificacion_fecha_inicio" class="form-label">Fecha inicio</label>
+                    <label for="justificacion_fecha_inicio" class="form-label">Fecha inicio <span class="text-danger fs-5">*</span></label>
                     <input type="date" id="justificacion_fecha_inicio" class="form-control">
                 </div>
 
                 <div class="col-sm-5 col-md-3">
-                    <label for="justificacion_fecha_termino" class="form-label">Fecha termino</label>
+                    <label for="justificacion_fecha_termino" class="form-label">Fecha termino <span class="text-danger fs-5">*</span></label>
                     <input type="date" id="justificacion_fecha_termino" class="form-control">
                 </div>
             </div>
 
             <div class="row mt-3">
                 <div class="col-sm-12">
-                    <label for="justificacion_apoderado" class="form-label">Apoderado(a)</label>
+                    <label for="justificacion_apoderado" class="form-label">Apoderado(a) <span class="text-danger fs-5">*</span></label>
                     <select id="justificacion_apoderado" class="form-select"></select>
                 </div>
             </div>
@@ -88,8 +88,8 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-lg" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success btn-lg" id="btn_registrar_atraso">Registrar</button>
+          <button type="button" class="btn btn-danger btn-lg" data-bs-dismiss="modal" id="btn_cancelar_justificacion">Cancelar</button>
+          <button type="button" class="btn btn-success btn-lg" id="btn_registrar_justificacion">Registrar</button>
         </div>
 
       </form>
@@ -104,7 +104,7 @@
 
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title" id="modal_justificacion_asignatura_title">ASIGNATURAS</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="close_modal_justificacion_asignatura"></button>
       </div>
 
       <form id="form_justificacion_asignatura">

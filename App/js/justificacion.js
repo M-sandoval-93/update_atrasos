@@ -63,13 +63,42 @@ function getCantidadJustificacion(id_campo) { // Terminado...
     });
 }
 
+function expandInfoSecundaria(tabla) { // Terminado...
+    $('#justificacion_estudiante tbody').on('click', 'td.dt-control', function() {
+        let dataRow = tabla.row($(this).parents()).data();
+        let tr = $(this).closest('tr');
+        let row = tabla.row(tr);
+        let datos = 'getInfoAdicional';
+
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('show');
+        } else {
+
+            $.ajax({
+                url: "./controller/controller_justificacion.php",
+                type: "POST",
+                dataType: "json",
+                data: {datos: datos, id_justificacion: dataRow.id_justificacion},
+                success: function(data) {
+                    row.child(getInfoSecundaria(data[0])).show();
+                }
+            });
+            
+            tr.addClass('shown');
+        }
+    });
+}
+
 function prepararModalJustificacion() { // Terminado...
     let fecha_actual = new Date();
 
-    $('#form_registro_justificacion_falta').trigger('reset');
-    $('#justificacion_fecha').val(fecha_actual.toLocaleDateString());
-    $('#justificacion_rut_estudiante').removeClass('is-invalid');
-    LibreriaFunciones.autoFocus($('#modal_registro_justificacion_falta'), $('#justificacion_rut_estudiante'));
+    $('#btn_nueva_justificacion').click(() => {
+        $('#form_registro_justificacion_falta').trigger('reset');
+        $('#justificacion_fecha').val(fecha_actual.toLocaleDateString());
+        $('#justificacion_rut_estudiante').removeClass('is-invalid');
+        LibreriaFunciones.autoFocus($('#modal_registro_justificacion_falta'), $('#justificacion_rut_estudiante'));
+    });
 
     $('#justificacion_documento').click(function() {
         if ($(this).is(':checked')) {
@@ -79,6 +108,8 @@ function prepararModalJustificacion() { // Terminado...
             $('#justificacion_prueba_pendiente').prop('checked', false);
         }
     });
+
+    prepararModalAsignatura();
 
 }
 
@@ -93,6 +124,8 @@ function prepararModalAsignatura() {
                 return false
             }
 
+            $('#form_justificacion_asignatura').trigger('reset')
+
             $('#justificacion_asignatura_nombre').val($('#justificacion_nombre_estudiante').val());
             $('#justificacion_asignatura_curso').val($('#justificacion_curso_estudiante').val());
 
@@ -105,8 +138,8 @@ function prepararModalAsignatura() {
                     $.each(data, (obj, datos) => {
                         $('#group_of_the_check').append(`<div class="col-6">
                                                             <div class="form-check">
-                                                                <input type="checkbox" id="check_asignatura" class="form-check-input" value="` + datos['id_asignatura'] + `">
-                                                                <label for="check_asignatura" class="form-check-label">` + datos['asignatura'] + `</label>
+                                                                <input type="checkbox" id="check_` + datos['id_asignatura'] + `" class="form-check-input" value="` + datos['id_asignatura'] + `">
+                                                                <label for="check_` + datos['id_asignatura'] + `" class="form-check-label">` + datos['asignatura'] + `</label>
                                                             </div>
                                                         </div>`);
                     });
@@ -115,15 +148,93 @@ function prepararModalAsignatura() {
                 $('#group_of_the_check').append('<h2>Error al consultar datos</h2>');
             });
             
-            
+            $('#modal_registro_justificacion_falta').modal('hide');
             $('#modal_justificacion_asignatura').modal('show');
-
 
         }
     });
 }
 
+function getModalAsignatura(asignatura) {
+    $('#close_modal_justificacion_asignatura').click(() => {
+        $('#justificacion_prueba_pendiente').prop('checked', false);
+        $('#group_of_the_check').empty();
+        $('#modal_registro_justificacion_falta').modal('show');
+        asignatura = [];
+    });
 
+    $('#btn_seleccion_asignatura').click(() => {
+        $('#group_of_the_check input[type=checkbox]').each(function() {
+            if ($(this).is(':checked')) {
+                asignatura.push($(this).val());
+            }
+        });
+
+        if (asignatura.length == 0) {
+            LibreriaFunciones.alertPopUp('warning', 'Seleccione alguna asignatura !!');
+            return false;
+        }
+
+        $('#modal_justificacion_asignatura').modal('hide');
+        $('#group_of_the_check').empty();
+        $('#modal_registro_justificacion_falta').modal('show');
+
+    });
+
+}
+
+function comprobarFormJustificacion() {
+    let rut = $.trim($('#justificacion_rut_estudiante').val());
+    let nombre = $.trim($('#justificacion_nombre_estudiante').val());
+    let fecha_inicio = $.trim($('#justificacion_fecha_inicio').val());
+    let fecha_termino = $.trim($('#justificacion_fecha_termino').val());
+    let apoderado = $.trim($('#justificacion_apoderado').val());
+
+    if (rut == '' || nombre == '' || nombre == 'sin datos' || fecha_inicio == '' || fecha_termino == '' || apoderado == 'Seleccionar apoderado' || apoderado == 'Sin apoderado !!') {
+        return false;
+    }
+
+    return true;
+
+}
+
+function comprobarCheck(check) {
+    if ($(check).is(':checked')) {
+        return true;
+    }
+
+    return false;
+
+}
+
+function setModalJustificacion(asignatura) {
+
+    $('#btn_cancelar_justificacion').click(() => {
+        asignatura = [];
+    });
+
+    // generar función para registrar justificación
+    $('#btn_registrar_justificacion').click(() => {
+        if (!comprobarFormJustificacion()) {
+            LibreriaFunciones.alertPopUp('warning', 'Faltan campos obligatorios !!');
+            return false;
+        } 
+
+        let rut = $.trim($('#justificacion_rut_estudiante').val());
+        let fecha_inicio = $.trim($('#justificacion_fecha_inicio').val());
+        let fecha_termino = $.trim($('#justificacion_fecha_termino').val());
+        let apoderado = $.trim($('#justificacion_apoderado').val());
+        let motivo = $.trim($('justificacion_motivo_causa').val());
+        let documento = comprobarCheck('#justificacion_documento');
+
+        // generar consulta ajax, controlador y modelo. !!!!!
+
+
+
+    });
+
+
+}
 
 function getInfoEstudiante(rut, input_nombre, input_curso) { // Terminado...
     let datos = 'getEstudiante';
@@ -140,7 +251,7 @@ function getInfoEstudiante(rut, input_nombre, input_curso) { // Terminado...
                     if (data != false) {
                         input_nombre.val(data[0].nombre_estudiante);
                         input_curso.val(data[0].curso);
-                        cargarApoderado(rut);
+                        LibreriaFunciones.loadApoderado(rut, '#justificacion_apoderado');
                     } else {
                         input_nombre.val('sin datos');
                         input_curso.val('N/A');
@@ -155,7 +266,6 @@ function getInfoEstudiante(rut, input_nombre, input_curso) { // Terminado...
     }
 }
 
-
 function validarRut() { // Terminado...
     $('#justificacion_rut_estudiante').keyup((e) => {
         e.preventDefault();
@@ -165,22 +275,6 @@ function validarRut() { // Terminado...
     });
 }
 
-function cargarApoderado(rut) {
-    let datos = 'getApoderado_justifica';
-
-    $.ajax({
-        url: "./controller/controller_apoderado.php",
-        type: "POST",
-        dataType: "json",
-        data: {datos: datos, rut: rut},
-        success: (data) => {
-            $('#justificacion_apoderado').html(data);
-        }
-    });
-}
-
-
-
 
 // ==================== FUNCIONES INTERNAS ===============================//
 
@@ -188,6 +282,7 @@ function cargarApoderado(rut) {
 
 $(document).ready(function() {
     let datos = 'showJustificaciones';
+    let asignatura = new Array();
     // let id_justificacion;
 
 
@@ -232,41 +327,19 @@ $(document).ready(function() {
         lenguage: spanish
     });
 
-    // Traer información al hacer click en el boton de expand
-    $('#justificacion_estudiante tbody').on('click', 'td.dt-control', function() {
-        let dataRow = tabla_justificacion.row($(this).parents()).data();
-        let tr = $(this).closest('tr');
-        let row = tabla_justificacion.row(tr);
-        datos = 'getInfoAdicional';
+    // Expandir información adicional sobre la justificación del estudiante
+    expandInfoSecundaria(tabla_justificacion);
 
-        if (row.child.isShown()) {
-            row.child.hide();
-            tr.removeClass('show');
-        } else {
+    // Prepara el modal para ingresar una justificación
+    prepararModalJustificacion();
 
-            $.ajax({
-                url: "./controller/controller_justificacion.php",
-                type: "POST",
-                dataType: "json",
-                data: {datos: datos, id_justificacion: dataRow.id_justificacion},
-                success: function(data) {
-                    row.child(getInfoSecundaria(data[0])).show();
-                }
-            });
-            
-            tr.addClass('shown');
-        }
-    });
+    // Obtener valores del modal asignatura
+    getModalAsignatura(asignatura);
 
-    $('#btn_nueva_justificacion').click((e) => {
-        prepararModalJustificacion();
-    });
+    // Registrar justificación
+    setModalJustificacion(asignatura);
 
-
-
-
-    prepararModalAsignatura();
-
+    // Función para validar rut del estudiante
     validarRut();
 
 });

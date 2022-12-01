@@ -65,6 +65,13 @@ inputs.forEach(input => {
                         });
                     }
                 }
+            }).fail (() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Sin conexion con BBDD .....!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             });
             $('#id_form_login').trigger('reset');
             $('.input-div').removeClass('focus');

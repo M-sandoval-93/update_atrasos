@@ -46,8 +46,8 @@
             print $datosApoderados->deleteApoderado($id);
             break;
 
-        case "getApoderado_justifica":
-            print $datosApoderados->getApoderadoAtraso($_POST['rut']);
+        case "getApoderado": // Terminado...
+            print $datosApoderados->getApoderado($_POST['rut']);
             break;
 
 
