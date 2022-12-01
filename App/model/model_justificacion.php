@@ -17,8 +17,6 @@
                 estudiante.nombres_estudiante AS nombre, estudiante.nombre_social AS n_social, curso.curso,
                 to_char(justificacion.fecha_inicio, 'DD/MM/YYYY') AS fecha_inicio,
                 to_char(justificacion.fecha_termino, 'DD/MM/YYYY') AS fecha_termino
-                -- (extract(day from justificacion.fecha_termino) - extract(day from justificacion.fecha_inicio) + 1) as dias
-                -- no se agregará por que no se manejan los dias lectivos
                 FROM justificacion
                 INNER JOIN matricula ON matricula.id_matricula = justificacion.id_matricula
                 INNER JOIN estudiante ON estudiante.id_estudiante = matricula.id_estudiante
@@ -48,6 +46,23 @@
                 $this->closeConnection();
                 return json_encode($this->res);
             }
+        }
+        
+        public function getJustificaciones() {
+            $query = "SELECT COUNT(id_justificacion) AS justificacion FROM justificacion
+                WHERE EXTRACT(YEAR FROM fecha_hora_actual) = EXTRACT(YEAR FROM CURRENT_DATE);";
+            $sentencia = $this->preConsult($query);
+            $sentencia->execute();
+            $resultado = $sentencia->fetch();
+        
+            if ($resultado['justificacion'] >= 1) {
+                $this->res = $resultado['justificacion'];
+            }
+        
+            $this->closeConnection();
+            return json_encode($this->res);
+        
+        
         }
 
         public function infoAdicional($id_registro) {
@@ -108,43 +123,65 @@
             }
         }
 
-        public function getJustificaciones() {
-            $query = "SELECT COUNT(id_justificacion) AS justificacion FROM justificacion
-                WHERE EXTRACT(YEAR FROM fecha_hora_actual) = EXTRACT(YEAR FROM CURRENT_DATE);";
-            $sentencia = $this->preConsult($query);
-            $sentencia->execute();
-            $resultado = $sentencia->fetch();
+        public function setJustificacion($e) {
+            $preQuery = "SELECT matricula.id_matricula
+                FROM matricula
+                INNER JOIN estudiante ON estudiante.id_estudiante = matricula.id_estudiante
+                WHERE rut_estudiante = ?";
 
-            if ($resultado['justificacion'] >= 1) {
-                $this->res = $resultado['justificacion'];
-            }
+            $sentencia = $this->preConsult($preQuery);
+            $sentencia->execute([$e[0]]);
+            $matricula_estudiante = $sentencia->fetch();
 
-            $this->closeConnection();
-            return json_encode($this->res);
+            // registrar datos de justificacion
+            // $query = "INSERT INTO justificacion (fecha_hora_actual, id_matricula, fecha_inicio, fecha_termino, id_apoderado,
+            //     prueba_pendiente, presenta_documento, motivo_falta)
+            //     VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?);";
+
+            
+
+            // $sentencia = $this->preConsult($query);
+            // if ($sentencia->execute([$matricula_estudiante['id_matricula'], $e[1], $e[2], intval($e[3]), $e[6], $e[5], $e[4]])) {
+            //     $this->res = true;
+
+            //     $query = 
+            // }
+
+            // $this->closeConnection();
+            // return json_encode($this->res);
+
+
+
+
+
+
+            return json_encode($e);
 
 
         }
 
-        public function getEstudiante($rut) {
-            $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
-                || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
-                estudiante.nombre_social, curso.curso
-                FROM estudiante
-                INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
-                INNER JOIN curso ON curso.id_curso = matricula.id_curso
-                WHERE estudiante.rut_estudiante = ?;";
+        // public function getEstudiante($rut) {
+        //     $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
+        //         || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
+        //         estudiante.nombre_social, curso.curso
+        //         FROM estudiante
+        //         INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
+        //         INNER JOIN curso ON curso.id_curso = matricula.id_curso
+        //         WHERE estudiante.rut_estudiante = ?;";
 
-            $sentencia = $this->preConsult($query);
-            $sentencia->execute([$rut]);
+        //     $sentencia = $this->preConsult($query);
+        //     $sentencia->execute([$rut]);
 
-            if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {                
-                $this->closeConnection();
-                return json_encode($this->json);
-            }
+        //     if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {                
+        //         $this->closeConnection();
+        //         return json_encode($this->json);
+        //     }
 
-            $this->closeConnection();
-            return json_encode($this->res);
-        }
+        //     $this->closeConnection();
+        //     return json_encode($this->res);
+        // }
+
+
 
 
     }

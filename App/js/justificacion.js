@@ -113,7 +113,7 @@ function prepararModalJustificacion() { // Terminado...
 
 }
 
-function prepararModalAsignatura() {
+function prepararModalAsignatura() { // Terminado...
     let datos = "getAsignatura";
     
     $('#justificacion_prueba_pendiente').click(function (e) {
@@ -183,7 +183,7 @@ function getModalAsignatura(asignatura) {
 
 }
 
-function comprobarFormJustificacion() {
+function comprobarFormJustificacion() { // Terminado...
     let rut = $.trim($('#justificacion_rut_estudiante').val());
     let nombre = $.trim($('#justificacion_nombre_estudiante').val());
     let fecha_inicio = $.trim($('#justificacion_fecha_inicio').val());
@@ -198,7 +198,7 @@ function comprobarFormJustificacion() {
 
 }
 
-function comprobarCheck(check) {
+function comprobarCheck(check) { // Terminado...
     if ($(check).is(':checked')) {
         return true;
     }
@@ -208,24 +208,57 @@ function comprobarCheck(check) {
 }
 
 function setModalJustificacion(asignatura) {
-
     $('#btn_cancelar_justificacion').click(() => {
         asignatura = [];
     });
 
-    // generar función para registrar justificación
     $('#btn_registrar_justificacion').click(() => {
         if (!comprobarFormJustificacion()) {
             LibreriaFunciones.alertPopUp('warning', 'Faltan campos obligatorios !!');
             return false;
-        } 
+        }
 
         let rut = $.trim($('#justificacion_rut_estudiante').val());
         let fecha_inicio = $.trim($('#justificacion_fecha_inicio').val());
         let fecha_termino = $.trim($('#justificacion_fecha_termino').val());
         let apoderado = $.trim($('#justificacion_apoderado').val());
-        let motivo = $.trim($('justificacion_motivo_causa').val());
+        let motivo = $.trim($('#justificacion_motivo_causa').val());
         let documento = comprobarCheck('#justificacion_documento');
+        let pruebas = true;
+        let datos  = "setJustificacion";
+
+        // if (comprobarCheck('#justificacion_prueba_pendiente') == false) {
+        //     // asignatura = []; // revisar, da problemas
+        //     pruebas = false;
+        // }
+
+
+        // REVISAR !!!!!!
+        // if (!$('#justificacion_prueba_pendiente').is(':checked')) {
+        //     asignatura = [];
+        //     pruebas = false;
+        // }
+
+
+
+        $.ajax({
+            url: "./controller/controller_justificacion.php",
+            type: "POST",
+            dataType: "json",
+            data: {datos: datos, rut: rut, fecha_inicio: fecha_inicio, fecha_termino: fecha_termino,
+                    apoderado: apoderado, motivo: motivo, documento: documento, pruebas: pruebas, asignatura: asignatura},
+            success: function(data) {
+                if (data == false) {
+                    LibreriaFunciones.alertPopUp('error', 'Registro no almacenado !!!');
+                    return false;
+                }
+
+                LibreriaFunciones.alertPopUp('success', 'Registro almacenado !!');
+            }
+
+        }). fail (() => {
+            LibreriaFunciones.alertPopUp('error', 'Error en la operación !!');
+        });
 
         // generar consulta ajax, controlador y modelo. !!!!!
 

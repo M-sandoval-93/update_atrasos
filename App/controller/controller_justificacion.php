@@ -23,6 +23,15 @@ switch ($type) {
         print $datosJustificacion->getJustificaciones();
         break;
 
+    case "setJustificacion":
+        $justificacion = array(
+            $_POST['rut'], $_POST['fecha_inicio'], $_POST['fecha_termino'], $_POST['apoderado'], $_POST['motivo'],
+            $_POST['documento'], $_POST['pruebas'], (isset($_POST['asignatura'])) ? $_POST['asignatura'] : "false"
+        );
+
+        print $datosJustificacion->setJustificacion($justificacion);
+        break;
+
     // case "getEstudiante":
     //     print $datosJustificacion->getEstudiante($_POST['rut']);
     //     break;

@@ -43,6 +43,7 @@
         }
 
         // AGREGAR NUEVO ESTUDIANTE
+        // Revisar si se verifica que la matricula asignado no existe o que el rut del estudiante(id) no se encuentre ya ingresado
         public function newEstudiante($e) {
             $query = "SELECT rut_estudiante FROM estudiante WHERE rut_estudiante = ?;";
             $sentencia = $this->conexion_db->prepare($query);
