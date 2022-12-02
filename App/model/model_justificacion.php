@@ -129,33 +129,39 @@
                 INNER JOIN estudiante ON estudiante.id_estudiante = matricula.id_estudiante
                 WHERE rut_estudiante = ?";
 
-            $sentencia = $this->preConsult($preQuery);
-            $sentencia->execute([$e[0]]);
-            $matricula_estudiante = $sentencia->fetch();
+            // $sentencia = $this->preConsult($preQuery);
+            // $sentencia->execute([$e[0]]);
+            // $matricula_estudiante = $sentencia->fetch();
 
-            // registrar datos de justificacion
+            // // Query para el ingreso de datos
             // $query = "INSERT INTO justificacion (fecha_hora_actual, id_matricula, fecha_inicio, fecha_termino, id_apoderado,
             //     prueba_pendiente, presenta_documento, motivo_falta)
             //     VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?);";
 
-            
-
             // $sentencia = $this->preConsult($query);
             // if ($sentencia->execute([$matricula_estudiante['id_matricula'], $e[1], $e[2], intval($e[3]), $e[6], $e[5], $e[4]])) {
             //     $this->res = true;
-
-            //     $query = 
             // }
+
+            
+
+            // $query = "SELECT MAX(id_justificacion) FROM justificacion";
 
             // $this->closeConnection();
             // return json_encode($this->res);
 
+            // $string = "";
 
+            // // Script para recorrer array e implementar en insert de SQL
+            // foreach ($e[7] as $id) {
+            //     $string = $string. $id. "-";
+            // }
 
+            if (count($e[7])) {
+                $this->res = count($e[7]);  // revisar !!!!!!!
+            }
 
-
-
-            return json_encode($e);
+            return json_encode($this->res);
 
 
         }
