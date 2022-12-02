@@ -6,7 +6,7 @@
 
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title" id="modal_justificacion_title">REGISTRAR JUSTIFICACIÓN FALTA</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" id="btn_close_justificacion"></button>
       </div>
 
       <form id="form_registro_justificacion_falta">

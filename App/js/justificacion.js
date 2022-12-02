@@ -1,4 +1,5 @@
 import {LibreriaFunciones, generar_dv, spanish } from './librerias/librerias.js';
+let asignatura = new Array();
 
 // ==================== FUNCIONES INTERNAS ===============================//
 function getInfoSecundaria(data) { // Terminado...
@@ -97,7 +98,9 @@ function prepararModalJustificacion() { // Terminado...
         $('#form_registro_justificacion_falta').trigger('reset');
         $('#justificacion_fecha').val(fecha_actual.toLocaleDateString());
         $('#justificacion_rut_estudiante').removeClass('is-invalid');
+        $('#justificacion_prueba_pendiente').prop('disabled', true);
         LibreriaFunciones.autoFocus($('#modal_registro_justificacion_falta'), $('#justificacion_rut_estudiante'));
+        asignatura = [];
     });
 
     $('#justificacion_documento').click(function() {
@@ -155,7 +158,7 @@ function prepararModalAsignatura() { // Terminado...
     });
 }
 
-function getModalAsignatura(asignatura) {
+function getModalAsignatura() {
     $('#close_modal_justificacion_asignatura').click(() => {
         $('#justificacion_prueba_pendiente').prop('checked', false);
         $('#group_of_the_check').empty();
@@ -207,11 +210,7 @@ function comprobarCheck(check) { // Terminado...
 
 }
 
-function setModalJustificacion(asignatura) {
-    $('#btn_cancelar_justificacion').click(() => {
-        asignatura = [];
-    });
-
+function setModalJustificacion() {
     $('#btn_registrar_justificacion').click(() => {
         if (!comprobarFormJustificacion()) {
             LibreriaFunciones.alertPopUp('warning', 'Faltan campos obligatorios !!');
@@ -227,18 +226,10 @@ function setModalJustificacion(asignatura) {
         let pruebas = true;
         let datos  = "setJustificacion";
 
-        // if (comprobarCheck('#justificacion_prueba_pendiente') == false) {
-        //     // asignatura = []; // revisar, da problemas
-        //     pruebas = false;
-        // }
-
-
-        // REVISAR !!!!!!
-        // if (!$('#justificacion_prueba_pendiente').is(':checked')) {
-        //     asignatura = [];
-        //     pruebas = false;
-        // }
-
+        if (!comprobarCheck('#justificacion_prueba_pendiente')) {
+            asignatura = [];
+            pruebas = false;
+        }
 
 
         $.ajax({
@@ -315,9 +306,6 @@ function validarRut() { // Terminado...
 
 $(document).ready(function() {
     let datos = 'showJustificaciones';
-    let asignatura = new Array();
-    // let id_justificacion;
-
 
     // Cantidad de atrasos diarios y total
     getCantidadJustificacion('#justificacion_diaria');
@@ -367,10 +355,10 @@ $(document).ready(function() {
     prepararModalJustificacion();
 
     // Obtener valores del modal asignatura
-    getModalAsignatura(asignatura);
+    getModalAsignatura();
 
     // Registrar justificación
-    setModalJustificacion(asignatura);
+    setModalJustificacion();
 
     // Función para validar rut del estudiante
     validarRut();
