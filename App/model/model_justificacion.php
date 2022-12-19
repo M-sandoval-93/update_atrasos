@@ -129,23 +129,39 @@
                 INNER JOIN estudiante ON estudiante.id_estudiante = matricula.id_estudiante
                 WHERE rut_estudiante = ?";
 
-            // $sentencia = $this->preConsult($preQuery);
-            // $sentencia->execute([$e[0]]);
-            // $matricula_estudiante = $sentencia->fetch();
+            $sentencia = $this->preConsult($preQuery);
+            $sentencia->execute([$e[0]]);
+            $matricula_estudiante = $sentencia->fetch();
 
-            // // Query para el ingreso de datos
-            // $query = "INSERT INTO justificacion (fecha_hora_actual, id_matricula, fecha_inicio, fecha_termino, id_apoderado,
-            //     prueba_pendiente, presenta_documento, motivo_falta)
-            //     VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?);";
+            // Query para el ingreso de datos
+            $query = "INSERT INTO justificacion (fecha_hora_actual, id_matricula, fecha_inicio, fecha_termino, id_apoderado,
+                prueba_pendiente, presenta_documento, motivo_falta)
+                VALUES (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?);";
 
-            // $sentencia = $this->preConsult($query);
-            // if ($sentencia->execute([$matricula_estudiante['id_matricula'], $e[1], $e[2], intval($e[3]), $e[6], $e[5], $e[4]])) {
-            //     $this->res = true;
-            // }
+            $sentencia = $this->preConsult($query);
+            if ($sentencia->execute([$matricula_estudiante['id_matricula'], $e[1], $e[2], intval($e[3]), $e[6], $e[5], $e[4]])) {
+
+                if ($e[7] != "false") {
+                    $query = "SELECT MAX(id_justificacion) FROM justificacion";
+                    $sentencia = $this->preConsult($query);
+                    $sentencia->execute();
+                    $id_justificacion = $sentencia->fetch();
+
+                    $queryAsignatura = "INSERT INTO prueba_pendiente VALUES(?, ?);";
+                    $sentencia = $this->preConsult($queryAsignatura);
+
+                    foreach ($e[7] as $id_asignatura) {
+                        $sentencia->execute([intval($id_justificacion), intval($id_asignatura)]);
+                    }
+                    // revisar fragmento de código !!!
+                }
+                $this->res = true;   
+            }
+
+            return json_encode($this->res);
 
             
 
-            // $query = "SELECT MAX(id_justificacion) FROM justificacion";
 
             // $this->closeConnection();
             // return json_encode($this->res);
@@ -157,11 +173,18 @@
             //     $string = $string. $id. "-";
             // }
 
-            if (count($e[7])) {
-                $this->res = count($e[7]);  // revisar !!!!!!!
-            }
+            // if (count($e[7])) {
+            //     $this->res = count($e[7]);  // revisar !!!!!!!
+            // }
 
-            return json_encode($this->res);
+            // Manejador del ID de las asignaturas
+            // if ($e[7] != "false") {
+            //     foreach ($e[7] as $id) {
+            //         $this->res = $this->res. $id;
+            //     }
+            // }
+
+            // return json_encode($this->res);
 
 
         }

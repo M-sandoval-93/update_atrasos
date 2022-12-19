@@ -30,6 +30,7 @@ switch ($type) {
         );
 
         print $datosJustificacion->setJustificacion($justificacion);
+        // print json_encode($justificacion);
         break;
 
     // case "getEstudiante":
