@@ -145,62 +145,28 @@
             return json_encode($this->res);        
         }
 
-        // OBTANER DATOS DE ESTUDIANTE PARA REGISTRAR ATRASO
-        public function getEstudianteAtraso($rut) { // Terminado...
+
+        public function getEstudiante($rut, $tipo) { // Terminado y revisado !!
             $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
                 || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
                 estudiante.nombre_social, curso.curso, estudiante.id_estado
                 FROM estudiante
                 INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
                 INNER JOIN curso ON curso.id_curso = matricula.id_curso
-                WHERE estudiante.rut_estudiante = ?;";
-
-            $sentencia = $this->preConsult($query);
-
-            try {
-                $sentencia->execute([$rut]);
-                $this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-
-                $query = "SELECT count(atraso.id_atraso) AS cantidad_atraso FROM atraso
-                    INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
-                    WHERE estudiante.rut_estudiante = ? AND estado_atraso = 'sin justificar';";
-                
-                $sentencia = $this->preConsult($query);
-                $sentencia->execute([$rut]);
-                if ($cantidad_atraso = $sentencia->fetch()) {
-                    $this->json[0]['cantidad_atraso'] = $cantidad_atraso['cantidad_atraso'];
-                }
-                $this->closeConnection();
-                return json_encode($this->json);
-                
-            } catch (Exception $e) {
-                $this->closeConnection();
-                return json_encode($this->res);
-            }
-        }
-
-        public function getEstudiante($rut, $tipo) { //Terminado ...
-            $query = "SELECT (estudiante.nombres_estudiante || ' ' || estudiante.ap_estudiante
-                || ' ' || estudiante.am_estudiante) AS nombre_estudiante,
-                estudiante.nombre_social, curso.curso, estudiante.id_estado
-                FROM estudiante
-                INNER JOIN matricula ON matricula.id_estudiante = estudiante.id_estudiante
-                INNER JOIN curso ON curso.id_curso = matricula.id_curso
-                WHERE estudiante.rut_estudiante = ?;";
+                WHERE estudiante.rut_estudiante = ? AND matricula.anio_lectivo = EXTRACT(YEAR FROM now());";
             $sentencia = $this->preConsult($query);
             $sentencia->execute([$rut]);
 
             if ($this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC)) {
-                // $this->json = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-
                 if ($this->json[0]['nombre_social'] != null) {
-                    $this->json[0]['nombre_estudiante'] = $this->json[0]['nombre_estudiante']. '('.$this->json[0]['nombre_social']. ')';
+                    $this->json[0]['nombre_estudiante'] = '('.$this->json[0]['nombre_social']. ') '. $this->json[0]['nombre_estudiante'];
                 }
 
                 if ($tipo == "atraso") {
                     $queryCantidad = "SELECT count(atraso.id_atraso) AS cantidad_atraso FROM atraso
                         INNER JOIN estudiante ON estudiante.id_estudiante = atraso.id_estudiante
-                        WHERE estudiante.rut_estudiante = ? AND estado_atraso = 'sin justificar';";
+                        WHERE estudiante.rut_estudiante = ? AND estado_atraso = 'sin justificar'
+                        AND EXTRACT(YEAR FROM atraso.fecha_atraso) = EXTRACT(YEAR FROM now());";
                     $sentencia = $this->preConsult($queryCantidad);
                     $sentencia->execute([$rut]);
 

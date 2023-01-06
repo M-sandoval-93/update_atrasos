@@ -31,7 +31,7 @@
             print $datosEstudiantes->deleteEstudiante($id);
             break;
 
-        case "getEstudiante": // Terminado...
+        case "getEstudiante": // Terminado y revisado !!
             print $datosEstudiantes->getEstudiante($_POST['rut'], $_POST['tipo']);
             break;
 

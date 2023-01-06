@@ -1,8 +1,8 @@
 import { spanish, LibreriaFunciones, generar_dv } from './librerias/librerias.js';
 
 // ==================== FUNCIONES INTERNAS ===============================//
-// para obtener la cantidad de atrasos por dia y total
-function getCantidadAtraso(tipo, id_campo) { // Terminado...
+// obtener atraso diario y anual
+function getCantidadAtraso(tipo, id_campo) { // Terminado y revisado ...
     let datos = 'getCantidadAtraso';
     let valor = 0;
 
@@ -23,7 +23,7 @@ function getCantidadAtraso(tipo, id_campo) { // Terminado...
 }
 
 // trae información de los atrasos de un estudiante sin justificar
-function getAtrasosSinJustificar(rut) { // Terminado...
+function getAtrasosSinJustificar(rut) { // Terminado y revisado !!
     let datos = 'getAtrasosSinJustificar';
     $('#atraso_sinJustificar').DataTable().destroy();
 
@@ -31,6 +31,7 @@ function getAtrasosSinJustificar(rut) { // Terminado...
         searching: false,
         info: false,
         lengthChange: false,
+        aaSorting: [], // evitar que se ordenen las filas
         iDisplayLength: 5,
         ajax: {
             url: "./controller/controller_atrasos.php",
@@ -50,13 +51,12 @@ function getAtrasosSinJustificar(rut) { // Terminado...
             }
         ],
         select: {style: 'multi'},
-        order: [[0, 'asc'], [1, 'asc']],
         language: spanish
     });
 }
 
 // traer información del estudiante al ingresar nuevo atraso
-function getEstudiante(rut, input_nombre, input_curso) { // Terminado...
+function getEstudiante(rut, input_nombre, input_curso) { // Terminado y revisado !!
     let datos = 'getEstudiante';
 
     if (rut != '' && rut.length > 7 && rut.length < 9) {
@@ -100,7 +100,7 @@ function getEstudiante(rut, input_nombre, input_curso) { // Terminado...
 }
 
 // funcion para preparar el modal antes de ingresar datos
-function prepararModalAtraso() {    // Terminado...
+function prepararModalAtraso() { // Terminado y revisado !!
     let fecha_hora_actual = new Date();
     $('#form_registro_atraso').trigger('reset');
     $('#staticFecha').val(fecha_hora_actual.toLocaleDateString());
@@ -113,22 +113,20 @@ function prepararModalAtraso() {    // Terminado...
     $('#informacion_rut').text('Rut sin puntos, sin guión y sin dígito verificador');
     $('#informacion_rut').addClass('form-text');
     LibreriaFunciones.autoFocus($('#modal_registro_atraso'), $('#rut_estudiante_atraso'));
-
 }
 
 // funcion que prepara el modal de justificación de atrasos
-function prepararModalJustificar(data) { // Terminado...
+function prepararModalJustificar(data) { // Terminado y revisado !!
     $('#modal_justificar_atraso').modal('show');
     $('#rut_estudiante_justifica').val(data.rut);
     $('#curso_estudiante_justifica').val(data.curso);
     $('#nombre_estudiante_justifica').val(data.nombre + ' ' + data.ap_paterno + ' ' + data.ap_materno);
     $('#marcar_desmarcar_atrasos').removeClass('active');
     $('#marcar_desmarcar_atrasos').text('Marcar todo');
-    
 }
 
 // función para validar el rut y consultar datos del mismo
-function validarRut() { // Terminado...
+function validarRut() { // Terminado y revisado !!
     $('#rut_estudiante_atraso').keyup(function(e) {
         e.preventDefault();
         generar_dv('#rut_estudiante_atraso', '#dv_rut_estudiante_atraso');
@@ -139,7 +137,7 @@ function validarRut() { // Terminado...
 }
 
 // función para cuando se almacena un registro y se recargan los datos necesarios
-function beforeRegistro(tabla) { // Terminado...
+function beforeRegistro(tabla) { // Terminado y revisado !!
     tabla.ajax.reload(null, false);
     getCantidadAtraso('diario', '#atraso_diario');
     getCantidadAtraso('total', '#atraso_total');
@@ -147,7 +145,7 @@ function beforeRegistro(tabla) { // Terminado...
 }
 
 // función para generar documento, ver si se puede generalizar !!!!
-function generarDocumento(ext) { // Terminado...
+function generarDocumento(ext) {
     let datos = 'getDocument';
 
     $.ajax({
@@ -173,6 +171,7 @@ function generarDocumento(ext) { // Terminado...
 
 // ==================== FUNCIONES INTERNAS ===============================//
 
+
 $(document).ready(function() {
     // variables globales
     let datos = 'getAtraso'; 
@@ -183,7 +182,7 @@ $(document).ready(function() {
     getCantidadAtraso('total', '#atraso_total');
 
     // LLENAR DATATABLE CON INFORMACIÓN =============================== 
-    let tabla_atrasos = $('#atraso_estudiante').DataTable({ // Terminado...
+    let tabla_atrasos = $('#tabla_atraso_estudiante').DataTable({ // Terminado y revisado !!
         ajax: {
             url: "./controller/controller_atrasos.php",
             type: "post",
@@ -194,7 +193,7 @@ $(document).ready(function() {
             {   
                 data: "id_atraso",
                 visible: false,
-                searchable: false
+                // searchable: false
             },
             {data: "rut"},
             {data: "ap_paterno"},
@@ -210,14 +209,17 @@ $(document).ready(function() {
                 className: 'text-center'
             }
         ],
-        order: [[6, 'asc'], [7, 'asc']],
+        order: [0, 'desc'],
         language: spanish
     });
 
     // Btn nuevo atraso
-    $('#btn_nuevo_atraso').click(() => { //Termonado...
+    $('#btn_nuevo_atraso').click(() => { // Terminado y revisado !!
         prepararModalAtraso();
     });
+
+
+
 
     // Btn para registrar un atraso
     $('#btn_registrar_atraso').click((e) => {  // En progreso ... implementar impresión de ticket !!!
@@ -232,9 +234,7 @@ $(document).ready(function() {
 
         rut = $.trim($('#rut_estudiante_atraso').val());
 
-        // utilizar fetch para generar impresion
-        // de lo contrario, traer los datos del ingreso y luego usarlos en la impresion
-        // en dicho caso, ver lo der elrror cors de la cabecera
+        // Agregar aquí la función para imprimir ticket, la cual, puede ser en respuesta al ajax
 
         $.ajax({
             url: "./controller/controller_atrasos.php",
@@ -249,23 +249,28 @@ $(document).ready(function() {
 
                 LibreriaFunciones.alertPopUp('success', 'Registro ingresado !!');
                 beforeRegistro(tabla_atrasos);
+
+                // ver la posibilidad de generear función ajax/fetch para impresión de tiket
             }
         });
     });
 
+
+
+
     // Btn para mostrar modal justificaciones
-    $('#atraso_estudiante tbody').on('click', '#btn_justificar_atraso', function() { // Terminado...
+    $('#tabla_atraso_estudiante tbody').on('click', '#btn_justificar_atraso', function() { // Terminado y revisado !!
         let data = tabla_atrasos.row($(this).parents()).data();
         let rut = data.rut.slice(0, -2);
         
         prepararModalJustificar(data);
         LibreriaFunciones.loadApoderado(rut, '#apoderado_justifica');
-        getAtrasosSinJustificar(rut);
+        getAtrasosSinJustificar(rut); // revisar el orden en que se presentan
 
     });
 
     // Btn para justificar atrasos
-    $('#btn_justificar_atraso').click(function(e) { // Terminado...
+    $('#btn_justificar_atraso').click(function(e) { // Terminado y revisado !!
         e.preventDefault();
         let row_selected = $('#atraso_sinJustificar').DataTable().column(2).checkboxes.selected();
         let atrasos = [];
@@ -288,24 +293,26 @@ $(document).ready(function() {
 
         $.ajax({
             url: "./controller/controller_atrasos.php",
-            type: "POST",
+            type: "post",
             dataType: "json",
             cache: false,
             data: {datos: datos, id_apoderado: id_apoderado, atrasos: atrasos},
             success: function(data) {
-                if (data == false) {
-                    LibreriaFunciones.alertPopUp('error', 'Error de registro !!');
+                if (data != false) {
+                    LibreriaFunciones.alertPopUp('error', 'No registrado !!');
                 }
 
                 tabla_atrasos.ajax.reload(null, false);
                 $('#modal_justificar_atraso').modal('hide');
                 LibreriaFunciones.alertPopUp('success', 'Atrasos justificados !!');
             }
+        }).fail(() => {
+            LibreriaFunciones.alertPopUp('error', 'Error de registro, revisar !!');
         });    
     });
     
     // Btn para eliminar un registro
-    $('#atraso_estudiante tbody').on('click', '#btn_eliminar_atraso', function() { // Terminado...
+    $('#tabla_atraso_estudiante tbody').on('click', '#btn_eliminar_atraso', function() { // Terminado y revisado !!
         let data = tabla_atrasos.row($(this).parents()).data();
         id_atraso = data.id_atraso;
 
@@ -341,18 +348,22 @@ $(document).ready(function() {
     });
 
     // Btn para generar EXCEL
-    $('#btn_excel_atraso').click((e) => { // Terminado...
+    $('#btn_excel_atraso').click((e) => { // Terminado y revisado !!
         e.preventDefault();
         generarDocumento('xlsx');
-
     });
 
-    $('#btn_csv_atraso').click((e) => { // Terminado...
+    $('#btn_csv_atraso').click((e) => { // Terminado y revisado !!
        e.preventDefault();
        generarDocumento('csv'); 
     });
 
 
+
+
+
+
+    
     // Btn para generar PDF
     $('#btn_pdf_atraso').click(function(e) { // En progreso...
         e.preventDefault();

@@ -11,15 +11,15 @@ $type = $_POST['datos'];
 $datosJustificacion = new JustificacionEstudiante();
 
 switch ($type) {
-    case "showJustificaciones":
+    case "showJustificaciones": // Terminado y revisado !!
         print $datosJustificacion->showJustificacion();
         break;
 
-    case "getInfoAdicional":
+    case "getInfoAdicional": // Terminado y revisado !!
         print $datosJustificacion->infoAdicional($_POST['id_justificacion']);
         break;
 
-    case "getCantidadJustificacion":
+    case "getCantidadJustificacion": // Terminado y revisado !!
         print $datosJustificacion->getJustificaciones();
         break;
 
@@ -30,7 +30,11 @@ switch ($type) {
         );
 
         print $datosJustificacion->setJustificacion($justificacion);
-        // print json_encode($justificacion);
+        break;
+    case "deleteJustificacion": // Trabajar !!
+        break;
+
+    case "getDocument": // Trabajar !!
         break;
 
     // case "getEstudiante":
@@ -38,6 +42,9 @@ switch ($type) {
     //     break;
 
 }
+
+// Validar los datos que se traen con PHP
+// En caso de haverse saltado las validaciones de jQuery y JavaScript
 
 
 

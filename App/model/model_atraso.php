@@ -12,7 +12,7 @@
             parent:: __construct();
         }
 
-        public function getAtraso() { // Terminado...
+        public function getAtraso() { // Terminado y revisado !!
             $query = "SELECT atraso.id_atraso, (estudiante.rut_estudiante || '-' || estudiante.dv_rut_estudiante) AS rut,
             estudiante.ap_estudiante AS ap_paterno, estudiante.am_estudiante AS ap_materno,
             estudiante.nombres_estudiante AS nombre, estudiante.nombre_social AS n_social, curso.curso, 
@@ -23,7 +23,8 @@
             INNER JOIN matricula ON matricula.id_estudiante = atraso.id_estudiante
             INNER JOIN curso ON curso.id_curso = matricula.id_curso
             WHERE EXTRACT(YEAR FROM atraso.fecha_atraso) = EXTRACT(YEAR FROM now())
-            AND atraso.estado_atraso = 'sin justificar';";
+            AND atraso.estado_atraso = 'sin justificar'
+            ORDER BY atraso.fecha_atraso DESC, atraso.hora_atraso DESC;";
 
             $sentencia = $this->preConsult($query);
             $sentencia->execute();
@@ -40,12 +41,14 @@
             return json_encode($this->json);
         }
 
-        public function getAtrasoSinJustificar($rut) {  // Terminado...
+        public function getAtrasoSinJustificar($rut) { // Terminado y Revisado !!
             $query = "SELECT atraso.id_atraso, to_char(atraso.fecha_atraso, 'DD/MM/YYYY') AS fecha_atraso,
                 to_char(atraso.hora_atraso, 'HH:MI:SS') AS hora_atraso
                 FROM estudiante
                 INNER JOIN atraso ON atraso.id_estudiante = estudiante.id_estudiante
-                WHERE estudiante.rut_estudiante = ? AND atraso.estado_atraso = 'sin justificar';";
+                WHERE estudiante.rut_estudiante = ? AND atraso.estado_atraso = 'sin justificar'
+                AND EXTRACT(YEAR FROM atraso.fecha_atraso) = EXTRACT(YEAR FROM now())
+                ORDER BY atraso.id_atraso DESC;";
 
             $sentencia = $this->preConsult($query);
             $sentencia->execute([$rut]);
@@ -60,14 +63,16 @@
 
         }
 
-        public function getCantidadAtraso($tipo) { // Terminado...
+        public function getCantidadAtraso($tipo) { // Terminado y revisado !!
             if ($tipo == 'diario') {
+            // query que obtiene el atraso considerando; día, mes y año !!
                 $query = "SELECT COUNT(id_atraso) AS atrasos FROM atraso 
                 WHERE EXTRACT(DAY FROM fecha_atraso) = EXTRACT(DAY FROM CURRENT_DATE)
                 AND EXTRACT(MONTH FROM fecha_atraso) = EXTRACT(MONTH FROM CURRENT_DATE)
                 AND EXTRACT(YEAR FROM fecha_atraso) = EXTRACT(YEAR FROM CURRENT_DATE);";
 
             } else if ($tipo == 'total') {
+                // query que obtiene el atraso considerando el año !!
                 $query = "SELECT COUNT(id_atraso) AS atrasos FROM atraso
                 WHERE EXTRACT(YEAR FROM fecha_atraso) = EXTRACT(YEAR FROM CURRENT_DATE);";
             }
@@ -84,23 +89,18 @@
             return json_encode($this->res);
         }
 
-        public function setAtraso($rut) {
-
-
-            // TRABAJAR PARA CAMBIAR EL ID DE ESTUDIANTE, POR EL ID DE LA MATRICULA
-            // CUANDO DE ALMACENA UN ATRASO.
-
+        public function setAtraso($rut) { // Terminado y revisado !!  --- ver si agrego en este apartado la impresión de ticket ----
             $queryE = "SELECT id_estudiante FROM estudiante WHERE rut_estudiante = ?;";
             $sentencia = $this->preConsult($queryE);
 
             if ($sentencia->execute([$rut])) {
-                $resultadoE = $sentencia->fetch(PDO::FETCH_ASSOC);
+                $idEstudiante = $sentencia->fetch(PDO::FETCH_ASSOC);
 
                 $query = "INSERT INTO atraso (fecha_hora_actual, fecha_atraso, hora_atraso, id_estudiante)
                     VALUES (CURRENT_TIMESTAMP, CURRENT_DATE, CURRENT_TIME, ?);";
 
                 $sentencia = $this->preConsult($query);
-                if ($sentencia->execute([$resultadoE['id_estudiante']])) {
+                if ($sentencia->execute([$idEstudiante['id_estudiante']])) {
                     $this->res = true;
                 }
             }
@@ -109,7 +109,7 @@
             return json_encode($this->res);
         }
 
-        public function deleteAtraso($id_atraso) { // Terminado...
+        public function deleteAtraso($id_atraso) { // Terminado y revisado !!
             $query = "DELETE FROM atraso WHERE id_atraso = ?;";
             $sentencia = $this->preConsult($query);
             
@@ -121,31 +121,14 @@
             return json_encode($this->res);
         }
 
-        public function setJustificar($id_apoderado, $atrasos, $id_usuario) { // Terminado...
+        public function setJustificar($id_apoderado, $atrasos, $id_usuario) { // Terminado y revisado !!
             $query = "UPDATE atraso
                 SET estado_atraso = 'justificado', id_usuario_justifica = ?, fecha_hora_justificacion = CURRENT_TIMESTAMP, id_apoderado_justifica = ?
                 WHERE id_atraso = ?;";
-            
             $sentencia = $this->preConsult($query);
 
-            try {
-                foreach ($atrasos as $atraso) {
-                    if ($sentencia->execute([$id_usuario, $id_apoderado, $atraso])) {
-                        $this->res = true;
-                    }
-                }
-                
-                $this->closeConnection();
-                return json_encode($this->res);
-
-            } catch (Exception $e) {
-                $this->closeConnection();
-                return json_encode($this->res);
-            }
-
-            $sentencia = $this->preConsult($query);
             foreach ($atrasos as $atraso) {
-                if ($sentencia->execute([$id_usuario, $id_apoderado, $atraso])) {
+                if (!$sentencia->execute([$id_usuario, $id_apoderado, $atraso])) {
                     $this->res = true;
                 }
             }

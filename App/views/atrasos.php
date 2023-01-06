@@ -40,7 +40,7 @@
             </div>
 
 
-            <!-- Tabla de contenido principal -->
+            <!-- main content table -->
             <div class="d-flex justify-content-between mb-4">
                 <button type="button" class="btn-lg btn-primary" id="btn_nuevo_atraso" data-bs-toggle="modal" data-bs-target="#modal_registro_atraso">
                     <i class="fas fa-user-plus icon"></i>
@@ -60,7 +60,7 @@
             </div>
 
             <div class="table-responsive">
-                <table id="atraso_estudiante" class="table table-hover text-nowrap" style="width: 100%">
+                <table id="tabla_atraso_estudiante" class="table table-hover text-nowrap" style="width: 100%">
                     <thead>
                         <tr>
                             <th>id</th>

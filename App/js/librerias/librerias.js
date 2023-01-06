@@ -297,7 +297,6 @@ export let LibreriaFunciones = {
         });
     },
 
-
     loadApoderado: (rut, campo) => {
         let datos = 'getApoderado';
 
@@ -331,6 +330,13 @@ export let LibreriaFunciones = {
                 informacion.addClass('form-text')
             }
         }
+    },
+
+    comprobarCheck: function(check) {
+        if ($(check).is(':checked')) {
+            return true;
+        }
+        return false;
     }
 
 }
